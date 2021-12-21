@@ -1,56 +1,67 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.auth.master')
+@section('content')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="account-content">
+        {{-- <a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a> --}}
+        <div class="container">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+            <!-- Account Logo -->
+            <div class="account-logo">
+                <a href="index.html"><img src="assets/img/logo2.png" alt="{{ config('app.name') }}"></a>
             </div>
+            <!-- /Account Logo -->
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+            <div class="account-box">
+                <div class="account-wrapper">
+                    <h3 class="account-title">Login</h3>
+                    <p class="account-subtitle">Access to our dashboard</p>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                    <!-- Session Status -->
+                    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                    <!-- Validation Errors -->
+                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+                    <!-- Account Form -->
+                    <form id="loginForm" method="POST" action="{{ route('login') }}" novalidate>
+                        @csrf
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input id="email" class="block mt-1 w-full form-control" type="email" name="email"
+                                :value="old('email')" required autofocus placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-auto">
+                                    <a class="text-muted" href="#">
+                                        Forgot password?
+                                    </a>
+                                </div>
+                            </div>
+                            <input id="password" class="block mt-1 w-full form-control" type="password" name="password"
+                                placeholder="Password" required autocomplete="current-password"
+                                data-msg="Please enter password to proceed.">
+                        </div>
+                        <div class="form-group text-center d-first">
+                            <button class="btn btn-primary account-btn" type="submit">Login</button>
+                        </div>
+                        <div class="form-group text-center d-none d-second">
+                            <button class="btn btn-primary account-btn" disabled="disabled">
+                                <i class="fa fa-spinner fa-spin" style="margin-right:2%;"></i>
+                                Logging In...
+                            </button>
+                        </div>
+                        <div class="account-footer">
+                            <p>Don't have an account yet? <a href="#">Register</a></p>
+                        </div>
+                    </form>
+                    <!-- /Acc`ount Form -->
+                </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@endsection

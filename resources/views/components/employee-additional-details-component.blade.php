@@ -1,0 +1,70 @@
+<form id="additionalInformationForm" action="{{ route('dashboard.employees.update', [$employee->id]) }}" method="POST"
+    novalidate>
+    @method('PUT')
+    <div class="employee-errors-print mb-2 mt-2"></div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="">Cast Of Staff</label>
+            <input type="text" class="form-control" placeholder="Cast of Staff"
+                value="{{ isset($employee->additional->cast_of_staff) ? $employee->additional->cast_of_staff : '' }}"
+                name="cast_of_staff">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="">Blood Group</label>
+            <input type="text" class="form-control" placeholder="Blood Group"
+                value="{{ isset($employee->additional->blood_group) ? $employee->additional->blood_group : '' }}"
+                name="blood_group">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="">Date of Birth</label>
+            <input type="date" class="form-control" placeholder="Father Name"
+                value="{{ isset($employee->additional->dob) ? $employee->additional->dob : '' }}" name="dob">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="">Reference</label>
+            <input type="text" class="form-control" placeholder="Hired Person Referred by"
+                value="{{ isset($employee->additional->referred_by) ? $employee->additional->referred_by : '' }}"
+                name="referred_by">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="">Joining Date</label>
+            <input type="date" class="form-control" placeholder="Leave Date"
+                value="{{ isset($employee->additional->join_date) ? $employee->additional->join_date : '' }}"
+                name="join_date">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="">Leaving Date</label>
+            <input type="date" class="form-control" placeholder="Join Date"
+                value="{{ isset($employee->additional->leave_date) ? $employee->additional->leave_date : '' }}"
+                name="leave_date">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">Demise Date</label>
+            <input type="date" class="form-control" placeholder="Demise Date"
+                value="{{ isset($employee->additional->demise_date) ? $employee->additional->demise_date : '' }}"
+                name="demise_date">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">Certificate Name</label>
+            <input type="text" class="form-control" placeholder="Certificate Name"
+                value="{{ isset($employee->additional->certificate_name) ? $employee->additional->certificate_name : '' }}"
+                name="certificate_name">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">Address</label>
+            <textarea rows="10" type="text" class="form-control" placeholder="Address"
+                value="{{ isset($employee->additional->address) ? $employee->additional->address : '' }}"
+                name="address"></textarea>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="">Job Description</label>
+            <textarea rows="10" type="text" class="form-control" placeholder="Job Description"
+                value="{{ isset($employee->additional->job_description) ? $employee->additional->job_description : '' }}"
+                name="job_description"></textarea>
+        </div>
+        <input type="hidden" name="type" value="additional_information">
+        <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Add Details</button>
+        </div>
+    </div>
+</form>

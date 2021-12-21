@@ -1,0 +1,23 @@
+function makeDT(classNme, columnDefs) {
+    $("." + classNme).DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: window.location.href,
+        columns: columnDefs,
+        dom: "Bfrtip",
+        buttons: [
+            {
+                extend: "excelHtml5",
+                className: "btn btn-danger",
+            },
+            {
+                extend: "csvHtml5",
+                className: "btn btn-secondary",
+            },
+            {
+                extend: "pdfHtml5",
+                className: "btn btn-info",
+            },
+        ],
+    });
+}
