@@ -31,14 +31,15 @@ class StoreEmployeeRequest extends FormRequest
             'department_id' => 'required|numeric',
             'designation_id' => 'required|numeric',
             'email_address' => 'required|email|unique:employees,email_address',
-            'enrollment_no' => 'required|string',
+            'enrollment_no' => 'string',
             'father_name' => 'required|string',
             'first_name' => 'required|string',
             'gender' => 'required|string|in:male,female',
             'last_name' => 'required|string',
             'primary_contact' => 'required|numeric',
-            'registration_no' => 'required|string',
+            'registration_no' => 'string|required',
             'secondary_contact' => 'required|string',
+            'biometric_device_id' => 'required|exists:biometric_devices,id'
         ];
     }
 

@@ -39,7 +39,10 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('pages.employees.create');
+        $bytes = random_bytes(5);
+        return view('pages.employees.create', [
+            'registration_no' => bin2hex($bytes)
+        ]);
     }
 
     /**

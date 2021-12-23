@@ -14,22 +14,23 @@
                     <span>Department Section</span>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="la la-building"></i> <span> Departments</span> <span
+                    <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index')) class="subdrop" @endif><i class="la la-building"></i> <span> Departments</span> <span
                             class="menu-arrow"></span></a>
                     <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index')) display:block;@endif">
                         <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a href="{{ route('dashboard.department-type.index') }}">Add
-                                Department Type</a></li>
+                                Department Type(s)</a></li>
                         <li @if (Route::is('dashboard.departments.index')) class="active" @endif><a href="{{ route('dashboard.departments.index') }}">Add
-                                Department</a></li>
+                                Department(s)/Companies</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">
                     <span>Designations Section</span>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="la la-random"></i> <span> Designations</span> <span
+                    <a href="#" @if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) class="subdrop" @endif>
+                        <i class="la la-random"></i> <span> Designations</span> <span
                             class="menu-arrow"></span></a>
-                    <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index')) display:block;@endif">
+                    <ul style="@if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) display:block;@endif">
                         <li @if (Route::is('dashboard.parent-designations.index')) class="active" @endif><a
                                 href="{{ route('dashboard.parent-designations.index') }}">Parent Designations</a></li>
                         <li @if (Route::is('dashboard.designations.index')) class="active" @endif><a href="{{ route('dashboard.designations.index') }}">Employee
@@ -41,8 +42,9 @@
                     <span>Employees Section</span>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="la la-user bx-tada"></i> <span> Employees</span> <span
-                            class="menu-arrow"></span></a>
+                    <a href="#" @if (Route::is('dashboard.employees.create') || Route::is('dashboard.employees.index')) class="subdrop" @endif>
+                        <i class="la la-user bx-tada"></i> <span> Employees</span>
+                        <span class="menu-arrow"></span></a>
                     <ul style="@if (Route::is('dashboard.employees.create') || Route::is('dashboard.employees.index')) display:block;@endif">
                         <li @if (Route::is('dashboard.employees.create')) class="active" @endif><a href="{{ route('dashboard.employees.create') }}">Add
                                 Employee</a></li>
@@ -55,11 +57,30 @@
                     <span>Salaries Section</span>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="la la-money bx-tada"></i> <span> Employees Salaries</span>
+                    <a href="#" @if (Route::is('dashboard.employee-salaries.index')) class="subdrop" @endif>
+                        <i class="la la-money bx-tada"></i> <span> Employees
+                            Salaries</span>
                         <span class="menu-arrow"></span></a>
                     <ul style="@if (Route::is('dashboard.employee-salaries.index')) display:block;@endif">
-                        <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif><a href="{{ route('dashboard.employee-salaries.index') }}">
-                                View and Generate Salary Slip</a></li>
+                        <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif>
+                            <a href="{{ route('dashboard.employee-salaries.index') }}">
+                                View and Generate Salary Slip</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="menu-title">
+                    <span>Biometric Devices Section</span>
+                </li>
+                <li class="submenu">
+                    <a href="#" @if (Route::is('dashboard.biometric-devices.index')) class="subdrop" @endif>
+                        <i class="fa fa-fax"></i> <span> Biometric Devices</span>
+                        <span class="menu-arrow"></span></a>
+                    <ul style="@if (Route::is('dashboard.biometric-devices.index')) display:block;@endif">
+                        <li @if (Route::is('dashboard.biometric-devices.index')) class="active" @endif>
+                            <a href="{{ route('dashboard.biometric-devices.index') }}">
+                                Vew Devices</a>
+                        </li>
                     </ul>
                 </li>
 

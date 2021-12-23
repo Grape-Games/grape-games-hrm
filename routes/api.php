@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\ZKTecoApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::group([
+    'prefix' => 'ZKteco/',
+    'as' => 'zkteco.'
+], function () {
+    Route::get('{ip}/attendance', [ZKTecoApiService::class, 'getAttendance'])->name('attendance');
+    Route::get('{ip}/users', [ZKTecoApiService::class, 'getUsers'])->name('users');
 });

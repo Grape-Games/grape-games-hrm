@@ -36,7 +36,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/generate-slip/{id}', function ($id) {
     $result = SalaryFormula::where('id', $id)->with(['employee', 'employee.department', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
-    // return $result;
     if (!is_null($result))
         return view('pages.salary-slip.index', [
             'slip' => $result

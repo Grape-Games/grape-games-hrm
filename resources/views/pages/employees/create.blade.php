@@ -16,7 +16,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Employee Details</h4>
+                <h4 class="card-title">Employee Registration # {{ $registration_no }}</h4>
+
                 <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
                     <li class="nav-item"><a class="nav-link active" href="#solid-rounded-justified-tab1"
                             data-toggle="tab"><i class="la la-user mr-1"></i> Personal Information</a></li>
@@ -32,7 +33,7 @@
                         @if (Route::is('dashboard.employees.edit'))
                             <x-update-employee-component :employeeId="request()->route('employee')->id" />
                         @else
-                            <x-employee-personal-information-component />
+                            <x-employee-personal-information-component :number=$registration_no />
                         @endif
                     </div>
                     <div class="tab-pane" id="solid-rounded-justified-tab2">

@@ -22,14 +22,12 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Registration No</label>
-                <input type="text" class="form-control" id="registration_no" placeholder="Registration No"
-                    name="registration_no" required="">
-                <span class="form-text text-muted">e.g "EM: abc1-abcd1234"</span>
-            </div>
-            <div class="col-md-4 mb-3">
                 <label for="">Email Address</label>
                 <input type="email" class="form-control" placeholder="Email Address" name="email_address" required="">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="">Employee ID in device</label>
+                <input type="number" class="form-control" placeholder="Employee ID" name="enrollment_no" required>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Primary Contact</label>
@@ -41,10 +39,17 @@
                 <input type="number" class="form-control" placeholder="Secondary Contact" name="secondary_contact">
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Enrollment No</label>
-                <input type="text" class="form-control" id="enrollment_no" placeholder="Enrollment No"
-                    name="enrollment_no" required="">
-                <span class="form-text text-muted">e.g "EN-No: abc1-abcd1234"</span>
+                <label for="">Biometric Device</label>
+                <small class="text-muted">Device in which the employee is enrolled.</small>
+                <select class="form-control" name="biometric_device_id" required=""
+                    data-msg="Please add biometric device first in biometric devices section.">
+                    @forelse ($devices as $device)
+                        <option value="{{ $device->id }}">{{ $device->name }}</option>
+                    @empty
+                        <option value="">No device found.</option>
+
+                    @endforelse
+                </select>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">City</label>
@@ -295,7 +300,8 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Department</label>
-                <select class="form-control js-example-basic-single" name="department_id" id="designation" required="">
+                <select class="form-control js-example-basic-single" name="department_id" id="designation" data-msg="Please add a department/company first from designations section." required="">
+                    <option value="">Please select a department/company of employee.</option>
                     @forelse ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @empty
@@ -305,7 +311,8 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Designation</label>
-                <select class="form-control js-example-basic-single" name="designation_id" id="department" required>
+                <select class="form-control js-example-basic-single" name="designation_id" id="department" data-msg="Please add a designation first from designations section." required>
+                    <option value="">Please select a designation.</option>
                     @forelse ($designations as $designation)
                         <option value="{{ $designation->id }}">{{ $designation->name }}</option>
                     @empty
@@ -313,23 +320,25 @@
                     @endforelse
                 </select>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label for="">Gender</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="male" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        <i class="fa fa-female" aria-hidden="true"></i> Male
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gender" value="female" id="flexRadioDefault2"
-                        checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        <i class="fa fa-male" aria-hidden="true"></i> Female
-                    </label>
+                <div class="d-flex">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" value="male" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            <i class="fa fa-male" aria-hidden="true"></i> Male
+                        </label>
+                    </div>
+                    <div class="form-check ml-4">
+                        <input class="form-check-input" type="radio" name="gender" value="female" id="flexRadioDefault2"
+                            checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            <i class="fa fa-female" aria-hidden="true"></i> Female
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <label>Select an Image</label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="validatedCustomFile" name="image">
@@ -340,5 +349,6 @@
                 <button class="btn btn-primary submit-btn">Add Employee</button>
             </div>
         </div>
+        <input type="hidden" name="registration_no" value={{ $registration_no }}>
     </form>
 </div>

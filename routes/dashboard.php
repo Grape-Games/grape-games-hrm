@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiometricDeviceController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
@@ -19,4 +20,5 @@ Route::group([
     Route::resource('designations', DesignationController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('employee-salaries', SalaryFormulaController::class);
+    Route::resource('biometric-devices', BiometricDeviceController::class);
 });

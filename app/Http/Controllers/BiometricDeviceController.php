@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Designation;
-use App\Http\Requests\StoreDesignationRequest;
-use App\Http\Requests\UpdateDesignationRequest;
+use App\Models\BiometricDevice;
+use App\Http\Requests\StoreBiometricDeviceRequest;
+use App\Http\Requests\UpdateBiometricDeviceRequest;
 use App\Services\JsonResponseService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class DesignationController extends Controller
+class BiometricDeviceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +20,12 @@ class DesignationController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
-            $data = Designation::select('*')->with(['owner', 'parent_designation']);
+            $data = BiometricDevice::select('*')->with(['owner']);
             return DataTables::of($data)->make(true);
         }
 
-        return view('pages.designations.index');
+        return view('pages.biometric-devices.index');
     }
 
     /**
@@ -42,16 +41,16 @@ class DesignationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDesignationRequest  $request
+     * @param  \App\Http\Requests\StoreBiometricDeviceRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDesignationRequest $request)
+    public function store(StoreBiometricDeviceRequest $request)
     {
         try {
             DB::transaction(function () use ($request) {
-                Designation::create($request->validated());
+                BiometricDevice::create($request->validated());
             });
-            return JsonResponseService::getJsonSuccess('Designation was added successfully.');
+            return JsonResponseService::getJsonSuccess('Biometric Device was added successfully.');
         } catch (Exception $exception) {
             return JsonResponseService::getJsonException($exception);
         }
@@ -60,10 +59,10 @@ class DesignationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Designation  $designation
+     * @param  \App\Models\BiometricDevice  $biometricDevice
      * @return \Illuminate\Http\Response
      */
-    public function show(Designation $designation)
+    public function show(BiometricDevice $biometricDevice)
     {
         //
     }
@@ -71,10 +70,10 @@ class DesignationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Designation  $designation
+     * @param  \App\Models\BiometricDevice  $biometricDevice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Designation $designation)
+    public function edit(BiometricDevice $biometricDevice)
     {
         //
     }
@@ -82,11 +81,11 @@ class DesignationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateDesignationRequest  $request
-     * @param  \App\Models\Designation  $designation
+     * @param  \App\Http\Requests\UpdateBiometricDeviceRequest  $request
+     * @param  \App\Models\BiometricDevice  $biometricDevice
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDesignationRequest $request, Designation $designation)
+    public function update(UpdateBiometricDeviceRequest $request, BiometricDevice $biometricDevice)
     {
         //
     }
@@ -94,13 +93,13 @@ class DesignationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Designation  $designation
+     * @param  \App\Models\BiometricDevice  $biometricDevice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Designation $designation)
+    public function destroy(BiometricDevice $biometricDevice)
     {
-        if ($designation->delete())
-            return JsonResponseService::getJsonSuccess('Designation was deleted successfully.');
+        if ($biometricDevice->delete())
+            return JsonResponseService::getJsonSuccess('Biometric Device was deleted successfully.');
         return JsonResponseService::getJsonFailed('Failed to delete designation.');
     }
 }
