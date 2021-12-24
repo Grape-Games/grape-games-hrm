@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Rats\Zkteco\Lib\ZKTeco;
+use App\Services\JsonResponseService;
 
 class ZKTecoApiService
 {
@@ -107,7 +108,7 @@ class ZKTecoApiService
                 'name' => $value['name'],
             ]);
         }
-        return JSONResponseService::getJsonSuccess([
+        return JsonResponseService::getJsonSuccess([
             'message' => 'Users added successfully.',
             // 'deiceTime' => $request->time->format('Y-m-d H:i:s'),
         ]);
