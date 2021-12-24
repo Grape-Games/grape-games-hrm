@@ -100,11 +100,10 @@ class ZKTecoApiService
 
     public function test(Request $request)
     {
-        test::truncate();
+        // test::truncate();
         foreach ($request->users as $key => $value) {
-            test::create([
-                'uid' => $value['uid'],
-                'role' => $value['role'],
+            test::firstOrCreate([
+                'enrollment_no' => $value['userId'],
                 'name' => $value['name'],
             ]);
         }

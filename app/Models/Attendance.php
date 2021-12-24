@@ -18,7 +18,7 @@ class Attendance extends Model
         'type'
     ];
 
-    public function setStateAttribute($value)
+public function setStateAttribute($value)
     {
         $value == 1
             ? $this->attributes['state'] = 'Fingerprint'

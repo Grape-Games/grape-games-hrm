@@ -15,9 +15,8 @@ class CreateTestsTable extends Migration
     {
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->string('uid')->nullable();
-            $table->string('role')->nullable();
             $table->string('name')->nullable();
+            $table->string('enrollment_no')->nullable();
             $table->timestamps();
         });
     }
