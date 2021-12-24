@@ -9,7 +9,7 @@ const dtColumns = [
     { title: "Father Name", data: "father_name" },
     { title: "Registration No", data: "registration_no" },
     { title: "Enrollment No", data: "enrollment_no" },
-    { title: "Department", data: "department.name" },
+    { title: "Company", data: "company.name" },
     { title: "Designation", data: "designation.name" },
     { title: "Email Address", data: "email_address" },
     { title: "Primary Contact", data: "primary_contact" },

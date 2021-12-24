@@ -24,7 +24,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Employee::select('*')->with(['owner', 'department', 'designation']);
+            $data = Employee::select('*')->with(['owner', 'company', 'designation']);
             return DataTables::of($data)->make(true);
         }
 
