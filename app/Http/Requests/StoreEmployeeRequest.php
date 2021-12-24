@@ -28,8 +28,8 @@ class StoreEmployeeRequest extends FormRequest
         return [
             'city' => 'required|string',
             'cnic' => 'required|string|unique:employees,cnic',
-            'department_id' => 'required|numeric',
-            'designation_id' => 'required|numeric',
+            'company_id' => 'required|exists:companies,id',
+            'designation_id' => 'required|exists:designations,id',
             'email_address' => 'required|email|unique:employees,email_address',
             'enrollment_no' => 'string',
             'father_name' => 'required|string',

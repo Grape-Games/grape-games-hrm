@@ -6,21 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Department extends Model implements HasMedia
+class Department extends Model
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name',
-        'branch_name',
-        'time_in',
-        'time_out',
-        'status',
+        'company_id',
         'department_type_id',
-        'owner_id'
     ];
+
+    /**
+     * Get the company that owns the Department
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
 
     /**
      * Get the type that owns the Department
@@ -29,16 +32,6 @@ class Department extends Model implements HasMedia
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(DepartmentType::class, 'department_type_id');
-    }
-
-    /**
-     * Get the owner that owns the Department
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function owner(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'owner_id', 'id');
+        return $this->belongsTo(DepartmentType::class, 'department_type_id', 'id');
     }
 }

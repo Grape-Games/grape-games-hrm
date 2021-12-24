@@ -26,10 +26,6 @@
                 <input type="email" class="form-control" placeholder="Email Address" name="email_address" required="">
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Employee ID in device</label>
-                <input type="number" class="form-control" placeholder="Employee ID" name="enrollment_no" required>
-            </div>
-            <div class="col-md-4 mb-3">
                 <label for="">Primary Contact</label>
                 <input type="number" class="form-control" placeholder="Primary Contact" name="primary_contact"
                     required="">
@@ -43,6 +39,7 @@
                 <small class="text-muted">Device in which the employee is enrolled.</small>
                 <select class="form-control" name="biometric_device_id" required=""
                     data-msg="Please add biometric device first in biometric devices section.">
+                    <option value="">Please select a device</option>
                     @forelse ($devices as $device)
                         <option value="{{ $device->id }}">{{ $device->name }}</option>
                     @empty
@@ -50,6 +47,10 @@
 
                     @endforelse
                 </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="">Employee ID in device</label>
+                <input type="number" class="form-control" placeholder="Employee ID" name="enrollment_no" required>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">City</label>
@@ -299,19 +300,21 @@
                 </select>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Department</label>
-                <select class="form-control js-example-basic-single" name="department_id" id="designation" data-msg="Please add a department/company first from designations section." required="">
-                    <option value="">Please select a department/company of employee.</option>
-                    @forelse ($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                <label for="">Company</label>
+                <select class="form-control js-example-basic-single" name="company_id" id="designation"
+                    data-msg="Please add a company first from company section." required="">
+                    <option value="">Please select a company of employee.</option>
+                    @forelse ($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                     @empty
-                        <option value="">No department available.</option>
+                        <option value="">No company available.</option>
                     @endforelse
                 </select>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Designation</label>
-                <select class="form-control js-example-basic-single" name="designation_id" id="department" data-msg="Please add a designation first from designations section." required>
+                <select class="form-control js-example-basic-single" name="designation_id" id="department"
+                    data-msg="Please add a designation first from designations section." required>
                     <option value="">Please select a designation.</option>
                     @forelse ($designations as $designation)
                         <option value="{{ $designation->id }}">{{ $designation->name }}</option>

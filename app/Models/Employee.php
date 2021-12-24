@@ -27,7 +27,7 @@ class Employee extends Model implements HasMedia
         'enrollment_no',
         'city',
         'gender',
-        'department_id',
+        'company_id',
         'designation_id',
         'biometric_device_id',
         'owner_id'
@@ -48,13 +48,13 @@ class Employee extends Model implements HasMedia
     }
 
     /**
-     * Get the department that owns the Employee
+     * Get the company that owns the Employee
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function department(): BelongsTo
+    public function company(): BelongsTo
     {
-        return $this->belongsTo(Department::class, 'department_id', 'id');
+        return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
     /**

@@ -16,7 +16,7 @@ class JsonResponseService
     public static function getJsonSuccess($data)
     {
         return response()->json([
-            'message' => 'Success',
+            'message' => 'success',
             'status' => 200,
             'response' => $data,
         ], 200);

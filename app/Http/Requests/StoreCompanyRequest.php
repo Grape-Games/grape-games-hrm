@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class StoreDepartmentRequest extends FormRequest
+class StoreCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,6 @@ class StoreDepartmentRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'department_type_id' => 'required|exists:department_types,id',
             'branch_name' => 'required|string',
             'time_in' => 'required',
             'time_out' => 'required',

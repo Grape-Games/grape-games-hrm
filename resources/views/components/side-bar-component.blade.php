@@ -11,16 +11,17 @@
                 </li>
 
                 <li class="menu-title">
-                    <span>Department Section</span>
+                    <span>Companies Section</span>
                 </li>
                 <li class="submenu">
-                    <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index')) class="subdrop" @endif><i class="la la-building"></i> <span> Departments</span> <span
+                    <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index') || Route::is('dashboard.companies.index')) class="subdrop" @endif>
+                        <i class="la la-building"></i> <span> Companies</span> <span
                             class="menu-arrow"></span></a>
-                    <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index')) display:block;@endif">
+                    <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.companies.index')) display:block;@endif">
                         <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a href="{{ route('dashboard.department-type.index') }}">Add
                                 Department Type(s)</a></li>
-                        <li @if (Route::is('dashboard.departments.index')) class="active" @endif><a href="{{ route('dashboard.departments.index') }}">Add
-                                Department(s)/Companies</a></li>
+                        <li @if (Route::is('dashboard.companies.index')) class="active" @endif><a href="{{ route('dashboard.companies.index') }}">Add
+                                Companies</a></li>
                     </ul>
                 </li>
                 <li class="menu-title">

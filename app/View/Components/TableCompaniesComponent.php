@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class TableDepartmentsComponent extends Component
+class TableCompaniesComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class TableDepartmentsComponent extends Component
      */
     public function render()
     {
-        return view('components.table-departments-component');
+        return view('components.table-companies-component');
     }
 }

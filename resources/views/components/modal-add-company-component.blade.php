@@ -1,30 +1,31 @@
-<!-- Add Department Modal -->
-<div id="add_department" class="modal custom-modal fade" role="dialog">
+<!-- Add Company Modal -->
+<div id="add_company" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Department</h5>
+                <h5 class="modal-title">Add Company</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addDepartmentForm" action="{{ route('dashboard.departments.store') }}" method="POST"
-                    novalidate>
+                <form id="addCompanyForm" action="{{ route('dashboard.companies.store') }}" method="POST" novalidate>
                     @csrf
-                    <div class="department-errors-print mb-2"></div>
+                    <div class="company-errors-print mb-2"></div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Department Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Department Name" name="name"
+                                <label>Company Name <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" placeholder="Company Name" name="name"
                                     required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Department Type <span class="text-danger">*</span></label>
-                                <select class="form-control" name="department_type_id" required>
+                                <label>Departments <span class="text-danger">*</span></label>
+                                <select class="form-control js-example-basic-multiple" name="types[]"
+                                    multiple="multiple"
+                                    data-msg="Please add department types from side bar to continue." required>
                                     @forelse ($department_types as $department_type)
                                         <option value="{{ $department_type->id }}">
                                             {{ $department_type->name }}
@@ -56,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="">Department Status</label>
+                            <label for="">Company Status</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" value="held"
                                     id="flexRadioDefault1">
@@ -81,11 +82,11 @@
                         </div>
                     </div>
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Add Department</button>
+                        <button class="btn btn-primary submit-btn">Add Company</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<!-- /Add Department Modal -->
+<!-- /Add Company Modal -->

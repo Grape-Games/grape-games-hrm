@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Rats\Zkteco\Lib\ZKTeco;
 
 class ZKTecoApiService
@@ -14,13 +15,17 @@ class ZKTecoApiService
         if ($ret) {
             $zk->disableDevice();
             // $zk->setTime(date('Y-m-d H:i:s')); // Synchronize time
-            $attendance = $zk->getAttendance();
+            try {
+                $attendance = $zk->getAttendance();
+            } catch (Exception $exception) {
+                return JsonResponseService::getJsonException($exception);
+            }
             sleep(1);
             $zk->enableDevice();
             $zk->disconnect();
             return JsonResponseService::getJsonSuccess($attendance);
         }
-        return JsonResponseService::getJsonFailed('Failed to connect to the devices.');
+        return JsonResponseService::getJsonFailed('Failed to connect to the device.');
     }
     public function getUsers($deviceIp)
     {
@@ -29,7 +34,11 @@ class ZKTecoApiService
         if ($ret) {
             $zk->disableDevice();
             // $zk->setTime(date('Y-m-d H:i:s')); // Synchronize time
-            $users = $zk->getUser();
+            try {
+                $users = $zk->getUser();
+            } catch (Exception $exception) {
+                return JsonResponseService::getJsonException($exception);
+            }
             sleep(1);
             $zk->enableDevice();
             $zk->disconnect();

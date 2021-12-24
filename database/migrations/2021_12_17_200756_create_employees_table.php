@@ -26,7 +26,7 @@ class CreateEmployeesTable extends Migration
             $table->string('cnic')->unique();
             $table->string('enrollment_no');
             $table->string('registration_no')->unique();
-            $table->foreignId('department_id')->constrained();
+            $table->foreignUuid('company_id')->constrained();
             $table->foreignId('designation_id')->constrained();
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

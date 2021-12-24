@@ -1,27 +1,33 @@
-// departments js
+// company js
 
 let btn = $(".submit-btn");
 
-$("#addDepartmentForm").submit(function (e) {
+$(function () {
+    $(".js-example-basic-multiple").select2({
+        placeholder: "Departments",
+    });
+});
+
+$("#addCompanyForm").submit(function (e) {
     e.preventDefault();
     let obj = $(this);
     if (obj.valid()) {
         btn.prop("disabled", true);
-        btn.html("Adding Department...");
+        btn.html("Adding Company...");
         dynamicAjax(
             $(this).attr("action"),
             $(this).attr("method"),
             new FormData($(this)[0]),
-            "departmentCallback",
-            "department-errors-print",
-            "departments-table"
+            "companyCallback",
+            "company-errors-print",
+            "companies-table"
         );
     }
 });
 
-function departmentCallback(response, errorClassName, table) {
+function companyCallback(response, errorClassName, table) {
     btn.prop("disabled", false);
-    btn.html("Add Department");
+    btn.html("Add Company");
     if (response.status == 422) validationPrint(response, errorClassName);
     else if (response.status == 200) {
         makeToastr("success", response.response, "Action Successful. 😃");
