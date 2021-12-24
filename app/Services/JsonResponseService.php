@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class JsonResponseService
+class   JsonResponseService
 {
     public static function getJsonException($exception)
     {

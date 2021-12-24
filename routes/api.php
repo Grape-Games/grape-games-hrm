@@ -22,6 +22,10 @@ Route::group([
     'prefix' => 'ZKteco/',
     'as' => 'zkteco.'
 ], function () {
-    Route::get('{ip}/attendance', [ZKTecoApiService::class, 'getAttendance'])->name('attendance');
-    Route::get('{ip}/users', [ZKTecoApiService::class, 'getUsers'])->name('users');
+    Route::get('{ip}/getAttendance', [ZKTecoApiService::class, 'getAttendance'])->name('get-attendance');
+    Route::get('{ip}/setAttendance', [ZKTecoApiService::class, 'setAttendance'])->name('set-attendance');
+    Route::get('{ip}/getUsers', [ZKTecoApiService::class, 'getUsers'])->name('users');
+    Route::get('{ip}/restart', [ZKTecoApiService::class, 'restartDevice'])->name('restart');
+    Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
+    Route::post('test', [ZKTecoApiService::class, 'test'])->name('test');
 });
