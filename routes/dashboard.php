@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ParentDesignationController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Models\Department;
@@ -25,6 +26,7 @@ Route::group([
     Route::resource('employees', EmployeeController::class);
     Route::resource('employee-salaries', SalaryFormulaController::class);
     Route::resource('biometric-devices', BiometricDeviceController::class);
+    Route::resource('leave-types', LeaveTypeController::class);
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');
         $count = Department::where('company_id', $companyId)->count();

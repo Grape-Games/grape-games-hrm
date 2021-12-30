@@ -86,3 +86,47 @@ function employeeCallback(response, errorClassName, table) {
         successFlow(errorClassName, response.response, "bg-success");
     } else successFlow(errorClassName, response.response, "bg-danger");
 }
+
+$("[name=biometric_device_id]").change(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/api/ZKteco/js/getDeviceUsers",
+        data: { id: $(this).find(":selected").val() },
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            $("#enrollment_no").empty().trigger("change");
+            $.each(response.response, function (indexInArray, valueOfElement) {
+                var newOption = new Option(
+                    valueOfElement.name +
+                        " ( " +
+                        valueOfElement.enrollment_no +
+                        " )",
+                    valueOfElement.enrollment_no,
+                    false,
+                    false
+                );
+                $("#enrollment_no").append(newOption).trigger("change");
+            });
+        },
+        error: function (error) {
+            console.log(error);
+            $("#enrollment_no").empty().trigger("change");
+            $("#emp_id")
+                .removeClass("text-success")
+                .addClass("text-danger")
+                .html("NULL");
+            makeToastr("error", error.responseJSON.message, "Exception 😒");
+        },
+    });
+});
+
+$("#enrollment_no").change(function (e) {
+    e.preventDefault();
+    let obj = $("#emp_id");
+    obj.html($(this).find(":selected").val());
+    obj.text() == "NULL"
+        ? obj.removeClass("text-success").addClass("text-danger")
+        : obj.removeClass("text-danger").addClass("text-success");
+});

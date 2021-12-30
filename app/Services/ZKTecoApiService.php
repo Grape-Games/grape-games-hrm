@@ -2,15 +2,20 @@
 
 namespace App\Services;
 
-use App\Models\test;
+use App\Http\Requests\JsGetDeviceUsers;
+use App\Models\BiometricDevice;
+use App\Models\DeviceUser;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Rats\Zkteco\Lib\ZKTeco;
 use App\Services\JsonResponseService;
 
 class ZKTecoApiService
 {
+    public static function getDeviceUser(JsGetDeviceUsers $request)
+    {
+        return JsonResponseService::getJsonSuccess(DeviceUser::where('device_id', $request->id)->get());
+    }
 
     public static function getAttendance($deviceIp)
     {
@@ -97,20 +102,5 @@ class ZKTecoApiService
             }
             return JsonResponseService::getJsonSuccess('Device restart failed.');
         }
-    }
-
-    public function test(Request $request)
-    {
-        // test::truncate();
-        foreach ($request->users as $key => $value) {
-            test::firstOrCreate([
-                'enrollment_no' => $value['userId'],
-                'name' => $value['name'],
-            ]);
-        }
-        return JsonResponseService::getJsonSuccess([
-            'message' => 'Users added successfully.',
-            // 'deiceTime' => $request->time->format('Y-m-d H:i:s'),
-        ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\NodeZkTecoService;
 use App\Services\ZKTecoApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +23,22 @@ Route::group([
     'prefix' => 'ZKteco/',
     'as' => 'zkteco.'
 ], function () {
+    Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users');
     Route::get('{ip}/getAttendance', [ZKTecoApiService::class, 'getAttendance'])->name('get-attendance');
     Route::get('{ip}/setAttendance', [ZKTecoApiService::class, 'setAttendance'])->name('set-attendance');
     Route::get('{ip}/getUsers', [ZKTecoApiService::class, 'getUsers'])->name('users');
     Route::get('{ip}/restart', [ZKTecoApiService::class, 'restartDevice'])->name('restart');
     Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
-    Route::post('test', [ZKTecoApiService::class, 'test'])->name('test');
+});
+
+Route::group([
+    'prefix' => 'ZKteco/node/',
+    'as' => 'zkteco.node.'
+], function () {
+    // node library routes here
+    Route::post('saveDataToDevice', [NodeZkTecoService::class, 'saveDataToDevice'])->name('saveDataToDevice');
+    Route::post('saveUsersToDevice', [NodeZkTecoService::class, 'saveUsersToDevice'])->name('saveUsersToDevice');
+    Route::post('saveAttendanceToDevice', [NodeZkTecoService::class, 'saveAttendanceToDevice'])->name('saveAttendanceToDevice');
+    Route::get('getDevices', [NodeZkTecoService::class, 'getDevices'])->name('getDevices');
+    Route::post('saveLogs', [NodeZkTecoService::class, 'saveLogs'])->name('saveLogs');
 });

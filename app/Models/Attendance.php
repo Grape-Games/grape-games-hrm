@@ -13,24 +13,10 @@ class Attendance extends Model
     protected $fillable = [
         'employee_id',
         'biometric_device_id',
-        'state',
         'attendance',
-        'type'
     ];
 
-public function setStateAttribute($value)
-    {
-        $value == 1
-            ? $this->attributes['state'] = 'Fingerprint'
-            : $this->attributes['state'] = 'Undefined';
-    }
-
-    public function setTypeAttribute($value)
-    {
-        $value == 0
-            ? $this->attributes['type'] = 'Check-in'
-            : $this->attributes['type'] = 'Check-out';
-    }
+    protected $dates = ['attendance'];
 
     /**
      * Get the employee that owns the Attendance

@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Attendance;
 use App\Models\BiometricDevice;
+use App\Models\DeviceUser;
 use App\Models\Employee;
+use Carbon\Carbon;
 
 class DeviceToDatabaseService
 {
@@ -12,19 +14,45 @@ class DeviceToDatabaseService
     {
         if (!is_null($device = BiometricDevice::where('ip_address', $deviceIp)->first())) {
             foreach ($attendances as $key => $value) {
-                $employee = Employee::where('enrollment_no', $value['id'])->first();
+                $employee = Employee::where('enrollment_no', $value['deviceUserId'])->first();
                 if (!is_null($employee)) {
-                    Attendance::create([
+                    $value['recordTime'] = Carbon::parse($value['recordTime'])->addHours(5); // adding  hours to equal Pak time
+                    Attendance::firstOrCreate([
                         'employee_id' => $employee->id,
                         'biometric_device_id' => $device->id,
-                        'state' => $value['state'],
-                        'attendance' => $value['timestamp'],
-                        'type' => $value['type'],
+                        'attendance' => $value['recordTime'],
                     ]);
                 }
             }
-            return JsonResponseService::getJsonSuccess('Attendance was added to the database.');
+            return [
+                'status' => 200,
+                'message' => 'Attendance was added/updated successfully.'
+            ];
         }
-        return JSONResponseService::getJsonFailed('Failed to add attendance to the database.');
+        return [
+            'status' => 400,
+            'message' => 'This device does not exists in the database.'
+        ];
+    }
+
+    public static function saveUsersToDatabase($users, $deviceIp)
+    {
+        if (!is_null($device = BiometricDevice::where('ip_address', $deviceIp)->first())) {
+            foreach ($users as $key => $value) {
+                DeviceUser::firstOrCreate([
+                    'enrollment_no' => $value['userId'],
+                    'name' => $value['name'],
+                    'device_id' => $device->id,
+                ]);
+            }
+            return [
+                'status' => 200,
+                'message' => 'Users were added/updated successfully.'
+            ];
+        }
+        return [
+            'status' => 400,
+            'message' => 'This device does not exists in the database.'
+        ];
     }
 }

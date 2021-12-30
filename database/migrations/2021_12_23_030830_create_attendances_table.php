@@ -17,9 +17,7 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->foreignUuid('employee_id')->constrained();
             $table->foreignId('biometric_device_id')->constrained();
-            $table->string('state');
             $table->timestamp('attendance');
-            $table->string('type');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,8 +15,7 @@
                 </li>
                 <li class="submenu">
                     <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index') || Route::is('dashboard.companies.index')) class="subdrop" @endif>
-                        <i class="la la-building"></i> <span> Companies</span> <span
-                            class="menu-arrow"></span></a>
+                        <i class="la la-building"></i> <span> Companies</span> <span class="menu-arrow"></span></a>
                     <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.companies.index')) display:block;@endif">
                         <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a href="{{ route('dashboard.department-type.index') }}">Add
                                 Department Type(s)</a></li>
@@ -51,6 +50,20 @@
                                 Employee</a></li>
                         <li @if (Route::is('dashboard.employees.index')) class="active" @endif><a href="{{ route('dashboard.employees.index') }}">View
                                 Employees</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-title">
+                    <span>Admin Section</span>
+                </li>
+                <li class="submenu">
+                    <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) class="subdrop" @endif>
+                        <i class="fa fa-smile-o" aria-hidden="true"></i> <span> Leave Types</span>
+                        <span class="menu-arrow"></span></a>
+                    <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block;@endif">
+                        <li @if (Route::is('dashboard.leave-types.index')) class="active" @endif><a href="{{ route('dashboard.leave-types.index') }}">Add/View
+                                Leave Types</a>
+                        </li>
                     </ul>
                 </li>
 
