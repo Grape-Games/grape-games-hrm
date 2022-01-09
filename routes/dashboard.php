@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\EmployeeAccountCreateController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ParentDesignationController;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'as' => 'dashboard.',
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'can:is-admin'],
     'prefix' => 'dashboard/'
 ], function () {
     Route::resource('companies', CompanyController::class);
@@ -27,6 +28,8 @@ Route::group([
     Route::resource('employee-salaries', SalaryFormulaController::class);
     Route::resource('biometric-devices', BiometricDeviceController::class);
     Route::resource('leave-types', LeaveTypeController::class);
+    Route::resource('employee-web-accounts', EmployeeAccountCreateController::class);
+
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');
         $count = Department::where('company_id', $companyId)->count();

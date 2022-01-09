@@ -19,8 +19,7 @@ class CreateBiometricDevicesTable extends Migration
             $table->string('internal_id')->nullable();
             $table->string('ip_address')->unique();
             $table->string('description');
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

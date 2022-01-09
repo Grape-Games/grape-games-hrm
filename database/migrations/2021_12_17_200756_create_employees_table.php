@@ -28,8 +28,8 @@ class CreateEmployeesTable extends Migration
             $table->string('registration_no')->unique();
             $table->foreignUuid('company_id')->constrained();
             $table->foreignId('designation_id')->constrained();
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('user_id')->nullable()->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

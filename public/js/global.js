@@ -44,3 +44,12 @@ function makeToastr(type, msg, heading) {
         progressBar: true,
     });
 }
+
+function refreshDivByid(elementId) {
+    $("#" + elementId).load(" #" + elementId);
+}
+
+function refreshNotficationDivs() {
+    refreshDivByid("notifyPill1");
+    refreshDivByid("notifications");
+}

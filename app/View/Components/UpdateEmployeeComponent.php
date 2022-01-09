@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\BiometricDevice;
+use App\Models\Company;
 use App\Models\Department;
 use App\Models\Designation;
 use App\Models\Employee;
@@ -29,9 +31,10 @@ class UpdateEmployeeComponent extends Component
     public function render()
     {
         return view('components.update-employee-component', [
-            'employee' => Employee::where('id', $this->employeeId)->with(['department', 'designation'])->first(),
-            'departments' => Department::all(),
+            'employee' => Employee::where('id', $this->employeeId)->with(['company', 'designation'])->first(),
+            'companies' => Company::all(),
             'designations' => Designation::all(),
+            'devices' => BiometricDevice::all(),
         ]);
     }
 }

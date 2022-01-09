@@ -17,17 +17,17 @@ function dynamicAjax(url, method, data, callBackFunc, arg2, arg3) {
         dataType: "json",
         beforeSend: function () {},
         success: function (response) {
-            console.log("success");
-            console.log(response);
+            // console.log("success");
+            // console.log(response);
             window[callBackFunc](response, arg2, arg3);
         },
         error: function (response) {
-            console.log("error");
-            console.log(response);
+            // console.log("error");
+            // console.log(response);
             window[callBackFunc](response, arg2);
         },
         complete: function () {
-            console.log("complete");
+            // $(".modal").modal("hide");
         },
     });
 }

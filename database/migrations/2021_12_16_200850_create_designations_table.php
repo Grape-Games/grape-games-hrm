@@ -20,8 +20,7 @@ class CreateDesignationsTable extends Migration
             $table->bigInteger('min_salary');
             $table->enum('status', ['active', 'held'])->default('active');
             $table->foreignId('parent_designation_id')->constrained();
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

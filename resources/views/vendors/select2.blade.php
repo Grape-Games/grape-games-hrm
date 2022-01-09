@@ -17,5 +17,10 @@
 
     <!-- Select2 JS -->
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 
 @endpush

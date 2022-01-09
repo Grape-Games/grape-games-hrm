@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use Illuminate\View\Component;
 
 class HeaderComponent extends Component
@@ -23,6 +24,13 @@ class HeaderComponent extends Component
      */
     public function render()
     {
-        return view('components.header-component');
+        $role = auth()->user()->role;
+        $role == 'admin'
+            ? $user = auth()->user()
+            : $user = Employee::where('user_id', auth()->id())->first();
+        return view('components.header-component', [
+            'user' => $user,
+            'role' => $role
+        ]);
     }
 }

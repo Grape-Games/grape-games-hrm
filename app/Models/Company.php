@@ -27,6 +27,11 @@ class Company extends Model implements HasMedia
         'owner_id'
     ];
 
+    protected $hidden = [
+        'id',
+        'owner_id'
+    ];
+
     /**
      * Get all of the departments for the Company
      *

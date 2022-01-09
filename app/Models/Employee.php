@@ -30,12 +30,24 @@ class Employee extends Model implements HasMedia
         'company_id',
         'designation_id',
         'biometric_device_id',
-        'owner_id'
+        'owner_id',
+        'user_id'
     ];
 
     public $incrementing = false;
 
     protected $keyType = 'uuid';
+
+
+    /**
+     * Get the user that owns the Employee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     /**
      * Get the owner that owns the Employee
@@ -95,5 +107,15 @@ class Employee extends Model implements HasMedia
     public function emergency(): HasOne
     {
         return $this->hasOne(EmployeeEmergencyContact::class);
+    }
+
+    /**
+     * Get the biometricDevice that owns the Employee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function biometricDevice(): BelongsTo
+    {
+        return $this->belongsTo(BiometricDevice::class, 'biometric_device_id', 'id');
     }
 }

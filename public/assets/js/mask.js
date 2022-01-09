@@ -10,7 +10,7 @@
     $("#ccn").mask("9999 9999 9999 9999");
     $("#ssn").mask("999-99-9999");
     $("#cnic").mask("99999-9999999-9");
-    $("#registration_no").mask("EM: ****-********");
+    // $("#registration_no").mask("EM: ****-********");
     // $("#enrollment_no").mask("EN-No: ****-********");
 
     $("#currency").mask("999,999,999.99");

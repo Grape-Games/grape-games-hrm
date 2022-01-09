@@ -19,8 +19,7 @@ class CreateLeaveTypesTable extends Migration
             $table->bigInteger('allowed');
             $table->enum('status',  ['active', 'held'])->default('active');
             $table->boolean('paid')->default(true);
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

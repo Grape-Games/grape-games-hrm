@@ -20,8 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('time_in');
             $table->string('time_out');
             $table->string('status');
-            $table->unsignedBigInteger('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

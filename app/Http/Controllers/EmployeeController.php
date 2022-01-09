@@ -57,7 +57,7 @@ class EmployeeController extends Controller
             DB::transaction(function () use ($request) {
                 $employee = Employee::create($request->validated());
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                    $employee->addMediaFromRequest('image')->toMediaCollection('employees');
+                    $employee->addMediaFromRequest('image')->toMediaCollection('avatars', 'avatars');
                 }
             });
             return JsonResponseService::getJsonSuccess('Employee was added successfully.');
@@ -86,7 +86,8 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return view('pages.employees.create', [
-            'employee' => $employee->with(['bank'])->first()
+            'employee' => $employee,
+            'registration_no' => $employee->registration_no
         ]);
     }
 

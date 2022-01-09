@@ -28,12 +28,6 @@
                 </div>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Registration No</label>
-                <input type="text" class="form-control" id="registration_no" placeholder="Registration No"
-                    name="registration_no" value="{{ $employee->registration_no }}" required="">
-                <span class="form-text text-muted">e.g "EM: abc1-abcd1234"</span>
-            </div>
-            <div class="col-md-4 mb-3">
                 <label for="">Email Address</label>
                 <input type="email" class="form-control" placeholder="Email Address" name="email_address"
                     value="{{ $employee->email_address }}" required="">
@@ -49,10 +43,28 @@
                     value="{{ $employee->secondary_contact }}" name="secondary_contact">
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Enrollment No</label>
-                <input type="text" class="form-control" id="enrollment_no" placeholder="Enrollment No"
-                    name="enrollment_no" value="{{ $employee->enrollment_no }}" required="">
-                <span class="form-text text-muted">e.g "EN-No: abc1-abcd1234"</span>
+                <label for="">Biometric Device</label>
+                <small class="text-muted">Device in which the employee is enrolled.</small>
+                <select class="form-control" name="biometric_device_id" required=""
+                    data-msg="Please add biometric device first in biometric devices section.">
+                    <option value="{{ $employee->biometricDevice->id }}"> {{ $employee->biometricDevice->name }}
+                    </option>
+                    @forelse ($devices as $device)
+                        @if ($device->id != $employee->biometricDevice->id)
+                            <option value="{{ $device->id }}">{{ $device->name }}</option>
+                        @endif
+                    @empty
+                        <option value="">No device found.</option>
+                    @endforelse
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="d-flex" for="">Employee ID in device : <p id="emp_id"
+                        class="text-success ml-2 float-right">
+                        {{ $employee->enrollment_no }}</p></label>
+                <select class="js-example-basic-single form-control" id="enrollment_no" name="enrollment_no" required>
+                    <option value="{{ $employee->enrollment_no }}">{{ $employee->enrollment_no }}</option>
+                </select>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">City</label>
@@ -302,14 +314,14 @@
                 </select>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="">Department</label>
-                <select class="form-control js-example-basic-single" name="department_id" id="designation" required="">
-                    <option value="{{ $employee->department_id }}" selected> {{ $employee->department->name }}
+                <label for="">Company</label>
+                <select class="form-control js-example-basic-single" name="company_id" id="company" required="">
+                    <option value="{{ $employee->company_id }}" selected> {{ $employee->company->name }}
                     </option>
-                    @forelse ($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @forelse ($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                     @empty
-                        <option value="">No department available.</option>
+                        <option value="">No Company available.</option>
                     @endforelse
                 </select>
             </div>

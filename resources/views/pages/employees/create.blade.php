@@ -17,7 +17,6 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Employee Registration # {{ $registration_no }}</h4>
-
                 <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
                     <li class="nav-item"><a class="nav-link active" href="#solid-rounded-justified-tab1"
                             data-toggle="tab"><i class="la la-user mr-1"></i> Personal Information</a></li>
@@ -43,7 +42,8 @@
                             <div class="col-12">
                                 <div class="alert alert-primary alert-dismissible fade show mt-10" role="alert">
                                     <h3 class="text-center text-danger mt-10 mb-2">Please <a
-                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or Click
+                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or
+                                        Click
                                         on
                                         update/edit against an employee button to add additional details.
                                         😋</h3>
@@ -58,7 +58,8 @@
                             <div class="col-12">
                                 <div class="alert alert-primary alert-dismissible fade show mt-10" role="alert">
                                     <h3 class="text-center text-danger mt-10 mb-2">Please <a
-                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or Click
+                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or
+                                        Click
                                         on
                                         update/edit against an employee button to add bank details.
                                         😋</h3>
@@ -73,7 +74,8 @@
                             <div class="col-12">
                                 <div class="alert alert-primary alert-dismissible fade show mt-10" role="alert">
                                     <h3 class="text-center text-danger mt-10 mb-2">Please <a
-                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or Click
+                                            href="{{ route('dashboard.employees.create') }}">add </a> an employee or
+                                        Click
                                         on
                                         update/edit against an employee button to add emergency contacts.
                                         😋</h3>
@@ -93,9 +95,4 @@
     <script src="{{ asset('js/core/employees/main.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
     <script src="{{ asset('assets/js/mask.js') }}"></script>
-    <script>
-        $(function() {
-            $('.js-example-basic-single').select2();
-        });
-    </script>
 @endpush

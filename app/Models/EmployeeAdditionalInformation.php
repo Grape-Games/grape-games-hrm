@@ -24,6 +24,10 @@ class EmployeeAdditionalInformation extends Model
         'employee_id'
     ];
 
+    protected $hidden = [
+        'employee_id',
+    ];
+
     /**
      * Get the employee that owns the EmployeeAdditionalInformation
      *
