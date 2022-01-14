@@ -6,7 +6,11 @@ use App\Models\EmployeeLeaves;
 use App\Http\Requests\StoreEmployeeLeavesRequest;
 use App\Http\Requests\UpdateEmployeeLeavesRequest;
 use App\Models\Employee;
+use App\Services\JsonResponseService;
+use App\Services\MailService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeLeavesController extends Controller
@@ -19,7 +23,7 @@ class EmployeeLeavesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Employee::select('*')->with(['owner', 'company', 'designation']);
+            $data = EmployeeLeaves::with(['owner', 'approvedBy', 'type'])->get();
             return DataTables::of($data)->make(true);
         }
         return view('pages.employee-leaves.index');
@@ -43,7 +47,24 @@ class EmployeeLeavesController extends Controller
      */
     public function store(StoreEmployeeLeavesRequest $request)
     {
-        //
+        try {
+            $request->filled('leave_id')
+                ? $data = array_merge($request->validated(), [
+                    'approved_by' => auth()->id()
+                ])
+                : $data = $request->validated();
+            DB::transaction(function () use ($request, $data) {
+                EmployeeLeaves::updateOrCreate([
+                    'id' => $request->leave_id,
+                ], $data);
+                $request->filled('leave_id')
+                    ? ''
+                    : MailService::sendGeneralEmail($request->number_of_leaves, $request->leave_type_id, $request->description);
+            });
+            return JsonResponseService::getJsonSuccess('Employee Leave was added successfully.');
+        } catch (Exception $exception) {
+            return JsonResponseService::getJsonException($exception);
+        }
     }
 
     /**
@@ -88,6 +109,11 @@ class EmployeeLeavesController extends Controller
      */
     public function destroy(EmployeeLeaves $employeeLeaves)
     {
-        //
+        if ($employeeLeaves->status == 'approved')
+            return JsonResponseService::getJsonSuccess('Cannot delete availed leave.');
+
+        if ($employeeLeaves->delete())
+            return JsonResponseService::getJsonSuccess('Employee was deleted successfully.');
+        return JsonResponseService::getJsonFailed('Failed to delete designation.');
     }
 }

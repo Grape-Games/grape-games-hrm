@@ -8,7 +8,8 @@
                         <span>Leaves</span>
                     </li>
                     <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
-                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i> <span>View/Apply</span></a>
+                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
+                            <span>View/Apply</span></a>
                     </li>
                 @endcan
                 @can('is-admin')
@@ -67,11 +68,15 @@
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) class="subdrop" @endif>
-                            <i class="fa fa-smile-o" aria-hidden="true"></i> <span> Leave Types</span>
+                            <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block;@endif">
                             <li @if (Route::is('dashboard.leave-types.index')) class="active" @endif><a href="{{ route('dashboard.leave-types.index') }}">Add/View
                                     Leave Types</a>
+                            </li>
+                            <li @if (Route::is('dashboard.employee-leave-approvals')) class="active" @endif><a
+                                    href="{{ route('dashboard.employee-leave-approvals') }}">Approve/Disapprove
+                                    Leave Requests</a>
                             </li>
                         </ul>
                     </li>

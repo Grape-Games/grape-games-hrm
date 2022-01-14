@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeAccountCreateController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LeaveApprovalController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\ParentDesignationController;
 use App\Http\Controllers\SalaryFormulaController;
@@ -29,6 +30,7 @@ Route::group([
     Route::resource('biometric-devices', BiometricDeviceController::class);
     Route::resource('leave-types', LeaveTypeController::class);
     Route::resource('employee-web-accounts', EmployeeAccountCreateController::class);
+    Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
 
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');

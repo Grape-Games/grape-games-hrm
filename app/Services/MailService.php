@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\LeaveType;
 use App\Notifications\EmployeeAccountNotification;
+use App\Notifications\NewRequestNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Request;
 
@@ -32,5 +34,19 @@ class MailService
         $db['email'] = $email;
         $db['details'] = 'Note : The employee : ' . $email . ' now has access to the system and can see all the privileged modules.';
         Notification::send(auth()->user(), new EmployeeAccountNotification($user, $db));
+    }
+
+    public static function sendGeneralEmail($leaves, $leaveTypeId, $description)
+    {
+        $name = LeaveType::where('id', $leaveTypeId)->value('name');
+        $user['heading-email'] = 'Leave request submitted.';
+        $user['description1'] = $description . ' Leaves Applied : ' . $leaves . ' Leave Type : ' . $name;
+        $user['description2'] = 'Note you have submitted a request with email : ' . auth()->user()->email . ' Please wait for admin response.';
+        $db['heading'] = 'New Leave request submitted.';
+        $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+        $db['redirect'] = route('dashboard.leaves.index');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : You have submitted a leave request.';
+        Notification::send(auth()->user(), new NewRequestNotification($user, $db));
     }
 }

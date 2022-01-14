@@ -15,6 +15,15 @@ class CreateEmployeeLeavesTable extends Migration
     {
         Schema::create('employee_leaves', function (Blueprint $table) {
             $table->id();
+            $table->string('description');
+            $table->bigInteger('number_of_leaves');
+            $table->text('remarks')->nullable();
+            $table->bigInteger('year');
+            $table->foreignId('leave_type_id')->constrained();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('approved_by')->nullable()->references('id')->on('users')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

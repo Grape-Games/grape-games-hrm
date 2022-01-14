@@ -22,11 +22,21 @@ const dtColumns = [
                 ? (classNam = "badge-success")
                 : (classNam = "badge-danger");
             return (
-                '<span class="text-capitalize badge ' +
+                '<div class="dropdown">' +
+                '<button class="btn ' +
                 classNam +
-                '">' +
+                ' dropdown-toggle text-capitalize" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                 data +
-                "</span>"
+                " </button>" +
+                '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
+                '  <a data-id="' +
+                row.id +
+                '" class="dropdown-item" data-target="#commentsModal" data-toggle="modal" data-value="approved" href="#">Approve</a>' +
+                '  <a data-id="' +
+                row.id +
+                '" class="dropdown-item" data-target="#commentsModal" data-toggle="modal" data-value="rejected" href="#">Reject</a>' +
+                " </div>" +
+                "</div>"
             );
         },
     },

@@ -16,7 +16,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Leave Type <span class="text-danger">*</span></label>
-                                <select name="leave_type_id" class="form-control">
+                                <select name="leave_type_id" class="form-control" required>
                                     <option value="">Select Leave Type</option>
                                     @forelse ($leave_types as $leaveType)
                                         <option value="{{ $leaveType->id }}"
@@ -31,9 +31,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Enter Number of days <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" placeholder="No.of Days">
-                                <small class="text-muted pull-right">Allowed <p class="text-primary allowed-val">NULL</p>
-                                    </small>
+                                <input name="number_of_leaves" type="number" class="form-control"
+                                    placeholder="No.of Days" required>
+                                <small class="text-muted pull-right">Allowed <p class="text-primary allowed-val">NULL
+                                    </p>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Description <span class="text-danger">*</span></label>
+                                <textarea name="description" rows="8" type="text" class="form-control"
+                                    placeholder="Some description..." required></textarea>
+
                             </div>
                         </div>
                     </div>

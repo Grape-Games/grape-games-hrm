@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreEmployeeLeavesRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class StoreEmployeeLeavesRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        if (Gate::allows('is-both'))
+            return true;
     }
 
     /**
@@ -24,7 +26,19 @@ class StoreEmployeeLeavesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'description' => 'string',
+            'leave_type_id' => 'exists:leave_types,id',
+            'number_of_leaves' => 'numeric',
+            'remarks' => 'string',
+            'status' => 'in:pending,approved,rejected'
         ];
+    }
+
+    public function validated()
+    {
+        return array_merge(parent::validated(), [
+            'year' => date("Y"),
+            'owner_id' => auth()->id()
+        ]);
     }
 }

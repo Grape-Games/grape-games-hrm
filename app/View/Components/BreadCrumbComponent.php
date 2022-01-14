@@ -16,7 +16,10 @@ class BreadCrumbComponent extends Component
      */
     public function __construct($modal = false, $modalType = null, $modalId = null)
     {
-        $this->modal = $modal;
+        if ($modalType == 'Leave' && auth()->user()->role == 'admin')
+            $this->modal = false;
+        else
+            $this->modal = $modal;
         $this->modalId = $modalId;
         $this->modalType = $modalType;
     }
