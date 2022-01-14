@@ -17,14 +17,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Leave Type <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Department Type" name="name"
+                                <input class="form-control" type="text" placeholder="Leave Type Name" name="name"
                                     required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Leaves allowed <span class="text-danger">*</span></label>
-                                <input class="form-control" type="number" placeholder="Department Type" name="allowed"
+                                <input class="form-control" type="number" placeholder="Number of leaves allowed" name="allowed"
                                     required>
                             </div>
                         </div>

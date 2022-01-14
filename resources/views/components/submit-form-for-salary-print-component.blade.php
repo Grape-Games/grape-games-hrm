@@ -1,15 +1,15 @@
 <!-- Add Salary Formula Modal -->
-<div id="add_salary_formula" class="modal custom-modal fade" role="dialog">
+<div id="add_salary_formula2" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Set Salary of Employee</h5>
+                <h5 class="modal-title">Print Salary Slip of Employee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addMonthlySalaryForm" action="{{ route('dashboard.employee-salaries.store') }}"
+                <form id="addMonthlySalaryForm2" action="{{ route('dashboard.employee-salaries.store') }}"
                     method="POST" novalidate>
                     @csrf
                     <div class="esf-errors-print mb-2"></div>
@@ -67,46 +67,46 @@
                                     name="medical_allowance">
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Eid Allowance</label>
+                                <label class="bx-flashing">Eid Allowance</label>
                                 <input class="form-control" type="number" placeholder="Eid Allowance"
                                     name="eid_allowance">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Other Allowances</label>
+                                <label class="bx-flashing">Other Allowances</label>
                                 <input class="form-control" type="number" placeholder="Other Allowance"
                                     name="other_allowance">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Advance Salary</label>
+                                <label class="bx-flashing">Advance Salary</label>
                                 <input class="form-control" type="number" placeholder="Advance Salary"
                                     name="advance_salary">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Electricity</label>
+                                <label class="bx-flashing">Electricity</label>
                                 <input class="form-control" type="number" placeholder="Electricity"
                                     name="electricity">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Arrears</label>
+                                <label class="bx-flashing">Arrears</label>
                                 <input class="form-control" type="number" placeholder="Arrears" name="arrears">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Income Tax</label>
+                                <label class="bx-flashing">Income Tax</label>
                                 <input class="form-control" type="number" placeholder="Income Tax" name="income_tax">
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Dated</label>
@@ -116,7 +116,7 @@
                     </div>
                     <input type="hidden" name="employee_id">
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Set Salary Slip</button>
+                        <button class="btn btn-primary submit-btn">Print Salary Slip</button>
                     </div>
                 </form>
             </div>

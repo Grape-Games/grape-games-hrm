@@ -18,7 +18,7 @@ class CreateLeaveTypesTable extends Migration
             $table->string('name');
             $table->bigInteger('allowed');
             $table->enum('status',  ['active', 'held'])->default('active');
-            $table->boolean('paid')->default(true);
+            $table->string('paid')->default('false');
             $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

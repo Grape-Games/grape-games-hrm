@@ -23,7 +23,7 @@ class SalaryFormulaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Employee::select('*')->with('owner');
+            $data = Employee::with(['owner', 'company', 'salaryFormula'])->get();
             return DataTables::of($data)->make(true);
         }
         return view('pages.salary-formulas.index');
@@ -36,7 +36,7 @@ class SalaryFormulaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.salary-formulas.create');
     }
 
     /**
@@ -47,14 +47,18 @@ class SalaryFormulaController extends Controller
      */
     public function store(StoreSalaryFormulaRequest $request)
     {
-        $salaryFormula = '';
         $data = $request->validated();
         $data['dated'] = Carbon::now();
         try {
             DB::beginTransaction();
-            if ($salaryFormula = SalaryFormula::create($data)) {
+            if (SalaryFormula::updateOrCreate(
+                [
+                    'employee_id'    => $data['employee_id']
+                ],
+                $data
+            )) {
                 DB::commit();
-                return JsonResponseService::getJsonSuccess(route('print-slip', ['id' => $salaryFormula->id]));
+                return JsonResponseService::getJsonSuccess('Employee Salary information is successfully updated/created.');
             }
         } catch (Exception $exception) {
             DB::rollBack();

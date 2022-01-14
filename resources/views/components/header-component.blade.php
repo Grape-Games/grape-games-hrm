@@ -182,9 +182,15 @@
         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                 class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
-            <a class="dropdown-item" href="settings.html">Settings</a>
-            <a class="dropdown-item" href="login.html">Logout</a>
+            <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">My Profile</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" href="route('logout')"
+                    onclick="event.preventDefault();this.closest('form').submit();" class="dropdown-item "
+                    style="width:100%">
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </div>
     <!-- /Mobile Menu -->

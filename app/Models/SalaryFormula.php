@@ -20,12 +20,12 @@ class SalaryFormula extends Model
         'mess_allowance',
         'travelling_allowance',
         'medical_allowance',
-        'eid_allowance',
-        'other_allowance',
-        'advance_salary',
-        'electricity',
-        'arrears',
-        'income_tax',
+        // 'eid_allowance',
+        // 'other_allowance',
+        // 'advance_salary',
+        // 'electricity',
+        // 'arrears',
+        // 'income_tax',
         'dated',
         'employee_id'
     ];

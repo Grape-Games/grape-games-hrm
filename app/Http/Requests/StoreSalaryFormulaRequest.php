@@ -34,12 +34,12 @@ class StoreSalaryFormulaRequest extends FormRequest
             'mess_allowance' => 'numeric|nullable',
             'travelling_allowance' => 'numeric|nullable',
             'medical_allowance' => 'numeric|nullable',
-            'eid_allowance' => 'numeric|nullable',
-            'other_allowance' => 'numeric|nullable',
-            'advance_salary' => 'numeric|nullable',
-            'electricity' => 'numeric|nullable',
-            'arrears' => 'numeric|nullable',
-            'income_tax' => 'numeric|nullable',
+            // 'eid_allowance' => 'numeric|nullable',
+            // 'other_allowance' => 'numeric|nullable',
+            // 'advance_salary' => 'numeric|nullable',
+            // 'electricity' => 'numeric|nullable',
+            // 'arrears' => 'numeric|nullable',
+            // 'income_tax' => 'numeric|nullable',
             'dated' => 'date|nullable',
             'employee_id' => 'required|exists:employees,id'
         ];

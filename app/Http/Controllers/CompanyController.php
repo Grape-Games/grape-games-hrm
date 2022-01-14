@@ -23,7 +23,10 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Company::select('*')->with(['owner', 'departments.type']);
+            $data = Company::with(['owner', 'departments.type'])->get();
+            foreach ($data as $item) {
+                $item->mediaUrl = $item->getFirstMediaUrl('companies');
+            }
             return DataTables::of($data)->make(true);
         }
 
@@ -53,7 +56,7 @@ class CompanyController extends Controller
                 $company = Company::create($request->validated());
                 CompanyService::saveDepartmentTypes($request->types, $company->id);
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                    $company->addMediaFromRequest('image')->toMediaCollection('companies');
+                    $company->addMediaFromRequest('image')->toMediaCollection('companies', 'companies');
                 }
             });
             return JsonResponseService::getJsonSuccess('Company was added successfully.');

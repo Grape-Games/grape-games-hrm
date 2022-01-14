@@ -21,7 +21,7 @@ class LeaveTypeController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = LeaveType::select('*')->with('owner');
+            $data = LeaveType::with('owner')->get();
             return DataTables::of($data)->make(true);
         }
         return view('pages.leave-types.index');

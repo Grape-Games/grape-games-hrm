@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LeaveType extends Model
@@ -17,7 +18,13 @@ class LeaveType extends Model
         'owner_id'
     ];
 
-    protected $casts = [
-        'paid' => 'boolean'
-    ];
+    /**
+     * Get the owner that owns the LeaveType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
 }

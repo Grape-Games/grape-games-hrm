@@ -49,6 +49,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'companies' => [
+            'driver' => 'local',
+            'root' => public_path('assets/img/companies'),
+            'url' => env('APP_URL') . '/assets/img/companies',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

@@ -26,10 +26,10 @@ class StoreLeaveTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|unique:leave_types,name',
+            'name' => 'required|string|unique:leave_types,name,NULL,id,deleted_at,NULL',
             'allowed' => 'required|numeric',
             'status' => 'required|in:active,held',
-            'paid' => 'required|boolean'
+            'paid' => 'in:true,false'
         ];
     }
 

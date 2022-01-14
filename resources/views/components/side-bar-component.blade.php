@@ -93,14 +93,18 @@
                         <span>Salaries Section</span>
                     </li>
                     <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.employee-salaries.index')) class="subdrop" @endif>
+                        <a href="#" @if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) class="subdrop" @endif>
                             <i class="la la-money bx-tada"></i> <span> Employees
                                 Salaries</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.employee-salaries.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) display:block;@endif">
                             <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.employee-salaries.index') }}">
-                                    View and Generate Salary Slip</a>
+                                    Set Employee Salary</a>
+                            </li>
+                            <li @if (Route::is('dashboard.employee-salaries.create')) class="active" @endif>
+                                <a href="{{ route('dashboard.employee-salaries.create') }}">
+                                    View/Print Employee Salary</a>
                             </li>
                         </ul>
                     </li>

@@ -23,12 +23,12 @@ class CreateSalaryFormulasTable extends Migration
             $table->unsignedBigInteger('mess_allowance')->nullable();
             $table->unsignedBigInteger('travelling_allowance')->nullable();
             $table->unsignedBigInteger('medical_allowance')->nullable();
-            $table->unsignedBigInteger('eid_allowance')->nullable();
-            $table->unsignedBigInteger('other_allowance')->nullable();
-            $table->unsignedBigInteger('advance_salary')->nullable();
-            $table->unsignedBigInteger('electricity')->nullable();
-            $table->unsignedBigInteger('arrears')->nullable();
-            $table->unsignedBigInteger('income_tax')->nullable();
+            // $table->unsignedBigInteger('eid_allowance')->nullable();
+            // $table->unsignedBigInteger('other_allowance')->nullable();
+            // $table->unsignedBigInteger('advance_salary')->nullable();
+            // $table->unsignedBigInteger('electricity')->nullable();
+            // $table->unsignedBigInteger('arrears')->nullable();
+            // $table->unsignedBigInteger('income_tax')->nullable();
             $table->timestamp('dated');
             $table->foreignUuid('employee_id')->constrained();
             $table->softDeletes();

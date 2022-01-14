@@ -118,4 +118,14 @@ class Employee extends Model implements HasMedia
     {
         return $this->belongsTo(BiometricDevice::class, 'biometric_device_id', 'id');
     }
+
+    /**
+     * Get the salaryFormula associated with the Employee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function salaryFormula(): HasOne
+    {
+        return $this->hasOne(SalaryFormula::class, 'employee_id');
+    }
 }
