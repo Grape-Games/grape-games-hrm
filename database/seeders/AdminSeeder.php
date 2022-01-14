@@ -24,6 +24,6 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'admin'
         ]);
-        // $user->addMedia(public_path('assets/img/avatar.png'))->toMediaCollection('avatars', 'avatars');
+        $user->addMedia(public_path('assets/img/avatar.png'))->preservingOriginal()->toMediaCollection('avatars', 'avatars');
     }
 }
