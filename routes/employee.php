@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivitiesInvokeController;
+use App\Http\Controllers\EmployeeLeavesController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ Route::group([
     'prefix' => 'dashboard/'
 ], function () {
     Route::resource('events', EventController::class);
+    Route::resource('leaves', EmployeeLeavesController::class);
     Route::resource('profile', ProfileController::class);
     Route::get('activites', ActivitiesInvokeController::class)->name('activites');
     Route::post('events/delete/custom', [EventController::class, 'delete2'])->name('events.delete2');

@@ -3,6 +3,14 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
+                @can('is-employee')
+                    <li class="menu-title">
+                        <span>Leaves</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
+                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i> <span>View/Apply</span></a>
+                    </li>
+                @endcan
                 @can('is-admin')
                     <li class="menu-title">
                         <span>Main</span>

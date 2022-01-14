@@ -32,14 +32,14 @@
                             <label for="">Status</label>
                             <div class="d-flex">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="held"
+                                    <input class="form-check-input" type="radio" name="status" value="active"
                                         id="flexRadioDefault2" checked>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         <i class="fa fa-check" aria-hidden="true"></i> Active
                                     </label>
                                 </div>
                                 <div class="form-check ml-4">
-                                    <input class="form-check-input" type="radio" name="status" value="active"
+                                    <input class="form-check-input" type="radio" name="status" value="held"
                                         id="flexRadioDefault1">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         <i class="fa fa-close" aria-hidden="true"></i> Held
