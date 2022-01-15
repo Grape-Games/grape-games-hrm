@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\EmployeeLeaves;
 use App\Models\LeaveType;
+use App\Models\User;
 use App\Notifications\EmployeeAccountNotification;
 use App\Notifications\NewRequestNotification;
 use Illuminate\Support\Facades\Notification;
@@ -36,7 +38,7 @@ class MailService
         Notification::send(auth()->user(), new EmployeeAccountNotification($user, $db));
     }
 
-    public static function sendGeneralEmail($leaves, $leaveTypeId, $description)
+    public static function sendLeaveEmailToEmployee($leaves, $leaveTypeId, $description)
     {
         $name = LeaveType::where('id', $leaveTypeId)->value('name');
         $user['heading-email'] = 'Leave request submitted.';
@@ -47,6 +49,51 @@ class MailService
         $db['redirect'] = route('dashboard.leaves.index');
         $db['email'] = auth()->user()->email;
         $db['details'] = 'Note : You have submitted a leave request.';
+        Notification::send(auth()->user(), new NewRequestNotification($user, $db));
+    }
+
+    public static function sendLeaveEmailToAdmin($leaves, $leaveTypeId, $description)
+    {
+        $name = LeaveType::where('id', $leaveTypeId)->value('name');
+        $user['heading-email'] = 'Leave request submitted.';
+        $user['description1'] = 'Description : ' . $description . ' Leaves Applied : ' . $leaves . ' Leave Type : ' . $name;
+        $user['description2'] = 'You have received a leave request from : ' . auth()->user()->email . ' Please visit your dashboard for approval.';
+        $db['heading'] = 'New Leave request received.';
+        $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+        $db['redirect'] = route('dashboard.employee-leave-approvals');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : You have received a leave request.';
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Notification::send($admin, new NewRequestNotification($user, $db));
+        }
+    }
+
+    public static function sendLeaveStatusEmailToEmployee($leave_id, $status, $remarks)
+    {
+        $leave = EmployeeLeaves::where('id', $leave_id)->first();
+        $user['heading-email'] = 'Leave request status email.';
+        $user['description1'] = 'Status : ' . $status . ' Leave remarks : ' . $remarks;
+        $user['description2'] = 'Your leave request is updated by : ' . auth()->user()->email;
+        $db['heading'] = 'New Leave request status.';
+        $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+        $db['redirect'] = route('dashboard.leaves.index');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : Leave status update request.';
+        Notification::send($leave->owner, new NewRequestNotification($user, $db));
+    }
+
+    public static function sendLeaveStatusEmailToAdmin($leave_id, $status, $remarks)
+    {
+        $leave = EmployeeLeaves::where('id', $leave_id)->first();
+        $user['heading-email'] = 'Leave request status updated.';
+        $user['description1'] = 'Status : ' . $status . ' Leave remarks : ' . $remarks;
+        $user['description2'] = 'You have updated the leave status with email : ' . auth()->user()->email;
+        $db['heading'] = 'New Leave request status.';
+        $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+        $db['redirect'] = route('dashboard.employee-leave-approvals');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : You have received a leave request.';
         Notification::send(auth()->user(), new NewRequestNotification($user, $db));
     }
 }

@@ -23,7 +23,9 @@ class EmployeeLeavesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = EmployeeLeaves::with(['owner', 'approvedBy', 'type'])->get();
+            auth()->user()->role == 'admin'
+                ? $data = EmployeeLeaves::with(['owner', 'approvedBy', 'type'])->get()
+                : $data = EmployeeLeaves::where('owner_id', auth()->id())->with(['owner', 'approvedBy', 'type'])->get();
             return DataTables::of($data)->make(true);
         }
         return view('pages.employee-leaves.index');
@@ -48,18 +50,21 @@ class EmployeeLeavesController extends Controller
     public function store(StoreEmployeeLeavesRequest $request)
     {
         try {
-            $request->filled('leave_id')
-                ? $data = array_merge($request->validated(), [
-                    'approved_by' => auth()->id()
-                ])
-                : $data = $request->validated();
-            DB::transaction(function () use ($request, $data) {
+            DB::transaction(function () use ($request) {
+                if ($request->filled('leave_id')) {
+                    $data = array_merge($request->validated(), [
+                        'approved_by' => auth()->id()
+                    ]);
+                    MailService::sendLeaveStatusEmailToEmployee($request->leave_id, $request->status, $request->remarks);
+                    MailService::sendLeaveStatusEmailToAdmin($request->leave_id, $request->status, $request->remarks);
+                } else {
+                    MailService::sendLeaveEmailToEmployee($request->number_of_leaves, $request->leave_type_id, $request->description);
+                    MailService::sendLeaveEmailToAdmin($request->number_of_leaves, $request->leave_type_id, $request->description);
+                    $data = $request->validated();
+                }
                 EmployeeLeaves::updateOrCreate([
                     'id' => $request->leave_id,
                 ], $data);
-                $request->filled('leave_id')
-                    ? ''
-                    : MailService::sendGeneralEmail($request->number_of_leaves, $request->leave_type_id, $request->description);
             });
             return JsonResponseService::getJsonSuccess('Employee Leave was added successfully.');
         } catch (Exception $exception) {
