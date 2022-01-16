@@ -55,11 +55,12 @@ class EmployeeLeavesController extends Controller
                     $data = array_merge($request->validated(), [
                         'approved_by' => auth()->id()
                     ]);
-                    MailService::sendLeaveStatusEmailToEmployee($request->leave_id, $request->status, $request->remarks);
-                    MailService::sendLeaveStatusEmailToAdmin($request->leave_id, $request->status, $request->remarks);
+                    unset($data["owner_id"]);
+                    //MailService::sendLeaveStatusEmailToEmployee($request->leave_id, $request->status, $request->remarks);
+                    //MailService::sendLeaveStatusEmailToAdmin($request->leave_id, $request->status, $request->remarks);
                 } else {
-                    MailService::sendLeaveEmailToEmployee($request->number_of_leaves, $request->leave_type_id, $request->description);
-                    MailService::sendLeaveEmailToAdmin($request->number_of_leaves, $request->leave_type_id, $request->description);
+                    //MailService::sendLeaveEmailToEmployee($request->number_of_leaves, $request->leave_type_id, $request->description);
+                    //MailService::sendLeaveEmailToAdmin($request->number_of_leaves, $request->leave_type_id, $request->description);
                     $data = $request->validated();
                 }
                 EmployeeLeaves::updateOrCreate([

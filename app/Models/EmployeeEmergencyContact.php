@@ -12,7 +12,9 @@ class EmployeeEmergencyContact extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'first_person_name',
+        'first_person_relationship',
         'second_person_name',
+        'second_person_relationship',
         'emergency_contact_1',
         'emergency_contact_2',
         'employee_id'

@@ -40,3 +40,5 @@ $(".gen-slip-fin").click(function (e) {
     );
     $("[name=employee_id]").val($(this).data("id"));
 });
+
+

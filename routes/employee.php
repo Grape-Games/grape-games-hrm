@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivitiesInvokeController;
 use App\Http\Controllers\EmployeeLeavesController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,5 @@ Route::group([
     Route::post('events/delete/custom', [EventController::class, 'delete2'])->name('events.delete2');
     Route::post('events/update/custom', [EventController::class, 'update2'])->name('events.update2');
     Route::post('events/create/custom', [EventController::class, 'create2'])->name('events.create2');
+    Route::get('view-notice-board', [NoticeBoardController::class, 'viewBoard'])->name('view-notice-board');
 });

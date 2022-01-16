@@ -38,6 +38,19 @@
                                 </small>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>From Date<span class="text-danger">*</span></label>
+                                <input name="from_date" type="date" class="form-control" placeholder="Date From"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>To Date <span class="text-danger">*</span></label>
+                                <input name="to_date" type="date" class="form-control" placeholder="To Date" required>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description <span class="text-danger">*</span></label>
@@ -48,7 +61,7 @@
                         </div>
                     </div>
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Add Leave Type</button>
+                        <button class="btn btn-primary submit-btn">Add Leave</button>
                     </div>
                 </form>
             </div>

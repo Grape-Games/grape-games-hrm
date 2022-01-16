@@ -2,8 +2,6 @@
 <div class="page-header">
     <div class="row align-items-center">
         <div class="col">
-            <h3 class="page-title card-title breadcrumb-card-head text-capitalize">
-                {{ collect(request()->segments())->last() }}</h3>
             <ul class="breadcrumb">
                 <?php $segments = ''; ?>
                 @foreach (Request::segments() as $segment)
@@ -14,6 +12,8 @@
                     </li>
                 @endforeach
             </ul>
+            <h3 class="page-title card-title breadcrumb-card-head text-capitalize">
+                {{ collect(request()->segments())->last() }}</h3>
         </div>
         @if ($modal == true)
             <div class="col-auto float-right ml-auto">

@@ -6,45 +6,43 @@
                 <h5 class="card-title">Statistics</h5>
                 <div class="stats-list">
                     <div class="stats-info">
-                        <p>Today Leave <strong>4 <small>/ 65</small></strong></p>
+                        <p>Present Today <strong>4 <small>/ 65</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: 31%" aria-valuenow="31"
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 31%" aria-valuenow="31"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
-                    <div class="stats-info">
-                        <p>Pending Invoice <strong>15 <small>/ 92</small></strong></p>
-                        <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 31%"
-                                aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="row container" style="margin-top:40px">
+                        <div class="time-list">
+                            <div class="dash-stats-list">
+                                <i class="fa fa-4x fa-building text-danger" aria-hidden="true"></i>
+                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <p>Departments</p>
+                            </div>
+                            <div class="dash-stats-list">
+                                <i class="fa fa-4x fa-user-plus text-danger" aria-hidden="true"></i>
+                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <p>Designations</p>
+                            </div>
+                            <div class="dash-stats-list">
+                                <i class="fa fa-4x fa-fax text-danger" aria-hidden="true"></i>
+                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <p>Devices</p>
+                            </div>
+                            <div class="dash-stats-list">
+                                <i class="fa fa-4x fa-calendar text-danger" aria-hidden="true"></i>
+                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <p>Events</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="stats-info">
-                        <p>Completed Projects <strong>85 <small>/ 112</small></strong></p>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 62%"
-                                aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="stats-info">
-                        <p>Open Tickets <strong>190 <small>/ 212</small></strong></p>
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 62%" aria-valuenow="62"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="stats-info">
-                        <p>Closed Tickets <strong>22 <small>/ 212</small></strong></p>
-                        <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 22%" aria-valuenow="22"
-                                aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="col-12">
+                            <h5 class="text-center">System Services Details</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="col-md-12 col-lg-6 col-xl-6 d-flex">
         <div class="card flex-fill">
             <div class="card-body">
@@ -93,4 +91,5 @@
         </div>
     </div>
 </div>
+
 <!-- /Statistics Widget -->

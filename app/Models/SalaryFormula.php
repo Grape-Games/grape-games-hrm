@@ -26,7 +26,7 @@ class SalaryFormula extends Model
         // 'electricity',
         // 'arrears',
         // 'income_tax',
-        'dated',
+        // 'dated',
         'employee_id'
     ];
 

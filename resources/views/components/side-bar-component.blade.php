@@ -3,23 +3,13 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                @can('is-employee')
-                    <li class="menu-title">
-                        <span>Leaves</span>
-                    </li>
-                    <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
-                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
-                            <span>View/Apply</span></a>
-                    </li>
-                @endcan
+                <li class="menu-title">
+                    <span>Main</span>
+                </li>
+                <li class="@if (Route::is('dashboard')) active @endif ">
+                    <a href="{{ route('dashboard') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
+                </li>
                 @can('is-admin')
-                    <li class="menu-title">
-                        <span>Main</span>
-                    </li>
-                    <li class="@if (Route::is('dashboard')) active @endif ">
-                        <a href="{{ route('dashboard') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
-                    </li>
-
                     <li class="menu-title">
                         <span>Companies Section</span>
                     </li>
@@ -102,6 +92,22 @@
                         </ul>
                     </li>
 
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.notice-board.index') || Route::is('dashboard.view-notice-board')) class="subdrop" @endif>
+                            <i class="fa fa-clipboard"></i> <span> Notice Board</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.notice-board.index') || Route::is('dashboard.view-notice-board')) display:block;@endif">
+                            <li @if (Route::is('dashboard.notice-board.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.notice-board.index') }}">
+                                    Add/Delete Notices</a>
+                            </li>
+                            <li @if (Route::is('dashboard.view-notice-board')) class="active" @endif>
+                                <a href="{{ route('dashboard.view-notice-board') }}">
+                                    View Notices</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="menu-title">
                         <span>Salaries Section</span>
                     </li>
@@ -135,6 +141,15 @@
                                     Vew Devices</a>
                             </li>
                         </ul>
+                    </li>
+                @endcan
+                @can('is-employee')
+                    <li class="menu-title">
+                        <span>Leaves</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
+                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
+                            <span>View/Apply</span></a>
                     </li>
                 @endcan
             </ul>

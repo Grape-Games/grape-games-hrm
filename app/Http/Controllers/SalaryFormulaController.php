@@ -48,7 +48,6 @@ class SalaryFormulaController extends Controller
     public function store(StoreSalaryFormulaRequest $request)
     {
         $data = $request->validated();
-        $data['dated'] = Carbon::now();
         try {
             DB::beginTransaction();
             if (SalaryFormula::updateOrCreate(
@@ -58,6 +57,7 @@ class SalaryFormulaController extends Controller
                 $data
             )) {
                 DB::commit();
+                // return JSONResponseService::getJsonSuccess(route('print-slip', ['id' => $salaryFormula->id]));
                 return JsonResponseService::getJsonSuccess('Employee Salary information is successfully updated/created.');
             }
         } catch (Exception $exception) {

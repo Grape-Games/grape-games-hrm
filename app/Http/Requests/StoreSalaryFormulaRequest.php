@@ -40,7 +40,7 @@ class StoreSalaryFormulaRequest extends FormRequest
             // 'electricity' => 'numeric|nullable',
             // 'arrears' => 'numeric|nullable',
             // 'income_tax' => 'numeric|nullable',
-            'dated' => 'date|nullable',
+            // 'dated' => 'date|nullable',
             'employee_id' => 'required|exists:employees,id'
         ];
     }

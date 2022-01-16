@@ -18,6 +18,11 @@ class Event extends Model
         'owner_id'
     ];
 
+    protected $casts = [
+        'start_time' => 'datetime:Y-M-d H:i',
+        'end_time' => 'datetime:Y-M-d H:i',
+    ];
+
     /**
      * Get the user that owns the Event
      *

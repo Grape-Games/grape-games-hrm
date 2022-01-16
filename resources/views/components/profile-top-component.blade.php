@@ -85,11 +85,29 @@
 <hr>
 <div class="row">
     @if ($user->additional !== null)
-        <x-profile-employee-additional-details-component />
-    @elseif ($user->emergency !== null)
-        <x-profile-employee-emergency-details-component />
-    @elseif ($user->bank)
-        <x-profile-employee-bank-details-component />
+        <x-profile-employee-additional-details-component :details="$user->additional" />
+    @else
+        @push('extended-js')
+            <script>
+                $(function() {
+                    $(".bx-flashing").removeClass('d-none');
+                });
+            </script>
+        @endpush
+    @endif
+    @if ($user->emergency !== null)
+        <x-profile-employee-emergency-details-component :details="$user->emergency" />
+    @else
+        @push('extended-js')
+            <script>
+                $(function() {
+                    $(".bx-flashing").removeClass('d-none');
+                });
+            </script>
+        @endpush
+    @endif
+    @if ($user->bank)
+        <x-profile-employee-bank-details-component :details="$user->bank" />
     @else
         @push('extended-js')
             <script>

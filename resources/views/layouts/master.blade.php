@@ -40,6 +40,19 @@
     <!-- Main Wrapper -->
     <div class="main-wrapper">
 
+        <!-- Loader -->
+        <div id="loader-wrapper">
+            <div id="loader">
+                <div class="loader-ellips">
+                    <span class="loader-ellips__dot"></span>
+                    <span class="loader-ellips__dot"></span>
+                    <span class="loader-ellips__dot"></span>
+                    <span class="loader-ellips__dot"></span>
+                </div>
+            </div>
+        </div>
+        <!-- /Loader -->
+
         <x-header-component />
 
         <x-side-bar-component />
@@ -54,11 +67,19 @@
 
             </div>
             <!-- /Page Content -->
+            <footer>
+                <div class="col-12">
+                    <div class="pull-left">
+                        <a href="#" class="mb-2" target="_blank"><i class="la la-copyright"></i>COPYRIGHT 2022
+                            {{ env('APP_NAME') }} </a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="https://fast-devs.com" class="mb-2 bx-burst" target="_blank"><i class="la la-copyright"></i>By Fast
+                            Devs </a>
+                    </div>
+                </div>
 
-            <a href="#" class="mb-2" style="margin-left:1%"><i class="la la-copyright"
-                    style="margin-right: 1%"></i>Powered by Fast
-                Devs </a>
-
+            </footer>
         </div>
         <!-- /Page Wrapper -->
 

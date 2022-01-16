@@ -315,7 +315,8 @@
                           color: #66667e;
                           font-weight: 300;
                         ">
-                                            &copy; 2021 {{ env('APP_NAME') }}. All rights reserved. <br />
+                                            &copy; {{ date('Y') }} {{ env('APP_NAME') }}. All rights reserved.
+                                            <br />
                                             {{ env('COMPANY_ADDRESS') }}
                                         </p>
                                         <table role="presentation" cellpadding="0" cellspacing="0" style="

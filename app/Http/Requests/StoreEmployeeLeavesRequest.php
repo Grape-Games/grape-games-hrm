@@ -30,10 +30,18 @@ class StoreEmployeeLeavesRequest extends FormRequest
             'leave_type_id' => 'exists:leave_types,id',
             'number_of_leaves' => 'numeric',
             'remarks' => 'string',
-            'status' => 'in:pending,approved,rejected'
+            'status' => 'in:pending,approved,rejected',
+            'from_date' => 'date',
+            'to_date' => 'date|after_or_equal:from_date',
         ];
     }
 
+    public function attributes(){
+        return [
+            'to_date' => 'Leave to',
+            'from_date' => 'Leave from'
+        ];
+    }
     public function validated()
     {
         return array_merge(parent::validated(), [

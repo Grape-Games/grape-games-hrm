@@ -25,7 +25,7 @@ class ModalAddEmployeeHrmAccountComponent extends Component
     public function render()
     {
         return view('components.modal-add-employee-hrm-account-component', [
-            'employees' => Employee::all(),
+            'employees' => Employee::where('user_id', NULL)->get(),
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,10 +17,22 @@ class EmployeeLeaves extends Model
         'leave_type_id',
         'remarks',
         'year',
+        'from_date',
+        'to_date',
         'status',
         'owner_id',
         'approved_by'
     ];
+
+    public function getFromDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-M-d H:i A');
+    }
+
+    public function getToDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-M-d H:i A');
+    }
 
     /**
      * Get the owner that owns the EmployeeLeaves

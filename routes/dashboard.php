@@ -9,8 +9,10 @@ use App\Http\Controllers\EmployeeAccountCreateController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LeaveApprovalController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ParentDesignationController;
 use App\Http\Controllers\SalaryFormulaController;
+use App\Http\Controllers\SalarySlipController;
 use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +32,9 @@ Route::group([
     Route::resource('biometric-devices', BiometricDeviceController::class);
     Route::resource('leave-types', LeaveTypeController::class);
     Route::resource('employee-web-accounts', EmployeeAccountCreateController::class);
+    Route::resource('notice-board', NoticeBoardController::class);
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
+    Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
 
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');

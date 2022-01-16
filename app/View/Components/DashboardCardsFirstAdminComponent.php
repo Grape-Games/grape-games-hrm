@@ -2,9 +2,10 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use Illuminate\View\Component;
 
-class DashboardCardsComponent extends Component
+class DashboardCardsFirstAdminComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +24,8 @@ class DashboardCardsComponent extends Component
      */
     public function render()
     {
-        return view('components.dashboard-cards-component');
+        return view('components.dashboard-cards-first-admin-component',[
+            'employees' => Employee::all(),
+        ]);
     }
 }

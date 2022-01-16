@@ -85,7 +85,7 @@ class MailService
 
     public static function sendLeaveStatusEmailToAdmin($leave_id, $status, $remarks)
     {
-        $leave = EmployeeLeaves::where('id', $leave_id)->first();
+        // $leave = EmployeeLeaves::where('id', $leave_id)->first();
         $user['heading-email'] = 'Leave request status updated.';
         $user['description1'] = 'Status : ' . $status . ' Leave remarks : ' . $remarks;
         $user['description2'] = 'You have updated the leave status with email : ' . auth()->user()->email;
@@ -95,5 +95,21 @@ class MailService
         $db['email'] = auth()->user()->email;
         $db['details'] = 'Note : You have received a leave request.';
         Notification::send(auth()->user(), new NewRequestNotification($user, $db));
+    }
+
+    public static function sendNoticeEmail($details, $priority)
+    {
+        $user['heading-email'] = 'Notice Board is updated with a new notice.';
+        $user['description1'] = 'Notice Details : ' . $details;
+        $user['description2'] = 'Notice priority : ' . $priority;
+        $db['heading'] = 'New Notice board notification.';
+        $db['avatar'] = Request::root() . '/assets/img/notice.png';
+        $db['redirect'] = route('dashboard.view-notice-board');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : You have received a notice board notification.';
+        $users = User::all();
+        foreach ($users as $item) {
+            Notification::send($item, new NewRequestNotification($user, $db));
+        }
     }
 }

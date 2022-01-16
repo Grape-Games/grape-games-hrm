@@ -43,6 +43,8 @@ class UpdateEmployeeRequest extends FormRequest
             'second_person_name' => 'required_with:emergency_contact_2',
             'emergency_contact_1' => 'required_with:first_person_name|required_if:type,emergency_contact_details|numeric',
             'emergency_contact_2' => 'required_with:second_person_name|numeric',
+            'first_person_relationship' => 'required_with:first_person_name|string',
+            'second_person_relationship' => 'required_with:second_person_name|string',
             'city' => 'nullable|string',
             'cnic' => 'nullable|string',
             'department_id' => 'nullable|numeric',

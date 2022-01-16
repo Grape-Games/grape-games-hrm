@@ -1,6 +1,6 @@
 <!-- Add Salary Formula Modal -->
 <div id="add_salary_formula2" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Print Salary Slip of Employee</h5>
@@ -9,10 +9,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addMonthlySalaryForm2" action="{{ route('dashboard.employee-salaries.store') }}"
-                    method="POST" novalidate>
+                <form id="addEmployeeSalarySlip" action="{{ route('dashboard.save-salary-slip') }}" method="POST"
+                    novalidate>
                     @csrf
-                    <div class="esf-errors-print mb-2"></div>
+                    <div class="ss-errors-print mb-2"></div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">

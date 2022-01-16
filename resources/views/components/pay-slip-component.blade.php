@@ -1,22 +1,27 @@
-{{-- <div class="row mb-2">
-        <div class="col-auto float-right ml-auto mb-2">
-            <div class="btn-group btn-group-sm">
-                <button class="btn btn-white">CSV</button>
-                <button class="btn btn-white">PDF</button>
-                <button class="btn btn-white"><i class="fa fa-print fa-lg"></i> Print</button>
-            </div>
+<div class="row mb-2">
+    <div class="col-auto float-right ml-auto mb-2">
+        <div class="btn-group btn-group-sm">
+            <button class="btn btn-white print-btn" onclick="download()"><i class="fa fa-file-pdf-o"
+                    aria-hidden="true"></i>
+                PDF</button>
+            <button class="btn btn-primary account-btn loader-btn d-none" disabled="disabled">
+                <i class="fa fa-spinner fa-spin" style="margin-right:2%;"></i>
+                Downloading...
+            </button>
+        </div>
     </div>
-</div> --}}
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body html-content">
                 <h4 class="payslip-title"></h4>
                 <div class="row">
                     <div class="col-sm-6 m-b-20">
-                        <img src="{{ asset('assets/img/logo2.png') }}" class="inv-logo" alt="">
+                        <img src="{{ asset($salaryDetails->employee->company->getFirstMediaUrl('companies')) }}"
+                            class="inv-logo" alt="">
                         <ul class="list-unstyled mb-0">
-                            <li>{{ $salaryDetails->employee->department->name }}</li>
+                            <li>{{ $salaryDetails->employee->company->name }}</li>
                             <li>{{ isset($salaryDetails->employee->additional->address) ? $salaryDetails->employee->additional->address : '' }}
                             </li>
                             <li>{{ $salaryDetails->employee->city }}</li>
@@ -26,7 +31,7 @@
                         <div class="invoice-details">
                             <h3 class="text-uppercase">Payslip #{{ request()->route('id') }}</h3>
                             <ul class="list-unstyled">
-                                <li>Salary Month : <span>{{ $salaryDetails->dated->format('M Y') }}</span>
+                                <li>Salary Month : <span>{{ $salaryDetails->month_year }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -43,8 +48,8 @@
                             <li><span>{{ $salaryDetails->employee->designation->name }}</span></li>
                             <li>Registration # : {{ $salaryDetails->employee->registration_no }} </li>
                             <li>
-                                @if(isset($salaryDetails->employee->additional->join_date))
-                                 {{$salaryDetails->employee->additional->join_date}}
+                                @if (isset($salaryDetails->employee->additional->join_date))
+                                    Join Date : {{ $salaryDetails->employee->additional->join_date }}
                                 @endif
                             </li>
                         </ul>
@@ -53,47 +58,70 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div>
-                            <h4 class="m-b-10"><strong>Earnings</strong></h4>
-                            <table class="table table-bordered">
+                            <h4 class="m-b-10"><strong class="ml-2">Earnings</strong></h4>
+                            <table class="table table-bordered pay-slip-table">
                                 <tbody>
                                     <tr>
-                                        <td><strong>Basic Salary</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->basic_salary }}</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>House Rent Allowance (H.R.A.)</strong> <span
-                                                class="float-right">Rs:
-                                                {{ $salaryDetails->house_allowance }}</span>
+                                        <td><strong>Basic Salary</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->basic_salary) ? $salaryDetails->basic_salary : 0 }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Mess Allowance</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->mess_allowance }}</span>
+                                        <td><strong>House Rent Allowance (H.R.A.)</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->house_allowance) ? $salaryDetails->house_allowance : 0 }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Travelling Allowance</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->travelling_allowance }}</span>
+                                        <td><strong>Mess Allowance</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->mess_allowance) ? $salaryDetails->mess_allowance : 0 }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Medical Allowance</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->medical_allowance }}</span>
+                                        <td><strong>Travelling Allowance</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->travelling_allowance) ? $salaryDetails->travelling_allowance : 0 }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Eid Allowance</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->eid_allowance }}</span>
+                                        <td><strong>Medical Allowance</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->medical_allowance) ? $salaryDetails->medical_allowance : 0 }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Other Allowance</strong> <span class="float-right">Rs:
-                                                {{ $salaryDetails->other_allowance }}</span>
+                                        <td><strong>Eid Allowance</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->eid_allowance) ? $salaryDetails->eid_allowance : 0 }}</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Total Earnings</strong> <span class="float-right"><strong
-                                                    class="earning-result"></strong></span></td>
+                                        <td><strong>Other Allowance</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->other_allowance) ? $salaryDetails->other_allowance : 0 }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Earnings</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right">
+                                                <strong class="earning-result"></strong>
+                                            </span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -105,39 +133,58 @@
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <td><strong>Tax Deducted at Source (T.D.S.)</strong> <span
-                                                class="float-right">0</span></td>
+                                        <td><strong>Tax Deducted at Source (T.D.S.)</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">0</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Adavance Salary</strong> <span class="float-right deduct">
-                                                Rs: {{ $salaryDetails->advance_salary }}
-                                            </span></td>
+                                        <td><strong>Advance Salary</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->advance_salary) ? $salaryDetails->advance_salary : 0 }}
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Electricity</strong> <span class="float-right deduct">
-                                                Rs: {{ $salaryDetails->electricity }}
-                                            </span></td>
+                                        <td><strong>Electricity</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->electricity) ? $salaryDetails->electricity : 0 }}
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Arrears</strong> <span class="float-right deduct">
-                                                Rs: {{ $salaryDetails->arrears }}
-                                            </span></td>
+                                        <td><strong>Arrears</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->arrears) ? $salaryDetails->arrears : 0 }}
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Income Tax</strong> <span class="float-right deduct">
-                                                Rs: {{ $salaryDetails->income_tax }}
-                                            </span></td>
+                                        <td><strong>Income Tax</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->income_tax) ? $salaryDetails->income_tax : 0 }}
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Total Deductions</strong> <span class="float-right"><strong
-                                                    class="deduction-result"></strong></span></td>
+                                        <td><strong>Total Deductions</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right">
+                                                <strong class="deduction-result"></strong>
+                                            </span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <p><strong class="total-result"></strong>
+                        <p>
+                            <strong class="net-total"></strong>
                         </p>
                     </div>
                 </div>

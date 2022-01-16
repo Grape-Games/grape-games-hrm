@@ -14,7 +14,8 @@
                     <div class="ev-errors-print mb-2"></div>
                     <div class="form-group">
                         <label>Event Name <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" name="name" placeholder="Event Name" required>
+                        <input class="form-control" type="text" name="name" placeholder="Event Name" maxlength="40"
+                            required>
                     </div>
                     <div class="form-group">
                         <label>Event Start Date/Time <span class="text-danger">*</span></label>

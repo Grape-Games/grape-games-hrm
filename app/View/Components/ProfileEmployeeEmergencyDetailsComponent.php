@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class ProfileEmployeeEmergencyDetailsComponent extends Component
 {
+    public $details;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -23,6 +24,8 @@ class ProfileEmployeeEmergencyDetailsComponent extends Component
      */
     public function render()
     {
-        return view('components.profile-employee-emergency-details-component');
+        return view('components.profile-employee-emergency-details-component',[
+            'details' => $this->details
+        ]);
     }
 }

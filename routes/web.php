@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\SalaryFormula;
+use App\Models\SalarySlip;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +33,7 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     });
 
     Route::get('/dashboard/generate-slip/{id}', function ($id) {
-        $result = SalaryFormula::where('id', $id)->with(['employee', 'employee.department', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
+        $result = SalarySlip::where('id', $id)->with(['employee', 'employee.company', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
         if (!is_null($result))
             return view('pages.salary-slip.index', [
                 'slip' => $result

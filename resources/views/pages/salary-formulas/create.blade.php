@@ -19,6 +19,7 @@
 
 @push('extended-js')
     <script src="{{ asset('js/core/search-employee-salary/main.js') }}"></script>
+    <script src="{{ asset('js/core/salary-slip/main.js') }}"></script>
     <script src="{{ asset('js/data-table-init.js') }}"></script>
     <script src="{{ asset('js/core/search-employee-salary/table.js') }}"></script>
 @endpush

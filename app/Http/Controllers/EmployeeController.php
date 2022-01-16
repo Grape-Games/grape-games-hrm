@@ -105,19 +105,19 @@ class EmployeeController extends Controller
         ]);
         unset($data["type"]);
         if ($request->type == 'additional_information') {
-            EmployeeAdditionalInformation::where('employee_id', $employee->id)->exists()
-                ? EmployeeAdditionalInformation::where('employee_id', $employee->id)->update($data)
-                : EmployeeAdditionalInformation::create($data);
+            EmployeeAdditionalInformation::updateOrCreate([
+                'employee_id' => $employee->id
+            ], $data);
             return JsonResponseService::getJsonSuccess('Additional Information was added/updated successfully.');
         } else if ($request->type == 'bank_details') {
-            EmployeeBankDetails::where('employee_id', $employee->id)->exists()
-                ? EmployeeBankDetails::where('employee_id', $employee->id)->update($data)
-                : EmployeeBankDetails::create($data);
+            EmployeeBankDetails::updateOrCreate([
+                'employee_id' => $employee->id
+            ], $data);
             return JsonResponseService::getJsonSuccess('Bank details were added/updated successfully.');
         } else if ($request->type == 'emergency_contact_details') {
-            EmployeeEmergencyContact::where('employee_id', $employee->id)->exists()
-                ? EmployeeEmergencyContact::where('employee_id', $employee->id)->update($data)
-                : EmployeeEmergencyContact::create($data);
+            EmployeeEmergencyContact::updateOrCreate([
+                'employee_id' => $employee->id
+            ], $data);
             return JsonResponseService::getJsonSuccess('Emergency Contact(s) were added/updated successfully.');
         } else {
             unset($data['employee_id']);

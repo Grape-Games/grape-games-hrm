@@ -1,7 +1,9 @@
 @extends('layouts.master')
 
 @push('extended-css')
-
+    @can('is-employee')
+        <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    @endcan
     @include('vendors.toastr')
 
 @endpush
@@ -10,11 +12,21 @@
 
     <x-bread-crumb-component :modal='false' />
 
-    <x-dashboard-cards-component />
+    @can('is-admin')
 
-    <x-dashboard-cards-second-component />
+        <x-dashboard-cards-first-admin-component />
 
-    <x-statistics-component />
+        <x-dashboard-cards-second-admin-component />
+
+        <x-statistics-component />
+
+    @endcan
+
+    @can('is-employee')
+
+        <x-dashboard-employee-first-component />
+
+    @endcan
 
 @endsection
 
@@ -26,4 +38,11 @@
         </script>
         {{ session()->forget('toast') }}
     @endif
+    @can('is-employee')
+        <script src="assets/plugins/morris/morris.min.js"></script>
+        <script src="assets/plugins/raphael/raphael.min.js"></script>
+        <script src="assets/js/chart.js"></script>
+    @endcan
+
+
 @endpush
