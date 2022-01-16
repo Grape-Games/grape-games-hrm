@@ -6,6 +6,7 @@ use App\Models\BiometricDevice;
 use App\Models\DeviceLogs;
 use Exception;
 use Illuminate\Http\Request;
+use App\Services\JsonResponseService;
 
 class NodeZkTecoService
 {
