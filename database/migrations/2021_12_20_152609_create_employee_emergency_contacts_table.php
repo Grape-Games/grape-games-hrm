@@ -19,7 +19,7 @@ class CreateEmployeeEmergencyContactsTable extends Migration
             $table->string('emergency_contact_1')->nullable();
             $table->string('second_person_name')->nullable();
             $table->string('emergency_contact_2')->nullable();
-            $table->foreignUuid('employee_id')->constrained();
+            $table->foreignUuid('employee_id')->constrained()->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

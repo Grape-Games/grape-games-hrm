@@ -14,7 +14,7 @@ class AddBiometricDeviceIdToEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->foreignId('biometric_device_id')->constrained();
+            $table->foreignId('biometric_device_id')->constrained()->onDelete('cascade');;
         });
     }
 

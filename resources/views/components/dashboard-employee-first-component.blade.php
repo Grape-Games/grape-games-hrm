@@ -147,14 +147,7 @@
 
         <div class="col-lg-4 col-md-4">
             <div class="dash-sidebar">
-                <section>
-                    <h5 class="dash-title">Current Month Attendance</h5>
-                    <div class="card">
-                        <div class="card-body">
-                            <div id='myChart'></div>
-                        </div>
-                    </div>
-                </section>
+                <x-employee-monthly-attendance-component />
                 <section>
                     <h5 class="dash-title">Leaves Status</h5>
                     <div class="card">
@@ -226,10 +219,4 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-@push('extended-js')
-    <script src="{{ asset('js/core/charts/monthly-attendance.js') }}"></script>
-@endpush
