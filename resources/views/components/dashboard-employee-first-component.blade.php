@@ -141,7 +141,6 @@
                     </div>
                 </div>
             </section>
-
             <x-employee-bar-chart-component />
         </div>
 
