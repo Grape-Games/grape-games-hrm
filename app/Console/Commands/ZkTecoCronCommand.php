@@ -52,9 +52,10 @@ class ZkTecoCronCommand extends Command
             DeviceLogs::truncate();
         $devices = BiometricDevice::all();
         foreach ($devices as $device) {
-            $zk = new ZKTeco($device->ip_address);
-            $ret = $zk->connect();
             try {
+                $zk = new ZKTeco($device->ip_address);
+                $ret = $zk->connect();
+
                 if ($ret) {
                     $zk->disableDevice();
                     //$zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));

@@ -72,21 +72,22 @@ class ZKTecoApiService
 
     public function getDeviceTime($deviceIp)
     {
-        $zk = new ZKTeco($deviceIp);
-        $ret = $zk->connect();
-        if ($ret) {
-            $zk->disableDevice();
-            $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
-            try {
+        try {
+            $zk = new ZKTeco($deviceIp);
+            $ret = $zk->connect();
+            if ($ret) {
+                $zk->disableDevice();
+                $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
+
                 $time = $zk->getTime();
-            } catch (Exception $exception) {
-                return JsonResponseService::getJsonException($exception);
             }
             sleep(1);
             $zk->getTime();
             $zk->enableDevice();
             $zk->disconnect();
             return JsonResponseService::getJsonSuccess($time);
+        } catch (Exception $exception) {
+            return JsonResponseService::getJsonException($exception);
         }
         return JsonResponseService::getJsonFailed('Failed to connect to the devices.');
     }
