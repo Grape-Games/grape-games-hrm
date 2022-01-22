@@ -48,31 +48,21 @@ class ZkTecoCronCommand extends Command
      */
     public function handle()
     {
-        if (DeviceLogs::all()->count() > 10000)
-            DeviceLogs::truncate();
-        $devices = BiometricDevice::all();
-        foreach ($devices as $device) {
-            try {
-                $this->log('yaya');
+        try {
+            if (DeviceLogs::all()->count() > 10000)
+                DeviceLogs::truncate();
+            $devices = BiometricDevice::all();
+            foreach ($devices as $device) {
+
                 $zk = new ZKTeco($device->ip_address);
                 $ret = $zk->connect();
 
                 if ($ret) {
                     $zk->disableDevice();
                     //$zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
-                    try {
-                        $users = $zk->getUser();
-                        $time = $zk->getTime();
-                        $attendances = $zk->getAttendance();
-                    } catch (Exception $exception) {
-                        MailService::sendZkError($exception->getMessage(), $device->ip_address);
-                        DeviceLogs::create([
-                            'details' => $exception->getMessage(),
-                            'type' => 'exception',
-                            'action' => 'not resolved',
-                            'device_id' => $device->id,
-                        ]);
-                    }
+                    $users = $zk->getUser();
+                    $time = $zk->getTime();
+                    $attendances = $zk->getAttendance();
                     sleep(1);
                     $zk->getTime();
                     $zk->enableDevice();
@@ -101,16 +91,24 @@ class ZkTecoCronCommand extends Command
                         'action' => 'resolved',
                         'device_id' => $device->id,
                     ]);
+                } else {
+                    MailService::sendZkError('Failed to create connection to the device.', $device->ip_address);
+                    DeviceLogs::create([
+                        'details' => 'Failed to connect to zk device .',
+                        'type' => 'error',
+                        'action' => 'not resolved',
+                        'device_id' => $device->id,
+                    ]);
                 }
-            } catch (Exception $e) {
-                MailService::sendZkError($e->getMessage(), $device->ip_address);
-                DeviceLogs::create([
-                    'details' => 'Failed to connect to zk device : ' . $e->getMessage(),
-                    'type' => 'error',
-                    'action' => 'not resolved',
-                    'device_id' => $device->id,
-                ]);
             }
+        } catch (Exception $e) {
+            MailService::sendZkError($e->getMessage(), $device->ip_address);
+            DeviceLogs::create([
+                'details' => 'Failed to connect to zk device : ' . $e->getMessage(),
+                'type' => 'error',
+                'action' => 'not resolved',
+                'device_id' => $device->id,
+            ]);
         }
         return Command::SUCCESS;
     }
