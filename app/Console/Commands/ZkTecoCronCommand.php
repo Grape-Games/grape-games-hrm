@@ -53,6 +53,7 @@ class ZkTecoCronCommand extends Command
         $devices = BiometricDevice::all();
         foreach ($devices as $device) {
             try {
+                $this->log('yaya');
                 $zk = new ZKTeco($device->ip_address);
                 $ret = $zk->connect();
 
@@ -102,10 +103,10 @@ class ZkTecoCronCommand extends Command
                     ]);
                 }
             } catch (Exception $e) {
-                MailService::sendZkError($exception->getMessage(), $device->ip_address);
+                MailService::sendZkError($e->getMessage(), $device->ip_address);
                 DeviceLogs::create([
-                    'details' => 'Failed to connect to zk device : ' . $e->getMessage,
-                    'type' => 'exception',
+                    'details' => 'Failed to connect to zk device : ' . $e->getMessage(),
+                    'type' => 'error',
                     'action' => 'not resolved',
                     'device_id' => $device->id,
                 ]);

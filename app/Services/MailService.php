@@ -121,9 +121,9 @@ class MailService
         $db['heading'] = 'Biometric device error.';
         $db['avatar'] = Request::root() . '/assets/img/notice.png';
         $db['redirect'] = route('dashboard.biometric-devices.index');
-        $db['email'] = auth()->user()->email;
+        $db['email'] = '';
         $db['details'] = 'Note : Biometric device ' . $ip . ' ran into an error.';
-        $users = User::all();
+        $users = User::where('role', 'admin')->get();
         foreach ($users as $item) {
             Notification::send($item, new NewRequestNotification($user, $db));
         }
