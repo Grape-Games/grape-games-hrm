@@ -34,6 +34,7 @@ $("body").on("click", ".gen-slip", function () {
     $("[name=travelling_allowance]").val("");
     $("[name=medical_allowance]").val("");
     let id = $(this).data("id");
+    $("[name=employee_id]").val(id);
     uniqueElements.forEach(function (item) {
         if (item.id == id) {
             $("[name=per_day]").val(item.per_day);
@@ -46,7 +47,6 @@ $("body").on("click", ".gen-slip", function () {
             $("[name=medical_allowance]").val(item.medical_allowance);
         }
     });
-    $("[name=employee_id]").val(id);
 });
 
 function esfCallback(response, errorClassName, table) {
