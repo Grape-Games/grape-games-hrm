@@ -26,7 +26,7 @@ function bdCallback(response, errorClassName, table) {
     else if (response.status == 200) {
         makeToastr("success", response.response, "Action Successful. 😃");
         successFlow(errorClassName, response.response, "bg-success");
-        var oTable = $("." + table) .dataTable();
+        var oTable = $("." + table).dataTable();
         oTable.fnDraw(false);
     } else if (response.status == 409) {
         makeToastr(
