@@ -19,7 +19,7 @@ class CreateEmployeeBankDetailsTable extends Migration
             $table->string('account_number');
             $table->string('bank_name');
             $table->string('branch_name');
-            $table->foreignUuid('employee_id')->constrained();
+            $table->foreignUuid('employee_id')->constrained()->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

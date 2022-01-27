@@ -25,5 +25,13 @@ class AdminSeeder extends Seeder
             'role' => 'admin'
         ]);
         $user->addMedia(public_path('assets/img/avatar.png'))->preservingOriginal()->toMediaCollection('avatars', 'avatars');
+
+        $user = User::create([
+            'name' => 'Admin',
+            'email' => 'hr@grapegames.net',
+            'password' => Hash::make('google@me'),
+            'role' => 'admin'
+        ]);
+        $user->addMedia(public_path('assets/img/avatar.png'))->preservingOriginal()->toMediaCollection('avatars', 'avatars');
     }
 }

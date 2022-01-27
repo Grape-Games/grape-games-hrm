@@ -30,7 +30,7 @@ class CreateSalaryFormulasTable extends Migration
             // $table->unsignedBigInteger('arrears')->nullable();
             // $table->unsignedBigInteger('income_tax')->nullable();
             // $table->timestamp('dated');
-            $table->foreignUuid('employee_id')->constrained();
+            $table->foreignUuid('employee_id')->constrained()->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

@@ -15,8 +15,8 @@ class CreateAttendancesTable extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('employee_id')->constrained();
-            $table->foreignId('biometric_device_id')->constrained();
+            $table->foreignUuid('employee_id')->constrained()->onDelete('cascade');
+            $table->foreignId('biometric_device_id')->constrained()->onDelete('cascade');
             $table->timestamp('attendance');
             $table->softDeletes();
             $table->timestamps();

@@ -22,7 +22,7 @@ class CreateEmployeeLeavesTable extends Migration
             $table->foreignId('leave_type_id')->constrained();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignUuid('approved_by')->nullable()->references('id')->on('users')->nullable();
+            $table->foreignUuid('approved_by')->nullable()->references('id')->on('users')->nullable()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

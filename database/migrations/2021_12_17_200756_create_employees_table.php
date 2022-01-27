@@ -26,10 +26,10 @@ class CreateEmployeesTable extends Migration
             $table->string('cnic')->unique();
             $table->string('enrollment_no');
             $table->string('registration_no')->unique();
-            $table->foreignUuid('company_id')->constrained();
-            $table->foreignId('designation_id')->constrained();
+            $table->foreignUuid('company_id')->constrained()->onDelete('cascade');;
+            $table->foreignId('designation_id')->constrained()->onDelete('cascade');;
             $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignUuid('user_id')->nullable()->constrained();
+            $table->foreignUuid('user_id')->nullable()->constrained()->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

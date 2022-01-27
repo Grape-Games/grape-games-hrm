@@ -25,7 +25,7 @@ class CreateEmployeeAdditionalInformationTable extends Migration
             $table->string('join_date')->nullable();
             $table->string('leave_date')->nullable();
             $table->string('referred_by')->nullable();
-            $table->foreignUuid('employee_id')->constrained();
+            $table->foreignUuid('employee_id')->constrained()->onDelete('cascade');;
             $table->softDeletes();
             $table->timestamps();
         });

@@ -112,4 +112,20 @@ class MailService
             Notification::send($item, new NewRequestNotification($user, $db));
         }
     }
+
+    public static function sendZkError($details, $ip)
+    {
+        $user['heading-email'] = 'Biometric device has faced an error.';
+        $user['description1'] = 'IP : ' . $ip;
+        $user['description2'] = 'Details : ' . $details;
+        $db['heading'] = 'Biometric device error.';
+        $db['avatar'] = Request::root() . '/assets/img/notice.png';
+        $db['redirect'] = route('dashboard.biometric-devices.index');
+        $db['email'] = '';
+        $db['details'] = 'Note : Biometric device ' . $ip . ' ran into an error.';
+        $users = User::where('role', 'admin')->get();
+        foreach ($users as $item) {
+            Notification::send($item, new NewRequestNotification($user, $db));
+        }
+    }
 }

@@ -31,6 +31,7 @@ Route::group([
     Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
 });
 
+
 Route::group([
     'prefix' => 'ZKteco/node/',
     'as' => 'zkteco.node.'

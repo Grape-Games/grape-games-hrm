@@ -14,8 +14,10 @@ class NodeZkTecoService
     public function saveLogs(Request $request)
     {
         try {
-            if (count(DeviceLogs::all()) == 10000)
+            if (count(DeviceLogs::all()) > 10000)
                 DeviceLogs::truncate();
+            if ($request->data[0] == 'error')
+                MailService::sendZkError($request->data[1], $request->deviceIp);
             $create = DeviceLogs::create([
                 'type' => $request->data[0],
                 'details' => $request->data[1],

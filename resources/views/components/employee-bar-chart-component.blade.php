@@ -1,3 +1,7 @@
+@push('extended-css')
+
+@endpush
+
 <section class="dash-section">
     <div class="card">
         <div class="card-body">
@@ -8,6 +12,10 @@
 </section>
 
 @push('extended-js')
+    <!-- Chart JS -->
+    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
+    <script src="{{ asset('assets/js/chart.js') }}"></script>
 
     <script>
         function randomIntFromInterval(min, max) { // min and max included 

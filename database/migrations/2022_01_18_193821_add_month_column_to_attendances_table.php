@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBiometricDeviceIdToEmployeesTable extends Migration
+class AddMonthColumnToAttendancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddBiometricDeviceIdToEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            $table->foreignId('biometric_device_id')->constrained()->onDelete('cascade');;
+        Schema::table('attendances', function (Blueprint $table) {
+            $table->string('month');
         });
     }
 
@@ -25,7 +25,7 @@ class AddBiometricDeviceIdToEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('attendances', function (Blueprint $table) {
             //
         });
     }

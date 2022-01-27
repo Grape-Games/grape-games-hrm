@@ -1,9 +1,7 @@
 @extends('layouts.master')
 
 @push('extended-css')
-    @can('is-employee')
-        <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    @endcan
+
     @include('vendors.toastr')
 
 @endpush
@@ -38,11 +36,5 @@
         </script>
         {{ session()->forget('toast') }}
     @endif
-    @can('is-employee')
-        <script src="assets/plugins/morris/morris.min.js"></script>
-        <script src="assets/plugins/raphael/raphael.min.js"></script>
-        <script src="assets/js/chart.js"></script>
-    @endcan
-
 
 @endpush
