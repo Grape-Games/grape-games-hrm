@@ -23,7 +23,7 @@ class ZKTecoApiService
         $ret = $zk->connect();
         if ($ret) {
             $zk->disableDevice();
-            $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
+            // $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
             try {
                 $attendance = $zk->getAttendance();
                 $time = $zk->getTime();
@@ -54,7 +54,7 @@ class ZKTecoApiService
         $ret = $zk->connect();
         if ($ret) {
             $zk->disableDevice();
-            $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
+            // $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
             try {
                 $users = $zk->getUser();
                 $time = $zk->getTime();
@@ -77,8 +77,7 @@ class ZKTecoApiService
             $ret = $zk->connect();
             if ($ret) {
                 $zk->disableDevice();
-                $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
-
+                // $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
                 $time = $zk->getTime();
             }
             sleep(1);

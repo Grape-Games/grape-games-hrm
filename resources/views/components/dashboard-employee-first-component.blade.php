@@ -1,18 +1,18 @@
-@if (is_null($user->additional) || is_null($user->bank) || is_null($user->emergency))
+@if (!isset($user->additional) || !isset($user->bank) || !isset($user->emergency))
     <div class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="welcome-box">
-                    @if (is_null($user->additional))
+                    @if (!isset($user->additional))
                         <span class="badge badge-danger bx-flashing mr-2">Additional Information is not set. Kindly let
                             admin
                             know.</span>
                     @endif
-                    @if (is_null($user->bank))<span
+                    @if (!isset($user->bank))<span
                             class="badge badge-danger bx-flashing mr-2">Bank Details are not set. Kindly let admin
                             know.</span>
                     @endif
-                    @if (is_null($user->emergency))<span
+                    @if (!isset($user->emergency))<span
                             class="badge badge-danger bx-flashing mr-2">Emergency Contacts are not set. Kindly let admin
                             know.</span>
                     @endif

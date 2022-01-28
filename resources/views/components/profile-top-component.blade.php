@@ -77,6 +77,8 @@
                             </div>
                         @endif
                     </div>
+                    <div class="pro-edit"><a data-target="#profile_info_employee" data-toggle="modal"
+                            class="edit-icon" href="#"><i class="fa fa-pencil"></i></a></div>
                 </div>
             </div>
         </div>
@@ -118,3 +120,5 @@
         @endpush
     @endif
 </div>
+
+<x-modals.password-change-modal />

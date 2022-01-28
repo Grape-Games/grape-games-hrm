@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Employees\Profile\UpdatePasswordRequest;
 use App\Http\Requests\StoreEmployeeHrmAccountRequest;
 use App\Models\Employee;
 use App\Models\User;
@@ -93,7 +94,19 @@ class EmployeeAccountCreateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return ($id);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request, $id)
+    {
+        try {
+            $update = User::where('id', $id)->update($request->validated());
+            if ($update)
+                return JsonResponseService::getJsonSuccess('Password updated successfully.');
+            return JsonResponseService::getJsonFailed('Failed to update password.');
+        } catch (Exception $exception) {
+            return JsonResponseService::getJsonException($exception);
+        }
     }
 
     /**
