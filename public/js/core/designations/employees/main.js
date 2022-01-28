@@ -37,7 +37,6 @@ $("#addDesignationForm").submit(function (e) {
 function designationCallback(response, errorClassName, table) {
     btn.prop("disabled", false);
     btn.html("Add Designation");
-
     if (response.status == 422) validationPrint(response, errorClassName);
     else if (response.status == 200) {
         makeToastr("success", response.response, "Action Successful. 😃");
