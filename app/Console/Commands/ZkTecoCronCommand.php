@@ -91,7 +91,6 @@ class ZkTecoCronCommand extends Command
                         'action' => 'resolved',
                         'device_id' => $device->id,
                     ]);
-                    MailService::sendZkSuccess('Saved the attendance and users.', $device->ip_address);
                 } else {
                     MailService::sendZkError('Failed to create connection to the device.', $device->ip_address);
                     DeviceLogs::create([

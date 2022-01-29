@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('zkteco:fetch')
-            ->everyTwoHours();
+            ->hourly();
 
         // command to back up mySql daily.
         $schedule->command('database:backup')->daily();
