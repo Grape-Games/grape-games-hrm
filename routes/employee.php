@@ -24,7 +24,7 @@ Route::group([
     Route::post('events/update/custom', [EventController::class, 'update2'])->name('events.update2');
     Route::post('events/create/custom', [EventController::class, 'create2'])->name('events.create2');
     Route::get('view-notice-board', [NoticeBoardController::class, 'viewBoard'])->name('view-notice-board');
-    Route::post('upadate-pass/{id}', [EmployeeAccountCreateController::class, 'updatePassword'])->name('update-pass');
+    Route::post('update-pass/{id}', [EmployeeAccountCreateController::class, 'updatePassword'])->name('update-pass');
     Route::get('view-attendance', [EmployeeAttendanceaController::class, 'index'])->name('employee.attendance.index');
     Route::get('attendance-request', [EmployeeAttendanceaController::class, 'requestIndex'])->name('employee.attendance.request');
     Route::get('salary-report', [EmployeeSalaryDetailsController::class, 'reportIndex'])->name('employee.salary.report');

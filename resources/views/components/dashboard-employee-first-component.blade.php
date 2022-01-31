@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <div class="welcome-box">
                 <div class="welcome-img">
-                    <img alt="" src="{{ $user->getFirstMediaUrl('avatars') }}"
+                    <img alt="" src="{{ $dp->getFirstMediaUrl('avatars') }}"
                         onerror="this.onerror=null; this.src='{{ asset('assets/img/placeholder.jpg') }}'">
                 </div>
                 <div class="welcome-det">

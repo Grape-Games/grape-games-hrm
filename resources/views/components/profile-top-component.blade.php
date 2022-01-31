@@ -8,12 +8,13 @@
                     <div class="profile-img-wrap">
                         <div class="profile-img">
                             <a href="#">
-                                <img alt="" src="{{ $user->getFirstMediaUrl('avatars') }}"
-                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/placeholder.jpg') }}'">
+                                <img class="inline-block" src="{{ $dp->getFirstMediaUrl('avatars') }}"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/placeholder.jpg') }}'"
+                                    alt="">
                             </a>
                         </div>
                     </div>
-                    <div class="profile-basic">
+                    <div class=" profile-basic">
                         @if ($user !== null)
                             <div class="row">
                                 <div class="col-md-5">

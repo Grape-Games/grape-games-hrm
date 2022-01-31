@@ -72,7 +72,8 @@
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.employee-web-accounts.index')) class="subdrop" @endif>
-                            <i class="fa fa-user-circle-o" aria-hidden="true"></i><span> Employee Accounts</span>
+                            <i class="fas fa-user-plus    "></i>
+                            <span> Employee Accounts</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.employee-web-accounts.index')) display:block;@endif">
                             <li @if (Route::is('dashboard.employee-web-accounts.index')) class="active" @endif>

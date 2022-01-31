@@ -100,10 +100,14 @@ class EmployeeAccountCreateController extends Controller
     public function updatePassword(UpdatePasswordRequest $request, $id)
     {
         try {
-            $update = User::where('id', $id)->update($request->validated());
-            if ($update)
-                return JsonResponseService::getJsonSuccess('Password updated successfully.');
-            return JsonResponseService::getJsonFailed('Failed to update password.');
+            $user = User::find($id);
+            if ($request->hasFile('file') && $request->file('file')->isValid()) {
+                $user->clearMediaCollection('avatars');
+                $user->addMediaFromRequest('file')->toMediaCollection('avatars', 'avatars');
+            }
+            if ($user->update($request->validated()))
+                return JsonResponseService::getJsonSuccess('Profile updated successfully.');
+            return JsonResponseService::getJsonFailed('Failed to update the profile.');
         } catch (Exception $exception) {
             return JsonResponseService::getJsonException($exception);
         }

@@ -23,6 +23,8 @@ class PasswordChangeModal extends Component
      */
     public function render()
     {
-        return view('components.modals.password-change-modal');
+        return view('components.modals.password-change-modal', [
+            'user' => auth()->user()
+        ]);
     }
 }

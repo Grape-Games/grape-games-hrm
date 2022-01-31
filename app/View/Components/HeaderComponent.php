@@ -30,7 +30,8 @@ class HeaderComponent extends Component
             : $user = Employee::where('user_id', auth()->id())->first();
         return view('components.header-component', [
             'user' => $user,
-            'role' => $role
+            'role' => $role,
+            'dp' => auth()->user()
         ]);
     }
 }

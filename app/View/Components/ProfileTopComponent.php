@@ -25,7 +25,8 @@ class ProfileTopComponent extends Component
     public function render()
     {
         return view('components.profile-top-component', [
-            'user' => Employee::where('user_id', auth()->id())->with(['company', 'designation', 'owner', 'bank', 'additional', 'emergency'])->first()
+            'user' => Employee::where('user_id', auth()->id())->with(['company', 'designation', 'owner', 'bank', 'additional', 'emergency'])->first(),
+            'dp' => auth()->user()
         ]);
     }
 }

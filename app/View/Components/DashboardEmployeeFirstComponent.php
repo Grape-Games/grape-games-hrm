@@ -48,6 +48,7 @@ class DashboardEmployeeFirstComponent extends Component
             'leavesTaken' => $leaveTaken,
             'leavesAllowed' => $leavesAllowed,
             'user' => $user,
+            'dp' => auth()->user()
         ]);
     }
 }

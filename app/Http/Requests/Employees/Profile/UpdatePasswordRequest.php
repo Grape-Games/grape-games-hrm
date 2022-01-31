@@ -29,6 +29,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'file' => 'mimes:jpeg,jpg,png,gif|max:40000'
         ];
     }
     public function validated()

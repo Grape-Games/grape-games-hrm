@@ -13,6 +13,17 @@
                     @csrf
                     <div class="eme-errors-print mb-2"></div>
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-img-wrap edit-img">
+                                <img class="inline-block" src="{{ $user->getFirstMediaUrl('avatars') }}"
+                                    onerror="this.onerror=null; this.src='{{ asset('assets/img/placeholder.jpg') }}'"
+                                    alt="">
+                                <div class="fileupload btn">
+                                    <span class="btn-text">edit</span>
+                                    <input class="upload" type="file" name="file">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>New Password<span class="text-danger">*</span></label>
