@@ -52,12 +52,23 @@
                                     Employees</a></li>
                         </ul>
                     </li>
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.admin-attendance.management')) class="subdrop" @endif>
+                            <i class="fas fa-calendar-star    "></i> <span>Attendance Management</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.admin-attendance.management')) display:block;@endif">
+                            <li @if (Route::is('dashboard.admin-attendance.management')) class="active" @endif>
+                                <a href="{{ route('dashboard.admin-attendance.management') }}">View/Update Employee
+                                    Attendance</a>
+                            </li>
+                        </ul>
+                    </li>
 
                     <li class="menu-title">
                         <span>Admin Section</span>
                     </li>
                     <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) class="subdrop" @endif>
+                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block;@endif">
