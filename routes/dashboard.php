@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAttendanceManagementController;
 use App\Http\Controllers\BiometricDeviceController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
@@ -35,6 +36,7 @@ Route::group([
     Route::resource('notice-board', NoticeBoardController::class);
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
+    Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
 
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');

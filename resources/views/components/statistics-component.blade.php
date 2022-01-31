@@ -6,7 +6,7 @@
                 <h5 class="card-title">Statistics</h5>
                 <div class="stats-list">
                     <div class="stats-info">
-                        <p>Present Today <strong>{{ $presentToday }}<small>/ {{ $employees }}</small></strong></p>
+                        <p>Present Today <strong>{{ $presentToday }}<small>/ {{ $employeesCount }}</small></strong></p>
                         <div class="progress">
                             <div class="progress-bar bg-success" role="progressbar"
                                 style="width: {{ ($presentToday / $employees) * 100 }}%" aria-valuenow="31"

@@ -30,12 +30,15 @@ class StatisticsComponent extends Component
      */
     public function render()
     {
+        $employees = Employee::all()->count();
+        $employees == 0 ? $employees = 1 : '';
         return view('components.statistics-component', [
             'devices' => BiometricDevice::all()->count(),
             'events' => Event::all()->count(),
             'designations' => Designation::all()->count(),
             'departments' => Department::all()->count(),
-            'employees' => Employee::all()->count(),
+            'employees' => $employees,
+            'employeesCount' => Employee::all()->count(),
             'presentToday' => Attendance::whereDay('attendance', Carbon::today())->get()->groupBy('employee_id')->count()
         ]);
     }
