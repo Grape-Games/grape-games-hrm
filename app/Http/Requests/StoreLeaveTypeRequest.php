@@ -29,7 +29,8 @@ class StoreLeaveTypeRequest extends FormRequest
             'name' => 'required|string|unique:leave_types,name,NULL,id,deleted_at,NULL',
             'allowed' => 'required|numeric',
             'status' => 'required|in:active,held',
-            'paid' => 'in:true,false'
+            'paid' => 'in:true,false',
+            'time_span' => 'required|in:annualy,monthly,once'
         ];
     }
 

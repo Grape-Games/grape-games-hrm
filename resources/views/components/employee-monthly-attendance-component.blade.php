@@ -13,31 +13,10 @@
 
 @push('extended-js')
 
-
-
-
-    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
-    <script src="{{ asset('js/core/charts/monthly-attendance.js') }}"></script>
     <script>
         var data = @json($dates);
         const d = new Date();
         let month = d.getMonth();
-
-        let objArr = new Array();
-
-        let obj2 = {
-            backgroundColor: "#55ce63",
-        };
-
-        $.each(data, function(indexInArray, valueOfElement) {
-            let obj = {};
-            obj["d-" + valueOfElement[0]] = obj2;
-            objArr.push(obj);
-        });
-
-        console.log(objArr);
 
         var myConfig = {
             type: "calendar",
@@ -57,7 +36,13 @@
                     items: {
                         @php
                         foreach ($dates as $date) {
-                            echo '"d-' . $date[0] . '":{ backgroundColor: "#55ce63",},';
+                            if ($date[2] == 'P') {
+                                echo '"d-' . $date[0] . '":{ backgroundColor: "#55ce63",},';
+                            } elseif ($date[2] == 'A') {
+                                echo '"d-' . $date[0] . '":{ backgroundColor: "#ff4949",},';
+                            } else {
+                                echo '"d-' . $date[0] . '":{ backgroundColor: "#6C7EB7",},';
+                            }
                         }
                         @endphp
                     },

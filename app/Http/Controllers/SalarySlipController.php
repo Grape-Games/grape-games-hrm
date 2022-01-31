@@ -26,7 +26,7 @@ class SalarySlipController extends Controller
                 $data
             )) {
                 DB::commit();
-                return JSONResponseService::getJsonSuccess(route('print-slip', ['id' => $slip->id]));
+                return JSONResponseService::getJsonSuccess(route('dashboard.print-slip', ['id' => $slip->id]));
                 // return JsonResponseService::getJsonSuccess('Employee Salary information is successfully updated/created.');
             }
         } catch (Exception $exception) {

@@ -19,6 +19,9 @@
 
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
 
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.min.css') }}">
@@ -74,7 +77,8 @@
                             {{ env('APP_NAME') }} </a>
                     </div>
                     <div class="pull-right">
-                        <a href="https://fast-devs.com" class="mb-2 bx-burst" target="_blank"><i class="la la-copyright"></i>By Fast
+                        <a href="https://fast-devs.com" class="mb-2 bx-burst" target="_blank"><i
+                                class="la la-copyright"></i>By Fast
                             Devs </a>
                     </div>
                 </div>

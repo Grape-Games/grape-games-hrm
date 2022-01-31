@@ -6,9 +6,10 @@
                 <h5 class="card-title">Statistics</h5>
                 <div class="stats-list">
                     <div class="stats-info">
-                        <p>Present Today <strong>4 <small>/ 65</small></strong></p>
+                        <p>Present Today <strong>{{ $presentToday }}<small>/ {{ $employees }}</small></strong></p>
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 31%" aria-valuenow="31"
+                            <div class="progress-bar bg-success" role="progressbar"
+                                style="width: {{ ($presentToday / $employees) * 100 }}%" aria-valuenow="31"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
@@ -16,22 +17,22 @@
                         <div class="time-list">
                             <div class="dash-stats-list">
                                 <i class="fa fa-4x fa-building text-danger" aria-hidden="true"></i>
-                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <h3 class="mt-4"><strong>{{ $departments }}</strong></h3>
                                 <p>Departments</p>
                             </div>
                             <div class="dash-stats-list">
                                 <i class="fa fa-4x fa-user-plus text-danger" aria-hidden="true"></i>
-                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <h3 class="mt-4"><strong>{{ $designations }}</strong></h3>
                                 <p>Designations</p>
                             </div>
                             <div class="dash-stats-list">
                                 <i class="fa fa-4x fa-fax text-danger" aria-hidden="true"></i>
-                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <h3 class="mt-4"><strong>{{ $devices }}</strong></h3>
                                 <p>Devices</p>
                             </div>
                             <div class="dash-stats-list">
                                 <i class="fa fa-4x fa-calendar text-danger" aria-hidden="true"></i>
-                                <h3 class="mt-4"><strong>1</strong></h3>
+                                <h3 class="mt-4"><strong>{{ $events }}</strong></h3>
                                 <p>Events</p>
                             </div>
                         </div>

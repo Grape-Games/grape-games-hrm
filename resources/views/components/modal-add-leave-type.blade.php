@@ -1,3 +1,6 @@
+@push('extended-js')
+    @include('vendors.select2')
+@endpush
 <!-- Add leave Type Modal -->
 <div id="add_leave_type" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -24,8 +27,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Leaves allowed <span class="text-danger">*</span></label>
-                                <input class="form-control" type="number" placeholder="Number of leaves allowed" name="allowed"
-                                    required>
+                                <input class="form-control" type="number" placeholder="Number of leaves allowed"
+                                    name="allowed" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Leaves Time span<span class="text-danger">*</span></label>
+                                <select class="form-control" name="time_span" id="" required>
+                                    <option value="">Please select the time span of the leave</option>
+                                    <option value="annualy">Annualy</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="once">Once</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">

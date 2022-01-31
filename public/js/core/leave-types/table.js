@@ -10,6 +10,7 @@ const dtColumns = [
         },
     },
     { title: "Allowed Leave", data: "allowed" },
+    { title: "Time Span", data: "time_span",className:"text-capitalize" },
     { title: "Added by", data: "owner.name" },
     {
         data: "id",

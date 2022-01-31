@@ -1,9 +1,7 @@
 $(document).ready(function () {
-    // Bar Chart
-
     Morris.Bar({
         element: "bar-charts",
-        data: data,
+        data: barData,
         xkey: "y",
         ykeys: ["a", "b"],
         labels: ["Total Tasks", "Tasks Completed"],

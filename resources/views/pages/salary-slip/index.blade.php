@@ -15,8 +15,8 @@
 @endsection
 
 @push('extended-js')
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
-    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script type="text/javascript" src="{{ asset('js/extensions/jspdf/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/extensions/jspdf/html2canvas.js') }}"></script>
     <script>
         let fileName =
             '{{ $slip->employee->first_name . '-' . $slip->employee->last_name . '-' . \Carbon\Carbon::now()->format('Y-M') }}';

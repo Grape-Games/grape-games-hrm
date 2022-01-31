@@ -35,10 +35,10 @@
     <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
         <div class="card dash-widget">
             <div class="card-body">
-                <span class="dash-widget-icon"><i class="fa fa-question-circled" aria-hidden="true"></i></span>
+                <span class="dash-widget-icon"><i class="fa fa-question" aria-hidden="true"></i></span>
                 <div class="dash-widget-info">
-                    <h3>218</h3>
-                    <span>Leave Requests</span>
+                    <h3>{{ $requests }}</h3>
+                    <span>Pending Leaves</span>
                 </div>
             </div>
         </div>

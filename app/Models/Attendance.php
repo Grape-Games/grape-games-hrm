@@ -18,6 +18,11 @@ class Attendance extends Model
 
     protected $dates = ['attendance'];
 
+    public function getAttendanceAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('l F j, Y, g:i a');
+    }
+
     /**
      * Get the employee that owns the Attendance
      *

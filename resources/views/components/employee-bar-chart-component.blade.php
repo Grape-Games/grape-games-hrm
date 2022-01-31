@@ -12,16 +12,12 @@
 </section>
 
 @push('extended-js')
-    <!-- Chart JS -->
-    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
 
     <script>
         function randomIntFromInterval(min, max) { // min and max included 
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
-        var dates = @json($data);
+        var dates = @json($dataBarChart);
         var datesArr = [];
         $.each(dates, function(indexInArray, valueOfElement) {
             let obj = {};
@@ -30,7 +26,7 @@
             obj.b = randomIntFromInterval(1, 100);
             datesArr.push(obj)
         });
-        data = datesArr;
+        barData = datesArr;
     </script>
 
 @endpush

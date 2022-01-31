@@ -49,11 +49,16 @@
 
 @section('content')
 
-    <x-bread-crumb-component :modal=true modalType="Event" modalId="add_event" />
+    @can('is-employee')
+        <x-bread-crumb-component :modal=false />
+    @endcan
+
+    @can('is-admin')
+        <x-bread-crumb-component :modal=true modalType="Event" modalId="add_event" />
+        <x-event-modals-component />
+    @endcan
 
     <x-events-calendar-component />
-
-    <x-event-modals-component />
 
 @endsection
 

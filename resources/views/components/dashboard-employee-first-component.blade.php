@@ -22,7 +22,7 @@
     </div>
 @endif
 <div class="content container-fluid">
-    <div class="row">
+    <div class="row" style="margin-top:30px">
         <div class="col-md-12">
             <div class="welcome-box">
                 <div class="welcome-img">

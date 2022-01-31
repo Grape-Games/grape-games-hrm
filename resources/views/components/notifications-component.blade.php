@@ -1,8 +1,8 @@
 <!-- Notifications -->
 <li class="nav-item dropdown mr-2 ml-2">
     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-        <i class="fa fa-bell-o"></i> <span
-            class="badge badge-pill">{{ $notifications->where('read_at', null)->count() }}</span>
+        <i class="fas fa-bell bx-tada"></i>
+        <span class="badge badge-pill">{{ $notifications->where('read_at', null)->count() }}</span>
     </a>
     <div class="dropdown-menu notifications">
         <div class="topnav-dropdown-header">

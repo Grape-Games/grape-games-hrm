@@ -3,10 +3,10 @@
 namespace App\View\Components;
 
 use App\Models\Employee;
-use App\Models\EmployeeLeaves;
+use App\Models\SalaryFormula;
 use Illuminate\View\Component;
 
-class DashboardCardsFirstAdminComponent extends Component
+class EmployeeSalaryDetailsComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -25,9 +25,9 @@ class DashboardCardsFirstAdminComponent extends Component
      */
     public function render()
     {
-        return view('components.dashboard-cards-first-admin-component', [
-            'employees' => Employee::all(),
-            'requests' => EmployeeLeaves::where('status', 'pending')->count(),
+        $employeeId = Employee::where('user_id', auth()->id())->value('id');
+        return view('components.employee-salary-details-component',[
+            'formula' => SalaryFormula::where('employee_id', $employeeId)->first()
         ]);
     }
 }

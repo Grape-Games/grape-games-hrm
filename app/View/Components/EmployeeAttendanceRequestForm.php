@@ -2,11 +2,9 @@
 
 namespace App\View\Components;
 
-use App\Models\Employee;
-use App\Models\EmployeeLeaves;
 use Illuminate\View\Component;
 
-class DashboardCardsFirstAdminComponent extends Component
+class EmployeeAttendanceRequestForm extends Component
 {
     /**
      * Create a new component instance.
@@ -25,9 +23,6 @@ class DashboardCardsFirstAdminComponent extends Component
      */
     public function render()
     {
-        return view('components.dashboard-cards-first-admin-component', [
-            'employees' => Employee::all(),
-            'requests' => EmployeeLeaves::where('status', 'pending')->count(),
-        ]);
+        return view('components.employee-attendance-request-form');
     }
 }

@@ -53,3 +53,12 @@ function refreshNotficationDivs() {
     refreshDivByid("notifyPill1");
     refreshDivByid("notifications");
 }
+
+function handleTickInit(tick) {
+    var counter = Tick.count.schedule("every hour", {
+        format: ["m", "s"],
+    });
+    counter.onupdate = function (value) {
+        tick.value = value;
+    };
+}

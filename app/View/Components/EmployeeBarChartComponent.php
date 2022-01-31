@@ -25,7 +25,7 @@ class EmployeeBarChartComponent extends Component
     public function render()
     {
         $data = array();
-        for ($i =4; $i >= 0; $i--) {
+        for ($i = 4; $i >= 0; $i--) {
             $month = Carbon::today()->startOfMonth()->subMonth($i);
             $year = Carbon::today()->startOfMonth()->subMonth($i)->format('Y');
             array_push($data, array(
@@ -35,7 +35,7 @@ class EmployeeBarChartComponent extends Component
         }
         return view(
             'components.employee-bar-chart-component',
-            ['data' => $data]
+            ['dataBarChart' => $data]
         );
     }
 }

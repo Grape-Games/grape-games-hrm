@@ -123,9 +123,13 @@
                             </li>
                             <li @if (Route::is('dashboard.employee-salaries.create')) class="active" @endif>
                                 <a href="{{ route('dashboard.employee-salaries.create') }}">
-                                    View/Print Employee Salary</a>
+                                    Print/Save Employee Salary</a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
+                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
+                            <span>Salary Slips History</span></a>
                     </li>
 
                     <li class="menu-title">
@@ -145,11 +149,66 @@
                 @endcan
                 @can('is-employee')
                     <li class="menu-title">
-                        <span>Leaves</span>
+                        <span>Tasks</span>
+                    </li>
+                    <li class="#">
+                        <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i>
+                            <span>View Tasks</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Calendar and Events</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.events.index')) active @endif ">
+                        <a href="{{ route('dashboard.events.index') }}"><i class="fa fa-calendar-check-o"
+                                aria-hidden="true"></i>
+                            <span>Upcoming events</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Attendance Section</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.employee.attendance.index')) active @endif">
+                        <a href="{{ route('dashboard.employee.attendance.index') }}">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                            <span>View Attendance</span></a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.employee.attendance.request')) active @endif ">
+                        <a href="{{ route('dashboard.employee.attendance.request') }}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span>Attendance Request</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Salary Section</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.employee.salary.index')) active @endif ">
+                        <a href="{{ route('dashboard.employee.salary.index') }}">
+                            <i class="fa fa-money bx-tada" aria-hidden="true"></i>
+                            <span>Salary Slip</span></a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.employee.salary.report')) active @endif ">
+                        <a href="{{ route('dashboard.employee.salary.report') }}">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                            <span>Salary Report</span></a>
+                    </li>
+
+                    <li class="menu-title">
+                        <span>Leaves Management</span>
                     </li>
                     <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
                         <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
                             <span>View/Apply</span></a>
+                    </li>
+                    <li class="menu-title">
+                        <span>Misc.</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.view-notice-board')) active @endif ">
+                        <a href="{{ route('dashboard.view-notice-board') }}">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                            <span>Notice Board</span></a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.profile.index')) active @endif ">
+                        <a href="{{ route('dashboard.profile.index') }}">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <span>Profile Settings</span></a>
                     </li>
                 @endcan
             </ul>
