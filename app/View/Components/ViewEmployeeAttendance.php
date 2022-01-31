@@ -41,8 +41,8 @@ class ViewEmployeeAttendance extends Component
             ->whereDay('attendance', Carbon::now()->day)->get();
 
         count($todayPunches) > 1
-            ? $time = \Carbon\Carbon::parse($todayPunches[0]->attendance)->diffInMinutes($todayPunches[count($todayPunches) - 1]->attendance)
-            : $time = \Carbon\Carbon::parse($todayPunches[0]->attendance)->diffInMinutes(\Carbon\Carbon::now());
+            ? $time = Carbon::parse($todayPunches[0]->attendance)->diffInMinutes($todayPunches[count($todayPunches) - 1]->attendance)
+            : $time = Carbon::parse($todayPunches[0]->attendance)->diffInMinutes(Carbon::now());
         $minutes = $this->convertToHoursMins($time);
 
         return view(
