@@ -113,7 +113,7 @@
     <div class="row filter-row mb-2">
         <div class="col-sm-4">
             <div class="form-group form-focus select-focus">
-                <select class="select floating" name="month" required>
+                <select class="select select2 floating" name="month" required>
                     <option value="">Select Month</option>
                     <option>Jan</option>
                     <option>Feb</option>
@@ -132,7 +132,7 @@
         </div>
         <div class="col-sm-4">
             <div class="form-group form-focus select-focus">
-                <select class="select floating" name="year" required>
+                <select class="select select2 floating" name="year" required>
                     <option value="">Select year</option>
                     @foreach ($years as $item)
                         <option value="{{ $item }}">{{ $item }}</option>

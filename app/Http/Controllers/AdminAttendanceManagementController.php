@@ -20,50 +20,45 @@ class AdminAttendanceManagementController extends Controller
         return $dates;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $thisMonthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
-        $multipleArrays = [];
-        $formattedDatesArr = [];
-        $employeeArrays = [];
-        $employeeId = Employee::pluck('id');
-        foreach ($employeeId as $key => $value) {
+        if ($request->filled(['employee_id', 'year', 'month'])) {
+            $employeeArrays = [];
+            $thisMonthDays = $this->generateDateRange(
+                Carbon::parse($request->month . '-' . $request->year)->startOfMonth(),
+                Carbon::parse($request->month . '-' . $request->year)->endOfMonth()
+            );
             array_push(
                 $employeeArrays,
-                Attendance::where('employee_id', $value)
-                    ->whereMonth('attendance', Carbon::now()->month)
+                Attendance::where('employee_id', $request->employee_id)
+                    ->whereMonth('attendance', Carbon::parse($request->month . '-' . $request->year)->month)
+                    ->whereYear('attendance', $request->year)
                     ->with(['employee'])->get()
                     ->groupBy(function ($date) {
                         return Carbon::parse($date->attendance)->format('Y-m-d');
                     })
             );
+        } else {
+            $employeeArrays = [];
+            $thisMonthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
+            $employeeId = Employee::pluck('id');
+            foreach ($employeeId as $key => $value) {
+                array_push(
+                    $employeeArrays,
+                    Attendance::where('employee_id', $value)
+                        ->whereMonth('attendance', Carbon::now()->month)
+                        ->with(['employee'])->get()
+                        ->groupBy(function ($date) {
+                            return Carbon::parse($date->attendance)->format('Y-m-d');
+                        })
+                );
+            }
         }
-        // return $employeeArrays;
-        // $thisMonthDaysPresence = Attendance::where('employee_id', $employeeId)
-        //     ->whereMonth('created_at', Carbon::now()->month)->pluck('attendance');
-        // // $formattedDatesPresence = $thisMonthDaysPresence->map(function ($date) {
-        // //     return $date->format('Y-m-d');
-        // // });
-        // foreach ($thisMonthDaysPresence as $key => $value) {
-        //     array_push($formattedDatesArr, Carbon::parse($value)->format('Y-m-d'));
-        // }
-
-        // foreach ($thisMonthDays as $singleDay) {
-
-        //     if (in_array($singleDay, $formattedDatesArr)) {
-        //         array_push($multipleArrays, [$singleDay, 'Present', 'P']);
-        //     } else {
-        //         $parsed = Carbon::parse($singleDay);
-        //         if ($parsed->dayOfWeek == Carbon::SUNDAY || $parsed->dayOfWeek == Carbon::SATURDAY) {
-        //             array_push($multipleArrays, [$singleDay, 'Weekend', 'H']);
-        //         } else {
-        //             array_push($multipleArrays, [$singleDay, 'Absent', 'A']);
-        //         }
-        //     }
-        // }
         return view('pages.admin.attendance.index', [
             'monthDays' => $thisMonthDays,
-            'monthlyAttendance' => $employeeArrays
+            'monthlyAttendance' => $employeeArrays,
+            'years' => range(1990, strftime('%Y', time())),
+            'employees' => Employee::all()
         ]);
     }
 }

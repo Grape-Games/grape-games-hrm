@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,9 +19,14 @@ class Attendance extends Model
 
     protected $dates = ['attendance'];
 
+    public function setAttendanceAttribute($value)
+    {
+        // $this->attributes['attendance'] = Carbon::parse($value)->addHours(3);
+    }
+
     public function getAttendanceAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('l F j, Y, g:i a');
+        return Carbon::parse($value)->format('l F j, Y, g:i a');
     }
 
     /**
