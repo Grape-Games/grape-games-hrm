@@ -24,7 +24,7 @@ class Attendance extends Model
 
     public function getAttendanceAttribute($value)
     {
-        return Carbon::parse($value)->addHours(3)->format('l F j, Y, g:i a');
+        return Carbon::parse($value)->format('l F j, Y, g:i a');
     }
 
     /**
