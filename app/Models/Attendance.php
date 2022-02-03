@@ -16,17 +16,15 @@ class Attendance extends Model
         'biometric_device_id',
         'attendance',
     ];
-
-    protected $dates = ['attendance'];
-
-    public function setAttendanceAttribute($value)
-    {
-        // $this->attributes['attendance'] = Carbon::parse($value)->addHours(3);
-    }
+    
+    // public function setAttendanceAttribute($value)
+    // {
+    //     // $this->attributes['attendance'] = Carbon::parse($value)->addHours(3);
+    // }
 
     public function getAttendanceAttribute($value)
     {
-        return Carbon::parse($value)->format('l F j, Y, g:i a');
+        return Carbon::parse($value)->addHours(3)->format('l F j, Y, g:i a');
     }
 
     /**

@@ -94,15 +94,19 @@
                                         <td>
                                             <a href="javascript:void(0);" class="view-attendance-details"
                                                 data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                                data-toggle="modal" data-target="#attendance_info">
+                                                data-employeeId=" @foreach ($item as $val)
+                                                $val->employee->id
+                                                #
+                                                @endforeach"
+                                                data-toggle="modal" data-target="#attendance_info_in">
                                                 <i class="fa fa-check text-success"></i>
                                             </a>
                                         </td>
                                     @else
                                         <td>
-                                            <a href="javascript:void(0);" class="view-attendance-details"
+                                            <a href="javascript:void(0);" class="view-attendance-details-absent"
                                                 data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                                data-toggle="modal" data-target="#attendance_info">
+                                                data-toggle="modal" data-target="#attendance_info_out">
                                                 <i class="fa fa-times text-danger"></i>
                                             </a>
                                         </td>
@@ -139,12 +143,22 @@
             $(this).valid() ? this.submit() : false;
         });
 
+        $(".view-attendance-details-absent").click(function(e) {
+            $("[name=day_attendance]").val($(this).data('date'));
+            $("[name=employee_id]").val($(this).data('date'));
+            $(".li-html-2").html(
+                '<li><p class="mb-0">Punch at</p><p class="res-activity-time"><i class="fa fa-clock-o mr-2"></i>No details available</p></li>'
+            )
+        });
+
         $(".view-attendance-details").click(function(e) {
             e.preventDefault();
             $(".li-html").html('');
             $(".punch-in-time").html('NA');
             $(".punch-out-time").html('NA');
             $(".working-hours").html('0:00 hrs');
+            $("[name=day_attendance]").val($(this).data('date'));
+            $("[name=employee_id]").val();
             var timestamps = $(this).data('item');
             var datedStampes = timestamps[$(this).data('date')];
             console.log(datedStampes);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\EmployeeAttendanceController;
 use App\Services\NodeZkTecoService;
 use App\Services\ZKTecoApiService;
 use Illuminate\Http\Request;
@@ -42,4 +43,11 @@ Route::group([
     Route::post('saveAttendanceToDevice', [NodeZkTecoService::class, 'saveAttendanceToDevice'])->name('saveAttendanceToDevice');
     Route::get('getDevices', [NodeZkTecoService::class, 'getDevices'])->name('getDevices');
     Route::post('saveLogs', [NodeZkTecoService::class, 'saveLogs'])->name('saveLogs');
+});
+
+Route::group([
+    'prefix' => 'employee/attendance/',
+    'as' => 'api.employee.attendance.'
+], function () {
+    Route::post('save', [EmployeeAttendanceController::class, 'save'])->name('save-attendance');
 });

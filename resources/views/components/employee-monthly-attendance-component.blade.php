@@ -15,13 +15,13 @@
 
     <script>
         var data = @json($dates);
-        const d = new Date();
-        let month = d.getMonth();
+        const d = {{ $monthNumber }};
 
         var myConfig = {
             type: "calendar",
             options: {
-                endMonth: month,
+                startMonth: d,
+                endMonth: d,
                 year: {
                     visible: false,
                 },

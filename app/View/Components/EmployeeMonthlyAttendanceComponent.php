@@ -63,9 +63,9 @@ class EmployeeMonthlyAttendanceComponent extends Component
                 }
             }
         }
-
         return view('components.employee-monthly-attendance-component', [
             'dates' => $multipleArrays,
+            'monthNumber' => Carbon::now()->month
         ]);
     }
 }
