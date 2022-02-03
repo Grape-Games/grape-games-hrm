@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Services\JsonResponseService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,8 @@ class AdminAttendanceManagementController extends Controller
 
     public function index(Request $request)
     {
+        $statsArr = [];
+
         if ($request->filled(['employee_id', 'year', 'month'])) {
             $employeeArrays = [];
             $thisMonthDays = $this->generateDateRange(
@@ -38,6 +41,14 @@ class AdminAttendanceManagementController extends Controller
                         return Carbon::parse($date->attendance)->format('Y-m-d');
                     })
             );
+            $thisMonthDaysPresence = Attendance::where('employee_id', $request->employee_id)
+                ->whereMonth('created_at', Carbon::now()->month)->get()->groupBy(function ($date) {
+                    return Carbon::parse($date->attendance)->format('Y-m-d');
+                });
+            array_push($statsArr, [
+                'employee_id' => $request->employee_id,
+                'presenceArr' => $thisMonthDaysPresence
+            ]);
         } else {
             $employeeArrays = [];
             $thisMonthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
@@ -52,13 +63,32 @@ class AdminAttendanceManagementController extends Controller
                             return Carbon::parse($date->attendance)->format('Y-m-d');
                         })
                 );
+                $thisMonthDaysPresence = Attendance::where('employee_id', $value)
+                    ->whereMonth('created_at', Carbon::now()->month)->get()->groupBy(function ($date) {
+                        return Carbon::parse($date->attendance)->format('Y-m-d');
+                    });
+                array_push($statsArr, [
+                    'employee_id' => $value,
+                    'presenceArr' => $thisMonthDaysPresence
+                ]);
             }
         }
         return view('pages.admin.attendance.index', [
             'monthDays' => $thisMonthDays,
             'monthlyAttendance' => $employeeArrays,
             'years' => range(1990, strftime('%Y', time())),
-            'employees' => Employee::all()
+            'employees' => Employee::all(),
+            'statsArr' => $statsArr
         ]);
+    }
+
+    public function deletePunch(Request $request)
+    {
+        if (Attendance::where('id', $request->id)->delete()) {
+            session()->flash('message', 'Successfully done the operation.');
+            return JsonResponseService::getJsonSuccess('Record deleted successfully.');
+        } else {
+            return JsonResponseService::getJsonFailed('Failed to delete the record , please try again.');
+        }
     }
 }

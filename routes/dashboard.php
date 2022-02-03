@@ -37,6 +37,7 @@ Route::group([
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
     Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
+    Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');
 
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');

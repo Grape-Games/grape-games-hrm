@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Attendance Info</h5>
+                <h5 class="modal-title att-info att-info">Attendance Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -38,16 +38,19 @@
                                     </div>
                                 </div>
                                 <div class="timings">
-                                    <form action="{{ route('api.employee.attendance.save-attendance') }}"
-                                        method="POST">
+                                    <form class="employeeAttendanceUpdateForm"
+                                        action="{{ route('api.employee.attendance.save-attendance') }}" method="POST"
+                                        novalidate>
                                         @csrf
                                         <input type="hidden" name="day_attendance">
                                         <input type="hidden" name="employee_id">
+                                        <input type="hidden" name="device_id">
                                         <div class="row">
                                             <div class="col-md-6 col-6 text-center">
                                                 <div class="stats-box">
                                                     <p>Punch In</p>
-                                                    <input type="time" class="form-control" name="punch_in_time">
+                                                    <input type="time" class="form-control" name="punch_in_time"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-6 text-center">
@@ -69,6 +72,7 @@
                         <div class="card recent-activity">
                             <div class="card-body">
                                 <h5 class="card-title">Activity</h5>
+                                <div class="eror text-danger"></div>
                                 <ul class="res-activity-list li-html">
 
                                 </ul>
@@ -85,7 +89,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Attendance Info</h5>
+                <h5 class="modal-title att-info"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -121,16 +125,19 @@
                                     </div>
                                 </div>
                                 <div class="timings">
-                                    <form action="{{ route('api.employee.attendance.save-attendance') }}"
-                                        method="POST">
+                                    <form class="employeeAttendanceUpdateForm"
+                                        action="{{ route('api.employee.attendance.save-attendance') }}" method="POST"
+                                        novalidate>
                                         @csrf
                                         <input type="hidden" name="day_attendance">
                                         <input type="hidden" name="employee_id">
+                                        <input type="hidden" name="device_id">
                                         <div class="row">
                                             <div class="col-md-6 col-6 text-center">
                                                 <div class="stats-box">
                                                     <p>Punch In</p>
-                                                    <input type="time" class="form-control" name="punch_in_time">
+                                                    <input type="time" class="form-control" name="punch_in_time"
+                                                        required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-6 text-center">
