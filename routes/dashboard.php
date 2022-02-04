@@ -12,11 +12,15 @@ use App\Http\Controllers\LeaveApprovalController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ParentDesignationController;
+use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalarySlipController;
 use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
+
+Route::get('salary-cron',SalaryCronTestController::class);
+
 
 Route::group([
     'as' => 'dashboard.',
