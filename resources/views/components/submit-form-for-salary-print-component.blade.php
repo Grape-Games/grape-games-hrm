@@ -12,59 +12,76 @@
                 <form id="addEmployeeSalarySlip" action="{{ route('dashboard.save-salary-slip') }}" method="POST"
                     novalidate>
                     @csrf
+                    <div class="font-medium text-green-200 mb-2">
+                        <h4>1. Some fields can only be set
+                            <strong>
+                                <a href="{{ route('dashboard.employee-salaries.index') }}" class="bx-tada">
+                                    here 👈
+                                </a>
+                            </strong>
+                        </h4>
+                        <h4 class="text-danger">2. Note you should only set employee bonus or arrears for the
+                            particular month here ! 😞
+                        </h4>
+                        <h4 class="text-success">3. Arrears/Bonuses are reset every month or if submitted again. 🌛
+                        </h4>
+                    </div>
                     <div class="ss-errors-print mb-2"></div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Per day</label>
-                                <input class="form-control" type="number" placeholder="Per day" name="per_day">
+                                <input class="form-control" type="number" placeholder="Per day" name="per_day"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Per hour</label>
-                                <input class="form-control" type="number" placeholder="Per hour" name="per_hour">
+                                <input class="form-control" type="number" placeholder="Per hour" name="per_hour"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Per Minute</label>
-                                <input class="form-control" type="number" placeholder="Per minute" name="per_minute">
+                                <input class="form-control" type="number" placeholder="Per minute" name="per_minute"
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Basic Salary<span class="text-danger">*</span></label>
                                 <input class="form-control" type="number" placeholder="Basic Salary"
-                                    name="basic_salary" required>
+                                    name="basic_salary" required readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>House Allowance</label>
                                 <input class="form-control" type="number" placeholder="House Allowance"
-                                    name="house_allowance">
+                                    name="house_allowance" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Mess Allowance</label>
                                 <input class="form-control" type="number" placeholder="Mess Allowance"
-                                    name="mess_allowance">
+                                    name="mess_allowance" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Travelling Allowance</label>
                                 <input class="form-control" type="number" placeholder="Travelling Allowance"
-                                    name="travelling_allowance">
+                                    name="travelling_allowance" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Medical Allowance</label>
                                 <input class="form-control" type="number" placeholder="Medical Allowance"
-                                    name="medical_allowance">
+                                    name="medical_allowance" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">

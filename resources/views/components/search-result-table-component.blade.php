@@ -18,12 +18,8 @@
                         <thead>
                             <tr>
                                 <td>Name</td>
-                                <td>Month</td>
-                                <td>Days</td>
-                                <td>Working Days<br> <small class="text-muted">*All days except Saturdays and
-                                        Sundays.</small></td>
-                                <td>Holidays<br> <small class="text-muted">* Satudays and Sundays</small></td>
-                                <td>Leaves</td>
+                                <td>Total Month Days</td>
+                                <td>Holidays</td>
                                 <td>Paid</td>
                                 <td>Unpaid</td>
                                 <td>Action</td>
@@ -36,25 +32,20 @@
                                         {{ $employee->first_name . ' ' . $employee->last_name }}
                                     </td>
                                     <td>
-                                        <span class="badge badge-success">{{ $month }}</span>
+                                        <span
+                                            class="badge badge-warning">{{ isset($salArr[$employee->id]) ? $salArr[$employee->id]->total_days : 'NOT SET' }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-info">{{ $days }}</span>
+                                        <span
+                                            class="badge badge-info">{{ isset($salArr[$employee->id]) ? $salArr[$employee->id]->holidays : 'NOT SET' }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-warning"> {{ $weekDays }}</span>
+                                        <span
+                                            class="badge badge-success">{{ isset($salArr[$employee->id]) ? $salArr[$employee->id]->salary_days : 'NOT SET' }}</span>
                                     </td>
                                     <td>
-                                        <span class="badge badge-danger">{{ $days - $weekDays }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-light">0</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-success">0</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge badge-dark">0</span>
+                                        <span
+                                            class="badge badge-danger">{{ isset($salArr[$employee->id]) ? $salArr[$employee->id]->absent_days : 'NOT SET' }}</span>
                                     </td>
                                     <td>
                                         @if (isset($employee->salaryFormula))
@@ -72,8 +63,9 @@
                                                 title="Generate Employee Salary Slip"><i class="fa fa-print bx-tada"
                                                     aria-hidden="true"></i></button>
                                         @else
-                                            <span class="badge badge-danger bx-flashing">Details Not Set
-                                                First.</span>
+                                            <span class="badge badge-danger bx-flashing"><a
+                                                    href="{{ route('dashboard.employee-salaries.index') }}"></a>Details
+                                                Not Set</a></span>
                                         @endif
                                     </td>
                                 </tr>

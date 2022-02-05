@@ -40,9 +40,9 @@
 @push('extended-js')
     <script>
         $(function() {
-            var intervalId = window.setInterval(function() {
-                $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
-            }, 1);
+            // var intervalId = window.setInterval(function() {
+            //     $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
+            // }, 1);
         });
     </script>
     @if (session()->has('toast'))

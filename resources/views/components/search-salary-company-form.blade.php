@@ -18,7 +18,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label">Select Company</label>
                                 <div class="col-lg-9">
-                                    <select class="js-example-basic-single form-control" name="company_id" required>
+                                    <select class="select2 form-control" name="company_id" required>
                                         @forelse ($companies as $company)
                                             <option value="{{ $company->id }}">{{ $company->name }}</option>
                                         @empty
@@ -31,7 +31,7 @@
                                 <label class="col-lg-3 col-form-label">Select Salary Month</label>
                                 <div class="col-lg-9">
                                     <input type="month" name="month" class="form-control"
-                                        max="{{ \Carbon\Carbon::now()->subMonths(1)->format('Y-m') }}" required>
+                                        max="{{ \Carbon\Carbon::now()->format('Y-m') }}" required>
                                     <small class="text-muted mt-2">Note : This months salary details will be available
                                         at
                                         the end of month.</small>
@@ -47,8 +47,7 @@
             </div>
         </div>
         @if (Request::has('company_id') && Request::has('month'))
-            @if (Request::get('month') <=
-    \Carbon\Carbon::now()->subMonths(1)->format('Y-m'))
+            @if (Request::get('month') <= \Carbon\Carbon::now()->format('Y-m'))
                 @push('extended-js')
                     <script>
                         $(function() {

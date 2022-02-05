@@ -49,7 +49,8 @@
                             <li>Registration # : {{ $salaryDetails->employee->registration_no }} </li>
                             <li>
                                 @if (isset($salaryDetails->employee->additional->join_date))
-                                    Join Date : {{ $salaryDetails->employee->additional->join_date }}
+                                    Join Date :
+                                    {{ $salaryDetails->employee->additional->join_date->format('l F j, Y') }}
                                 @endif
                             </li>
                         </ul>
@@ -64,7 +65,7 @@
                                     <tr>
                                         <td><strong>Basic Salary</strong>
                                             <span class="float-right">&nbsp;Rs</span>
-                                            <span class="float-right earned">
+                                            <span class="float-right">
                                                 {{ isset($salaryDetails->basic_salary) ? $salaryDetails->basic_salary : 0 }}
                                             </span>
                                         </td>
@@ -113,6 +114,13 @@
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right earned">
                                                 {{ isset($salaryDetails->other_allowance) ? $salaryDetails->other_allowance : 0 }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Calculated Salary</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->calculated_salary) ? $salaryDetails->calculated_salary : 0 }}</span>
                                         </td>
                                     </tr>
                                     <tr>

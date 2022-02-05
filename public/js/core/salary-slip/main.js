@@ -104,20 +104,27 @@ $(function () {
         earnings.push(number);
     });
     let numOr0 = (n) => (isNaN(n) ? 0 : n);
-    let totalEarning = earnings.reduce((a, b) => numOr0(a) + numOr0(b));
-    let totalDeduction = deducts.reduce((a, b) => numOr0(a) + numOr0(b));
-    let netTotal = totalEarning - totalDeduction;
-    $(".earning-result").html(totalEarning);
-    $(".deduction-result").html(totalDeduction);
-    $(".net-total")
-        .html(
-            "Net total : " +
-                netTotal +
-                " RS " +
-                number2words(netTotal) +
-                " Only/-"
-        )
-        .addClass("bx-flashing text-capitalize");
+    if (
+        earnings != undefined &&
+        earnings.length != 0 &&
+        deducts != undefined &&
+        deducts.length != 0
+    ) {
+        let totalEarning = earnings.reduce((a, b) => numOr0(a) + numOr0(b));
+        let totalDeduction = deducts.reduce((a, b) => numOr0(a) + numOr0(b));
+        let netTotal = totalEarning - totalDeduction;
+        $(".earning-result").html(totalEarning);
+        $(".deduction-result").html(totalDeduction);
+        $(".net-total")
+            .html(
+                "Net total : " +
+                    netTotal +
+                    " RS " +
+                    number2words(netTotal) +
+                    " Only/-"
+            )
+            .addClass("bx-flashing text-capitalize");
+    }
 });
 
 var num =
