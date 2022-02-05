@@ -2,10 +2,9 @@
 
 namespace App\View\Components;
 
-use App\Models\User;
 use Illuminate\View\Component;
 
-class NotificationsComponent extends Component
+class TableHolidaysComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -24,9 +23,6 @@ class NotificationsComponent extends Component
      */
     public function render()
     {
-        $user = User::find(auth()->id());
-        return view('components.notifications-component', [
-            'notifications' => $user->unreadNotifications()->latest()->take(50)->get()
-        ]);
+        return view('components.table-holidays-component');
     }
 }

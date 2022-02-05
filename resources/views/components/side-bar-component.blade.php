@@ -69,6 +69,18 @@
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
+                            <i class="fas fa-gift"></i><span>Holidays</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.holidays.index')) display:block; @endif">
+                            <li @if (Route::is('dashboard.holidays.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.holidays.index') }}">
+                                    Add/View Holidays
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block;@endif">

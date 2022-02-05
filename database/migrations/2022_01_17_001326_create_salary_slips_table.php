@@ -31,7 +31,7 @@ class CreateSalarySlipsTable extends Migration
             $table->unsignedBigInteger('income_tax')->nullable();
             $table->string('month_year');
             $table->foreignUuid('employee_id')->constrained();
-            $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('owner_id')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

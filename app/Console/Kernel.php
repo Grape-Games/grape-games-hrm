@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\DatabaseBackUp;
+use App\Console\Commands\SalarySlipGenerator;
 use App\Console\Commands\ZkTecoCronCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -13,6 +14,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         ZkTecoCronCommand::class,
         DatabaseBackUp::class,
+        SalarySlipGenerator::class,
     ];
     /**
      * Define the application's command schedule.
@@ -28,6 +30,9 @@ class Kernel extends ConsoleKernel
 
         // command to back up mySql daily.
         $schedule->command('database:backup')->daily();
+
+        // command to generate/update the salary slip of employee on daily basis
+        $schedule->command('generate:slip')->daily();
     }
 
     /**

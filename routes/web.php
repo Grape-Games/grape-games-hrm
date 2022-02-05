@@ -21,17 +21,6 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';
 require __DIR__ . '/employee.php';
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Events\Dispatcher;
-
-Route::get('/getScheduleCommands', function () {
-    new \App\Console\Kernel(app(), new Dispatcher());
-    $schedule = app(Schedule::class);
-    dd($schedule->events());
-
-    // return $scheduledCommands;
-});
-
 
 Route::get('/', function () {
     return redirect()->route('dashboard');

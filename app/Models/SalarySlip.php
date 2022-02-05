@@ -28,6 +28,14 @@ class SalarySlip extends Model
         'income_tax',
         'employee_id',
         'month_year',
+        'total_days',
+        'absent_days',
+        'present_days',
+        'salary_days',
+        'saturdays_included',
+        'sundays_included',
+        'holidays',
+        'calculated_salary',
         'owner_id'
     ];
 

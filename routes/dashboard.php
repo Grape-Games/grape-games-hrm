@@ -8,6 +8,7 @@ use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeAccountCreateController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeaveApprovalController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\NoticeBoardController;
@@ -19,7 +20,7 @@ use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
 
-Route::get('salary-cron',SalaryCronTestController::class);
+Route::get('salary-cron', SalaryCronTestController::class);
 
 
 Route::group([
@@ -38,6 +39,7 @@ Route::group([
     Route::resource('leave-types', LeaveTypeController::class);
     Route::resource('employee-web-accounts', EmployeeAccountCreateController::class);
     Route::resource('notice-board', NoticeBoardController::class);
+    Route::resource('holidays', HolidayController::class);
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
     Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
