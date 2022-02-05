@@ -42,7 +42,7 @@
         $(function() {
             var intervalId = window.setInterval(function() {
                 $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
-            }, 100); // <-- time in milliseconds
+            }, 1);
         });
     </script>
     @if (session()->has('toast'))
