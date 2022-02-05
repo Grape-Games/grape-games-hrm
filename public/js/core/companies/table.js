@@ -5,6 +5,14 @@ const dtColumns = [
     { title: "Time Out", data: "time_out" },
     { title: "Grace Minutes", data: "grace_minutes" },
     {
+        title: "Late Minutes Deduction",
+        data: "late_minutes_deduction",
+        render: function (data, type, row, meta) {
+            if (data == 0) return "No";
+            return "Yes";
+        },
+    },
+    {
         title: "Departments",
         data: "departments",
         render: function (data, type, row, meta) {
@@ -38,7 +46,10 @@ const dtColumns = [
             return (
                 '<a href="javascript:void(0)" class="delete btn btn-danger btn-sm" data-toggle="tooltip" title="Delete Company" data-id="' +
                 data +
-                '" data-table="companies-table" data-original-title="Delete Record"><i class="fa fa-trash bx-tada" aria-hidden="true"></i></a>'
+                '" data-table="companies-table" data-original-title="Delete Record"><i class="fa fa-trash bx-tada" aria-hidden="true"></i></a>' +
+                '<a href="javascript:void(0)" class="update2 mt-2 btn btn-info btn-sm" data-toggle="tooltip" title="Edit Company" data-id="' +
+                data +
+                '" data-table="companies-table" data-modal="add_company" data-original-title="Update Record"><i class="fa fa-edit" aria-hidden="true"></i></a>'
             );
         },
         orderable: false,

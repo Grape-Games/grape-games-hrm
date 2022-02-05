@@ -3,7 +3,7 @@
 use App\Http\Controllers\AdminAttendanceManagementController;
 use App\Http\Controllers\BiometricDeviceController;
 use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DepartmentController;
+// use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmployeeAccountCreateController;
@@ -29,7 +29,7 @@ Route::group([
     'prefix' => 'dashboard/'
 ], function () {
     Route::resource('companies', CompanyController::class);
-    Route::resource('departments', DepartmentController::class);
+    // Route::resource('departments', DepartmentController::class);
     Route::resource('department-type', DepartmentTypeController::class);
     Route::resource('parent-designations', ParentDesignationController::class);
     Route::resource('designations', DesignationController::class);

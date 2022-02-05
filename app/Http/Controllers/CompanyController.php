@@ -52,14 +52,25 @@ class CompanyController extends Controller
     public function store(StoreCompanyRequest $request)
     {
         try {
-            DB::transaction(function () use ($request) {
-                $company = Company::create($request->validated());
+            if ($request->filled('company_id')) {
+                $company = Company::find($request->company_id);
                 CompanyService::saveDepartmentTypes($request->types, $company->id);
+                $company->update($request->validated());
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                    $company->clearMediaCollection('companies');
                     $company->addMediaFromRequest('image')->toMediaCollection('companies', 'companies');
                 }
-            });
-            return JsonResponseService::getJsonSuccess('Company was added successfully.');
+                return JsonResponseService::getJsonSuccess('Company was updated successfully.');
+            } else {
+                DB::transaction(function () use ($request) {
+                    $company = Company::create($request->validated());
+                    CompanyService::saveDepartmentTypes($request->types, $company->id);
+                    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                        $company->addMediaFromRequest('image')->toMediaCollection('companies', 'companies');
+                    }
+                });
+                return JsonResponseService::getJsonSuccess('Company was added successfully.');
+            }
         } catch (Exception $exception) {
             return JsonResponseService::getJsonException($exception);
         }
@@ -84,7 +95,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return Company::where('id', $company->id)->with(['departments'])->first();
     }
 
     /**

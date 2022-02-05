@@ -18,6 +18,11 @@ class Company extends Model implements HasMedia
     public $incrementing = false;
     protected $keyType = 'uuid';
 
+    // protected $casts = [
+    //     'time_in' => 'datetime:g:i a',
+    //     'time_out' => 'datetime:g:i a'
+    // ];
+
     protected $fillable = [
         'name',
         'branch_name',
@@ -25,13 +30,10 @@ class Company extends Model implements HasMedia
         'time_out',
         'status',
         'grace_minutes',
+        'late_minutes_deduction',
         'owner_id'
     ];
 
-    protected $hidden = [
-        'id',
-        'owner_id'
-    ];
 
     /**
      * Get all of the departments for the Company

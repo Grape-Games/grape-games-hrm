@@ -14,7 +14,7 @@ class AddLateMinCheckToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->boolean('late_minutes_pay')->default(false);
+            $table->boolean('late_minutes_deduction')->default(false);
         });
     }
 

@@ -59,10 +59,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Grace Minutes<span class="text-danger">*</span></label>
-                                <input class="form-control" type="number" name="grace_minutes" placeholder="Grace Minutes"required>
+                                <input class="form-control" type="number" name="grace_minutes"
+                                    placeholder="Grace Minutes" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <label for="">Company Status</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" value="held"
@@ -79,6 +80,23 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <label for="">Late Minutes Deduction</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="late_minutes_deduction" value="1"
+                                    id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="late_minutes_deduction" value="0"
+                                    id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    No
+                                </label>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <label>Select an Image</label>
                             <div class="custom-file">
@@ -88,7 +106,7 @@
                         </div>
                     </div>
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Add Company</button>
+                        <button class="btn btn-primary submit-btn">Update Company</button>
                     </div>
                 </form>
             </div>

@@ -31,7 +31,8 @@ class StoreCompanyRequest extends FormRequest
             'time_in' => 'required',
             'time_out' => 'required',
             'grace_minutes' => 'required|integer',
-            'status' => 'in:active,held'
+            'status' => 'in:active,held',
+            'late_minutes_deduction' => 'required|boolean'
         ];
     }
 
