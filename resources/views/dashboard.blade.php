@@ -39,7 +39,11 @@
 
 @push('extended-js')
     <script>
-        $("#myChart-license-text").delay(200).fadeOut(300);
+        $(function() {
+            setTimeout(function() {
+                $('#myChart-license-text').fadeOut('fast');
+            }, 1000); // <-- time in milliseconds
+        });
     </script>
     @if (session()->has('toast'))
         <script>
