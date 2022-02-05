@@ -38,10 +38,14 @@ class DashboardEmployeeFirstComponent extends Component
             ->sum('number_of_leaves');
         $leavesAllowed = LeaveType::sum('allowed');
         $events = Event::where('start_time', '>', Carbon::now())->orderBy('start_time', 'ASC')->limit(2)->get();
-        $birthdays = EmployeeAdditionalInformation::select('dob', 'employee_id')
-            ->with(['employee' => function ($query) {
-                $query->select('id', 'first_name', 'last_name');
-            }])->limit(3)->orderBy('dob', 'ASC')->get();
+        $date = now();
+        $birthdays = EmployeeAdditionalInformation::whereMonth('dob', '>', $date->month)
+            ->orWhere(function ($query) use ($date) {
+                $query->whereMonth('dob', '=', $date->month)
+                    ->whereDay('dob', '>=', $date->day);
+            })
+            ->orderByRaw("DATE_FORMAT(dob,'%m%d')")
+            ->take(3)->get();
         return view('components.dashboard-employee-first-component', [
             'events' => $events,
             'birthdays' => $birthdays,
