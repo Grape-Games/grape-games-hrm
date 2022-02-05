@@ -41,7 +41,6 @@
     <script>
         $(function() {
             var intervalId = window.setInterval(function() {
-                alert('doing')
                 $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
             }, 1000); // <-- time in milliseconds
         });
