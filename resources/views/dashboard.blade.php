@@ -38,7 +38,9 @@
 @endsection
 
 @push('extended-js')
-
+    <script>
+        $("#myChart-license-text").delay(200).fadeOut(300);
+    </script>
     @if (session()->has('toast'))
         <script>
             makeToastr('success', '👋 Hello {{ $name }} welcome to the system !', 'User logged in successfully.')
