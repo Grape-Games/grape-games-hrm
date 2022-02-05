@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attendance extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $casts = [
+        'attendance' => 'datetime:l F j, Y, g:i a'
+    ];
     protected $fillable = [
         'employee_id',
         'biometric_device_id',
@@ -27,10 +30,10 @@ class Attendance extends Model
     //     // $this->attributes['attendance'] = Carbon::parse($value)->addHours(3);
     // }
 
-    public function getAttendanceAttribute($value)
-    {
-        return Carbon::parse($value)->format('l F j, Y, g:i a');
-    }
+    // public function getAttendanceAttribute($value)
+    // {
+    //     return Carbon::parse($value)->format('l F j, Y, g:i a');
+    // }
 
     /**
      * Get the employee that owns the Attendance

@@ -2,26 +2,21 @@
 
 namespace App\View\Components;
 
-use App\Models\Company;
 use App\Models\Employee;
 use App\Models\SalarySlip;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\View\Component;
 
-class SearchResultTableComponent extends Component
+class AllEmployeeSalaryTableComponent extends Component
 {
-    public $company;
-    public $month;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($company, $month)
+    public function __construct()
     {
-        $this->company = $company;
-        $this->month = $month;
+        //
     }
 
     /**
@@ -29,11 +24,10 @@ class SearchResultTableComponent extends Component
      *
      * @return \Illuminate\Contracts\View\View|\Closure|string
      */
-
     public function render()
     {
         $salArr = [];
-        $employees = Employee::where('company_id', $this->company)->with(['salaryFormula'])->get();
+        $employees = Employee::all();
 
         $slips = SalarySlip::where('month_year', Carbon::now()->format('Y-M'))->get();
         foreach ($slips as $slip) {
@@ -41,12 +35,10 @@ class SearchResultTableComponent extends Component
                 $salArr[$slip->employee_id] = $slip;
             }
         }
-
-        return view('components.search-result-table-component', [
+        return view('components.all-employee-salary-table-component', [
             'employees' => $employees,
             'salArr' => $salArr,
             'month' => Carbon::now()->format('Y-M'),
-            'companyName' => Company::where('id', $this->company)->value('name')
         ]);
     }
 }

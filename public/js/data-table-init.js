@@ -9,6 +9,9 @@ function makeDT(classNme, columnDefs) {
             {
                 extend: "excelHtml5",
                 className: "btn btn-danger",
+                exportOptions: {
+                    columns: ":not(:last-child)",
+                },
             },
             {
                 extend: "csvHtml5",
@@ -17,6 +20,9 @@ function makeDT(classNme, columnDefs) {
             {
                 extend: "pdfHtml5",
                 className: "btn btn-info",
+                exportOptions: {
+                    columns: ":not(:last-child)",
+                },
             },
         ],
     });

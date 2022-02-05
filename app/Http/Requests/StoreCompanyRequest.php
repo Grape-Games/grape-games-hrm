@@ -30,6 +30,7 @@ class StoreCompanyRequest extends FormRequest
             'branch_name' => 'required|string',
             'time_in' => 'required',
             'time_out' => 'required',
+            'grace_minutes' => 'required|integer',
             'status' => 'in:active,held'
         ];
     }

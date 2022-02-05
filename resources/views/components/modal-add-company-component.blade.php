@@ -57,6 +57,12 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Grace Minutes<span class="text-danger">*</span></label>
+                                <input class="form-control" type="number" name="grace_minutes" placeholder="Grace Minutes"required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <label for="">Company Status</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" value="held"
@@ -73,7 +79,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label>Select an Image</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="validatedCustomFile" name="image">

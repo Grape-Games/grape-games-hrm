@@ -24,6 +24,7 @@ class Company extends Model implements HasMedia
         'time_in',
         'time_out',
         'status',
+        'grace_minutes',
         'owner_id'
     ];
 

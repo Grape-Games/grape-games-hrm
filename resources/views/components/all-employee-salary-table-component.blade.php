@@ -18,6 +18,7 @@
                         <thead>
                             <tr>
                                 <td>Name</td>
+                                <td>Company</td>
                                 <td>Total Month Days</td>
                                 <td>Holidays</td>
                                 <td>Paid</td>
@@ -31,6 +32,9 @@
                                 <tr>
                                     <td>
                                         {{ $employee->first_name . ' ' . $employee->last_name }}
+                                    </td>
+                                    <td>
+                                        {{ $employee->company->name }}
                                     </td>
                                     <td>
                                         <span
@@ -99,7 +103,7 @@
 @push('extended-js')
 
     <script>
-        document.title = "Salary Slips Report of : {{ $companyName }}"
+        document.title = "Salary Slips Report of all companies"
     </script>
 
 @endpush

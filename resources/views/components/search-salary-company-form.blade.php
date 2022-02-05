@@ -66,6 +66,8 @@
                     </script>
                 @endpush
             @endif
+        @else
+            <x-all-employee-salary-table-component />
         @endif
     </div>
 </div>

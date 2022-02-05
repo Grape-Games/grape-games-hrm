@@ -7,6 +7,7 @@
         }
 
     </style>
+    @include('vendors.data-tables')
     @include('vendors.select2')
     @include('vendors.toastr')
     @include('vendors.sweet-alerts')
@@ -85,6 +86,7 @@
                             <tr>
                                 <th>Employee</th>
                                 <th>Stats</th>
+                                <th>Company Name</th>
                                 @foreach ($monthDays as $item)
                                     <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
                                 @endforeach
@@ -101,13 +103,30 @@
                                                         <img alt="" src="assets/img/profiles/avatar-09.jpg">
                                                     </a>
                                                     <a href="#">
+                                                        @php
+                                                            $empId = $value[0]->employee->id;
+                                                            $empName = $value[0]->employee->first_name . ' ' . $value[0]->employee->last_name;
+                                                            $empDevice = $value[0]->employee->biometric_device_id;
+                                                            $empCompany = $value[0]->employee->company->name;
+                                                        @endphp
                                                         {{ $value[0]->employee->first_name . ' ' . $value[0]->employee->last_name }}
                                                     </a>
                                                 </h2>
                                             @break
                                 @endforeach
                                 </td>
-                                <td>{{ count($monthDays) .' Total Days / ' .count($statsArr[$loop->iteration - 1]['presenceArr']) .' Present(s) /' .(count($monthDays) - count($statsArr[$loop->iteration - 1]['presenceArr'])) .' Absent(s)' }}
+                                <td>
+                                    {{ count($monthDays) .
+                                        ' Total Days / ' .
+                                        count($statsArr[$loop->iteration - 1]['presenceArr']) .
+                                        ' Present(s) / ' .
+                                        (count($monthDays) - count($statsArr[$loop->iteration - 1]['presenceArr'])) .
+                                        ' Absent(s) ' .
+                                        '/ Late Minutes ' .
+                                        \App\Models\LateMinutes::where('month', \Carbon\Carbon::now()->format('Y-M'))->where('employee_id', $empId)->sum('minutes') }}
+                                </td>
+                                <td>
+                                    {{ $empCompany }}
                                 </td>
                                 @foreach ($monthDays as $item2)
 
@@ -115,34 +134,29 @@
                                         <td>
                                             <a href="javascript:void(0);" class="view-attendance-details"
                                                 data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                                @foreach ($item as $v)
-                                                data-employeeid='{{ $v[0]->employee->id }}'
-                                                data-employeename='{{ $v[0]->employee->first_name . ' ' . $v[0]->employee->last_name }}'
-                                                data-deviceid='{{ $v[0]->employee->biometric_device_id }}'
-                                    @break;
-                                @endforeach
-                                data-toggle="modal" data-target="#attendance_info_in">
-                                <i class="fa fa-check text-success"></i>
-                                </a>
-                                </td>
-                            @else
-                                <td>
-                                    <a href="javascript:void(0);" class="view-attendance-details-absent"
-                                        data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                        data-toggle="modal" @foreach ($item as $v)
-                                        data-employeeid='{{ $v[0]->employee->id }}'
-                                        data-employeename='{{ $v[0]->employee->first_name . ' ' . $v[0]->employee->last_name }}'
-                                        data-deviceid='{{ $v[0]->employee->biometric_device_id }}'
-                            @break;
-                            @endforeach data-target="#attendance_info_out">
-                            <i class="fa fa-times text-danger"></i>
-                            </a>
-                            </td>
-                    @endif
+                                                data-employeeid='{{ $empId }}'
+                                                data-employeename='{{ $empName }}'
+                                                data-deviceid='{{ $empDevice }}' data-toggle="modal"
+                                                data-target="#attendance_info_in">
+                                                <i class="fa fa-check text-success"></i>
+                                            </a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="javascript:void(0);" class="view-attendance-details-absent"
+                                                data-item="{{ $item }}" data-date="{{ $item2 }}"
+                                                data-employeeid='{{ $empId }}'
+                                                data-employeename='{{ $empName }}'
+                                                data-deviceid='{{ $empDevice }}' data-toggle="modal"
+                                                data-target="#attendance_info_out">
+                                                <i class="fa fa-times text-danger"></i>
+                                            </a>
+                                        </td>
+                                    @endif
 
-                    @endforeach
-                    </tr>
-                    @endif
+                                @endforeach
+                                </tr>
+                            @endif
                     @endforeach
                     </tbody>
                 @else
@@ -166,6 +180,34 @@
 @push('extended-js')
 
     <script>
+        $(function() {
+            $(".custom-table").DataTable({
+                dom: "Bfrtip",
+                buttons: [{
+                        extend: "excelHtml5",
+                        className: "btn btn-danger",
+                        exportOptions: {
+                            orthogonal: "myExport",
+                            columns: [0, 1, 2]
+                        },
+                    },
+                    {
+                        extend: "csvHtml5",
+                        className: "btn btn-secondary",
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                    },
+                    {
+                        extend: "pdfHtml5",
+                        className: "btn btn-info",
+                        exportOptions: {
+                            columns: [0, 1, 2]
+                        },
+                    },
+                ],
+            });
+        });
         $(".employeeAttendanceUpdateForm").submit(function(e) {
             e.preventDefault();
             $(this).valid() ? this.submit() : false;
@@ -234,7 +276,8 @@
                         '<li><p class="mb-0">Punch at</p><p class="res-activity-time d-inline-block">' +
                         '<i class="fa fa-clock-o"></i>' + element.attendance +
                         '</p><i data-punchid="' + element.id +
-                        '" class="fa fa-trash bx-tada pull-right mr-4 delete-punch"></i></li>')
+                        '" class="fa fa-trash bx-tada pull-right mr-4 delete-punch"></i></li>'
+                    )
                 });
             }
         });
@@ -262,7 +305,8 @@
                 if (result.value) {
                     let formData = new FormData();
                     formData.append('id', punchId);
-                    dynamicAjax('{{ route('dashboard.delete-punch') }}', "POST", formData, 'ddCallBack')
+                    dynamicAjax('{{ route('dashboard.delete-punch') }}', "POST", formData,
+                        'ddCallBack')
                 }
             });
         });

@@ -3,6 +3,7 @@ const dtColumns = [
     { title: "Branch Name", data: "branch_name" },
     { title: "Time In", data: "time_in" },
     { title: "Time Out", data: "time_out" },
+    { title: "Grace Minutes", data: "grace_minutes" },
     {
         title: "Departments",
         data: "departments",
