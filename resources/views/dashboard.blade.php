@@ -41,7 +41,8 @@
     <script>
         $(function() {
             setTimeout(function() {
-                $('#myChart-license-text').fadeOut('fast');
+                alert('doing')
+                $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
             }, 1000); // <-- time in milliseconds
         });
     </script>
