@@ -52,7 +52,7 @@
                 <label class="d-flex" for="">Employee ID in device : <p id="emp_id"
                         class="text-danger ml-2 float-right">
                         NULL</p></label>
-                <select class="js-example-basic-single form-control" id="enrollment_no" name="enrollment_no" required>
+                <select class="js-example-basic-single select2 form-control" id="enrollment_no" name="enrollment_no" required>
                     <option value="" disabled selected>Please select employee device first.</option>
                 </select>
             </div>
