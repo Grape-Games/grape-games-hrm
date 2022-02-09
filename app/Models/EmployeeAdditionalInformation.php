@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EmployeeAdditionalInformation extends Model
 {
     use HasFactory, SoftDeletes;
-    // protected $dates = [
-    //     'dob',
-    //     'demise_date',
-    //     'join_date',
-    //     'leave_date'
-    // ];
+    protected $dates = [
+        'dob',
+        'demise_date',
+        'join_date',
+        'leave_date'
+    ];
 
     protected $fillable = [
         'address',
@@ -34,7 +34,7 @@ class EmployeeAdditionalInformation extends Model
     protected $hidden = [
         'employee_id',
     ];
-
+    
 
     /**
      * Get the employee that owns the EmployeeAdditionalInformation
