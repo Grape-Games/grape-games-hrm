@@ -75,7 +75,7 @@ function elCallback(response, errorClassName, table) {
 $("[name=leave_type_id]").change(function (e) {
     e.preventDefault();
     $(".allowed-val").html(
-        $(this).find(":selected").data("allowed") + " per year."
+        $(this).find(":selected").data("allowed") + " " + $(this).find(':selected').data('timespan') + "."
     );
 });
 

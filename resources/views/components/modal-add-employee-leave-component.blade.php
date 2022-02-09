@@ -20,7 +20,8 @@
                                     <option value="">Select Leave Type</option>
                                     @forelse ($leave_types as $leaveType)
                                         <option value="{{ $leaveType->id }}"
-                                            data-allowed="{{ $leaveType->allowed }}">
+                                            data-allowed="{{ $leaveType->allowed }}"
+                                            data-timespan="{{ $leaveType->time_span }}">
                                             {{ $leaveType->name }}</option>
                                     @empty
                                         <option value="">No leave type available.</option>
