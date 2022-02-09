@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="dash-card-content">
                                         <p>{{ $birthday->employee->first_name . ' ' . $birthday->employee->last_name }}
-                                            has a birthday on {{ $birthday->dob->format('d M') }}.</p>
+                                            has a birthday on {{ \Carbon\Carbon::parse($birthday->dob)->format('d M') }}.</p>
                                     </div>
                                     {{-- <div class="dash-card-avatars">
                                         <a href="#" class="e-avatar"><img src="assets/img/profiles/avatar-05.jpg"
