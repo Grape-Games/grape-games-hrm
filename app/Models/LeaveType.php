@@ -15,6 +15,7 @@ class LeaveType extends Model
         'allowed',
         'status',
         'paid',
+        'time_span',
         'owner_id'
     ];
 
