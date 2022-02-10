@@ -53,33 +53,6 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.admin-attendance.management')) class="subdrop" @endif>
-                            <i class="fas fa-calendar-star    "></i> <span>Attendance Management</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.admin-attendance.management')) display:block;@endif">
-                            <li @if (Route::is('dashboard.admin-attendance.management')) class="active" @endif>
-                                <a href="{{ route('dashboard.admin-attendance.management') }}">View/Update Employee
-                                    Attendance</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-title">
-                        <span>Admin Section</span>
-                    </li>
-                    <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
-                            <i class="fas fa-gift"></i><span>Holidays</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.holidays.index')) display:block; @endif">
-                            <li @if (Route::is('dashboard.holidays.index')) class="active" @endif>
-                                <a href="{{ route('dashboard.holidays.index') }}">
-                                    Add/View Holidays
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
@@ -101,6 +74,37 @@
                         <ul style="@if (Route::is('dashboard.employee-web-accounts.index')) display:block;@endif">
                             <li @if (Route::is('dashboard.employee-web-accounts.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.employee-web-accounts.index') }}">Add/View</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title">
+                        <span>Attendance Management</span>
+                    </li>
+
+                    <li class="@if (Route::is('dashboard.admin-attendance.management')) active @endif ">
+                        <a href="{{ route('dashboard.admin-attendance.management') }}">
+                            <i class="fas fa-calendar-star"></i>
+                            <span>Attendance Updates</span></a>
+                    </li>
+
+                    <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
+                        <a href="{{ route('dashboard.late-minutes.index') }}">
+                            <i class="fa fa-user-times" aria-hidden="true"></i><span>Late Minutes Report</span></a>
+                    </li>
+
+                    <li class="menu-title">
+                        <span>Misc. Section</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
+                            <i class="fas fa-gift"></i><span>Holidays</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.holidays.index')) display:block; @endif">
+                            <li @if (Route::is('dashboard.holidays.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.holidays.index') }}">
+                                    Add/View Holidays
+                                </a>
                             </li>
                         </ul>
                     </li>

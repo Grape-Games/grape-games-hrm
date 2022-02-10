@@ -31,7 +31,7 @@ class StoreEmployeeRequest extends FormRequest
             'company_id' => 'required|exists:companies,id',
             'designation_id' => 'required|exists:designations,id',
             'email_address' => 'required|email|unique:employees,email_address',
-            'enrollment_no' => 'string',
+            'enrollment_no' => 'required|string|unique:employees,enrollment_no,NULL,id,deleted_at,NULL',
             'father_name' => 'required|string',
             'first_name' => 'required|string',
             'gender' => 'required|string|in:male,female',

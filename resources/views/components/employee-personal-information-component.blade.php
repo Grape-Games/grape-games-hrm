@@ -52,13 +52,13 @@
                 <label class="d-flex" for="">Employee ID in device : <p id="emp_id"
                         class="text-danger ml-2 float-right">
                         NULL</p></label>
-                <select class="js-example-basic-single form-control" id="enrollment_no" name="enrollment_no" required>
+                <select class="js-example-basic-single select2 form-control" id="enrollment_no" name="enrollment_no" required>
                     <option value="" disabled selected>Please select employee device first.</option>
                 </select>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">City</label>
-                <select class="js-example-basic-single form-control" id="city" name="city" required>
+                <select class="js-example-basic-single select2 form-control" id="city" name="city" required>
                     <option value="" disabled selected>Select The City</option>
                     <option value="Islamabad">Islamabad</option>
                     <option value="" disabled>Punjab Cities</option>
@@ -305,7 +305,7 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Company</label>
-                <select class="form-control js-example-basic-single" name="company_id" id="designation"
+                <select class="form-control js-example-basic-single select2" name="company_id" id="designation"
                     data-msg="Please add a company first from company section." required="">
                     <option value="">Please select a company of employee.</option>
                     @forelse ($companies as $company)
@@ -317,7 +317,7 @@
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">Designation</label>
-                <select class="form-control js-example-basic-single" name="designation_id" id="department"
+                <select class="form-control js-example-basic-single select2" name="designation_id" id="department"
                     data-msg="Please add a designation first from designations section." required>
                     <option value="">Please select a designation.</option>
                     @forelse ($designations as $designation)

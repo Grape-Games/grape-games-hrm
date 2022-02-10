@@ -49,7 +49,7 @@
                             <div class="form-group">
                                 <label>Please select the employee from the list of employees you have added <span
                                         class="text-danger">*</span></label>
-                                <select class="js-example-basic-single form-control select" id="employee_id"
+                                <select class="js-example-basic-single select2 form-control select" id="employee_id"
                                     name="employee_id" required>
                                     <option value="">Select employee</option>
                                     @forelse ($employees as $employee)

@@ -1,8 +1,8 @@
-function makeDT(classNme, columnDefs) {
+function makeDT(classNme, columnDefs, route = "") {
     $("." + classNme).DataTable({
         processing: true,
         serverSide: true,
-        ajax: window.location.href,
+        ajax: route == "" ? window.location.href : window.location.href + route,
         columns: columnDefs,
         dom: "Bfrtip",
         buttons: [
