@@ -6,15 +6,15 @@
                     @forelse ($notifications as $notification)
                         <li>
                             <div class="activity-user">
-                                <a href="#" title="" data-toggle="tooltip"
-                                    class="avatar">
+                                <a href="#" title="" data-toggle="tooltip" class="avatar">
                                     <img src="{{ $notification->data['avatar'] }}" alt="">
                                 </a>
                             </div>
                             <div class="activity-content">
                                 <div class="timeline-content" style="color:black">
                                     {{ $notification->data['details'] }}
-                                    <span class="time">{{ $notification->created_at }}</span>
+                                    <span
+                                        class="time">{{ $notification->created_at->diffForHumans() }}</span>
                                 </div>
                             </div>
                         </li>

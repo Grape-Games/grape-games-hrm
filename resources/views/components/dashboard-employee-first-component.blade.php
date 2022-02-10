@@ -40,25 +40,40 @@
     <div class="row">
         <div class="col-lg-8 col-md-8">
             <section class="dash-section">
-                <h1 class="dash-sec-title">Today</h1>
+                <h1 class="dash-sec-title">Timeline</h1>
                 <div class="dash-sec-content">
-                    <div class="dash-info-list">
-                        <a href="#" class="dash-card text-danger">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fa fa-hourglass-o bx-tada"></i>
+                    @forelse ($notices as $notice)
+                        <div class="dash-info-list">
+                            <a href="#" class="dash-card @if ($notice->priority == 'high') text-danger @elseif($notice->priority == 'low') text-success @else text-info @endif">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon">
+                                        <i class="fas fa-bell bx-tada"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <p>{{ $notice->details }}</p>
+                                    </div>
                                 </div>
-                                <div class="dash-card-content">
-                                    <p>Your task of the day...</p>
+                                <div class="pull-left">
+                                    <small>{{ $notice->created_at->diffForHumans() }}</small>
                                 </div>
-                            </div>
-                            <div class="pull-left">
-                                <small>From : 12:00 Till : 4:00 PM</small>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="dash-info-list">
+                            <a href="#" class="dash-card text-danger">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon">
+                                        <i class="fas fa-sad-cry bx-tada"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        <p>Nothing Found.</p>
+                                    </div>
+                                </div>
+                            </a>
 
-                    </div>
-                    <div class="dash-info-list">
+                        </div>
+                    @endforelse
+                    {{-- <div class="dash-info-list">
                         <a href="#" class="dash-card text-danger">
                             <div class="dash-card-container">
                                 <div class="dash-card-icon">
@@ -99,7 +114,7 @@
                                 </div>
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                     <hr>
                     <x-dashboard-employee-progress-bar-component />
                 </div>

@@ -9,6 +9,7 @@ use App\Models\EmployeeEmergencyContact;
 use App\Models\EmployeeLeaves;
 use App\Models\Event;
 use App\Models\LeaveType;
+use App\Models\NoticeBoard;
 use Carbon\Carbon;
 use Illuminate\View\Component;
 
@@ -52,7 +53,8 @@ class DashboardEmployeeFirstComponent extends Component
             'leavesTaken' => $leaveTaken,
             'leavesAllowed' => $leavesAllowed,
             'user' => $user,
-            'dp' => auth()->user()
+            'dp' => auth()->user(),
+            'notices' => NoticeBoard::latest()->take(3)->get(),
         ]);
     }
 }

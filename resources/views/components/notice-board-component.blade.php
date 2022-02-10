@@ -13,8 +13,7 @@
                             <div class="activity-content">
                                 <div class="timeline-content" style="color:black">
                                     {{ $notice->details }}
-                                    <span
-                                        class="time">{{ $notice->created_at->format('Y-M-d H:i A') }}</span>
+                                    <span class="time">{{ $notice->created_at->diffForHumans() }}</span>
                                     @php
                                         if ($notice->priority == 'high') {
                                             $class = 'bx-flashing badge-danger';
