@@ -153,7 +153,7 @@
                                                         bgcolor="rgba(115, 103, 240, var(--bg-opacity))">
                                                         <a href="https://grapegames.net" class="btn btn-primary"
                                                             style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: rgba(255, 255, 255, var(--text-opacity)); text-decoration: none;">
-                                                            View Grape Games Site &rarr;</a>
+                                                            View Grape Technologies Site &rarr;</a>
                                                     </td>
                                                 </tr>
                                             </table>
