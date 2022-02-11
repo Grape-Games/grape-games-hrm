@@ -119,7 +119,7 @@
                                         {{ $employee->owner->name }}
                                     </td>
                                     <td>
-                                        {{ $employee->approvedBy->name }}
+                                        {{ $employee->approvedBy->name ?? 'Not available' }}
                                     </td>
                                     <td>
                                         <span
