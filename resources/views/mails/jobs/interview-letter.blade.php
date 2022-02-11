@@ -13,10 +13,8 @@
       td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
     </style>
   <![endif]-->
-    <title>Greetings from {{ env('APP_NAME') }} 👋</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700"
-        rel="stylesheet" media="screen">
+    <title>Greetings from {{ env('APP_MAIN_NAME') }} 👋</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <style>
         .hover-underline:hover {
             text-decoration: underline !important;
@@ -82,7 +80,7 @@
 
 <body
     style="margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; --bg-opacity: 1; background-color: #eceff1; background-color: rgba(236, 239, 241, var(--bg-opacity));">
-    <div role="article" aria-roledescription="email" aria-label="Welcome to {{ env('APP_NAME') }} 👋" lang="en">
+    <div role="article" aria-roledescription="email" aria-label="Welcome to {{ env('APP_MAIN_NAME') }} 👋" lang="en">
         <table style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; width: 100%;" width="100%"
             cellpadding="0" cellspacing="0" role="presentation">
             <tr>
@@ -97,7 +95,7 @@
                                 align="center">
                                 <a href="https://grapegames.net">
                                     <img src="https://hrm.fast-devs.com/assets/img/logo2.png" width="155"
-                                        alt="Vuexy Admin"
+                                        alt="{{ env('APP_MAIN_NAME') }} Admin"
                                         style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle;">
                                 </a>
                             </td>
@@ -114,36 +112,38 @@
                                             <p style="font-weight: 600; font-size: 18px; margin-bottom: 0;">Hey</p>
                                             <p
                                                 style="font-weight: 700; font-size: 20px; margin-top: 0; --text-opacity: 1; color: #ff5850; color: rgba(255, 88, 80, var(--text-opacity));">
-                                                {{ $heading['candidate_name'] }}!</p>
+                                                {{ $details['candidate_name'] }}!</p>
                                             <p class="sm-leading-32"
                                                 style="font-weight: 600; font-size: 20px; margin: 0 0 24px; --text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity));">
-                                                📈 Top-rated Web And Mobile App Development Company
+                                                We are pleased to inform you that you have been short listed for an
+                                                interview
+                                                of {{ $details['designation'] }} at our company 👍
                                             </p>
-                                            <a href="https://1.envato.market/vuexy_admin">
-                                                <img src="images/item.jpg" width="500" alt="Vuexy Admin"
+                                            <a href="https://grapegames.net">
+                                                <img src="https://hrm.fast-devs.com/assets/img/job-letter.png"
+                                                    width="500" alt="{{ env('APP_MAIN_NAME') }}"
                                                     style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle;">
                                             </a>
                                             <p style="margin: 24px 0;">
-                                                <span style="font-weight: 600;">Vuexy</span>
-                                                is the most developer friendly & highly customisable VueJS + HTML Admin
-                                                Dashboard Template
-                                                based on Vue CLI, Vuex & Vuexy component framework. 🤩
+                                                <span style="font-weight: 600;">{{ env('APP_MAIN_NAME') }}</span>
+                                                is a software company based in Pakistan providing premier
+                                                services that believes in providing the best solutions to every IT
+                                                related query which includes Applications and highly appealing 3D Games
+                                                For IOS And Android with finest Digital Marketing Services. The mobile
+                                                application services involve the development of all types of technical
+                                                and general applications. Whereas, the website development services
+                                                include the development of every category of website with its unique
+                                                layout. Moreover, we are providing digital marketing services. 🤩
                                             </p>
-                                            <p style="font-weight: 500; font-size: 16px; margin-bottom: 0;">How can you
-                                                use Vuexy for your next project?</p>
+                                            <p style="font-weight: 500; font-size: 16px; margin-bottom: 0;">Please
+                                                respond
+                                                with any of the available slots to schedule you interview.</p>
                                             <ul style="margin-bottom: 24px;">
                                                 <li>
-                                                    Vuexy Admin provides you getting start pages 🚀 with different
-                                                    layouts, use the layout as
-                                                    per your custom requirements and just change the branding, menu &
-                                                    content.
+                                                    {{ $details['slot_1'] }}
                                                 </li>
                                                 <li>
-                                                    Every components in Vuexy Admin are decoupled 🛠, it means use use
-                                                    only components you
-                                                    actually need! Remove unnecessary and extra code easily just by
-                                                    excluding the path to
-                                                    specific SCSS, JS file. 🤟🏻
+                                                    {{ $details['slot_2'] }}
                                                 </li>
                                             </ul>
                                             <table style="font-family: 'Montserrat',Arial,sans-serif;" cellpadding="0"
@@ -151,9 +151,9 @@
                                                 <tr>
                                                     <td style="mso-padding-alt: 16px 24px; --bg-opacity: 1; background-color: #7367f0; background-color: rgba(115, 103, 240, var(--bg-opacity)); border-radius: 4px; font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif;"
                                                         bgcolor="rgba(115, 103, 240, var(--bg-opacity))">
-                                                        <a href="https://example.com"
-                                                            style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: rgba(255, 255, 255, var(--text-opacity)); text-decoration: none;">Browse
-                                                            {{ env('APP_NAME') }} &rarr;</a>
+                                                        <a href="https://grapegames.net" class="btn btn-primary"
+                                                            style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: rgba(255, 255, 255, var(--text-opacity)); text-decoration: none;">
+                                                            View Grape Games Site &rarr;</a>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -168,13 +168,8 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <p style="margin: 0 0 16px;">
-                                                Not sure why you received this email? Please
-                                                <a href="mailto:support@example.com" class="hover-underline"
-                                                    style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">let
-                                                    us know</a>.
-                                            </p>
-                                            <p style="margin: 0 0 16px;">Thanks, <br>The {{ env('APP_NAME') }} Team
+                                            <p style="margin: 0 0 16px;">Thanks, <br>The {{ env('APP_MAIN_NAME') }}
+                                                Team
                                             </p>
                                         </td>
                                     </tr>
@@ -186,30 +181,23 @@
                                         <td
                                             style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; font-size: 12px; padding-left: 48px; padding-right: 48px; --text-opacity: 1; color: #eceff1; color: rgba(236, 239, 241, var(--text-opacity));">
                                             <p align="center" style="cursor: default; margin-bottom: 16px;">
-                                                <a href="https://www.facebook.com/{{ env('APP_NAME') }}s"
+                                                <a href="https://www.facebook.com/{{ env('APP_MAIN_NAME') }}s"
                                                     style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                        src="images/facebook.png" width="17" alt="Facebook"
+                                                        src="https://pixinvent.com/demo/vuexy-mail-template/images/facebook.png"
+                                                        width="17" alt="Facebook"
                                                         style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
                                                 &bull;
-                                                <a href="https://twitter.com/{{ env('APP_NAME') }}s"
+                                                <a href="https://twitter.com/{{ env('APP_MAIN_NAME') }}s"
                                                     style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                        src="images/twitter.png" width="17" alt="Twitter"
+                                                        src="https://pixinvent.com/demo/vuexy-mail-template/images/twitter.png"
+                                                        width="17" alt="Twitter"
                                                         style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
                                                 &bull;
-                                                <a href="https://www.instagram.com/{{ env('APP_NAME') }}s"
+                                                <a href="https://www.instagram.com/{{ env('APP_MAIN_NAME') }}s"
                                                     style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                        src="images/instagram.png" width="17" alt="Instagram"
+                                                        src="https://pixinvent.com/demo/vuexy-mail-template/images/instagram.png"
+                                                        width="17" alt="Instagram"
                                                         style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
-                                            </p>
-                                            <p
-                                                style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity));">
-                                                Use of our service and website is subject to our
-                                                <a href="https://{{ env('APP_NAME') }}.com/" class="hover-underline"
-                                                    style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">Terms
-                                                    of Use</a> and
-                                                <a href="https://{{ env('APP_NAME') }}.com/" class="hover-underline"
-                                                    style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">Privacy
-                                                    Policy</a>.
                                             </p>
                                         </td>
                                     </tr>

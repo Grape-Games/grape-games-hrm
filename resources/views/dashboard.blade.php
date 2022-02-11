@@ -14,9 +14,11 @@
 
         <x-dashboard-cards-first-admin-component />
 
-        <x-dashboard-cards-second-admin-component />
+        <x-admin.dashboard.charts-component />
 
         <x-statistics-component />
+
+        <x-admin.dashboard.tables-component />
 
     @endcan
 

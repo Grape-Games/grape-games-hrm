@@ -5,8 +5,10 @@ namespace App\Services;
 use App\Models\EmployeeLeaves;
 use App\Models\LeaveType;
 use App\Models\User;
+use App\Notifications\EmailAlerts\JobInterviewLetter;
 use App\Notifications\EmployeeAccountNotification;
 use App\Notifications\NewRequestNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Request;
 
@@ -142,5 +144,25 @@ class MailService
         foreach ($users as $item) {
             Notification::send($item, new NewRequestNotification($user, $db));
         }
+    }
+
+    public static function sendInterviewEmail($data)
+    {
+        $userArr['candidate_name'] = $data['name'];
+        $userArr['slot_1'] = Carbon::parse($data['slot_1'])->format('l F j, Y, g:i a');
+        $userArr['slot_2'] = Carbon::parse($data['slot_2'])->format('l F j, Y, g:i a');
+        $userArr['designation'] = $data['designation'];
+
+        //setting the db content
+        $db['heading'] = 'Interview Letter Email Notification.';
+        $db['avatar'] = Request::root() . '/assets/img/notice.png';
+        $db['redirect'] = route('dashboard.activites');
+        $db['email'] = '';
+        $db['details'] = 'Note : The candidate was notified ✅';
+        Notification::route('mail', $data['email'])->notify(new JobInterviewLetter($userArr, $db));
+        // (new User)->forceFill([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        // ])->notify(new JobInterviewLetter($userArr, $db));
     }
 }

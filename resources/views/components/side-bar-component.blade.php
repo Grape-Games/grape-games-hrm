@@ -174,6 +174,22 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="menu-title">
+                        <span>Email Alerts</span>
+                    </li>
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.send-interview-letter.index')) class="subdrop" @endif>
+                            <i class="fa fa-location-arrow" aria-hidden="true"></i> <span> Send Alerts</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.send-interview-letter.index')) display:block;@endif">
+                            <li @if (Route::is('dashboard.send-interview-letter.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.send-interview-letter.index') }}">
+                                    Interview Letter</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 @endcan
                 @can('is-employee')
                     <li class="menu-title">

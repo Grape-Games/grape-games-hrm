@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\EmailAlerts;
 
 use Illuminate\View\Component;
 
-class DashboardCardsSecondAdminComponent extends Component
+class InterviewLetterForm extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class DashboardCardsSecondAdminComponent extends Component
      */
     public function render()
     {
-        return view('components.dashboard-cards-second-admin-component');
+        return view('components.email-alerts.interview-letter-form');
     }
 }
