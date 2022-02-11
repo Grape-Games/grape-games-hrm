@@ -165,7 +165,7 @@
                                         {{ $employee->employee->first_name . ' ' . $employee->employee->last_name }}
                                     </td>
                                     <td>
-                                        {{ $employee->basic_salary }}
+                                        Rs : {{ $employee->basic_salary }} /-
                                     </td>
                                 </tr>
                             @endforeach
