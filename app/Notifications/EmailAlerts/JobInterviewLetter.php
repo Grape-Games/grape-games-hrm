@@ -10,17 +10,18 @@ use Illuminate\Notifications\Notification;
 class JobInterviewLetter extends Notification
 {
     use Queueable;
-    private $details, $db;
+    private $details, $db, $cc;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($details, $db)
+    public function __construct($details, $db, $cc)
     {
         $this->details = $details;
         $this->db = $db;
+        $this->cc = $cc;
     }
 
 
@@ -48,7 +49,7 @@ class JobInterviewLetter extends Notification
             [
                 'details' => $this->details,
             ]
-        );
+        )->cc($this->cc);
     }
 
     /**
