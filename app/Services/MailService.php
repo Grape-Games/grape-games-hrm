@@ -159,7 +159,7 @@ class MailService
         $db['redirect'] = route('dashboard.activites');
         $db['email'] = '';
         $db['details'] = 'Note : The candidate was notified ✅';
-        Notification::route('mail', $data['email'])->notify(new JobInterviewLetter($userArr, $db));
+        Notification::route('mail', $data['email'])->notify(new JobInterviewLetter($userArr, $db,  "hr@grapegames.net"));
         // (new User)->forceFill([
         //     'name' => $data['name'],
         //     'email' => $data['email'],
