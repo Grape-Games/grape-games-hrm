@@ -216,7 +216,7 @@
             [
             'actionText' => $actionText,
             ]
-            ) <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+            )
         @endisset
     </div>
 </body>
