@@ -10,6 +10,8 @@
     <meta name="robots" content="#">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ env('APP_NAME') }} - {{ ucwords(request()->segment(count(request()->segments()))) }} </title>
+    <script defer src="{{ mix('js/app.js') }}"></script>
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" data-turbolinks-track="true">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}">
@@ -112,6 +114,12 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        $(document).on('turbolinks:load', function() {
+            //infinite_scroll()
+            console.log('turbolinks:load fired');
+        });
+    </script>
     @stack('extended-js')
 
 </body>

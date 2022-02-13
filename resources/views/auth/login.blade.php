@@ -7,7 +7,7 @@
 
             <!-- Account Logo -->
             <div class="account-logo">
-                <a href="index.html"><img src="assets/img/logo2.png" alt="{{ config('app.name') }}"></a>
+                <a href="#"><img src="assets/img/logo2.png" alt="{{ config('app.name') }}"></a>
             </div>
             <!-- /Account Logo -->
 
@@ -36,7 +36,7 @@
                                     <label>Password</label>
                                 </div>
                                 <div class="col-auto">
-                                    <a class="text-muted" href="#">
+                                    <a class="text-muted" href="{{ route('password.request') }}">
                                         Forgot password?
                                     </a>
                                 </div>
@@ -54,9 +54,9 @@
                                 Logging In...
                             </button>
                         </div>
-                        <div class="account-footer">
+                        {{-- <div class="account-footer">
                             <p>Don't have an account yet? <a href="#">Register</a></p>
-                        </div>
+                        </div> --}}
                     </form>
                     <!-- /Acc`ount Form -->
                 </div>
