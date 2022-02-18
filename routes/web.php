@@ -39,9 +39,11 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 });
 
 Route::get('/test-query', function () {
-    return Employee::with(['attendances' => function ($q) {
-        $q->whereMonth('attendance', Carbon::now()->month);
-    }])->get();
+    return Employee::with(['company', 'attendances' => function ($q) {
+        $q->select("*", DB::raw('DATE(attendance) as date'))
+            ->whereMonth('attendance', Carbon::now()->month)
+            ->groupBy('date');
+    }])->first();
 });
 
 

@@ -22,10 +22,19 @@ class Attendance extends Model
         'attendance',
     ];
 
-    public function getStatusAttribute()
+    protected $appends = [
+        'attendance_day'
+    ];
+
+    public function getAttendanceDayAttribute()
     {
-        return $this->attributes['status'] == 'value';
+        return Carbon::parse($this->attendance)->format('Y-m-d');
     }
+
+    // public function getStatusAttribute()
+    // {
+    //     return $this->attributes['status'] == 'value';
+    // }
 
     // public function setAttendanceAttribute($value)
     // {

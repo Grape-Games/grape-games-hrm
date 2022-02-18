@@ -55,9 +55,9 @@ class AdminAttendanceManagementController extends Controller
             $thisMonthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
             $result = Employee::with(['company', 'attendances' => function ($q) {
                 $q->whereMonth('attendance', Carbon::now()->month)
-                    ->groupBy(DB::raw('substr(attendance, 1, 10)'));
-            }])->get()->toArray();
-            dd($result);
+                    ->groupBy('attendance_day');
+            }])->first();
+            dd($result[0]->attendances);
             // $employeeId = Employee::with(['attendances' => function ($q) use ($request) {
             //     $q->whereMonth('attendance', Carbon::now()->month)
             //         ->groupBy(function ($date) {
