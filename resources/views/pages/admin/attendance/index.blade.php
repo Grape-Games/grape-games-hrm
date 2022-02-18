@@ -11,11 +11,9 @@
     @include('vendors.select2')
     @include('vendors.toastr')
     @include('vendors.sweet-alerts')
-
 @endpush
 
 @section('content')
-
     <x-bread-crumb-component :modal=false />
 
     @if (\Session::has('message') || isset($message))
@@ -34,11 +32,7 @@
                 <div class="form-group form-focus">
                     <select class="select select2 floating" name="employee_id" required>
                         <option value="">Employee</option>
-                        @foreach ($employees as $employee)
-                            <option value="{{ $employee->id }}">
-                                {{ $employee->first_name . ' ' . $employee->last_name }}
-                            </option>
-                        @endforeach
+
                     </select>
                 </div>
             </div>
@@ -81,92 +75,52 @@
         <div class="col-lg-12">
             <div class="table-responsive">
                 <table class="table table-striped custom-table table-nowrap mb-0">
-                    @if (count($monthlyAttendance[0]) > 0)
-                        <thead>
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Stats</th>
+                            <th>Company Name</th>
+                            @foreach ($monthDays as $item)
+                                <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($result as $employee)
                             <tr>
-                                <th>Employee</th>
-                                <th>Stats</th>
-                                <th>Company Name</th>
-                                @foreach ($monthDays as $item)
-                                    <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($monthlyAttendance as $item)
-                                @if (count($item) > 0)
-                                    <tr>
-                                        <td>
-                                            @foreach ($item as $key => $value)
-                                                <h2 class="table-avatar">
-                                                    <a class="avatar avatar-xs" href="profile.html">
-                                                        <img alt="" src="assets/img/profiles/avatar-09.jpg">
-                                                    </a>
-                                                    <a href="#">
-                                                        @php
-                                                            $empId = $value[0]->employee->id;
-                                                            $empName = $value[0]->employee->first_name . ' ' . $value[0]->employee->last_name;
-                                                            $empDevice = $value[0]->employee->biometric_device_id;
-                                                            $empCompany = $value[0]->employee->company->name;
-                                                        @endphp
-                                                        {{ $value[0]->employee->first_name . ' ' . $value[0]->employee->last_name }}
-                                                    </a>
-                                                </h2>
-                                            @break
-                                @endforeach
+                                <td>
+                                    {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
                                 </td>
                                 <td>
-                                    {{ count($monthDays) .
-                                        ' Total Days / ' .
-                                        count($statsArr[$loop->iteration - 1]['presenceArr']) .
-                                        ' Present(s) / ' .
-                                        (count($monthDays) - count($statsArr[$loop->iteration - 1]['presenceArr'])) .
-                                        ' Absent(s) ' .
-                                        '/ Late Minutes ' .
-                                        \App\Models\LateMinutes::where('month', \Carbon\Carbon::now()->format('Y-M'))->where('employee_id', $empId)->sum('minutes') }}
+                                    stats here
                                 </td>
                                 <td>
-                                    {{ $empCompany }}
+                                    {{ $employee['company']['name'] }}
                                 </td>
-                                @foreach ($monthDays as $item2)
-
-                                    @if (isset($item[$item2]))
-                                        <td>
-                                            <a href="javascript:void(0);" class="view-attendance-details"
-                                                data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                                data-employeeid='{{ $empId }}'
-                                                data-employeename='{{ $empName }}'
-                                                data-deviceid='{{ $empDevice }}' data-toggle="modal"
-                                                data-target="#attendance_info_in">
-                                                <i class="fa fa-check text-success"></i>
-                                            </a>
-                                        </td>
-                                    @else
-                                        <td>
-                                            <a href="javascript:void(0);" class="view-attendance-details-absent"
-                                                data-item="{{ $item }}" data-date="{{ $item2 }}"
-                                                data-employeeid='{{ $empId }}'
-                                                data-employeename='{{ $empName }}'
-                                                data-deviceid='{{ $empDevice }}' data-toggle="modal"
-                                                data-target="#attendance_info_out">
-                                                <i class="fa fa-times text-danger"></i>
-                                            </a>
-                                        </td>
-                                    @endif
-
+                                @foreach ($monthDays as $attendance => $val)
+                                    @foreach ($employee['attendances'] as $item)
+                                        {{-- {{dd($item['attendance'], $val);}} --}}
+                                        @if ($item['attendance'] == $val)
+                                            <td>
+                                                <a href="javascript:void(0);" class="view-attendance-details"
+                                                    data-toggle="modal" data-target="#attendance_info_in">
+                                                    <i class="fa fa-check text-success"></i>
+                                                </a>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <a href="javascript:void(0);" class="view-attendance-details-absent"
+                                                    data-toggle="modal" data-target="#attendance_info_out">
+                                                    <i class="fa fa-times text-danger"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                    @break;
                                 @endforeach
-                                </tr>
-                            @endif
-                    @endforeach
+                        @endforeach
+                        </tr>
+                        @endforeach
                     </tbody>
-                @else
-                    <div class="alert alert-danger alert-dismissible fade show bx-flashing" role="alert">
-                        <strong>Message : </strong>No records found.<button type="button" class="close"
-                            data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    @endif
                 </table>
             </div>
         </div>
@@ -174,11 +128,9 @@
 
 
     <x-admin.modals.employee-attendance-update-modal />
-
 @endsection
 
 @push('extended-js')
-
     <script>
         $(function() {
             $(".custom-table").DataTable({
@@ -320,5 +272,4 @@
             }
         }
     </script>
-
 @endpush

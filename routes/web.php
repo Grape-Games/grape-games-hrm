@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Attendance;
+use App\Models\Employee;
 use App\Models\SalaryFormula;
 use App\Models\SalarySlip;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +36,12 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
     Route::get('/dashboard/generate-slip', function () {
         return redirect()->route('dashboard.employee-salaries.index');
     });
+});
+
+Route::get('/test-query', function () {
+    return Employee::with(['attendances' => function ($q) {
+        $q->whereMonth('attendance', Carbon::now()->month);
+    }])->get();
 });
 
 

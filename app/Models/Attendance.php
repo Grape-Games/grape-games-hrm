@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attendance extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $casts = [
-        'attendance' => 'datetime:l F j, Y, g:i a'
+        'attendance' => 'datetime:Y-m-d'
     ];
+
     protected $fillable = [
         'employee_id',
         'biometric_device_id',
