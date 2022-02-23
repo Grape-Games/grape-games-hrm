@@ -112,7 +112,7 @@
                                                 data-target="#attendance_info_in">
                                                 <i class="fa fa-check text-success" data-toggle="tooltip"
                                                     data-placement="top"
-                                                    title="{{ $employee->first_name . ' ' . $employee->last_name }}"></i>
+                                                    title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
                                             </a>
                                         </td>
                                     @else
