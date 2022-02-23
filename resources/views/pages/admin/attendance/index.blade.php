@@ -92,7 +92,7 @@
                                     {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
                                 </td>
                                 <td>
-                                    {{ 'Total Days : ' .count($monthDays) .' Working Days : ' .$workingDays .' Presents : ' .$employee->attendances->count() }}<br>{{ '  Absents : ' .count($monthDays) -$employee->attendances->count() -($satSuns['saturdays'] + $satSuns['sundays']) .' Sats : ' .$satSuns['saturdays'] .' Sundays : ' .$satSuns['sundays'] }}
+                                    {{ 'Total Days : ' .count($monthDays) .' Working Days : ' .$workingDays .' Presents : ' .$employee->attendances->count() }}<br>@php echo'  Absents : ' .(count($monthDays) -$employee->attendances->count() - ($satSuns['saturdays'] + $satSuns['sundays'])) .' Sats : ' .$satSuns['saturdays'] .' Sundays : ' .$satSuns['sundays'] @endphp
                                 </td>
                                 <td>
                                     {{ $employee['company']['name'] }}
