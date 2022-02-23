@@ -74,7 +74,7 @@
                                         {{ $employee->first_name . ' ' . $employee->last_name }}
                                     </td>
                                     <td>
-                                        {{ $employee->user->email }}
+                                        {{ $employee->user->email ?? 'Not Set' }}
                                     </td>
                                     <td>
                                         <span

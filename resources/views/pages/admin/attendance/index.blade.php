@@ -92,33 +92,29 @@
                                     {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
                                 </td>
                                 <td>
-                                    stats here
+                                    {{ 'Total Days : ' .count($monthDays) .' Working Days : ' .$workingDays .' Presents : ' .$employee->attendances->count() }}<br>{{ '  Absents : ' .count($monthDays) -$employee->attendances->count() -($satSuns['saturdays'] + $satSuns['sundays']) .' Sats : ' .$satSuns['saturdays'] .' Sundays : ' .$satSuns['sundays'] }}
                                 </td>
                                 <td>
                                     {{ $employee['company']['name'] }}
                                 </td>
                                 @foreach ($monthDays as $attendance => $val)
-                                    @foreach ($employee['attendances'] as $item)
-                                        {{-- {{dd($item['attendance'], $val);}} --}}
-                                        @if ($item['attendance'] == $val)
-                                            <td>
-                                                <a href="javascript:void(0);" class="view-attendance-details"
-                                                    data-toggle="modal" data-target="#attendance_info_in">
-                                                    <i class="fa fa-check text-success"></i>
-                                                </a>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <a href="javascript:void(0);" class="view-attendance-details-absent"
-                                                    data-toggle="modal" data-target="#attendance_info_out">
-                                                    <i class="fa fa-times text-danger"></i>
-                                                </a>
-                                            </td>
-                                        @endif
-                                    @break;
+                                    @if ($employee->attendances->contains('date', $val))
+                                        <td>
+                                            <a href="javascript:void(0);" class="view-attendance-details"
+                                                data-toggle="modal" data-target="#attendance_info_in">
+                                                <i class="fa fa-check text-success"></i>
+                                            </a>
+                                        </td>
+                                    @else
+                                        <td>
+                                            <a href="javascript:void(0);" class="view-attendance-details-absent"
+                                                data-toggle="modal" data-target="#attendance_info_out">
+                                                <i class="fa fa-times text-danger"></i>
+                                            </a>
+                                        </td>
+                                    @endif
                                 @endforeach
-                        @endforeach
-                        </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

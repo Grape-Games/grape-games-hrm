@@ -40,10 +40,15 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 
 Route::get('/test-query', function () {
     return Employee::with(['company', 'attendances' => function ($q) {
-        $q->select("*", DB::raw('DATE(attendance) as date'))
+        $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
+            ->whereMonth('attendance', Carbon::now()->month)
+            ->groupBy('date', 'employee_id');
+    }])->get();
+    return view('tt', ['data' => Employee::with(['company', 'attendances' => function ($q) {
+        $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
             ->whereMonth('attendance', Carbon::now()->month)
             ->groupBy('date');
-    }])->first();
+    }])->first()]);
 });
 
 

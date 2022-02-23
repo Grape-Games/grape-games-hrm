@@ -5,22 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Services\JsonResponseService;
+use App\Traits\DateTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminAttendanceManagementController extends Controller
 {
-    private function generateDateRange(Carbon $start_date, Carbon $end_date)
-    {
-        $dates = [];
-
-        for ($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
-            $dates[] = $date->format('Y-m-d');
-        }
-
-        return $dates;
-    }
+    use DateTrait;
 
     public function index(Request $request)
     {
@@ -53,11 +45,14 @@ class AdminAttendanceManagementController extends Controller
         } else {
 
             $thisMonthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
+            $workingDays = floor($this->getWorkingDays(Carbon::now()->startOfMonth(), Carbon::now(), []));
+            $satSuns = $this->getSatSuns(Carbon::now()->startOfMonth(), Carbon::now());
+
             $result = Employee::with(['company', 'attendances' => function ($q) {
-                $q->whereMonth('attendance', Carbon::now()->month)
-                    ->groupBy('attendance_day');
-            }])->first();
-            dd($result[0]->attendances);
+                $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
+                    ->whereMonth('attendance', Carbon::now()->month)
+                    ->groupBy('date', 'employee_id');
+            }])->get();
             // $employeeId = Employee::with(['attendances' => function ($q) use ($request) {
             //     $q->whereMonth('attendance', Carbon::now()->month)
             //         ->groupBy(function ($date) {
@@ -88,8 +83,9 @@ class AdminAttendanceManagementController extends Controller
         return view('pages.admin.attendance.index', [
             'monthDays' => $thisMonthDays,
             'years' => range(1990, strftime('%Y', time())),
-            // 'statsArr' => $statsArr
-            'result' => $result
+            'workingDays' => $workingDays,
+            'result' => $result,
+            'satSuns' => $satSuns
         ]);
     }
 
