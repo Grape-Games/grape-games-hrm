@@ -118,7 +118,10 @@
                                     @else
                                         <td>
                                             <a href="javascript:void(0);" class="view-attendance-details-absent"
-                                                data-toggle="modal" data-target="#attendance_info_out">
+                                                data-date="{{ $val }}" data-employee="{{ $employee->id }}"
+                                                data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
+                                                data-device="{{ $employee->biometric_device_id }}" data-toggle="modal"
+                                                data-target="#attendance_info_out">
                                                 <i class="fa fa-times text-danger" data-toggle="tooltip"
                                                     data-placement="top"
                                                     title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
