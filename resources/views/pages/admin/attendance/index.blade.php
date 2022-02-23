@@ -32,7 +32,12 @@
                 <div class="form-group form-focus">
                     <select class="select select2 floating" name="employee_id" required>
                         <option value="">Employee</option>
-
+                        @forelse ($employeesT as $employee)
+                            <option value="{{ $employee->id }}">{{ $employee->first_name . ' ' . $employee->last_name }}
+                            </option>
+                        @empty
+                            <option value="">No employee found.</option>
+                        @endforelse
                     </select>
                 </div>
             </div>
@@ -101,15 +106,22 @@
                                     @if ($employee->attendances->contains('date', $val))
                                         <td>
                                             <a href="javascript:void(0);" class="view-attendance-details"
-                                                data-toggle="modal" data-target="#attendance_info_in">
-                                                <i class="fa fa-check text-success"></i>
+                                                data-date="{{ $val }}" data-employee="{{ $employee->id }}"
+                                                data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
+                                                data-device="{{ $employee->biometric_device_id }}" data-toggle="modal"
+                                                data-target="#attendance_info_in">
+                                                <i class="fa fa-check text-success" data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="{{ $employee->first_name . ' ' . $employee->last_name }}"></i>
                                             </a>
                                         </td>
                                     @else
                                         <td>
                                             <a href="javascript:void(0);" class="view-attendance-details-absent"
                                                 data-toggle="modal" data-target="#attendance_info_out">
-                                                <i class="fa fa-times text-danger"></i>
+                                                <i class="fa fa-times text-danger" data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
                                             </a>
                                         </td>
                                     @endif
@@ -207,32 +219,55 @@
             $(".punch-in-time").html('NA');
             $(".punch-out-time").html('NA');
             $(".working-hours").html('0:00 hrs');
-            $("[name=day_attendance]").val($(this).data('date'));
-            $("[name=employee_id]").val($(this).data('employeeid').trim());
-            $("[name=device_id]").val($(this).data('deviceid'));
-            $(".att-info").html('Attendance Info of ' + $(this).data('employeename'));
-            var timestamps = $(this).data('item');
-            var datedStampes = timestamps[$(this).data('date')];
+            var employeeId = $(this).data('employee');
+            var date = $(this).data('date');
+            var name = $(this).data('name');
+            var device = $(this).data('device');
+            $("[name=day_attendance]").val(date);
+            $("[name=employee_id]").val(employeeId);
+            $("[name=device_id]").val(device);
+            $(".att-info").html('Attendance Info of ' + name);
+            var formData = new FormData();
+            formData.append('id', employeeId);
+            formData.append('date', date);
+
+            dynamicAjax('{{ route('api.employee.attendance.get-attendance') }}', "POST", formData,
+                'attendanceReceived')
+        });
+
+        function attendanceReceived(datedStampes) {
+            console.log(datedStampes);
             if (datedStampes != undefined) {
                 let punchIn = datedStampes[0].attendance;
                 let punchOut = datedStampes[datedStampes.length - 1].attendance;
                 $(".working-hours").html(timeDiffCalc(new Date(punchOut), new Date(punchIn)));
-                $(".punch-in-time").html(punchIn);
-                $(".punch-out-time").html(punchOut);
+                $(".punch-in-time").html(datedStampes[0].time);
+                $(".punch-out-time").html(datedStampes[datedStampes.length - 1].time);
                 datedStampes.forEach(element => {
                     $(".li-html").append(
                         '<li><p class="mb-0">Punch at</p><p class="res-activity-time d-inline-block">' +
-                        '<i class="fa fa-clock-o"></i>' + element.attendance +
+                        '<i class="fa fa-clock-o mr-2"></i>' + element.time +
                         '</p><i data-punchid="' + element.id +
                         '" class="fa fa-trash bx-tada pull-right mr-4 delete-punch"></i></li>'
                     )
                 });
             }
-        });
+        }
 
         $(".employeeAttendanceUpdateForm").submit(function(e) {
             e.preventDefault();
-            $(this).valid() ? this.submit() : '';
+            if ($(this).valid()) {
+                $(this).find("button").prop('disabled', true);
+                this.submit()
+            };
+        });
+
+        $("#adminEmployeeAttendance").submit(function(e) {
+            e.preventDefault();
+            if ($(this).valid()) {
+                $(this).find("button").prop('disabled', true);
+                this.submit()
+            };
         });
 
         $("body").on("click", ".delete-punch", function(e) {

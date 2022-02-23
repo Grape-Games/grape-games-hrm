@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
+use App\Models\Employee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeAttendanceController extends Controller
 {
@@ -26,5 +29,9 @@ class EmployeeAttendanceController extends Controller
         }
         session()->flash('message', 'Successfully done the operation.');
         return back();
+    }
+    public function get(Request $request)
+    {
+        return Attendance::where('employee_id', $request->id)->whereDate('attendance', $request->date)->get();
     }
 }

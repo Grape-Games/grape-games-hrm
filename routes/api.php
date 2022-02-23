@@ -50,4 +50,5 @@ Route::group([
     'as' => 'api.employee.attendance.'
 ], function () {
     Route::post('save', [EmployeeAttendanceController::class, 'save'])->name('save-attendance');
+    Route::post('get', [EmployeeAttendanceController::class, 'get'])->name('get-attendance');
 });

@@ -12,8 +12,12 @@ class Attendance extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $casts = [
-        'attendance' => 'datetime:Y-m-d'
+    // protected $casts = [
+    //     'attendance' => 'datetime:Y-m-d'
+    // ];
+
+    protected $dates = [
+        'attendance'
     ];
 
     protected $fillable = [
@@ -23,12 +27,12 @@ class Attendance extends Model
     ];
 
     protected $appends = [
-        'attendance_day'
+        'time'
     ];
 
-    public function getAttendanceDayAttribute()
+    public function getTimeAttribute()
     {
-        return Carbon::parse($this->attendance)->format('Y-m-d');
+        return Carbon::parse($this->attendance)->format('H:i:s A');
     }
 
     // public function getStatusAttribute()
