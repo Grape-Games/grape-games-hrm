@@ -2,20 +2,25 @@
 
 namespace App\View\Components\Dashboard\LateMinutes;
 
+use App\Models\Attendance;
+use App\Traits\DateTrait;
+use Carbon\Carbon;
 use Illuminate\View\Component;
 
 class ShowResult extends Component
 {
-    public $employee_id, $company_id;
+    use DateTrait;
+    public $employeeId, $companyId, $month;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($employee_id, $company_id)
+    public function __construct($employeeId, $companyId, $month)
     {
-        $this->employee_id = $employee_id;
-        $this->company_id = $company_id;
+        $this->employeeId = $employeeId;
+        $this->companyId = $companyId;
+        $this->month = $month;
     }
 
     /**
@@ -25,6 +30,12 @@ class ShowResult extends Component
      */
     public function render()
     {
+        $dates = $this->generateDateRange(
+            Carbon::parse($this->month . '-' . $this->year)->startOfMonth(),
+            Carbon::parse($this->month . '-' . $this->year)->endOfMonth()
+        );
+        dd($dates);
+        dd(Attendance::where('employee_id', $this->employeeId)->whereMonth('attendance', $this->month)->get());
         return view('components.dashboard.late-minutes.show-result');
     }
 }
