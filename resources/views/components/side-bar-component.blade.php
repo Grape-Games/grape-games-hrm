@@ -16,10 +16,12 @@
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index') || Route::is('dashboard.companies.index')) class="subdrop" @endif>
                             <i class="la la-building"></i> <span> Companies</span> <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.companies.index')) display:block;@endif">
-                            <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a href="{{ route('dashboard.department-type.index') }}">Add
+                        <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.companies.index')) display:block; @endif">
+                            <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a
+                                    href="{{ route('dashboard.department-type.index') }}">Add
                                     Department Type(s)</a></li>
-                            <li @if (Route::is('dashboard.companies.index')) class="active" @endif><a href="{{ route('dashboard.companies.index') }}">Add
+                            <li @if (Route::is('dashboard.companies.index')) class="active" @endif><a
+                                    href="{{ route('dashboard.companies.index') }}">Add
                                     Companies</a></li>
                         </ul>
                     </li>
@@ -30,10 +32,11 @@
                         <a href="#" @if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) class="subdrop" @endif>
                             <i class="la la-random"></i> <span> Designations</span> <span
                                 class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.parent-designations.index')) class="active" @endif><a
                                     href="{{ route('dashboard.parent-designations.index') }}">Parent Designations</a></li>
-                            <li @if (Route::is('dashboard.designations.index')) class="active" @endif><a href="{{ route('dashboard.designations.index') }}">Employee
+                            <li @if (Route::is('dashboard.designations.index')) class="active" @endif><a
+                                    href="{{ route('dashboard.designations.index') }}">Employee
                                     Designations</a></li>
                         </ul>
                     </li>
@@ -45,10 +48,12 @@
                         <a href="#" @if (Route::is('dashboard.employees.create') || Route::is('dashboard.employees.index')) class="subdrop" @endif>
                             <i class="la la-user bx-tada"></i> <span> Employees</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.employees.create') || Route::is('dashboard.employees.index')) display:block;@endif">
-                            <li @if (Route::is('dashboard.employees.create')) class="active" @endif><a href="{{ route('dashboard.employees.create') }}">Add
+                        <ul style="@if (Route::is('dashboard.employees.create') || Route::is('dashboard.employees.index')) display:block; @endif">
+                            <li @if (Route::is('dashboard.employees.create')) class="active" @endif><a
+                                    href="{{ route('dashboard.employees.create') }}">Add
                                     Employee</a></li>
-                            <li @if (Route::is('dashboard.employees.index')) class="active" @endif><a href="{{ route('dashboard.employees.index') }}">View
+                            <li @if (Route::is('dashboard.employees.index')) class="active" @endif><a
+                                    href="{{ route('dashboard.employees.index') }}">View
                                     Employees</a></li>
                         </ul>
                     </li>
@@ -56,8 +61,9 @@
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block;@endif">
-                            <li @if (Route::is('dashboard.leave-types.index')) class="active" @endif><a href="{{ route('dashboard.leave-types.index') }}">Add/View
+                        <ul style="@if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.leave-types.index')) display:block; @endif">
+                            <li @if (Route::is('dashboard.leave-types.index')) class="active" @endif><a
+                                    href="{{ route('dashboard.leave-types.index') }}">Add/View
                                     Leave Types</a>
                             </li>
                             <li @if (Route::is('dashboard.employee-leave-approvals')) class="active" @endif><a
@@ -71,7 +77,7 @@
                             <i class="fas fa-user-plus    "></i>
                             <span> Employee Accounts</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.employee-web-accounts.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.employee-web-accounts.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.employee-web-accounts.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.employee-web-accounts.index') }}">Add/View</a>
                             </li>
@@ -87,6 +93,12 @@
                             <i class="fas fa-calendar-star"></i>
                             <span>Attendance Updates</span></a>
                     </li>
+
+                    <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
+                        <a href="{{ route('dashboard.late-minutes.index') }}">
+                            <i class="fa fa-user-times" aria-hidden="true"></i><span>Late Minutes Report</span></a>
+                    </li>
+
 
                     <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
                         <a href="{{ route('dashboard.late-minutes.index') }}">
@@ -112,7 +124,7 @@
                         <a href="#" @if (Route::is('dashboard.events.index')) class="subdrop" @endif>
                             <i class="fa fa-calendar"></i> <span> Events</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.events.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.events.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.events.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.events.index') }}">
                                     View Events</a>
@@ -124,7 +136,7 @@
                         <a href="#" @if (Route::is('dashboard.notice-board.index') || Route::is('dashboard.view-notice-board')) class="subdrop" @endif>
                             <i class="fa fa-clipboard"></i> <span> Notice Board</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.notice-board.index') || Route::is('dashboard.view-notice-board')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.notice-board.index') || Route::is('dashboard.view-notice-board')) display:block; @endif">
                             <li @if (Route::is('dashboard.notice-board.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.notice-board.index') }}">
                                     Add/Delete Notices</a>
@@ -144,7 +156,7 @@
                             <i class="la la-money bx-tada"></i> <span> Employees
                                 Salaries</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) display:block; @endif">
                             <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.employee-salaries.index') }}">
                                     Set Employee Salary</a>
@@ -167,7 +179,7 @@
                         <a href="#" @if (Route::is('dashboard.biometric-devices.index')) class="subdrop" @endif>
                             <i class="fa fa-fax"></i> <span> Biometric Devices</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.biometric-devices.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.biometric-devices.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.biometric-devices.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.biometric-devices.index') }}">
                                     Vew Devices</a>
@@ -182,14 +194,13 @@
                         <a href="#" @if (Route::is('dashboard.send-interview-letter.index')) class="subdrop" @endif>
                             <i class="fa fa-location-arrow" aria-hidden="true"></i> <span> Send Alerts</span>
                             <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.send-interview-letter.index')) display:block;@endif">
+                        <ul style="@if (Route::is('dashboard.send-interview-letter.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.send-interview-letter.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.send-interview-letter.index') }}">
                                     Interview Letter</a>
                             </li>
                         </ul>
                     </li>
-
                 @endcan
                 @can('is-employee')
                     <li class="menu-title">

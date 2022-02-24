@@ -36,7 +36,9 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    @livewireStyles
+    @livewireScripts
     @stack('extended-css')
 
 </head>
