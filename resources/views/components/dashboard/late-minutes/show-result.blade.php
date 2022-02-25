@@ -47,7 +47,10 @@
                                     @endisset
                                 </td>
                                 <td>
-                                    {{ $data->lateMinutes . ' / ' . count($dates) - count($data) . ' / ' . count($data) . ' / ' . $data->hd }}
+                                    @php
+                                        $absents = count($dates) - count($data);
+                                    @endphp
+                                    {{ $data->lateMinutes . ' / ' . $absents . ' / ' . count($data) . ' / ' . $data->hd }}
                                 </td>
                                 @foreach ($dates as $date)
                                     <td>
