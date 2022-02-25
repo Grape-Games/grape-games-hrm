@@ -62,3 +62,8 @@ function handleTickInit(tick) {
         tick.value = value;
     };
 }
+
+Livewire.on("toast", (type, message, heading) => {
+    makeToastr(type, message, heading);
+    Livewire.emit("dt");
+});

@@ -27,14 +27,13 @@ class Attendance extends Model
     ];
 
     protected $appends = [
-        'time'
+        'time',
     ];
 
     public function getTimeAttribute()
     {
         return Carbon::parse($this->attendance)->format('H:i:s A');
     }
-
     // public function getStatusAttribute()
     // {
     //     return $this->attributes['status'] == 'value';

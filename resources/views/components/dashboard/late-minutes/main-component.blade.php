@@ -5,13 +5,13 @@
             Get the monthly report of employees
         </div>
         <div class="card-body">
-            <form id="searchReport">
+            <form id="searchReport" novalidate>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="">Company Name</label>
-                        <select wire:model='company_id'
-                            class="form-control select2 @error('company_id') is-invalid @enderror" name="company_id"
+                        <select class="form-control select2 @error('company_id') is-invalid @enderror" name="company_id"
                             required>
+                            <option selected disabled>Select a company</option>
                             @foreach ($companies as $company)
                                 <option value="{{ $company->id }}">
                                     {{ $company->name }}
@@ -22,41 +22,21 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="">Employee Name</label>
-                        <select wire:model='employee_id'
-                            class="form-control select2 @error('employee_id') is-invalid @enderror" name="employee_id"
-                            required>
-                            @foreach ($employees as $employee)
-                                <option value="{{ $employee->id }}">
-                                    {{ $employee->first_name . ' ' . $employee->last_name }}
-                                </option>
-                            @endforeach
+                        <select class="form-control select2 @error('employee_id') is-invalid @enderror"
+                            name="employee_id" required>
                             @error('employee_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="">Date</label>
-                        <select 
-                            class="form-control select2 @error('month') is-invalid @enderror" name="month" required>
-                            <option value="01">January</option>
-                            <option value="02">Feburary</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                            @error('month')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </select>
+                        <input class="form-control" type="month" name="date" required>
+                        @error('date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <button type="submit" class="mt-4 btn btn-success btn-block"> Get Report </button>
@@ -70,7 +50,46 @@
     <script>
         $("#searchReport").submit(function(e) {
             e.preventDefault();
-            $(this).valid() ? this.submit() : false;
+            if ($(this).valid()) {
+                $(this).find("button").prop('disabled', true).html('Generating report...');
+                this.submit();
+            }
+        });
+
+        $("[name=company_id]").change(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "get",
+                url: "{{ route('json.getCompanyEmployees') }}",
+                data: {
+                    id: $(this).val()
+                },
+                success: function(response) {
+                    makeToastr('success', 'Records fetched successfully', 'Dropdown Data');
+                    $("[name=employee_id]").empty().trigger('change');
+
+                    if (response.response.length > 0) {
+                        var newState = new Option("All employees", "all",
+                            true, true);
+                        $("[name=employee_id]").append(newState).trigger(
+                            'change');
+                    }
+                    $.each(response.response, function(indexInArray, valueOfElement) {
+                        var newState = new Option(valueOfElement.first_name + " " +
+                            valueOfElement.last_name, valueOfElement.id,
+                            true, true);
+                        $("[name=employee_id]").append(newState).trigger(
+                            'change');
+                    });
+                    $("[name=employee_id]").select2({
+                        placeholder: "Select an employee"
+                    });
+                },
+                error: function(response) {
+                    console.log('error');
+                    console.log(response);
+                }
+            });
         });
     </script>
 @endpush

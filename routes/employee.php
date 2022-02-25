@@ -8,6 +8,7 @@ use App\Http\Controllers\EmployeeSalaryDetailsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Dashboard\Employee\AttendanceRequest;
 use App\Models\SalarySlip;
 use Illuminate\Support\Facades\Route;
 
@@ -40,4 +41,13 @@ Route::group([
             ]);
         abort(404);
     })->name('print-slip');
+});
+
+
+Route::group([
+    'as' => 'dashboard.livewire.',
+    'middleware' => ['auth', 'can:is-both'],
+    'prefix' => 'dashboard/'
+], function () {
+    Route::get('attendance-request-live', AttendanceRequest::class)->name('attendance.request');
 });

@@ -3,24 +3,27 @@
 namespace App\View\Components\Dashboard\LateMinutes;
 
 use App\Models\Attendance;
+use App\Models\LateMinutes;
+use App\Traits\AttendanceTrait;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
 class ShowResult extends Component
 {
-    use DateTrait;
-    public $employeeId, $companyId, $month;
+    use DateTrait, AttendanceTrait;
+    public $employeeId, $companyId, $date, $hd;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($employeeId, $companyId, $month)
+    public function __construct($employeeId, $companyId, $date)
     {
         $this->employeeId = $employeeId;
         $this->companyId = $companyId;
-        $this->month = $month;
+        $this->date = $date;
     }
 
     /**
@@ -30,12 +33,16 @@ class ShowResult extends Component
      */
     public function render()
     {
-        $dates = $this->generateDateRange(
-            Carbon::parse($this->month . '-' . $this->year)->startOfMonth(),
-            Carbon::parse($this->month . '-' . $this->year)->endOfMonth()
+        $hd = 0;
+        $parsed = Carbon::parse($this->date);
+        $dates = $this->generateDateRange2(
+            Carbon::parse($this->date)->startOfMonth(),
+            Carbon::parse($this->date)->endOfMonth()
         );
-        dd($dates);
-        dd(Attendance::where('employee_id', $this->employeeId)->whereMonth('attendance', $this->month)->get());
-        return view('components.dashboard.late-minutes.show-result');
+        $data = $this->getEmployeeAttedanceByMonth($this->employeeId, $parsed->month, $this->companyId);
+        return view('components.dashboard.late-minutes.show-result', [
+            'data2' => $data,
+            'dates' => $dates,
+        ]);
     }
 }

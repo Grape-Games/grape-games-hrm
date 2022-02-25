@@ -16,7 +16,7 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group form-focus select-focus">
-                    <select class="select floating">
+                    <select class="form-control">
                         <option>-</option>
                         <option value="attendance_correction">Attendance Correction</option>
                     </select>

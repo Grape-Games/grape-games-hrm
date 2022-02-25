@@ -17,7 +17,8 @@
     <script>
         $(function() {
             $('.select2').select2({
-                theme: "bootstrap"
+                theme: "bootstrap",
+                placeholder: "Select an option"
             });
         });
     </script>

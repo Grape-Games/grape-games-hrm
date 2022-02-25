@@ -96,13 +96,12 @@
 
                     <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
                         <a href="{{ route('dashboard.late-minutes.index') }}">
-                            <i class="fa fa-user-times" aria-hidden="true"></i><span>Late Minutes Report</span></a>
+                            <i class="fa fa-user-times" aria-hidden="true"></i><span>Attendance Report</span></a>
                     </li>
 
-
-                    <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
-                        <a href="{{ route('dashboard.late-minutes.index') }}">
-                            <i class="fa fa-user-times" aria-hidden="true"></i><span>Late Minutes Report</span></a>
+                    <li class="@if (Route::is('dashboard.employee-attendance-approvals')) active @endif ">
+                        <a href="{{ route('dashboard.employee-attendance-approvals') }}">
+                            <i class="fas fa-ticket    "></i><span>Attendance Tickets</span></a>
                     </li>
 
                     <li class="menu-title">

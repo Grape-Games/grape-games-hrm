@@ -71,6 +71,22 @@ class MailService
         }
     }
 
+    public static function sendAttendanceRequestEmailToAdmin($remarks)
+    {
+        $user['heading-email'] = 'Attendance Ticket.';
+        $user['description1'] = 'Description : ' . $remarks;
+        $user['description2'] = 'You have received a ticket from : ' . auth()->user()->email . ' Please visit your dashboard for approval.';
+        $db['heading'] = 'New Attendance Ticket.';
+        $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+        $db['redirect'] = route('dashboard.livewire.attendance.request');
+        $db['email'] = auth()->user()->email;
+        $db['details'] = 'Note : You have received an attendance ticket.';
+        $admins = User::where('role', 'admin')->get();
+        foreach ($admins as $admin) {
+            Notification::send($admin, new NewRequestNotification($user, $db));
+        }
+    }
+
     public static function sendLeaveStatusEmailToEmployee($leave_id, $status, $remarks)
     {
         $leave = EmployeeLeaves::where('id', $leave_id)->first();

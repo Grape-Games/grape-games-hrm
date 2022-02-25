@@ -18,6 +18,7 @@ use App\Http\Controllers\ParentDesignationController;
 use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalarySlipController;
+use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ Route::group([
     ]);
     // Route::resource('departments', DepartmentController::class);
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
+    Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
     Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
     Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');

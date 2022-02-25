@@ -14,7 +14,7 @@
 
     @if (Request::has('employee_id') || Request::has('company_id'))
         <x-dashboard.late-minutes.show-result :employeeId="request()->get('employee_id')"
-            :companyId="request()->get('company_id')" :month="request()->get('month')">
+            :companyId="request()->get('company_id')" :date="request()->get('date')">
         </x-dashboard.late-minutes.show-result>
     @endif
 @endsection

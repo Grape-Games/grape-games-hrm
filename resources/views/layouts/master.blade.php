@@ -116,12 +116,6 @@
 
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script>
-        $(document).on('turbolinks:load', function() {
-            //infinite_scroll()
-            console.log('turbolinks:load fired');
-        });
-    </script>
     @stack('extended-js')
 
 </body>

@@ -18,6 +18,17 @@ trait DateTrait
         return $dates;
     }
 
+    private function generateDateRange2(Carbon $start_date, Carbon $end_date)
+    {
+        $dates = [];
+
+        for ($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
+            $dates[] = $date->format('D d-M');
+        }
+// dd($dates);
+        return $dates;
+    }
+
     private function calculateSatSun($start, $end)
     {
         $start = new DateTime($start);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\EmployeeAttendanceController;
+use App\Http\Controllers\Api\GlobalDataProvider;
 use App\Services\NodeZkTecoService;
 use App\Services\ZKTecoApiService;
 use Illuminate\Http\Request;
@@ -51,4 +52,11 @@ Route::group([
 ], function () {
     Route::post('save', [EmployeeAttendanceController::class, 'save'])->name('save-attendance');
     Route::post('get', [EmployeeAttendanceController::class, 'get'])->name('get-attendance');
+});
+
+
+Route::group([
+    'as' => 'json.'
+], function () {
+    Route::get('getCompanyEmployees', [GlobalDataProvider::class, 'getCompanyEmployees'])->name('getCompanyEmployees');
 });

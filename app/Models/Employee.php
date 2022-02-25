@@ -39,6 +39,11 @@ class Employee extends Model implements HasMedia
 
     protected $keyType = 'uuid';
 
+    public function scopeCompanies($query, $companyId)
+    {
+        return $query->where('company_id', $companyId);
+    }
+
 
     /**
      * Get the user that owns the Employee
