@@ -120,9 +120,6 @@ class EmployeeAccountCreateController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        //(['user_id', NULL]);
-        return Employee::where('user_id', $id)->first();
-        return $user;
         if ($user->role != 'admin') {
             if (Employee::where('user_id', $id)->update(['user_id' => NULL]))
                 if (User::find($id)->delete())
