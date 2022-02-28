@@ -8,28 +8,33 @@
             <form id="searchReport" novalidate>
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="">Company Name</label>
-                        <select class="form-control select2 @error('company_id') is-invalid @enderror" name="company_id"
-                            required>
-                            <option selected disabled>Select a company</option>
-                            @foreach ($companies as $company)
-                                <option value="{{ $company->id }}">
-                                    {{ $company->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="">Select a company</label>
+                        <div class="form-group form-focus select-focus">
+                            <select class="select select2 floating @error('company_id') is-invalid @enderror"
+                                name="company_id" required>
+                                <option selected disabled>Company</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">
+                                        {{ $company->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         @error('company_id')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="col-md-4">
-                        <label for="">Employee Name</label>
-                        <select class="form-control select2 @error('employee_id') is-invalid @enderror"
-                            name="employee_id" required>
+                        <label for="">Select the employee</label>
+                        <div class="form-group form-focus select-focus">
+                            <select class="form-control select2 floating @error('employee_id') is-invalid @enderror"
+                                name="employee_id" required>
+                                <option selected disabled>Employee</option>
+                            </select>
                             @error('employee_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </select>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <label for="">Date</label>

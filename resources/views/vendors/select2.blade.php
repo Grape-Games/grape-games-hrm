@@ -16,10 +16,7 @@
     <script src="{{ asset('assets/js/select2.min.js') }}"></script>
     <script>
         $(function() {
-            $('.select2').select2({
-                theme: "bootstrap",
-                placeholder: "Select an option"
-            });
+            $('.select2').select2();
         });
     </script>
 @endpush

@@ -84,7 +84,7 @@
                                 <td>{{ $ticket->updated_at->diffForHumans() }}</td>
                             </tr>
                         @empty
-                            <td colspan=8>No tickets opened.</td>
+                            <td colspan=10>No tickets opened.</td>
                         @endforelse
                         <tr>
                             <td></td>

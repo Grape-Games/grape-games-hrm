@@ -41,11 +41,12 @@ class DatabaseBackUp extends Command
         $filename = "backup-" . Carbon::now()->format('Y-m-d') . ".gz";
 
         $command = "mysqldump --user=" . env('DB_USERNAME') . " --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  | gzip > " . storage_path() . "/app/backup/" . $filename;
-
+        $permissions = "chmod -R 777 " . storage_path() . "/app/backup";
         $returnVar = NULL;
         $output  = NULL;
 
         exec($command, $output, $returnVar);
+        exec($permissions, $output, $returnVar);
         return Command::SUCCESS;
     }
 }

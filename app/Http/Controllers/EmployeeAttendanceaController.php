@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class EmployeeAttendanceaController extends Controller
 {
-    public function convertToHoursMins($time, $format = '%02d:%02d')
+    public static function convertToHoursMins($time, $format = '%02d:%02d')
     {
         if ($time < 1) {
             return;
@@ -26,7 +26,7 @@ class EmployeeAttendanceaController extends Controller
             $result = Attendance::where('employee_id', $employeeId)
                 ->whereMonth('attendance', Carbon::parse($request->month)->month)
                 ->whereYear('attendance', $request->year)
-                ->orderBy('attendance', 'DESC')
+                ->orderBy('attendance', 'ASC')
                 ->get()
                 ->groupBy(function ($date) {
                     return Carbon::parse($date->attendance)->format('Y-m-d');

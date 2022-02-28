@@ -83,7 +83,7 @@
                     <thead>
                         <tr>
                             <th>Employee</th>
-                            <th>Stats</th>
+                            <th>Statistics</th>
                             <th>Company Name</th>
                             @foreach ($monthDays as $item)
                                 <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
@@ -97,7 +97,7 @@
                                     {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
                                 </td>
                                 <td>
-                                    {{ 'Total Days : ' .count($monthDays) .' Working Days : ' .$workingDays .' Presents : ' .$employee->attendances->count() }}<br>@php echo'  Absents : ' .(count($monthDays) -$employee->attendances->count() - ($satSuns['saturdays'] + $satSuns['sundays'])) .' Sats : ' .$satSuns['saturdays'] .' Sundays : ' .$satSuns['sundays'] @endphp
+                                    {{ 'TD / ' . count($monthDays) . ' / WD ' . $workingDays . ' / P ' . $employee->attendances->count() }}@php echo' / A ' .(count($monthDays) -$employee->attendances->count() - ($satSuns['saturdays'] + $satSuns['sundays'])) .' / SAT ' .$satSuns['saturdays'] .' / SUN ' .$satSuns['sundays'] @endphp
                                 </td>
                                 <td>
                                     {{ $employee['company']['name'] }}

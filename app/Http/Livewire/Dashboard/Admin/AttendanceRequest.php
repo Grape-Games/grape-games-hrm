@@ -32,7 +32,6 @@ class AttendanceRequest extends Component
     {
         return view('livewire.dashboard.admin.attendance-request', [
             'tickets' => ModelsAttendanceRequest::paginate(20)
-        ])
-            ->extends('layouts.master');
+        ])->extends('layouts.master');
     }
 }
