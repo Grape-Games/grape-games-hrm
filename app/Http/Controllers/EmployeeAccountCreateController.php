@@ -6,13 +6,11 @@ use App\Http\Requests\Employees\Profile\UpdatePasswordRequest;
 use App\Http\Requests\StoreEmployeeHrmAccountRequest;
 use App\Models\Employee;
 use App\Models\User;
-use App\Notifications\EmployeeAccountNotification;
 use App\Services\JsonResponseService;
 use App\Services\MailService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Notification;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeAccountCreateController extends Controller
@@ -122,9 +120,15 @@ class EmployeeAccountCreateController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if ($user->role != 'admin')
-            if (User::find($id)->delete())
-                return JsonResponseService::getJsonSuccess('Employee account was deleted successfully.');
+        //(['user_id', NULL]);
+        return Employee::where('user_id', $id)->first();
+        return $user;
+        if ($user->role != 'admin') {
+            if (Employee::where('user_id', $id)->update(['user_id' => NULL]))
+                if (User::find($id)->delete())
+                    return JsonResponseService::getJsonSuccess('Employee account was deleted successfully.');
+        }
+
         return JsonResponseService::getJsonFailed('Failed to delete employee account.');
     }
 }
