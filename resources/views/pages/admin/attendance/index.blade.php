@@ -178,8 +178,8 @@
 
         $(".view-attendance-details-absent").click(function(e) {
             $("[name=day_attendance]").val($(this).data('date'));
-            $("[name=employee_id]").val($(this).data('employeeid').trim());
-            $("[name=device_id]").val($(this).data('deviceid'));
+            $("[name=employee_id]").val($(this).data('employee'));
+            $("[name=device_id]").val($(this).data('device'));
             $(".att-info").html('Attendance Info of ' + $(this).data('employeename'));
             $(".li-html-2").html(
                 '<li><p class="mb-0">Punch at</p><p class="res-activity-time"><i class="fa fa-clock-o mr-2"></i>No details available</p></li>'
