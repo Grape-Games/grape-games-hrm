@@ -39,16 +39,16 @@ Route::middleware(['auth', 'can:is-admin'])->group(function () {
 });
 
 Route::get('/test-query', function () {
-    return Employee::with(['company', 'attendances' => function ($q) {
-        $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
-            ->whereMonth('attendance', Carbon::now()->month)
-            ->groupBy('date', 'employee_id');
-    }])->get();
-    return view('tt', ['data' => Employee::with(['company', 'attendances' => function ($q) {
-        $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
-            ->whereMonth('attendance', Carbon::now()->month)
-            ->groupBy('date');
-    }])->first()]);
+    $employees = Attendance::whereDate('attendance', '2022-02-25')->groupBy('employee_id')->get();
+    foreach ($employees as $key => $value) {
+        # code...
+        Attendance::create([
+            'employee_id' => $value->employee_id,
+            'biometric_device_id' => 1,
+            'attendance' => "2022-02-25 19:00:00"
+        ]);
+    }
+    dd('done');
 });
 
 
