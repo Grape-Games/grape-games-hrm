@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\GlobalRestrictionsWhereHasScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,24 +31,17 @@ class Attendance extends Model
         'time',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new GlobalRestrictionsWhereHasScope('employee'));
+    }
+
     public function getTimeAttribute()
     {
         return Carbon::parse($this->attendance)->format('H:i:s A');
     }
-    // public function getStatusAttribute()
-    // {
-    //     return $this->attributes['status'] == 'value';
-    // }
-
-    // public function setAttendanceAttribute($value)
-    // {
-    //     // $this->attributes['attendance'] = Carbon::parse($value)->addHours(3);
-    // }
-
-    // public function getAttendanceAttribute($value)
-    // {
-    //     return Carbon::parse($value)->format('l F j, Y, g:i a');
-    // }
 
     /**
      * Get the employee that owns the Attendance

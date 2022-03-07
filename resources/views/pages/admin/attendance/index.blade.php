@@ -26,114 +26,125 @@
         </div>
     @endif
 
-    <form class="mb-4" id="adminEmployeeAttendance" method="GET" novalidate>
-        <div class="row filter-row">
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus">
-                    <select class="select select2 floating" name="employee_id" required>
-                        <option value="">Employee</option>
-                        @forelse ($employeesT as $employee)
-                            <option value="{{ $employee->id }}">{{ $employee->first_name . ' ' . $employee->last_name }}
-                            </option>
-                        @empty
-                            <option value="">No employee found.</option>
-                        @endforelse
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus select-focus">
-                    <select class="select select2 floating" name="month" required>
-                        <option value="">Month</option>
-                        <option>Jan</option>
-                        <option>Feb</option>
-                        <option>Mar</option>
-                        <option>Apr</option>
-                        <option>May</option>
-                        <option>Jun</option>
-                        <option>Jul</option>
-                        <option>Aug</option>
-                        <option>Sep</option>
-                        <option>Oct</option>
-                        <option>Nov</option>
-                        <option>Dec</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <div class="form-group form-focus select-focus">
-                    <select class="select select2 floating" name="year" required>
-                        <option value="">Year</option>
-                        @foreach ($years as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">
-                <button type="submit" class="btn btn-success btn-block"> Search </button>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h2>Attendance Details</h2>
         </div>
-    </form>
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="table-responsive">
-                <table class="table table-striped custom-table table-nowrap mb-0">
-                    <thead>
-                        <tr>
-                            <th>Employee</th>
-                            <th>Statistics</th>
-                            <th>Company Name</th>
-                            @foreach ($monthDays as $item)
-                                <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($result as $employee)
-                            <tr>
-                                <td>
-                                    {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
-                                </td>
-                                <td>
-                                    {{ 'TD / ' . count($monthDays) . ' / WD ' . $workingDays . ' / P ' . $employee->attendances->count() }}@php echo' / A ' .(count($monthDays) -$employee->attendances->count() - ($satSuns['saturdays'] + $satSuns['sundays'])) .' / SAT ' .$satSuns['saturdays'] .' / SUN ' .$satSuns['sundays'] @endphp
-                                </td>
-                                <td>
-                                    {{ $employee['company']['name'] }}
-                                </td>
-                                @foreach ($monthDays as $attendance => $val)
-                                    @if ($employee->attendances->contains('date', $val))
-                                        <td>
-                                            <a href="javascript:void(0);" class="view-attendance-details"
-                                                data-date="{{ $val }}" data-employee="{{ $employee->id }}"
-                                                data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
-                                                data-device="{{ $employee->biometric_device_id }}" data-toggle="modal"
-                                                data-target="#attendance_info_in">
-                                                <i class="fa fa-check text-success" data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
-                                            </a>
-                                        </td>
-                                    @else
-                                        <td>
-                                            <a href="javascript:void(0);" class="view-attendance-details-absent"
-                                                data-date="{{ $val }}" data-employee="{{ $employee->id }}"
-                                                data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
-                                                data-device="{{ $employee->biometric_device_id }}" data-toggle="modal"
-                                                data-target="#attendance_info_out">
-                                                <i class="fa fa-times text-danger" data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
-                                            </a>
-                                        </td>
-                                    @endif
+        <div class="card-body">
+            <form class="mb-4" id="adminEmployeeAttendance" method="GET" novalidate>
+                <div class="row filter-row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group form-focus">
+                            <select class="select select2 floating" name="employee_id" required>
+                                <option value="">Employee</option>
+                                @forelse ($employeesT as $employee)
+                                    <option value="{{ $employee->id }}">
+                                        {{ $employee->first_name . ' ' . $employee->last_name }}
+                                    </option>
+                                @empty
+                                    <option value="">No employee found.</option>
+                                @endforelse
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group form-focus select-focus">
+                            <select class="select select2 floating" name="month" required>
+                                <option value="">Month</option>
+                                <option>Jan</option>
+                                <option>Feb</option>
+                                <option>Mar</option>
+                                <option>Apr</option>
+                                <option>May</option>
+                                <option>Jun</option>
+                                <option>Jul</option>
+                                <option>Aug</option>
+                                <option>Sep</option>
+                                <option>Oct</option>
+                                <option>Nov</option>
+                                <option>Dec</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group form-focus select-focus">
+                            <select class="select select2 floating" name="year" required>
+                                <option value="">Year</option>
+                                @foreach ($years as $year)
+                                    <option value="{{ $year }}">{{ $year }}</option>
                                 @endforeach
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <button type="submit" class="btn btn-success btn-block"> Search </button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped custom-table table-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Statistics</th>
+                                    <th>Company Name</th>
+                                    @foreach ($monthDays as $item)
+                                        <th>{{ \Carbon\Carbon::parse($item)->format('d') }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($result as $employee)
+                                    <tr>
+                                        <td>
+                                            {{ $employee['first_name'] . ' ' . $employee['last_name'] }}
+                                        </td>
+                                        <td>
+                                            {{ 'TD / ' . count($monthDays) . ' / WD ' . $workingDays . ' / P ' . $employee->attendances->count() }}@php echo' / A ' .(count($monthDays) -$employee->attendances->count() - ($satSuns['saturdays'] + $satSuns['sundays'])) .' / SAT ' .$satSuns['saturdays'] .' / SUN ' .$satSuns['sundays'] @endphp
+                                        </td>
+                                        <td>
+                                            {{ $employee['company']['name'] }}
+                                        </td>
+                                        @foreach ($monthDays as $attendance => $val)
+                                            @if ($employee->attendances->contains('date', $val))
+                                                <td>
+                                                    <a href="javascript:void(0);" class="view-attendance-details"
+                                                        data-date="{{ $val }}"
+                                                        data-employee="{{ $employee->id }}"
+                                                        data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
+                                                        data-device="{{ $employee->biometric_device_id }}"
+                                                        data-toggle="modal" data-target="#attendance_info_in">
+                                                        <i class="fa fa-check text-success" data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
+                                                    </a>
+                                                </td>
+                                            @else
+                                                <td>
+                                                    <a href="javascript:void(0);" class="view-attendance-details-absent"
+                                                        data-date="{{ $val }}"
+                                                        data-employee="{{ $employee->id }}"
+                                                        data-name="{{ $employee->first_name . ' ' . $employee->last_name }}"
+                                                        data-device="{{ $employee->biometric_device_id }}"
+                                                        data-toggle="modal" data-target="#attendance_info_out">
+                                                        <i class="fa fa-times text-danger" data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="{{ $employee->first_name . ' ' . $employee->last_name . ' ' . $val }}"></i>
+                                                    </a>
+                                                </td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 

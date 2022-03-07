@@ -179,6 +179,14 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Late Minutes/Half Days Deductions</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ $salaryDetails->calculated_salary_without_deduction - $salaryDetails->calculated_salary }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Total Deductions</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right">

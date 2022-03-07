@@ -58,6 +58,7 @@
                 <x-search-result-table-component company="{{ Request::get('company_id') }}"
                     month="{{ Request::get('month') }}" />
             @else
+                {{ dd('out') }}
                 @push('extended-js')
                     <script>
                         $(function() {

@@ -65,5 +65,10 @@ function handleTickInit(tick) {
 
 Livewire.on("toast", (type, message, heading) => {
     makeToastr(type, message, heading);
+    $(".modal").modal("hide");
     Livewire.emit("dt");
+});
+
+Livewire.on("select2", () => {
+    $(".select2").select2();
 });

@@ -2,13 +2,16 @@
 
 namespace App\View\Components\Admin\Dashboard;
 
+use App\Models\AssignedCompany;
 use App\Models\Employee;
 use App\Models\EmployeeLeaves;
 use App\Models\SalaryFormula;
+use App\Traits\RestrictTrait;
 use Illuminate\View\Component;
 
 class TablesComponent extends Component
 {
+    use RestrictTrait;
     /**
      * Create a new component instance.
      *
@@ -27,8 +30,11 @@ class TablesComponent extends Component
     public function render()
     {
         $employees = Employee::latest()->limit(10)->get();
+
         $employeeLeaves = EmployeeLeaves::latest()->limit(5)->get();
+
         $salaries = SalaryFormula::orderBy('basic_salary', 'desc')->limit(5)->get();
+
         return view('components.admin.dashboard.tables-component', [
             'employees' => $employees,
             'employeeLeaves' => $employeeLeaves,

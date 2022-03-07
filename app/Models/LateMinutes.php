@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\GlobalRestrictionsWhereHasScope;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +20,23 @@ class LateMinutes extends Model
         'employee_id',
         'owner_id'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new GlobalRestrictionsWhereHasScope('employee'));
+    }
+
+    public function scopeEmployeeHalfDays($query, $employeeId)
+    {
+        return $query->where('employee_id', $employeeId)->where('type', 'half_day');
+    }
+
+    public function getDateAttribute($value)
+    {
+        return Carbon::parse($value);
+    }
 
     /**
      * Get the owner that owns the LateMinutes

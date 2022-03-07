@@ -14,7 +14,7 @@ class StoreParentDesignationRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Gate::allows('is-admin'))
+        if (Gate::allows('is-universal'))
             return true;
     }
 

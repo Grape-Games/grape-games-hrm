@@ -176,9 +176,20 @@ class MailService
         $db['email'] = '';
         $db['details'] = 'Note : The candidate was notified ✅';
         Notification::route('mail', $data['email'])->notify(new JobInterviewLetter($userArr, $db,  ["hr@grapegames.net", "i60289@nu.edu.pk"]));
-        // (new User)->forceFill([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        // ])->notify(new JobInterviewLetter($userArr, $db));
+    }
+
+    public static function sendIncrementEmail($userId = NULL, $months, $amount, $newSalary)
+    {
+        if (!is_null($userId)) {
+            $user['heading-email'] = 'Your ' . $months . ' months increment of RS : ' . $amount . '/- is here 🎈';
+            $user['description1'] = 'The increment was added to your monthly salary 😉';
+            $user['description2'] = "Your new basic salary is Rs : " . $newSalary . " /-.Please visit you dashboard for further details of the increment.";
+            $db['heading'] = 'Employee Increment Notification';
+            $db['avatar'] = Request::root() . '/assets/img/new-leave-request.png';
+            $db['redirect'] = "#";
+            $db['email'] = '';
+            $db['details'] = 'Note : You have received the salary increment.';
+            Notification::send(User::find($userId), new NewRequestNotification($user, $db));
+        }
     }
 }

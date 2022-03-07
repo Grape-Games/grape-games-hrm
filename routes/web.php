@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SalaryCronTestController;
+use App\Http\Controllers\SalarySlipController;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\SalaryFormula;
@@ -28,7 +30,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::middleware(['auth', 'can:is-admin'])->group(function () {
+Route::middleware(['auth', 'can:is-universal'])->group(function () {
     Route::get('/dashboard/employees/{id}', function () {
         return redirect()->route('dashboard.employees.index');
     });
@@ -50,6 +52,8 @@ Route::get('/test-query', function () {
     }
     dd('done');
 });
+
+Route::get('/test-cron', SalaryCronTestController::class);
 
 
 Route::get('/dashboard', function () {

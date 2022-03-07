@@ -32,12 +32,14 @@ class ChartsComponent extends Component
         $lineData = [];
         $barData = [];
         $dates = $this->generateDateRange(Carbon::now()->subDays(7), Carbon::now());
+
         foreach ($dates as $key => $value) {
             # code...
             $query = "SELECT *, substr(CAST(attendance AS CHAR) , 1, 10) AS date FROM `attendances` where attendance LIKE '%" . $value . "%' GROUP BY `employee_id`";
 
-            $data = DB::select($query);
-
+            $data = Attendance::whereDate('attendance', $value)->get()->groupBy('employee_id');
+            // $data =  DB::select($query);
+            
             $obj = [];
             $obj['y'] = $value;
             $obj['a'] = Employee::where('created_at', '<=', $value)->count();
@@ -47,8 +49,8 @@ class ChartsComponent extends Component
 
             $obj = [];
             $obj['y'] = $value;
-            $obj['a'] = rand(0,100);;
-            $obj['b'] = rand(0,100);;
+            $obj['a'] = rand(0, 100);;
+            $obj['b'] = rand(0, 100);;
 
             array_push($barData, $obj);
         }

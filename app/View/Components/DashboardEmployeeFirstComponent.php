@@ -7,6 +7,7 @@ use App\Models\EmployeeAdditionalInformation;
 use App\Models\EmployeeBankDetails;
 use App\Models\EmployeeEmergencyContact;
 use App\Models\EmployeeLeaves;
+use App\Models\EmployeeSalaryStatus;
 use App\Models\Event;
 use App\Models\LeaveType;
 use App\Models\NoticeBoard;
@@ -15,6 +16,7 @@ use Illuminate\View\Component;
 
 class DashboardEmployeeFirstComponent extends Component
 {
+    public $increment;
     /**
      * Create a new component instance.
      *
@@ -22,7 +24,8 @@ class DashboardEmployeeFirstComponent extends Component
      */
     public function __construct()
     {
-        //
+        $empId = Employee::where('user_id', auth()->id())->value('id');
+        $this->increment = EmployeeSalaryStatus::where('employee_id', $empId)->latest()->first();
     }
 
     /**

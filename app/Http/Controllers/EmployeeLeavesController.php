@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateEmployeeLeavesRequest;
 use App\Models\Employee;
 use App\Services\JsonResponseService;
 use App\Services\MailService;
+use App\Traits\DateTrait;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +17,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeLeavesController extends Controller
 {
+    use DateTrait;
     /**
      * Display a listing of the resource.
      *
@@ -53,7 +56,8 @@ class EmployeeLeavesController extends Controller
             DB::transaction(function () use ($request) {
                 if ($request->filled('leave_id')) {
                     $data = array_merge($request->validated(), [
-                        'approved_by' => auth()->id()
+                        'approved_by' => auth()->id(),
+                        'number_of_leaves' => count($this->generateDateRange(Carbon::parse($request->from_date), Carbon::parse($request->to_date)))
                     ]);
                     unset($data["owner_id"]);
                     MailService::sendLeaveStatusEmailToEmployee($request->leave_id, $request->status, $request->remarks);
@@ -62,6 +66,9 @@ class EmployeeLeavesController extends Controller
                     MailService::sendLeaveEmailToEmployee($request->number_of_leaves, $request->leave_type_id, $request->description);
                     MailService::sendLeaveEmailToAdmin($request->number_of_leaves, $request->leave_type_id, $request->description);
                     $data = $request->validated();
+                    $data = array_merge($request->validated(), [
+                        'number_of_leaves' => count($this->generateDateRange(Carbon::parse($request->from_date), Carbon::parse($request->to_date)))
+                    ]);
                 }
                 EmployeeLeaves::updateOrCreate([
                     'id' => $request->leave_id,

@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\EmployeeLeaves;
 use App\Models\Holiday;
 use App\Models\LateMinutes;
 use App\Models\SalarySlip;
@@ -65,7 +66,6 @@ trait SalaryGeneratorTrait
                     return $date->attendance->format('Y-m-d');
                 });
             foreach ($attendance as $key => $day) {
-
                 if (Holiday::where('date', $key)->exists()) {
                     $thisMonthHolidays--;
                 }
@@ -73,36 +73,50 @@ trait SalaryGeneratorTrait
                     $parsedAtt = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[0]->attendance->format("H:i:s"));
                     $parseCompanyTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[0]->employee->company->time_in)->addMinutes($day[0]->employee->company->grace_minutes);
                     if ($parsedAtt->gt($parseCompanyTimeIn)) {
-                        LateMinutes::firstOrCreate([
+                        $minutes = $parsedAtt->diffInMinutes($parseCompanyTimeIn);
+                        LateMinutes::updateOrCreate(['date' => Carbon::parse($day[0]->attendance)->format("Y-m-d"), 'employee_id' => $employee->id], [
                             'employee_id' => $employee->id,
-                            'month' => Carbon::now()->format('Y-M'),
-                            'date' =>  $day[0]->attendance,
-                            'minutes' => $parsedAtt->diffInMinutes($parseCompanyTimeIn),
-                            'type' => 'morning'
+                            'month' => Carbon::parse($day[0]->attendance)->format("Y-M"),
+                            'date' =>  Carbon::parse($day[0]->attendance)->format("Y-m-d"),
+                            'minutes' => $minutes,
+                            'type' => (count($day) <= 1 || $minutes > 300)  ? 'half_day' : 'morning'
                         ]);
                     }
-                    if (count($day) > 1) {
-                        $parsedAttOut = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[count($day) - 1]->attendance->format("H:i:s"));
-                        $parseCompanyTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[0]->employee->company->time_out);
+                    // this section is to check whether the employee left early.
+                    // if (count($day) > 1) {
+                    //     $parsedAttOut = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[count($day) - 1]->attendance->format("H:i:s"));
+                    //     $parseCompanyTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[0]->employee->company->time_out);
 
-                        if ($parsedAttOut->gt($parseCompanyTimeOut)) {
-                            // return 'i left late';
-                        } else {
-                            LateMinutes::firstOrCreate([
-                                'employee_id' => $employee->id,
-                                'month' => Carbon::now()->format('Y-M'),
-                                'date' => $day[count($day) - 1]->attendance,
-                                'minutes' => $parsedAttOut->diffInMinutes($parseCompanyTimeOut),
-                                'type' => 'evening'
-                            ]);
-                        }
-                    }
+                    //     if ($parsedAttOut->gt($parseCompanyTimeOut)) {
+                    //         // return 'i left late';
+                    //     } else {
+                    //         LateMinutes::firstOrCreate(['date' => $day[count($day) - 1]->attendance], [
+                    //             'employee_id' => $employee->id,
+                    //             'month' => Carbon::now()->format('Y-M'),
+                    //             'date' => $day[count($day) - 1]->attendance,
+                    //             'minutes' => $parsedAttOut->diffInMinutes($parseCompanyTimeOut),
+                    //             'type' => 'evening'
+                    //         ]);
+                    //     }
+                    // }
                 }
             }
+
             $monthDays = $this->generateDateRange(Carbon::now()->startOfMonth(), Carbon::now());
-            $totalDaysSalary = count($attendance) + $thisMonthHolidays + $satSuns['saturdays'] + $satSuns['sundays'];
+            $totalDaysSalary = count($attendance) + $thisMonthHolidays + $satSuns['saturdays'] + $satSuns['sundays'] + EmployeeLeaves::approved($employee->user_id, Carbon::now()->month);
             $monthYear = Carbon::now()->format('Y-M');
+            $employeeHalfDays = 0;
             if (!is_null($employee->salaryFormula)) {
+                $calculatedSalary =  ($employee->salaryFormula->basic_salary / Carbon::now()->daysInMonth) * $totalDaysSalary;
+                $calculatedSalaryWithOutDeduction = $calculatedSalary;
+                if ($employee->company->late_minutes_deduction) {
+                    $lateMinutes = LateMinutes::where('employee_id', $employee->id)->where('month', Carbon::now()->format('Y-M'))->where('type', '!=', 'half_day')->sum('minutes');
+                    $employeeHalfDays = LateMinutes::employeeHalfDays($employee->id)->count();
+                    if (isset($employee->salaryFormula->per_day)) {
+                        $deductHalfDaysSalary = ($employee->salaryFormula->per_day) * $employeeHalfDays;
+                    }
+                    $calculatedSalary -= ($lateMinutes * ($employee->salaryFormula->per_minute ?? 0)) + ($deductHalfDaysSalary / 2);
+                }
                 SalarySlip::updateOrCreate([
                     'employee_id'    => $employee->id,
                     'month_year' => $monthYear,
@@ -126,9 +140,11 @@ trait SalaryGeneratorTrait
                     'absent_days' => count($monthDays) - count($attendance) + $thisMonthHolidays,
                     'holidays' => $thisMonthHolidays,
                     'salary_days' => count($attendance) + $thisMonthHolidays + $satSuns['saturdays'] + $satSuns['sundays'],
-                    'calculated_salary' => $employee->salaryFormula->per_day * $totalDaysSalary,
+                    'calculated_salary' => $calculatedSalary,
+                    'calculated_salary_without_deduction' => $calculatedSalaryWithOutDeduction,
                     'saturdays_included' => $satSuns['saturdays'],
                     'sundays_included' => $satSuns['sundays'],
+                    'half_days' => $employeeHalfDays,
                     'employee_id' => $employee->id,
                     'owner_id' => NULL
                 ]);

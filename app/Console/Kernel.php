@@ -25,14 +25,16 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('zkteco:fetch')
-            ->hourly();
+        $schedule->command('zkteco:fetch')->hourly();
 
         // command to back up mySql daily.
         $schedule->command('database:backup')->daily();
 
+        // command to update probabtion period or statuses
+        $schedule->command('employee:salary')->hourlyAt(15);
+
         // command to generate/update the salary slip of employee on daily basis
-        $schedule->command('generate:slip')->daily();
+        $schedule->command('generate:slip')->hourlyAt(30);
     }
 
     /**

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,7 +28,13 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
+        'role'
     ];
+
+    public function scopeAdmins($query)
+    {
+        return $query->where('id', '!=', auth()->id())->where('role', 'admin');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,4 +54,44 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the employeeAccount associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function employee(): HasOne
+    {
+        return $this->hasOne(Employee::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the statusUpdates for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statusUpdates(): HasMany
+    {
+        return $this->hasMany(EmployeeSalaryStatus::class);
+    }
+
+    /**
+     * Get all of the assignedCompanies for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assignedCompanies(): HasMany
+    {
+        return $this->hasMany(AssignedCompany::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the assigner for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assigner(): HasMany
+    {
+        return $this->hasMany(AssignedCompany::class, 'assigned_by', 'id');
+    }
 }

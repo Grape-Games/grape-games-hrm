@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\GlobalRestrictionsWhereScope;
+use App\Traits\RestrictTrait;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +15,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Company extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, UUID;
+    use HasFactory, SoftDeletes, InteractsWithMedia, UUID, RestrictTrait;
 
     public $incrementing = false;
     protected $keyType = 'uuid';
@@ -33,7 +35,12 @@ class Company extends Model implements HasMedia
         'late_minutes_deduction',
         'owner_id'
     ];
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::addGlobalScope(new GlobalRestrictionsWhereScope);
+    }
 
     /**
      * Get all of the departments for the Company

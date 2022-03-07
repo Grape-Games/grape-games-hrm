@@ -8,12 +8,13 @@
                             admin
                             know.</span>
                     @endif
-                    @if (!isset($user->bank))<span
-                            class="badge badge-danger bx-flashing mr-2">Bank Details are not set. Kindly let admin
+                    @if (!isset($user->bank))
+                        <span class="badge badge-danger bx-flashing mr-2">Bank Details are not set. Kindly let admin
                             know.</span>
                     @endif
-                    @if (!isset($user->emergency))<span
-                            class="badge badge-danger bx-flashing mr-2">Emergency Contacts are not set. Kindly let admin
+                    @if (!isset($user->emergency))
+                        <span class="badge badge-danger bx-flashing mr-2">Emergency Contacts are not set. Kindly let
+                            admin
                             know.</span>
                     @endif
                 </div>
@@ -30,8 +31,15 @@
                         onerror="this.onerror=null; this.src='{{ asset('assets/img/placeholder.jpg') }}'">
                 </div>
                 <div class="welcome-det">
-                    <h3>Welcome, {{ $user->first_name . ' ' . $user->last_name }}</h3>
-                    <p>Time : {{ \Carbon\Carbon::now() }}</p>
+                    <h3>Welcome,
+                        @isset($user->first_name)
+                            {{ $user->first_name }}
+                        @endisset
+                        @isset($user->last_name)
+                            {{ $user->last_name }}
+                        @endisset
+                    </h3>
+                    <p>Time : {{ \Carbon\Carbon::now()->format('l F j, Y, g:i a') }}</p>
                 </div>
             </div>
         </div>
@@ -42,9 +50,35 @@
             <section class="dash-section">
                 <h1 class="dash-sec-title">Timeline</h1>
                 <div class="dash-sec-content">
+                    <div class="dash-info-list">
+                        <a href="#" class="dash-card text-success">
+                            <div class="dash-card-container">
+                                <div class="dash-card-icon">
+                                    <i class="fas fa-bell bx-tada"></i>
+                                </div>
+                                <div class="dash-card-content">
+                                    @isset($increment->increment_amount)
+                                        <p>
+                                            Your next salary increment of Rs : {{ $increment->increment_amount }} will be
+                                            added to your basic salary on
+                                            {{ $increment->next_increment->format('l F j, Y, g:i a') }}. Enjoy 🙌
+                                        </p>
+                                    @else
+                                        <p>
+                                            Increment is not added yet 😢
+                                        </p>
+                                    @endisset
+                                </div>
+                            </div>
+                            <div class="pull-left">
+                                <small>{{ isset($increment->created_at) ? $increment->created_at->diffForHumans() : '' }}</small>
+                            </div>
+                        </a>
+                    </div>
                     @forelse ($notices as $notice)
                         <div class="dash-info-list">
-                            <a href="#" class="dash-card @if ($notice->priority == 'high') text-danger @elseif($notice->priority == 'low') text-success @else text-info @endif">
+                            <a href="#"
+                                class="dash-card @if ($notice->priority == 'high') text-danger @elseif($notice->priority == 'low') text-success @else text-info @endif">
                                 <div class="dash-card-container">
                                     <div class="dash-card-icon">
                                         <i class="fas fa-bell bx-tada"></i>
@@ -132,7 +166,8 @@
                                     </div>
                                     <div class="dash-card-content">
                                         <p>{{ $birthday->employee->first_name . ' ' . $birthday->employee->last_name }}
-                                            has a birthday on {{ \Carbon\Carbon::parse($birthday->dob)->format('d M') }}.</p>
+                                            has a birthday on
+                                            {{ \Carbon\Carbon::parse($birthday->dob)->format('d M') }}.</p>
                                     </div>
                                     {{-- <div class="dash-card-avatars">
                                         <a href="#" class="e-avatar"><img src="assets/img/profiles/avatar-05.jpg"

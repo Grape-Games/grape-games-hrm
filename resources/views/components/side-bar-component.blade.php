@@ -9,7 +9,7 @@
                 <li class="@if (Route::is('dashboard')) active @endif ">
                     <a href="{{ route('dashboard') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
                 </li>
-                @can('is-admin')
+                @can('is-universal')
                     <li class="menu-title">
                         <span>Companies Section</span>
                     </li>
@@ -84,6 +84,11 @@
                         </ul>
                     </li>
 
+                    <li class="@if (Route::is('dashboard.employee-salaries-update')) active @endif ">
+                        <a href="{{ route('dashboard.employee-salaries-update') }}">
+                            <i class="fas fa-plus-square"></i></i><span>Salary Increments</span></a>
+                    </li>
+
                     <li class="menu-title">
                         <span>Attendance Management</span>
                     </li>
@@ -94,9 +99,14 @@
                             <span>Attendance Updates</span></a>
                     </li>
 
-                    <li class="@if (Route::is('dashboard.late-minutes.index')) active @endif ">
-                        <a href="{{ route('dashboard.late-minutes.index') }}">
+                    <li class="@if (Route::is('dashboard.attendance-report.index')) active @endif ">
+                        <a href="{{ route('dashboard.attendance-report.index') }}">
                             <i class="fa fa-user-times" aria-hidden="true"></i><span>Attendance Report</span></a>
+                    </li>
+
+                    <li class="@if (Route::is('dashboard.late-minutes.report')) active @endif ">
+                        <a href="{{ route('dashboard.late-minutes.report') }}">
+                            <i class="fas fa-paperclip"></i><span>Late Minutes Report</span></a>
                     </li>
 
                     <li class="@if (Route::is('dashboard.employee-attendance-approvals')) active @endif ">
@@ -107,6 +117,15 @@
                     <li class="menu-title">
                         <span>Misc. Section</span>
                     </li>
+                    @can('is-manager')
+                        <li class="@if (Route::is('dashboard.access-restrictions')) active @endif ">
+                            <a href="{{ route('dashboard.access-restrictions') }}">
+                                <i class="fa fa-address-card" aria-hidden="true"></i>
+                                <span>Access Restrictions</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fas fa-gift"></i><span>Holidays</span>

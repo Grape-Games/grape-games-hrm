@@ -16,7 +16,7 @@ class CreateEmployeeLeavesTable extends Migration
         Schema::create('employee_leaves', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->bigInteger('number_of_leaves');
+            $table->bigInteger('number_of_leaves')->default(1);
             $table->text('remarks')->nullable();
             $table->bigInteger('year');
             $table->foreignId('leave_type_id')->constrained();

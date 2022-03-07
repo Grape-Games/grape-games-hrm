@@ -53,7 +53,7 @@
         <x-bread-crumb-component :modal=false />
     @endcan
 
-    @can('is-admin')
+    @can('is-universal')
         <x-bread-crumb-component :modal=true modalType="Event" modalId="add_event" />
         <x-event-modals-component />
     @endcan

@@ -16,9 +16,9 @@ class CreateLateMinutesTable extends Migration
         Schema::create('late_minutes', function (Blueprint $table) {
             $table->id();
             $table->string('month');
-            $table->timestamp('date');
+            $table->string('date');
             $table->integer('minutes');
-            $table->enum('type', ['morning', 'evening'])->default('morning');
+            $table->enum('type', ['morning', 'evening', 'half_day'])->default('morning');
             $table->foreignUuid('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

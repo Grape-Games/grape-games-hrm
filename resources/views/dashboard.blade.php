@@ -10,7 +10,7 @@
 
     <x-bread-crumb-component :modal='false' />
 
-    @can('is-admin')
+    @can('is-universal')
 
         <x-dashboard-cards-first-admin-component />
 

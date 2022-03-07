@@ -23,7 +23,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Company::with(['owner', 'departments.type'])->get();
+            $data = Company::restrict()->with(['owner', 'departments.type'])->get();
             foreach ($data as $item) {
                 $item->mediaUrl = $item->getFirstMediaUrl('companies');
             }

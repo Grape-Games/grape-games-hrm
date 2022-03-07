@@ -32,10 +32,12 @@ class SalarySlip extends Model
         'absent_days',
         'present_days',
         'salary_days',
+        'half_days',
         'saturdays_included',
         'sundays_included',
         'holidays',
         'calculated_salary',
+        'calculated_salary_without_deduction',
         'owner_id'
     ];
 

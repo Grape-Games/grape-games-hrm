@@ -35,7 +35,7 @@ class SearchResultTableComponent extends Component
         $salArr = [];
         $employees = Employee::where('company_id', $this->company)->with(['salaryFormula'])->get();
 
-        $slips = SalarySlip::where('month_year', Carbon::now()->format('Y-M'))->get();
+        $slips = SalarySlip::where('month_year', Carbon::parse($this->month)->format('Y-M'))->get();
         foreach ($slips as $slip) {
             if ($employees->contains('id', $slip->employee_id)) {
                 $salArr[$slip->employee_id] = $slip;

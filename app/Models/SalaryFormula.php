@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Scopes\GlobalRestrictionsWhereHasScope;
+use App\Traits\RestrictTrait;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Gate;
 
 class SalaryFormula extends Model
 {
-    use HasFactory, SoftDeletes, UUID;
+    use HasFactory, SoftDeletes, UUID, RestrictTrait;
     protected $fillable = [
         'per_day',
         'per_hour',
@@ -35,6 +38,13 @@ class SalaryFormula extends Model
     public $incrementing = false;
 
     protected $keyType = 'uuid';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new GlobalRestrictionsWhereHasScope('employee'));
+    }
 
     /**
      * Get the employee that owns the SalaryFormula

@@ -159,7 +159,15 @@
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                 <span class="user-img"><img src="{{ $dp->getFirstMediaUrl('avatars') }}" alt="">
                     <span class="status online"></span></span>
-                <span>{{ $role == 'admin' ? $user->name : $user->first_name . ' ' . $user->last_name }}</span>
+                <span>
+                    {{ $role == 'admin' ? $user->name : '' }}
+                    @isset($user->first_name)
+                        {{ $user->first_name }}
+                    @endisset
+                    @isset($user->last_name)
+                        {{ $user->last_name }}
+                    @endisset
+                </span>
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">My Profile</a>

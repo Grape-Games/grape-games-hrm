@@ -97,11 +97,9 @@
 </div>
 
 @push('extended-js')
-
     <script>
         document.title = "Salary Slips Report of : {{ $companyName }}"
     </script>
-
 @endpush
 
 <x-submit-form-for-salary-print-component />

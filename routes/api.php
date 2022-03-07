@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::group([
     'prefix' => 'ZKteco/',
-    'as' => 'zkteco.'
+    'as' => 'zkteco.',
 ], function () {
     Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users');
     Route::get('{ip}/getAttendance', [ZKTecoApiService::class, 'getAttendance'])->name('get-attendance');

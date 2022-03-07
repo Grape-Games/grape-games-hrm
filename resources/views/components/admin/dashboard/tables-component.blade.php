@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($employees as $employee)
+                            @forelse ($employees as $employee)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -32,12 +32,12 @@
                                         {{ $employee->company->name }}
                                     </td>
                                     <td>
-                                    <td>
                                         <span class="badge bg-inverse-success">Active</span>
                                     </td>
-                                    </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td colspan=5 class="text-center">No records available.</td>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -65,7 +65,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($employees as $employee)
+                            @forelse ($employees as $employee)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -82,7 +82,9 @@
                                             {{ $employee->user_id == null ? 'Not Created' : 'Created' }}</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td colspan=4 class="text-center">No records available.</td>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -110,7 +112,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($employeeLeaves as $employee)
+                            @forelse ($employeeLeaves as $employee)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -128,7 +130,9 @@
                                         </span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td colspan=4 class="text-center">No records available.</td>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -156,7 +160,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($salaries as $employee)
+                            @forelse ($salaries as $employee)
                                 <tr>
                                     <td>
                                         {{ $loop->iteration }}
@@ -168,7 +172,9 @@
                                         Rs : {{ $employee->basic_salary }} /-
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td colspan=3 class="text-center">No records available.</td>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

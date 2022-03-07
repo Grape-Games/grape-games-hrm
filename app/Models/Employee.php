@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\GlobalRestrictionsWhereScope;
+use App\Traits\RestrictTrait;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,12 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Gate;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Employee extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, UUID;
+    use HasFactory, SoftDeletes, InteractsWithMedia, UUID, RestrictTrait;
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -35,6 +39,13 @@ class Employee extends Model implements HasMedia
         'user_id'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new GlobalRestrictionsWhereScope);
+    }
+
     public $incrementing = false;
 
     protected $keyType = 'uuid';
@@ -43,7 +54,6 @@ class Employee extends Model implements HasMedia
     {
         return $query->where('company_id', $companyId);
     }
-
 
     /**
      * Get the user that owns the Employee
@@ -143,5 +153,15 @@ class Employee extends Model implements HasMedia
     public function attendances(): HasMany
     {
         return $this->hasMany(Attendance::class);
+    }
+
+    /**
+     * Get all of the leaves for the Employee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function leaves(): HasMany
+    {
+        return $this->hasMany(EmployeeLeaves::class);
     }
 }

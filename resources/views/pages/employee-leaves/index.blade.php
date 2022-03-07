@@ -23,7 +23,7 @@
 @push('extended-js')
     <script src="{{ asset('js/core/employee-leaves/main.js') }}"></script>
     <script src="{{ asset('js/data-table-init.js') }}"></script>
-    @can('is-admin')
+    @can('is-universal')
         <script src="{{ asset('js/core/employee-leaves/table-admin.js') }}"></script>
     @elsecan('is-employee')
         <script src="{{ asset('js/core/employee-leaves/table.js') }}"></script>
