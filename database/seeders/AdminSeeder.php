@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'i160289@nu.edu.pk',
             'password' => Hash::make('12345678'),
-            'role' => 'admin'
+            'role' => 'manager'
         ]);
         $user->addMedia(public_path('assets/img/avatar.png'))->preservingOriginal()->toMediaCollection('avatars', 'avatars');
 
@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'hr@grapegames.net',
             'password' => Hash::make('google@me'),
-            'role' => 'admin'
+            'role' => 'manager'
         ]);
         $user->addMedia(public_path('assets/img/avatar.png'))->preservingOriginal()->toMediaCollection('avatars', 'avatars');
     }

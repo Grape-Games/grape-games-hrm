@@ -30,9 +30,14 @@ class AssignCompany extends Component
 
     public function unAssignCompany($id)
     {
-        AssignedCompany::find($id)->delete()
-            ? $this->getSuccess("Company was un-assigned successfully. 😉")
-            : $this->getError("Failed to un-assign company.😢");
+        $model = AssignedCompany::find($id);
+        if ($model) {
+            $model->delete()
+                ? $this->getSuccess("Company was un-assigned successfully. 😉")
+                : $this->getError("Failed to un-assign company.😢");
+        } else {
+            $this->getError("Already Unassigned the company. 👍");
+        }
     }
 
     public function store()
