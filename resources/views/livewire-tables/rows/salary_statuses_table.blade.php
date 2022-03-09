@@ -3,6 +3,19 @@
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
+    @if (!$row->can_view)
+        <div class="form-check">
+            <input wire:click="$emit('changeVal','{{ $row->id }}',true)" type="checkbox" class="form-check-input">
+        </div>
+    @else
+        <div class="form-check">
+            <input wire:click="$emit('changeVal','{{ $row->id }}',false)" type="checkbox" class="form-check-input"
+                checked>
+        </div>
+    @endif
+</x-livewire-tables::bs4.table.cell>
+
+<x-livewire-tables::bs4.table.cell>
     {{ $row->time_period . ' months' }}
 </x-livewire-tables::bs4.table.cell>
 

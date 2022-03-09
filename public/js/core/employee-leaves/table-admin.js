@@ -1,5 +1,7 @@
 const dtColumns = [
     { title: "Employee Name", data: "owner.name" },
+    { title: "From", data: "from_date" },
+    { title: "To", data: "to_date" },
     { title: "Leave Type", data: "type.name" },
     { title: "Total Leaves", data: "number_of_leaves" },
     { title: "Description", data: "description" },

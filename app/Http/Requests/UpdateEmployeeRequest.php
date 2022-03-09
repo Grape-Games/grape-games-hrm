@@ -31,7 +31,7 @@ class UpdateEmployeeRequest extends FormRequest
             'referred_by' => 'string|nullable',
             'join_date' => 'date|nullable',
             'leave_date' => 'date|nullable',
-            'demise_date' => 'date|nullable',
+            'resignation_date' => 'date|nullable',
             'certificate_name' => 'string|nullable',
             'address' => 'string|nullable',
             'job_description' => 'string|nullable',

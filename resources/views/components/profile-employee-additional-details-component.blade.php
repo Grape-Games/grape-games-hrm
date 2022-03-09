@@ -33,8 +33,8 @@
                     <div class="text">{{ $details->job_description }}</div>
                 </li>
                 <li>
-                    <div class="title">Demise Date</div>
-                    <div class="text">{{ $details->demise_date }}</div>
+                    <div class="title">Resignation Date</div>
+                    <div class="text">{{ $details->resignation_date }}</div>
                 </li>
                 <li>
                     <div class="title">Certificate Name</div>

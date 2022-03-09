@@ -6,17 +6,29 @@ use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\EmployeeSalaryStatus;
+use App\Traits\ToastTrait;
 
 class SalaryStatusesTable extends DataTableComponent
 {
+    use ToastTrait;
 
-    protected $listeners = ['dt' => '$refresh'];
+    protected $listeners = ['dt' => '$refresh', 'changeVal'];
+
+    public $view;
+
+    public function changeVal($id, $value)
+    {
+        EmployeeSalaryStatus::find($id)->update(['can_view' => $value])
+        ? $this->getSuccess("Employee dashboard updated. ✔️")
+        : $this->getError("Employee dashboard was not updated. ❌");
+    }
 
     public function columns(): array
     {
         return [
             Column::make("Sr.No", "id")
                 ->sortable(),
+            Column::make("Can Employee See", "can_view"),
             Column::make("Increment Period", "time_period")
                 ->searchable()
                 ->sortable(),

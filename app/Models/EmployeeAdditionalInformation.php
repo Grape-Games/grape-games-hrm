@@ -12,7 +12,7 @@ class EmployeeAdditionalInformation extends Model
     use HasFactory, SoftDeletes;
     protected $dates = [
         'dob',
-        'demise_date',
+        'resignation_date',
         'join_date',
         'leave_date'
     ];
@@ -22,7 +22,7 @@ class EmployeeAdditionalInformation extends Model
         'blood_group',
         'cast_of_staff',
         'certificate_name',
-        'demise_date',
+        'resignation_date',
         'dob',
         'join_date',
         'leave_date',

@@ -4,16 +4,16 @@
             <div class="col-md-12">
                 <div class="welcome-box">
                     @if (!isset($user->additional))
-                        <span class="badge badge-danger bx-flashing mr-2">Additional Information is not set. Kindly let
+                        <span class="mr-2 badge badge-danger bx-flashing">Additional Information is not set. Kindly let
                             admin
                             know.</span>
                     @endif
                     @if (!isset($user->bank))
-                        <span class="badge badge-danger bx-flashing mr-2">Bank Details are not set. Kindly let admin
+                        <span class="mr-2 badge badge-danger bx-flashing">Bank Details are not set. Kindly let admin
                             know.</span>
                     @endif
                     @if (!isset($user->emergency))
-                        <span class="badge badge-danger bx-flashing mr-2">Emergency Contacts are not set. Kindly let
+                        <span class="mr-2 badge badge-danger bx-flashing">Emergency Contacts are not set. Kindly let
                             admin
                             know.</span>
                     @endif
@@ -50,31 +50,34 @@
             <section class="dash-section">
                 <h1 class="dash-sec-title">Timeline</h1>
                 <div class="dash-sec-content">
-                    <div class="dash-info-list">
-                        <a href="#" class="dash-card text-success">
-                            <div class="dash-card-container">
-                                <div class="dash-card-icon">
-                                    <i class="fas fa-bell bx-tada"></i>
+                    @if ($increment->can_view)
+                        <div class="dash-info-list">
+                            <a href="#" class="dash-card text-success">
+                                <div class="dash-card-container">
+                                    <div class="dash-card-icon">
+                                        <i class="fas fa-bell bx-tada"></i>
+                                    </div>
+                                    <div class="dash-card-content">
+                                        @isset($increment->increment_amount)
+                                            <p>
+                                                Your next salary increment of Rs : {{ $increment->increment_amount }} will
+                                                be
+                                                added to your basic salary on
+                                                {{ $increment->next_increment->format('l F j, Y, g:i a') }}. Enjoy 🙌
+                                            </p>
+                                        @else
+                                            <p>
+                                                Increment is not added yet 😢
+                                            </p>
+                                        @endisset
+                                    </div>
                                 </div>
-                                <div class="dash-card-content">
-                                    @isset($increment->increment_amount)
-                                        <p>
-                                            Your next salary increment of Rs : {{ $increment->increment_amount }} will be
-                                            added to your basic salary on
-                                            {{ $increment->next_increment->format('l F j, Y, g:i a') }}. Enjoy 🙌
-                                        </p>
-                                    @else
-                                        <p>
-                                            Increment is not added yet 😢
-                                        </p>
-                                    @endisset
+                                <div class="pull-left">
+                                    <small>{{ isset($increment->created_at) ? $increment->created_at->diffForHumans() : '' }}</small>
                                 </div>
-                            </div>
-                            <div class="pull-left">
-                                <small>{{ isset($increment->created_at) ? $increment->created_at->diffForHumans() : '' }}</small>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endif
                     @forelse ($notices as $notice)
                         <div class="dash-info-list">
                             <a href="#"
@@ -159,7 +162,7 @@
                 <div class="dash-sec-content">
                     <div class="dash-info-list">
                         @forelse ($birthdays as $birthday)
-                            <div class="dash-card mt-2">
+                            <div class="mt-2 dash-card">
                                 <div class="dash-card-container">
                                     <div class="dash-card-icon">
                                         <i class="fa fa-birthday-cake" aria-hidden="true"></i>
@@ -248,18 +251,18 @@
                     <h5 class="dash-title">Upcoming Events</h5>
                     @forelse ($events as $event)
                         <div class="card">
-                            <div class="card-body text-center">
-                                <h4 class="holiday-title mb-0"><strong>Timing</strong>
+                            <div class="text-center card-body">
+                                <h4 class="mb-0 holiday-title"><strong>Timing</strong>
                                     <br>{{ $event->start_time->format('Y-M-d H:i') }}
                                     <br> {{ $event->end_time->format('Y-M-d H:i') }}
                                 </h4>
-                                <h4 class="holiday-title mb-0"><strong>Details : {{ $event->name }}</strong></h4>
+                                <h4 class="mb-0 holiday-title"><strong>Details : {{ $event->name }}</strong></h4>
                             </div>
                         </div>
                     @empty
                         <div class="card">
-                            <div class="card-body text-center">
-                                <h4 class="holiday-title mb-0"><strong>No upcoming Events.</strong></h4>
+                            <div class="text-center card-body">
+                                <h4 class="mb-0 holiday-title"><strong>No upcoming Events.</strong></h4>
                             </div>
                         </div>
                     @endforelse

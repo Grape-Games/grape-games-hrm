@@ -20,6 +20,7 @@ class EmployeeSalaryStatus extends Model
         'increment_amount',
         'before_increment',
         'status',
+        'can_view',
         'employee_id',
         'user_id'
     ];

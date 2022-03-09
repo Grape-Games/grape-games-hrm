@@ -20,7 +20,7 @@ class CreateEmployeeAdditionalInformationTable extends Migration
             $table->string('blood_group')->nullable();
             $table->string('cast_of_staff')->nullable();
             $table->string('certificate_name')->nullable();
-            $table->string('demise_date')->nullable();
+            $table->string('resignation_date')->nullable();
             $table->string('dob')->nullable();
             $table->string('join_date')->nullable();
             $table->string('leave_date')->nullable();
