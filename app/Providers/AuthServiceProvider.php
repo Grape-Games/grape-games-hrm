@@ -39,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('is-both', function ($user) {
-            return $user->role == 'employee' || $user->role == 'admin';
+            return $user->role == 'employee' || $user->role == 'admin' || $user->role == 'manager';
         });
 
         Gate::define('is-universal', function ($user) {
