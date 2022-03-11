@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'as' => 'dashboard.',
-    'middleware' => ['auth', 'can:is-both'],
+    'middleware' => ['auth', 'can:is-universal'],
     'prefix' => 'dashboard/'
 ], function () {
     Route::resource('events', EventController::class);
