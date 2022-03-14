@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('employee:salary')->hourlyAt(15);
 
         // command to generate/update the salary slip of employee on daily basis
-        $schedule->command('generate:slip')->hourlyAt(30);
+        $schedule->command('generate:slip')->dailyAt('23:00');
     }
 
     /**
