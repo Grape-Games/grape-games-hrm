@@ -74,13 +74,13 @@ trait SalaryGeneratorTrait
                     $parseCompanyTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . $day[0]->employee->company->time_in)->addMinutes($day[0]->employee->company->grace_minutes);
                     if ($parsedAtt->gt($parseCompanyTimeIn)) {
                         $minutes = $parsedAtt->diffInMinutes($parseCompanyTimeIn);
-                        LateMinutes::updateOrCreate(['date' => Carbon::parse($day[0]->attendance)->format("Y-m-d"), 'employee_id' => $employee->id], [
-                            'employee_id' => $employee->id,
-                            'month' => Carbon::parse($day[0]->attendance)->format("Y-M"),
-                            'date' =>  Carbon::parse($day[0]->attendance)->format("Y-m-d"),
-                            'minutes' => $minutes,
-                            'type' => (count($day) <= 1 || $minutes > 300)  ? 'half_day' : 'morning'
-                        ]);
+                        // LateMinutes::updateOrCreate(['date' => Carbon::parse($day[0]->attendance)->format("Y-m-d"), 'employee_id' => $employee->id], [
+                        //     'employee_id' => $employee->id,
+                        //     'month' => Carbon::parse($day[0]->attendance)->format("Y-M"),
+                        //     'date' =>  Carbon::parse($day[0]->attendance)->format("Y-m-d"),
+                        //     'minutes' => $minutes,
+                        //     'type' => (count($day) <= 1 || $minutes > 300)  ? 'half_day' : 'morning'
+                        // ]);
                     }
                     // this section is to check whether the employee left early.
                     // if (count($day) > 1) {
