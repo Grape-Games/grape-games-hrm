@@ -46,7 +46,12 @@
 <x-livewire-tables::bs4.table.cell>
     <a wire:click="$emit('viewHistory', '{{ $row->employee_id }}')" href="#" data-toggle="modal"
         data-target="#view_history" data-toggle="tooltip" data-placement="top" title="Click to view history">
-        {{ $row->employee->first_name ?? '' . ' ' . $row->employee->last_name ?? '' }}
+        @isset($row->employee->first_name)
+            {{ $row->employee->first_name }}
+        @endisset
+        @isset($row->employee->last_name)
+            {{ $row->employee->last_name }}
+        @endisset
     </a>
 </x-livewire-tables::bs4.table.cell>
 
