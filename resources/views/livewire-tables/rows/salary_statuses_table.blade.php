@@ -52,11 +52,11 @@
     </x-livewire-tables::bs4.table.cell>
 
     <x-livewire-tables::bs4.table.cell>
-        {{ $row->employee->company->name }}
+        {{ $row->employee->company?->name }}
     </x-livewire-tables::bs4.table.cell>
 
     <x-livewire-tables::bs4.table.cell>
-        {{ $row->user->name }}
+        {{ $row->user?->name }}
     </x-livewire-tables::bs4.table.cell>
 
     <x-livewire-tables::bs4.table.cell>
