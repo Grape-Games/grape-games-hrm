@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Scopes\GlobalRestrictionsWhereScope;
 use App\Traits\RestrictTrait;
-use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,10 +13,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Gate;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Exception;
+use Illuminate\Support\Str;
+
 
 class Employee extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, UUID, RestrictTrait;
+    use HasFactory, SoftDeletes, InteractsWithMedia, RestrictTrait;
 
     protected $fillable = [
         'first_name',
@@ -44,6 +46,15 @@ class Employee extends Model implements HasMedia
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereScope);
+        
+        static::creating(function ($model) {
+            try {
+                $model->id = (string) Str::uuid(); // generate uuid
+                // Change id with your primary key
+            } catch (Exception $e) {
+                abort(500, $e->getMessage());
+            }
+        });
     }
 
     public $incrementing = false;

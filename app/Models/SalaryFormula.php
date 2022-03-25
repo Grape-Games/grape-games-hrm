@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Gate;
+use Exception;
+use Illuminate\Support\Str;
 
 class SalaryFormula extends Model
 {
-    use HasFactory, SoftDeletes, UUID, RestrictTrait;
+    use HasFactory, SoftDeletes, RestrictTrait;
     protected $fillable = [
         'per_day',
         'per_hour',
@@ -44,6 +46,15 @@ class SalaryFormula extends Model
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereHasScope('employee'));
+        
+        static::creating(function ($model) {
+            try {
+                $model->id = (string) Str::uuid(); // generate uuid
+                // Change id with your primary key
+            } catch (Exception $e) {
+                abort(500, $e->getMessage());
+            }
+        });
     }
 
     /**

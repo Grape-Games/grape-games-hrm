@@ -55,7 +55,7 @@ class EmployeeController extends Controller
     {
         try {
             DB::transaction(function () use ($request) {
-                $employee = Employee::create($request->validated());
+                $employee = Employee::firstOrCreate($request->validated());
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
                     $employee->addMediaFromRequest('image')->toMediaCollection('avatars', 'avatars');
                 }

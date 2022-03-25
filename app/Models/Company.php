@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Scopes\GlobalRestrictionsWhereScope;
 use App\Traits\RestrictTrait;
-use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Exception;
+use Illuminate\Support\Str;
 
 class Company extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, UUID, RestrictTrait;
+    use HasFactory, SoftDeletes, InteractsWithMedia, RestrictTrait;
 
     public $incrementing = false;
     protected $keyType = 'uuid';
@@ -40,6 +41,15 @@ class Company extends Model implements HasMedia
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereScope);
+        
+        static::creating(function ($model) {
+            try {
+                $model->id = (string) Str::uuid(); // generate uuid
+                // Change id with your primary key
+            } catch (Exception $e) {
+                abort(500, $e->getMessage());
+            }
+        });
     }
 
     /**
