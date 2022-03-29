@@ -2,12 +2,6 @@
 
 @push('extended-js')
     <script>
-        Date.prototype.addHours = function(h) {
-            this.setHours(this.getHours() + h);
-            return this;
-        }
-
-
         var deleteEventRoute = "{{ route('dashboard.events.delete2') }}";
         var updateEventRoute = "{{ route('dashboard.events.update2') }}";
         var createEventRoute = "{{ route('dashboard.events.create2') }}";
@@ -35,11 +29,7 @@
                     obj.className = "bg-success";
                     var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
                     obj.start = str;
-                    var newDate = new Date(str);
-                    newDate.setDate(newDate.addHours(5));
-                    obj.start = newDate;
                     obj.id = valueOfElement.id;
-                    console.log(obj);
                     defaultEvents.push(obj);
                     check++;
                 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +37,10 @@ class EmployeeAdditionalInformation extends Model
         'employee_id',
     ];
 
+    public function getDobAttribute($value)
+    {
+        return Carbon::parse($value)->addHours(5);
+    }
 
     /**
      * Get the employee that owns the EmployeeAdditionalInformation
