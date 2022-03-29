@@ -23,6 +23,7 @@
         $.each(birthdays, function(indexInArray, valueOfElement) {
             var check = 0;
             while (check < 2) {
+                console.log(valueOfElement);
                 let obj = {};
                 obj.title = '🎂 ' + valueOfElement.employee.first_name + ' ' + valueOfElement.employee
                     .last_name;
