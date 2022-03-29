@@ -29,9 +29,6 @@
                     obj.className = "bg-success";
                     var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
                     obj.start = str;
-                    var newDate = new Date(str);
-                    newDate.setDate(newDate.getDate() + 1);
-                    obj.start = newDate;
                     obj.id = valueOfElement.id;
                     console.log(obj);
                     defaultEvents.push(obj);
