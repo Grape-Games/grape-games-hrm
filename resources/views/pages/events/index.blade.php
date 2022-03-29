@@ -30,7 +30,7 @@
                     var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
                     obj.start = str;
                     var newDate = new Date(str);
-                    newDate.setDate(newDate.getHours() + 5);
+                    newDate.setDate(newDate.addHours(5));
                     obj.start = newDate;
                     obj.id = valueOfElement.id;
                     console.log(obj);
@@ -40,6 +40,11 @@
             }
 
         });
+
+        Date.prototype.addHours = function(h) {
+            this.setHours(this.getHours() + h);
+            return this;
+        }
     </script>
 @endpush
 
