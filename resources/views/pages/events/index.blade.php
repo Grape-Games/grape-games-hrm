@@ -20,7 +20,7 @@
         });
         var currentTime = new Date();
         $.each(birthdays, function(indexInArray, valueOfElement) {
-            if (valueOfElement.hasOwnProperty('dob')) {
+            if (valueOfElement.dob !== null) {
                 var check = 0;
                 while (check < 2) {
                     let obj = {};
