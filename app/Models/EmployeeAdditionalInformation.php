@@ -39,7 +39,7 @@ class EmployeeAdditionalInformation extends Model
 
     public function getDobAttribute($value)
     {
-        return Carbon::parse($value)->addHours(5);
+        return Carbon::parse($value)->addHours(12);
     }
 
     /**
