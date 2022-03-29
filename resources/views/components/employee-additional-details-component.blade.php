@@ -18,7 +18,8 @@
         <div class="mb-3 col-md-4">
             <label for="">Date of Birth</label>
             <input type="date" class="form-control" placeholder="Father Name"
-                value="{{ isset($employee->additional->dob) ? $employee->additional->dob : '' }}" name="dob">
+                value="{{ isset($employee->additional->dob) ? $employee->additional->dob->format('Y-m-d') : '' }}"
+                name="dob">
         </div>
         <div class="mb-3 col-md-4">
             <label for="">Reference</label>
@@ -29,19 +30,19 @@
         <div class="mb-3 col-md-4">
             <label for="">Joining Date</label>
             <input type="date" class="form-control" placeholder="Leave Date"
-                value="{{ isset($employee->additional->join_date) ? $employee->additional->join_date : '' }}"
+                value="{{ isset($employee->additional->join_date) ? $employee->additional->join_date->format('Y-m-d') : '' }}"
                 name="join_date">
         </div>
         <div class="mb-3 col-md-4">
             <label for="">Leaving Date</label>
             <input type="date" class="form-control" placeholder="Join Date"
-                value="{{ isset($employee->additional->leave_date) ? $employee->additional->leave_date : '' }}"
+                value="{{ isset($employee->additional->leave_date) ? $employee->additional->leave_date->format('Y-m-d') : '' }}"
                 name="leave_date">
         </div>
         <div class="mb-3 col-md-6">
             <label for="">Resignation Date</label>
             <input type="date" class="form-control" placeholder="Resignation Date"
-                value="{{ isset($employee->additional->resignation_date) ? $employee->additional->resignation_date : '' }}"
+                value="{{ isset($employee->additional->resignation_date)? $employee->additional->resignation_date->format('Y-m-d'): '' }}"
                 name="resignation_date">
         </div>
         <div class="mb-3 col-md-6">
@@ -53,14 +54,14 @@
         <div class="mb-3 col-md-6">
             <label for="">Address</label>
             <textarea rows="10" type="text" class="form-control" placeholder="Address"
-                value="{{ isset($employee->additional->address) ? $employee->additional->address : '' }}"
-                name="address"></textarea>
+                value="{{ $employee->additional->address ?? '' }}"
+                name="address">{{ $employee->additional->address ?? '' }}</textarea>
         </div>
         <div class="mb-3 col-md-6">
             <label for="">Job Description</label>
             <textarea rows="10" type="text" class="form-control" placeholder="Job Description"
                 value="{{ isset($employee->additional->job_description) ? $employee->additional->job_description : '' }}"
-                name="job_description"></textarea>
+                name="job_description">{{ $employee->additional->job_description ?? '' }}</textarea>
         </div>
         <input type="hidden" name="type" value="additional_information">
         <div class="submit-section">

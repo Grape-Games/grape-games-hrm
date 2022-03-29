@@ -94,4 +94,14 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(AssignedCompany::class, 'assigned_by', 'id');
     }
+
+    /**
+     * Get all of the evaluationTypes for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function evaluationTypes(): HasMany
+    {
+        return $this->hasMany(EvaluationType::class);
+    }
 }

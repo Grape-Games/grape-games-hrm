@@ -128,6 +128,19 @@
 
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
+                            <i class="fa fa-check" aria-hidden="true"></i><span>Evaluations (In progress )</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.evaluation-type')) display:block; @endif">
+                            <li @if (Route::is('dashboard.evaluation-type')) class="active" @endif>
+                                <a href="{{ route('dashboard.evaluation-type') }}">
+                                    Add/View Evaluation Type
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fas fa-gift"></i><span>Holidays</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.holidays.index')) display:block; @endif">

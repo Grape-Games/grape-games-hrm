@@ -20,6 +20,7 @@ use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalarySlipController;
 use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as EmployeeSalaryIncrementsMainComponent;
+use App\Http\Livewire\Dashboard\Admin\Evaluations\EvaluationType;
 use App\Http\Livewire\Dashboard\Admin\LateMinutes\MainComponent;
 use App\Http\Livewire\Dashboard\Admin\ScopeManagement\MainComponent as ScopeManagementMainComponent;
 use App\Models\Department;
@@ -68,6 +69,7 @@ Route::group([
     Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
+    Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');
 });
 
 // email alerts groups
