@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @push('extended-js')
-
     <script>
         var deleteEventRoute = "{{ route('dashboard.events.delete2') }}";
         var updateEventRoute = "{{ route('dashboard.events.update2') }}";
@@ -21,36 +20,32 @@
         });
         var currentTime = new Date();
         $.each(birthdays, function(indexInArray, valueOfElement) {
-            var check = 0;
-            while (check < 2) {
-                console.log(valueOfElement);
-                let obj = {};
-                obj.title = '🎂 ' + valueOfElement.employee.first_name + ' ' + valueOfElement.employee
-                    .last_name;
-                obj.className = "bg-success";
-                var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
-                obj.start = str;
-                obj.id = valueOfElement.id;
-                defaultEvents.push(obj);
-                console.log(obj);
-                check++;
+            if (valueOfElement.hasOwnProperty(dob)) {
+                var check = 0;
+                while (check < 2) {
+                    let obj = {};
+                    obj.title = '🎂 ' + valueOfElement.employee.first_name + ' ' + valueOfElement.employee
+                        .last_name;
+                    obj.className = "bg-success";
+                    var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
+                    obj.start = str;
+                    obj.id = valueOfElement.id;
+                    defaultEvents.push(obj);
+                    check++;
+                }
             }
 
         });
     </script>
-
 @endpush
 
 @push('extended-css')
-
     @include('vendors.toastr')
     @include('vendors.sweet-alerts')
     @include('vendors.calendar')
-
 @endpush
 
 @section('content')
-
     @can('is-employee')
         <x-bread-crumb-component :modal=false />
     @endcan
@@ -61,12 +56,9 @@
     @endcan
 
     <x-events-calendar-component />
-
 @endsection
 
 
 @push('extended-js')
-
     <script src="{{ asset('js/core/events/main.js') }}"></script>
-
 @endpush
