@@ -31,6 +31,7 @@
                 obj.start = str;
                 obj.id = valueOfElement.id;
                 defaultEvents.push(obj);
+                console.log(obj);
                 check++;
             }
 

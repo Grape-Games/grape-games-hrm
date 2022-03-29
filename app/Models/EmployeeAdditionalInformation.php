@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class EmployeeAdditionalInformation extends Model
 {
     use HasFactory, SoftDeletes;
+    
     protected $dates = [
         'dob',
         'resignation_date',
