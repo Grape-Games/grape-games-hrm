@@ -30,6 +30,7 @@
                     var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
                     obj.start = str;
                     obj.id = valueOfElement.id;
+                    console.log(obj);
                     defaultEvents.push(obj);
                     check++;
                 }
