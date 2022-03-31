@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <label>Employee Name<span class="text-danger">*</span></label>
                                     <select name="employee_id" class="form-control" required>
-                                        <option value="">Select Leave Type</option>
+                                        <option value="">Select Employee Name</option>
                                         @forelse ($employees as $employee)
                                             <option value="{{ $employee->user?->id }}">
                                                 {{ $employee->user?->name . ' ( ' . $employee->company?->name . ' )' }}
