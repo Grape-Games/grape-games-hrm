@@ -69,8 +69,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>From<span class="text-danger">*</span></label>
-                                <input name="from_date" type="datetime" class="form-control"
-                                    min="{{ date('Y-m-d') }}" placeholder="Date From" required>
+                                <input name="from_date" type="datetime" class="form-control" placeholder="Date From"
+                                    required>
+                                {{-- min="{{ date('Y-m-d') }}" --}}
                             </div>
                         </div>
                         <div class="col-md-12">

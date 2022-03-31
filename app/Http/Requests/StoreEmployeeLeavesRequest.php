@@ -38,13 +38,14 @@ class StoreEmployeeLeavesRequest extends FormRequest
             ],
             'remarks' => 'string',
             'status' => 'in:pending,approved,rejected',
-            'from_date' => [
-                'date_format:Y-m-d', 'after_or_equal:' . Date('Y-m-d') . '', function ($attribute, $value, $fail) {
-                    if (EmployeeLeaves::where('owner_id', auth()->id())->where('from_date', $value)->exists()) {
-                        $fail("You have already applied for this leave.");
-                    }
-                }
-            ]
+            'from_date' => ['date_format:Y-m-d'],
+            // 'from_date' => [
+            //     'date_format:Y-m-d', 'after_or_equal:' . Date('Y-m-d') . '', function ($attribute, $value, $fail) {
+            //         if (EmployeeLeaves::where('owner_id', auth()->id())->where('from_date', $value)->exists()) {
+            //             $fail("You have already applied for this leave.");
+            //         }
+            //     }
+            // ]
         ];
     }
 
