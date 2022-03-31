@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use App\Models\LeaveType;
 use Illuminate\View\Component;
 
@@ -24,8 +25,9 @@ class ModalAddEmployeeLeaveComponent extends Component
      */
     public function render()
     {
-        return view('components.modal-add-employee-leave-component',[
+        return view('components.modal-add-employee-leave-component', [
             'leave_types' => LeaveType::all(),
+            'employees' => Employee::all(),
         ]);
     }
 }

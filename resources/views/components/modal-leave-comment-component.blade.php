@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form id="addCommentForm" action="{{ route('dashboard.leaves.store') }}" method="POST" novalidate>
                     @csrf
-                    <div class="elc-errors-print mb-2"></div>
+                    <div class="mb-2 elc-errors-print"></div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Add remarks <span class="text-danger">*</span></label>

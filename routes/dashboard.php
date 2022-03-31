@@ -66,7 +66,8 @@ Route::group([
     // livewire Routes
     Route::get('late-minutes-report', MainComponent::class)->name('late-minutes.report');
     Route::get('employee-salaries-statuses', EmployeeSalaryIncrementsMainComponent::class)->name('employee-salaries-update');
-    Route::get('employee-leave-approvals', LeaveApprovalController::class)->name('employee-leave-approvals');
+    Route::get('employee-leave-approvals', [LeaveApprovalController::class, 'index'])->name('employee-leave-approvals');
+    Route::delete('employee-leave-approvals/{id}', [LeaveApprovalController::class, 'delete'])->name('employee-leave-approvals.delete');
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
     Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');

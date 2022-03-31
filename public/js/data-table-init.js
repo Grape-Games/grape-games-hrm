@@ -1,5 +1,6 @@
 function makeDT(classNme, columnDefs, route = "") {
     $("." + classNme).DataTable({
+        order: [],
         processing: true,
         serverSide: true,
         ajax: route == "" ? window.location.href : window.location.href + route,

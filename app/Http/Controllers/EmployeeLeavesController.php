@@ -66,9 +66,13 @@ class EmployeeLeavesController extends Controller
                     MailService::sendLeaveEmailToEmployee($request->number_of_leaves, $request->leave_type_id, $request->description);
                     MailService::sendLeaveEmailToAdmin($request->number_of_leaves, $request->leave_type_id, $request->description);
                     $data = $request->validated();
+
                     $data = array_merge($request->validated(), [
-                        'number_of_leaves' => count($this->generateDateRange(Carbon::parse($request->from_date), Carbon::parse($request->to_date)))
+                        'to_date' => Carbon::parse($request->from_date)->addDays($request->number_of_leaves)->format('Y-m-d')
                     ]);
+                    if ($request->filled('employee_id')) {
+                        $data['owner_id'] = $request->employee_id;
+                    }
                 }
                 EmployeeLeaves::updateOrCreate([
                     'id' => $request->leave_id,
@@ -120,13 +124,15 @@ class EmployeeLeavesController extends Controller
      * @param  \App\Models\EmployeeLeaves  $employeeLeaves
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmployeeLeaves $employeeLeaves)
+    public function destroy($id)
     {
-        if ($employeeLeaves->status == 'approved')
-            return JsonResponseService::getJsonSuccess('Cannot delete availed leave.');
+        $model = EmployeeLeaves::findOrFail($id);
 
-        if ($employeeLeaves->delete())
-            return JsonResponseService::getJsonSuccess('Employee was deleted successfully.');
+        if ($model->status == 'approved')
+            return JsonResponseService::getJsonFailed('Cannot delete availed leave.');
+
+        if ($model->forceDelete())
+            return JsonResponseService::getJsonSuccess('Employee leave was deleted successfully.');
         return JsonResponseService::getJsonFailed('Failed to delete designation.');
     }
 }

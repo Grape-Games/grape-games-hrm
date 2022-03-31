@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Leave Type</h5>
+                <h5 class="modal-title">Add Leave</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form id="addEmployeeLeave" action="{{ route('dashboard.leaves.store') }}" method="POST" novalidate>
                     @csrf
-                    <div class="el-errors-print mb-2"></div>
+                    <div class="mb-2 el-errors-print"></div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -32,6 +32,23 @@
                                 </small>
                             </div>
                         </div>
+                        @can('is-universal')
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Employee Name<span class="text-danger">*</span></label>
+                                    <select name="employee_id" class="form-control" required>
+                                        <option value="">Select Leave Type</option>
+                                        @forelse ($employees as $employee)
+                                            <option value="{{ $employee->user?->id }}">
+                                                {{ $employee->user?->name . ' ( ' . $employee->company?->name . ' )' }}
+                                            </option>
+                                        @empty
+                                            <option value="">No leave type available.</option>
+                                        @endforelse
+                                    </select>
+                                </div>
+                            </div>
+                        @endcan
                         {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <label>Enter Number of days <span class="text-danger">*</span></label>
@@ -44,22 +61,23 @@
                         </div> --}}
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>From<span class="text-danger">*</span></label>
-                                <input name="from_date" type="date" class="form-control" placeholder="Date From"
-                                    required>
+                                <label>Total Leave in Number<span class="text-danger">*</span></label>
+                                <input name="number_of_leaves" type="number" step=".5" class="form-control"
+                                    placeholder="1.5" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>To<span class="text-danger">*</span></label>
-                                <input name="to_date" type="date" class="form-control" placeholder="To Date" required>
+                                <label>From<span class="text-danger">*</span></label>
+                                <input name="from_date" type="datetime" class="form-control"
+                                    min="{{ date('Y-m-d') }}" placeholder="Date From" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description <span class="text-danger">*</span></label>
-                                <textarea name="description" rows="8" type="text" class="form-control"
-                                    placeholder="Some description..." required></textarea>
+                                <textarea name="description" rows="8" type="text" class="form-control" placeholder="Some description..."
+                                    required></textarea>
 
                             </div>
                         </div>
