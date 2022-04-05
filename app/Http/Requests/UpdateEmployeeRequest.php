@@ -28,6 +28,7 @@ class UpdateEmployeeRequest extends FormRequest
             'cast_of_staff' => 'string|nullable',
             'blood_group' => 'string|nullable',
             'dob' => 'date|nullable',
+            'company_id' => 'exists:companies,id',
             'referred_by' => 'string|nullable',
             'join_date' => 'date|nullable',
             'leave_date' => 'date|nullable',
