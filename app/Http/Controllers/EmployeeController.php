@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\EmployeeAdditionalInformation;
 use App\Models\EmployeeBankDetails;
 use App\Models\EmployeeEmergencyContact;
+use App\Models\User;
 use App\Services\JsonResponseService;
 use Exception;
 use Illuminate\Http\Request;
@@ -137,9 +138,12 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         if ($employee->delete()) {
-            EmployeeBankDetails::where('employee_id', $employee->id)->delete();
-            EmployeeAdditionalInformation::where('employee_id', $employee->id)->delete();
-            EmployeeEmergencyContact::where('employee_id', $employee->id)->delete();
+            EmployeeBankDetails::where('employee_id', $employee->id)->forceDelete();
+            EmployeeAdditionalInformation::where('employee_id', $employee->id)->forceDelete();
+            EmployeeEmergencyContact::where('employee_id', $employee->id)->forceDelete();
+            if ($employee->user_id != NULL)
+                User::where('id', $employee->user_id)->delete();
+
             return JsonResponseService::getJsonSuccess('Employee was deleted successfully.');
         }
         return JsonResponseService::getJsonFailed('Failed to delete employee.');
