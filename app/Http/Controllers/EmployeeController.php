@@ -138,9 +138,9 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         if ($employee->delete()) {
-            EmployeeBankDetails::where('employee_id', $employee->id)->forceDelete();
-            EmployeeAdditionalInformation::where('employee_id', $employee->id)->forceDelete();
-            EmployeeEmergencyContact::where('employee_id', $employee->id)->forceDelete();
+            EmployeeBankDetails::where('employee_id', $employee->id)->delete();
+            EmployeeAdditionalInformation::where('employee_id', $employee->id)->delete();
+            EmployeeEmergencyContact::where('employee_id', $employee->id)->delete();
             if ($employee->user_id != NULL)
                 User::where('id', $employee->user_id)->delete();
 

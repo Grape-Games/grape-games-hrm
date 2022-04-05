@@ -27,10 +27,10 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             'city' => 'required|string',
-            'cnic' => 'required|string|unique:employees,cnic',
+            'cnic' => 'required|string|unique:employees,cnic,NULL,id,deleted_at,NULL',
             'company_id' => 'required|exists:companies,id',
             'designation_id' => 'required|exists:designations,id',
-            'email_address' => 'required|email|unique:employees,email_address',
+            'email_address' => 'required|email|unique:employees,email_address,NULL,id,deleted_at,NULL',
             'enrollment_no' => 'required|string|unique:employees,enrollment_no,NULL,id,deleted_at,NULL',
             'father_name' => 'required|string',
             'first_name' => 'required|string',
