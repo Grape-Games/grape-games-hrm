@@ -87,7 +87,7 @@ class LateMinutesController extends Controller
     public function destroy($id)
     {
         if (LateMinutes::find($id)->delete())
-            return JsonResponseService::getJsonSuccess('Leave Type was deleted successfully.');
-        return JsonResponseService::getJsonFailed('Failed to delete leave type');
+            return JsonResponseService::getJsonSuccess('Late Minutes was deleted successfully.');
+        return JsonResponseService::getJsonFailed('Failed to delete late minutes.');
     }
 }

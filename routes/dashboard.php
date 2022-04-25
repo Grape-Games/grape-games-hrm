@@ -17,6 +17,7 @@ use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ParentDesignationController;
 use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
+use App\Http\Controllers\SalaryReportController;
 use App\Http\Controllers\SalarySlipController;
 use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as EmployeeSalaryIncrementsMainComponent;
@@ -48,8 +49,9 @@ Route::group([
         'employee-web-accounts' => EmployeeAccountCreateController::class,
         'notice-board' => NoticeBoardController::class,
         'holidays' => HolidayController::class,
-        'attendance-report' => LateMinutesController::class
+        'attendance-report' => LateMinutesController::class,
     ]);
+
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
     Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
     Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');
@@ -71,6 +73,15 @@ Route::group([
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
     Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');
+});
+
+Route::group([
+    'as' => 'dashboard.',
+    'middleware' => ['auth', 'can:is-universal'],
+    'prefix' => 'reports/'
+], function () {
+    // to generate salary slips and reports of it
+    Route::get('salary-report', [SalaryReportController::class, 'index'])->name('salary-report.index');
 });
 
 // email alerts groups

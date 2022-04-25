@@ -74,7 +74,7 @@
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.employee-web-accounts.index')) class="subdrop" @endif>
-                            <i class="fas fa-user-plus    "></i>
+                            <i class="fas fa-user-plus "></i>
                             <span> Employee Accounts</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.employee-web-accounts.index')) display:block; @endif">
@@ -111,7 +111,7 @@
 
                     <li class="@if (Route::is('dashboard.employee-attendance-approvals')) active @endif ">
                         <a href="{{ route('dashboard.employee-attendance-approvals') }}">
-                            <i class="fas fa-ticket    "></i><span>Attendance Tickets</span></a>
+                            <i class="fas fa-ticket "></i><span>Attendance Tickets</span></a>
                     </li>
 
                     <li class="menu-title">
@@ -181,6 +181,10 @@
 
                     <li class="menu-title">
                         <span>Salaries Section</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.salary-report.index')) active @endif ">
+                        <a href="{{ route('dashboard.salary-report.index') }}">
+                            <i class="fa fa-check" aria-hidden="true"></i><span>Salary Report</span></a>
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) class="subdrop" @endif>

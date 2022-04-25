@@ -21,9 +21,11 @@ function makeDT(classNme, columnDefs, route = "") {
             {
                 extend: "pdfHtml5",
                 className: "btn btn-info",
-                exportOptions: {
-                    columns: ":not(:last-child)",
-                },
+                orientation : 'landscape',
+                pageSize : 'A0',
+                // exportOptions: {
+                //     columns: ":not(:last-child)",
+                // },
             },
         ],
     });
@@ -47,9 +49,11 @@ function makeDTnAjax(classNme) {
             {
                 extend: "pdfHtml5",
                 className: "btn btn-info",
-                exportOptions: {
-                    columns: ":not(:last-child)",
-                },
+                orientation : 'landscape',
+                pageSize : 'A0',
+                // exportOptions: {
+                //     columns: ":not(:last-child)",
+                // },
             },
         ],
     });
