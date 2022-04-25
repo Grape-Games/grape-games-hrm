@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\LateMinutes;
 use App\Services\JsonResponseService;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
@@ -60,6 +61,31 @@ class AdminAttendanceManagementController extends Controller
             'satSuns' => $satSuns,
             'employeesT' => Employee::all(),
         ]);
+    }
+
+    public function save(Request $request)
+    {
+        $message = "";
+        if ($request->filled(['punch_in_time', 'device_id', 'employee_id'])) {
+            Attendance::firstOrCreate([
+                'attendance' => $request->day_attendance . ' ' . $request->punch_in_time,
+                'employee_id' => $request->employee_id,
+                'biometric_device_id' => $request->device_id
+            ]);
+        }
+        if ($request->filled(['punch_out_time', 'device_id', 'employee_id'])) {
+            Attendance::firstOrCreate([
+                'attendance' => $request->day_attendance . ' ' . $request->punch_out_time,
+                'employee_id' => $request->employee_id,
+                'biometric_device_id' => $request->device_id
+            ]);
+        }
+        if (Attendance::where('employee_id', $request->employee_id)->whereDate('attendance', $request->day_attendance)->count() > 1)
+            if (LateMinutes::where('date', $request->day_attendance)->where('employee_id', $request->employee_id)->forceDelete())
+                $message = "Late minutes also deleted.";
+
+        session()->flash('message', 'Operation successful. ' . $message);
+        return back();
     }
 
     public function deletePunch(Request $request)

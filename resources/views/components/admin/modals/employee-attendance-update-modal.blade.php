@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title att-info att-info">Attendance Info</h5>
+                <h5 class="modal-title att-info">Attendance Info</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="statistics">
                                     <div class="row">
-                                        <div class="col-md-12 col-12 text-center">
+                                        <div class="text-center col-md-12 col-12">
                                             <div class="stats-box">
                                                 <p>Break</p>
                                                 <h6>1.00 hrs ( 1 : 15pm to 2 : 15pm )</h6>
@@ -39,28 +39,27 @@
                                 </div>
                                 <div class="timings">
                                     <form class="employeeAttendanceUpdateForm"
-                                        action="{{ route('api.employee.attendance.save-attendance') }}" method="POST"
-                                        novalidate>
+                                        action="{{ route('dashboard.update-att') }}" method="POST" novalidate>
                                         @csrf
                                         <input type="hidden" name="day_attendance">
                                         <input type="hidden" name="employee_id">
                                         <input type="hidden" name="device_id">
                                         <div class="row">
-                                            <div class="col-md-6 col-6 text-center">
+                                            <div class="text-center col-md-6 col-6">
                                                 <div class="stats-box">
                                                     <p>Punch In</p>
                                                     <input type="time" class="form-control" name="punch_in_time"
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-6 text-center">
+                                            <div class="text-center col-md-6 col-6">
                                                 <div class="stats-box">
                                                     <p>Punch Out</p>
                                                     <input type="time" class="form-control" name="punch_out_time">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="punch-btn-section punch-in-btn mt-2">
+                                        <div class="mt-2 punch-btn-section punch-in-btn">
                                             <button type="submit" class="btn btn-primary punch-btn">Update Now</button>
                                         </div>
                                     </form>
@@ -116,7 +115,7 @@
                                 </div>
                                 <div class="statistics">
                                     <div class="row">
-                                        <div class="col-md-12 col-12 text-center">
+                                        <div class="text-center col-md-12 col-12">
                                             <div class="stats-box">
                                                 <p>Break</p>
                                                 <h6>1.00 hrs ( 1 : 15pm to 2 : 15pm )</h6>
@@ -133,21 +132,21 @@
                                         <input type="hidden" name="employee_id">
                                         <input type="hidden" name="device_id">
                                         <div class="row">
-                                            <div class="col-md-6 col-6 text-center">
+                                            <div class="text-center col-md-6 col-6">
                                                 <div class="stats-box">
                                                     <p>Punch In</p>
                                                     <input type="time" class="form-control" name="punch_in_time"
                                                         required>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-6 text-center">
+                                            <div class="text-center col-md-6 col-6">
                                                 <div class="stats-box">
                                                     <p>Punch Out</p>
                                                     <input type="time" class="form-control" name="punch_out_time">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="punch-btn-section punch-in-btn mt-2">
+                                        <div class="mt-2 punch-btn-section punch-in-btn">
                                             <button type="submit" class="btn btn-primary punch-btn">Update Now</button>
                                         </div>
                                     </form>
@@ -163,7 +162,7 @@
                                     <li>
                                         <p class="mb-0">Punch at</p>
                                         <p class="res-activity-time">
-                                            <i class="fa fa-clock-o mr-2"></i>Attendance Not available
+                                            <i class="mr-2 fa fa-clock-o"></i>Attendance Not available
                                         </p>
                                     </li>
                                 </ul>

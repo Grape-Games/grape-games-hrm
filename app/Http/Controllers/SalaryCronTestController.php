@@ -13,6 +13,7 @@ use Carbon\Carbon;
 class SalaryCronTestController extends Controller
 {
     use SalaryGeneratorTrait, EmployeeSalaryUpdatesTrait;
+    
     function __invoke()
     {
         dd(Employee::restrict()->get());
