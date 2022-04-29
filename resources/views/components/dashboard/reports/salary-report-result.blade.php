@@ -28,14 +28,18 @@
                             <th>Half Days</th>
                             <th>Holidays</th>
                             <th>Leaves Approved</th>
-                            <th>Basic Salary</th>
-                            <th>Per Day Salary</th>
-                            <th>House Allowance</th>
-                            <th>Mess Allowance</th>
-                            <th>Travelling Allowance</th>
-                            <th>Medical Allowance</th>
+                            @if (isset($employee->salaryFormula))
+                                <th>Basic Salary</th>
+                                <th>Per Day Salary</th>
+                                <th>House Allowance</th>
+                                <th>Mess Allowance</th>
+                                <th>Travelling Allowance</th>
+                                <th>Medical Allowance</th>
+                            @endif
                             <th>Late Minutes Deductions</th>
-                            <th>Calculated Salary after Deductions</th>
+                            @if (isset($employee->salaryFormula))
+                                <th>Calculated Salary after Deductions</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -79,24 +83,26 @@
                                 <td>
                                     {{ $data->leaves_approved }}
                                 </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->basic_salary . ' -/Rs' }}
-                                </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->per_day . ' -/Rs' }}
-                                </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->house_allowance . ' -/Rs' }}
-                                </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->mess_allowance . ' -/Rs' }}
-                                </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->travelling_allowance . ' -/Rs' }}
-                                </td>
-                                <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->medical_allowance . ' -/Rs' }}
-                                </td>
+                                @if (isset($employee->salaryFormula))
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->basic_salary . ' -/Rs' }}
+                                    </td>
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->per_day . ' -/Rs' }}
+                                    </td>
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->house_allowance . ' -/Rs' }}
+                                    </td>
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->mess_allowance . ' -/Rs' }}
+                                    </td>
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->travelling_allowance . ' -/Rs' }}
+                                    </td>
+                                    <td>
+                                        {{ $data->first()[0]->employee->salaryFormula->medical_allowance . ' -/Rs' }}
+                                    </td>
+                                @endif
                                 <td>
                                     @if ($data->first()[0]->employee->company->late_minutes_deduction)
                                         <span class="text-white badge bg-danger">Active</span>
@@ -104,17 +110,19 @@
                                         <span class="text-white badge bg-success">Not Active</span>
                                     @endif
                                 </td>
-                                <td>
-                                    @php
-                                        $calculatedSalary = $data->first()[0]->employee->salaryFormula->per_day * (count($data) + $satSuns['saturdays'] + $satSuns['sundays'] + $data->holidays) + $data->first()[0]->employee->salaryFormula->travelling_allowance + $data->first()[0]->employee->salaryFormula->mess_allowance + $data->first()[0]->employee->salaryFormula->house_allowance - count($data->hd) * ($data->first()[0]->employee->salaryFormula->per_day / 2);
-                                    @endphp
-                                    @if ($data->first()[0]->employee->company->late_minutes_deduction)
+                                @if (isset($employee->salaryFormula))
+                                    <td>
                                         @php
-                                            $calculatedSalary -= $data->lateMinutes * $data->first()[0]->employee->salaryFormula->per_minute;
+                                            $calculatedSalary = $data->first()[0]->employee->salaryFormula->per_day * (count($data) + $satSuns['saturdays'] + $satSuns['sundays'] + $data->holidays) + $data->first()[0]->employee->salaryFormula->travelling_allowance + $data->first()[0]->employee->salaryFormula->mess_allowance + $data->first()[0]->employee->salaryFormula->house_allowance - count($data->hd) * ($data->first()[0]->employee->salaryFormula->per_day / 2);
                                         @endphp
-                                    @endif
-                                    {{ $calculatedSalary . ' -/Rs' }}
-                                </td>
+                                        @if ($data->first()[0]->employee->company->late_minutes_deduction)
+                                            @php
+                                                $calculatedSalary -= $data->lateMinutes * $data->first()[0]->employee->salaryFormula->per_minute;
+                                            @endphp
+                                        @endif
+                                        {{ $calculatedSalary . ' -/Rs' }}
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
