@@ -35,9 +35,7 @@
                                 <th>Mess Allowance</th>
                                 <th>Travelling Allowance</th>
                                 <th>Medical Allowance</th>
-                            @endif
-                            <th>Late Minutes Deductions</th>
-                            @if (isset($employee->salaryFormula))
+                                <th>Late Minutes Deductions</th>
                                 <th>Calculated Salary after Deductions</th>
                             @endif
                         </tr>
@@ -102,15 +100,13 @@
                                     <td>
                                         {{ $data->first()[0]->employee->salaryFormula->medical_allowance . ' -/Rs' }}
                                     </td>
-                                @endif
-                                <td>
-                                    @if ($data->first()[0]->employee->company->late_minutes_deduction)
-                                        <span class="text-white badge bg-danger">Active</span>
-                                    @else
-                                        <span class="text-white badge bg-success">Not Active</span>
-                                    @endif
-                                </td>
-                                @if (isset($employee->salaryFormula))
+                                    <td>
+                                        @if ($data->first()[0]->employee->company->late_minutes_deduction)
+                                            <span class="text-white badge bg-danger">Active</span>
+                                        @else
+                                            <span class="text-white badge bg-success">Not Active</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @php
                                             $calculatedSalary = $data->first()[0]->employee->salaryFormula->per_day * (count($data) + $satSuns['saturdays'] + $satSuns['sundays'] + $data->holidays) + $data->first()[0]->employee->salaryFormula->travelling_allowance + $data->first()[0]->employee->salaryFormula->mess_allowance + $data->first()[0]->employee->salaryFormula->house_allowance - count($data->hd) * ($data->first()[0]->employee->salaryFormula->per_day / 2);
