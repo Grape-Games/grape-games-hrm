@@ -41,6 +41,7 @@ class Employee extends Model implements HasMedia
         'user_id'
     ];
 
+
     protected static function boot()
     {
         parent::boot();

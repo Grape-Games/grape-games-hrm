@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Dashboard\Reports;
 
+use App\Services\LeaveService;
 use App\Traits\AttendanceTraitSalary;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
@@ -30,12 +31,16 @@ class SalaryReportResult extends Component
      */
     public function render()
     {
+
         $parsed = Carbon::parse($this->date);
+
         $dates = $this->generateDateRange2(
             Carbon::parse($this->date)->startOfMonth(),
             Carbon::parse($this->date)->endOfMonth()
         );
-        $data = $this->getEmployeeAttedanceByMonth($this->employeeId, $parsed->month, $this->companyId);
+
+        $data = $this->getEmployeeAttedanceByMonth($this->employeeId, $parsed, $this->companyId);
+
         $satSuns = $this->getSatSuns(
             Carbon::parse($this->date)->startOfMonth(),
             Carbon::parse($this->date)->endOfMonth()

@@ -44,6 +44,26 @@ class EmployeeLeaves extends Model
         return Carbon::parse($value)->format('l F j, Y, g:i a');
     }
 
+    public function scopeLeavesMonthly($query, $userId, $date, $status)
+    {
+        return $query->where(
+            [
+                'status' => $status,
+                'owner_id' => $userId,
+            ]
+        )->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year)->sum('number_of_leaves');
+    }
+
+    public function scopeLeavesYearly($query, $userId, $date, $status)
+    {
+        return $query->where(
+            [
+                'status' => $status,
+                'owner_id' => $userId,
+            ]
+        )->whereYear('created_at', $date->year)->sum('number_of_leaves');
+    }
+
     public function scopeApproved($query, $userId, $month)
     {
         return $query->where(

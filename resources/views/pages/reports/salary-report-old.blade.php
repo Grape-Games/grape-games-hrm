@@ -13,8 +13,8 @@
     <x-dashboard.reports.salary-report />
 
     @if (Request::has('employee_id') || Request::has('company_id'))
-        <x-dashboard.reports.company-salary-reports :employeeId="request()->get('employee_id')" :companyId="request()->get('company_id')" :date="request()->get('date')">
-            </x-dashboard.reports.salary-salary-reports>
+        <x-dashboard.reports.salary-report-result :employeeId="request()->get('employee_id')" :companyId="request()->get('company_id')" :date="request()->get('date')">
+        </x-dashboard.reports.salary-report-result>
     @endif
 @endsection
 

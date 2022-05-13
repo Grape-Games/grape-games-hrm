@@ -1,0 +1,6 @@
+                $data->leaves_allowed = LeaveType::sum('allowed');
+                $data->leaves_left = $data->leaves_allowed - EmployeeLeaves::leavesYearly($value->user_id, $date, 'approved');
+                $data->leaves_taken = EmployeeLeaves::leavesYearly($value->user_id, $date, 'approved');
+                $data->leaves_approved = EmployeeLeaves::leavesMonthly($value->user_id, $date, 'approved');
+                $data->leaves_pending = EmployeeLeaves::leavesMonthly($value->user_id, $date, 'pending');
+                $data->leaves_rejected = EmployeeLeaves::leavesMonthly($value->user_id, $date, 'rejected');

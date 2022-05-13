@@ -82,7 +82,8 @@ Route::group([
     'prefix' => 'reports/'
 ], function () {
     // to generate salary slips and reports of it
-    Route::get('salary-report', [SalaryReportController::class, 'index'])->name('salary-report.index');
+    // Route::get('salary-report', [SalaryReportController::class, 'index'])->name('salary-report.index');
+    // Route::get('leaves-report', [SalaryReportController::class, 'index'])->name('leaves-report.index');
 });
 
 // email alerts groups
