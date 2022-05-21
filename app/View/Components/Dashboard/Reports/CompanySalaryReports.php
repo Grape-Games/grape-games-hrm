@@ -4,6 +4,7 @@ namespace App\View\Components\Dashboard\Reports;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\EmployeeLeaves;
 use App\Models\SalarySlip;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
@@ -54,7 +55,9 @@ class CompanySalaryReports extends Component
             $employees = Employee::companies($this->companyId)->with(['bank', 'salaryFormula', 'company', 'designation'])->get();
 
             foreach ($employees as $key => $employee) {
-                
+
+                $tempered = $employee->salaryFormula->basic_salary / count($dates);
+
                 $attendances = Attendance::where('employee_id', $employee->id)
                     ->whereMonth('attendance', $searchDate->month)
                     ->whereYear('attendance', $searchDate->year)
@@ -68,13 +71,18 @@ class CompanySalaryReports extends Component
                         unset($attendances[$key]);
                 }
 
-                $absents = count($dates) - count($attendances) - ($satSuns['sundays'] + $satSuns['saturdays']);
-                $deductions = $employee->salaryFormula->per_day * $absents;
+                $leaves = EmployeeLeaves::leavesMonthly($employee->user_id, $searchDate, 'approved')->sum('number_of_leaves');
+                $absents = count($dates) - count($attendances) - ($satSuns['sundays'] + $satSuns['saturdays']) - $leaves;
+                $deductions = $tempered * $absents;
 
                 array_push($this->result, [
                     'employee' => $employee,
+                    'tempered' => $tempered,
                     'presents' => count($attendances),
                     'absents' => $absents,
+                    'approved_leaves' => $leaves,
+                    'att' => count($attendances),
+                    'salaried_days' => count($attendances) + $leaves + $satSuns['sundays'] + $satSuns['saturdays'],
                     'deductions' => $deductions,
                     'net_salary' => $employee->salaryFormula->basic_salary - $deductions,
                     'sat_suns' => $satSuns['sundays'] + $satSuns['saturdays'],

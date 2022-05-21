@@ -11,7 +11,14 @@ function makeDT(classNme, columnDefs, route = "") {
                 extend: "excelHtml5",
                 className: "btn btn-danger",
                 exportOptions: {
-                    columns: ":not(:last-child)",
+                    stripHtml: false,
+                    format: {
+                        body: function (data, row, column, node) {
+                            noSpace = data.replace(/ /g, "")
+                            noTags = noSpace.replace(/<\/?[^>]+(>|$)/g, "")
+                            return noTags.replace(/<br\s*\/?>/gi, "\r\n");
+                        },
+                    },
                 },
             },
             {
@@ -21,8 +28,8 @@ function makeDT(classNme, columnDefs, route = "") {
             {
                 extend: "pdfHtml5",
                 className: "btn btn-info",
-                orientation : 'landscape',
-                pageSize : 'A0',
+                orientation: "landscape",
+                pageSize: "A0",
                 // exportOptions: {
                 //     columns: ":not(:last-child)",
                 // },
@@ -31,7 +38,7 @@ function makeDT(classNme, columnDefs, route = "") {
     });
 }
 
-function makeDTnAjax(classNme) {
+function makeDTnAjax(classNme, pageSize = "A0") {
     $("." + classNme).DataTable({
         dom: "Bfrtip",
         buttons: [
@@ -39,7 +46,14 @@ function makeDTnAjax(classNme) {
                 extend: "excelHtml5",
                 className: "btn btn-danger",
                 exportOptions: {
-                    columns: ":not(:last-child)",
+                    stripHtml: false,
+                    format: {
+                        body: function (data, row, column, node) {
+                            noSpace = data.replace(/ /g, "")
+                            noTags = noSpace.replace(/<\/?[^>]+(>|$)/g, "")
+                            return noTags.replace(/<br\s*\/?>/gi, "\r\n");
+                        },
+                    },
                 },
             },
             {
@@ -49,8 +63,18 @@ function makeDTnAjax(classNme) {
             {
                 extend: "pdfHtml5",
                 className: "btn btn-info",
-                orientation : 'landscape',
-                pageSize : 'A0',
+                orientation: "landscape",
+                pageSize: pageSize,
+                exportOptions: {
+                    stripHtml: false,
+                    format: {
+                        body: function (data, row, column, node) {
+                            noSpace = data.replace(/ /g, "")
+                            noTags = noSpace.replace(/<\/?[^>]+(>|$)/g, "")
+                            return noTags.replace(/<br\s*\/?>/gi, "\r\n");
+                        },
+                    },
+                },
                 // exportOptions: {
                 //     columns: ":not(:last-child)",
                 // },

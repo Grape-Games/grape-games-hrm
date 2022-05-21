@@ -33,7 +33,6 @@ class ShowResult extends Component
      */
     public function render()
     {
-        $hd = 0;
         $parsed = Carbon::parse($this->date);
         $dates = $this->generateDateRange2(
             Carbon::parse($this->date)->startOfMonth(),

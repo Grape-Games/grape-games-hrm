@@ -67,6 +67,11 @@ class Employee extends Model implements HasMedia
         return $query->where('company_id', $companyId);
     }
 
+    // public function scopeHolidays($query, $date)
+    // {
+    //     return $query->;
+    // }
+
     /**
      * Get the user that owns the Employee
      *
@@ -174,6 +179,6 @@ class Employee extends Model implements HasMedia
      */
     public function leaves(): HasMany
     {
-        return $this->hasMany(EmployeeLeaves::class);
+        return $this->hasMany(EmployeeLeaves::class, 'owner_id', 'user_id');
     }
 }

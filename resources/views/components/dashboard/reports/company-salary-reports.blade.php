@@ -35,7 +35,9 @@
                             <th>Eid Allowance</th>
                             <th>Other Allowances</th>
                             <th>Gross Salary</th>
-                            <th>No of Days</th>
+                            <th>Salaried Days</th>
+                            <th>Leaves Approved</th>
+                            <th>No of Days ( Deduction )</th>
                             <th>Days Amount Deducted</th>
                             <th>No of Minutes</th>
                             <th>Minutes Amount Deducted</th>
@@ -67,7 +69,7 @@
                                     {{ $employee['employee']->bank->account_number ?? 'Not Set' }}
                                 </td>
                                 <td>
-                                    {{ $employee['employee']->salaryFormula->per_day ?? 'Not Set' }}
+                                    {{ $employee['tempered'] ?? 'Not Set' }}
                                 </td>
                                 <td>
                                     {{ $employee['employee']->salaryFormula->per_hour ?? 'Not Set' }}
@@ -100,7 +102,14 @@
                                     {{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}
                                 </td>
                                 <td>
-                                    {{ $employee['absents'] }}
+                                    {{ $employee['salaried_days'] }}
+                                    <span class="badge badge-success">Sat/Suns {{$employee['sat_suns']}}</span>
+                                </td>
+                                <td>
+                                    {{ $employee['approved_leaves'] }}
+                                </td>
+                                <td>
+                                    {{ $employee['absents']}}
                                 </td>
                                 <td>
                                     {{ $employee['deductions'] }}

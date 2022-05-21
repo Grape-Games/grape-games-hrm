@@ -51,7 +51,7 @@ class EmployeeLeaves extends Model
                 'status' => $status,
                 'owner_id' => $userId,
             ]
-        )->whereMonth('created_at', $date->month)->whereYear('created_at', $date->year)->sum('number_of_leaves');
+        )->whereMonth('from_date', $date->month)->whereYear('created_at', $date->year)->get();
     }
 
     public function scopeLeavesYearly($query, $userId, $date, $status)
@@ -61,7 +61,7 @@ class EmployeeLeaves extends Model
                 'status' => $status,
                 'owner_id' => $userId,
             ]
-        )->whereYear('created_at', $date->year)->sum('number_of_leaves');
+        )->whereYear('from_date', $date->year)->get();
     }
 
     public function scopeApproved($query, $userId, $month)
@@ -73,16 +73,6 @@ class EmployeeLeaves extends Model
             ]
         )->whereMonth('created_at', $month)->sum('number_of_leaves');
     }
-
-    // public function scopeRestrictWith($query, $relation)
-    // {
-    //     if (Gate::allows('is-admin')) {
-    //         return $query->whereHas($relation, function ($query) {
-    //             $query->whereIn('company_id', $this->getCurrentUserCompaniesArray());
-    //         });
-    //     }
-    // }
-
 
     /**
      * Get the owner that owns the EmployeeLeaves
