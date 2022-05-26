@@ -80,25 +80,25 @@
                                     {{ $data->leaves_approved }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->basic_salary . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->basic_salary ?? '' . ' -/Rs' }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->per_day . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->per_day  ?? ''. ' -/Rs' }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->house_allowance . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->house_allowance  ?? ''. ' -/Rs' }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->mess_allowance . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->mess_allowance  ?? ''. ' -/Rs' }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->travelling_allowance . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->travelling_allowance  ?? '' . ' -/Rs' }}
                                 </td>
                                 <td>
-                                    {{ $data->first()[0]->employee->salaryFormula->medical_allowance . ' -/Rs' }}
+                                    {{ $data->first()[0]->employee->salaryFormula->medical_allowance ?? '' . ' -/Rs' }}
                                 </td>
                                 <td>
-                                    @if ($data->first()[0]->employee->company->late_minutes_deduction)
+                                    @if ($data->first()[0]->employee->company->late_minutes_deduction  ?? '')
                                         <span class="text-white badge bg-danger">Active</span>
                                     @else
                                         <span class="text-white badge bg-success">Not Active</span>
