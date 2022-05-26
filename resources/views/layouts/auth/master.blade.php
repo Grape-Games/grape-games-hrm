@@ -24,25 +24,10 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="{{ asset('js/extensions/css/toastr/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('js/extensions/css/toastr/toastr2.min.css') }}">
-
-
-    <!-- jQuery -->
-    <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
-
-
-    <!-- Bootstrap Core JS -->
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-
     @livewireStyles
     @livewireScripts
 
-    <!-- Custom JS -->
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('js/auth/login.js') }}"></script>
-    <script src="{{ asset('js/extensions/js/toastr/toastr.min.js') }}"></script>
-    <script src="{{ asset('js/global.js') }}"></script>
+
     @stack('extended-css')
 </head>
 
@@ -54,6 +39,22 @@
     </div>
     <!-- /Main Wrapper -->
 
+    <!-- jQuery -->
+    <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+
+
+    <!-- Bootstrap Core JS -->
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+
+
+    <!-- Custom JS -->
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('js/auth/login.js') }}"></script>
+    <script src="{{ asset('js/extensions/js/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/global.js') }}"></script>
     @stack('extended-js')
 
 </body>

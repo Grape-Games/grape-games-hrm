@@ -46,6 +46,7 @@ trait DateTrait
     private function getSatSuns($start, $end)
     {
         $days = $this->generateDateRange($start, $end);
+        
         $sundays = 0;
         $saturdays = 0;
         foreach ($days as $key => $day) {

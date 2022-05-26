@@ -27,7 +27,12 @@
                             <th>Presents</th>
                             <th>Half Days</th>
                             <th>Holidays</th>
-                            <th>Leaves Approved</th>
+                            <th>Leaves Allowed ( Yearly )</th>
+                            <th>Leaves Left ( Yearly )</th>
+                            <th>Leaves Taken ( Yearly )</th>
+                            <th>Leaves Approved ( Monthly )</th>
+                            <th>Leaves Pending ( Monthly )</th>
+                            <th>Leaves Rejected ( Monthly )</th>
                             <th>Basic Salary</th>
                             <th>Per Day Salary</th>
                             <th>House Allowance</th>
@@ -75,6 +80,15 @@
                                 </td>
                                 <td>
                                     {{ $data->holidays }}
+                                </td>
+                                <td>
+                                    {{ $data->leaves_allowed }}
+                                </td>
+                                <td>
+                                    {{ $data->leaves_left }}
+                                </td>
+                                <td>
+                                    {{ $data->leaves_taken }}
                                 </td>
                                 <td>
                                     {{ $data->leaves_approved }}

@@ -77,12 +77,15 @@ Route::group([
 });
 
 Route::group([
-    'as' => 'dashboard.',
+    'as' => 'dashboard.reports.',
     'middleware' => ['auth', 'can:is-universal'],
     'prefix' => 'reports/'
 ], function () {
-    // to generate salary slips and reports of it
-    Route::get('salary-report', [SalaryReportController::class, 'index'])->name('salary-report.index');
+    // to generate salary slips and reports of itw
+    Route::view('salary-report','pages.reports.salary-report')->name('salary-report.index');
+
+    // for leaves of employees
+    Route::view('leaves-report', 'pages.reports.leave-report')->name('leaves-report.index');
 });
 
 // email alerts groups
