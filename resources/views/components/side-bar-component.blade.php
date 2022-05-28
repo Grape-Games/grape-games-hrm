@@ -133,6 +133,13 @@
                         </li>
                     @endcan
 
+                    <li class="@if (Route::is('dashboard.working-days')) active @endif ">
+                        <a href="{{ route('dashboard.working-days') }}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span>Additional Working Days</span>
+                        </a>
+                    </li>
+
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-check" aria-hidden="true"></i><span>Evaluations (In progress )</span>

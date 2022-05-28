@@ -65,6 +65,7 @@ trait SalaryGeneratorTrait
                 ->groupBy(function ($date) {
                     return $date->attendance->format('Y-m-d');
                 });
+                
             foreach ($attendance as $key => $day) {
                 if (Holiday::where('date', $key)->exists()) {
                     $thisMonthHolidays--;

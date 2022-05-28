@@ -59,4 +59,8 @@ Route::group([
     'as' => 'json.'
 ], function () {
     Route::get('getCompanyEmployees', [GlobalDataProvider::class, 'getCompanyEmployees'])->name('getCompanyEmployees');
+    Route::get('getEmployeePresentDays', [GlobalDataProvider::class, 'getEmployeePresentDays'])->name('getEmployeePresentDays');
+    Route::get('getEmployeeAbsentDays', [GlobalDataProvider::class, 'getEmployeeAbsentDays'])->name('getEmployeeAbsentDays');
+    Route::get('getEmployeeLeavesApproved', [GlobalDataProvider::class, 'getEmployeeLeavesApproved'])->name('getEmployeeLeavesApproved');
+    Route::get('getEmployeeLateMinutes', [GlobalDataProvider::class, 'getEmployeeLateMinutes'])->name('getEmployeeLateMinutes');
 });

@@ -5,10 +5,14 @@ namespace App\View\Components\Dashboard\Reports;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\EmployeeLeaves;
+use App\Models\Holiday;
 use App\Models\SalarySlip;
+use App\Models\WorkingDay;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
 use Illuminate\View\Component;
+
+use function PHPUnit\Framework\isEmpty;
 
 class CompanySalaryReports extends Component
 {
@@ -56,44 +60,106 @@ class CompanySalaryReports extends Component
 
             foreach ($employees as $key => $employee) {
 
-                $tempered = $employee->salaryFormula->basic_salary / count($dates);
+                if (isset($employee->salaryFormula)) {
+                    $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
 
-                $attendances = Attendance::where('employee_id', $employee->id)
-                    ->whereMonth('attendance', $searchDate->month)
-                    ->whereYear('attendance', $searchDate->year)
-                    ->with(['employee.designation:id,name'])->get()->groupBy(function ($date) {
-                        return Carbon::parse($date->attendance)->format('Y-m-d');
-                    });
+                    $attendances = employeeAttendances($employee, $searchDate);
 
-                foreach ($attendances as $key => $day) {
-                    $date = Carbon::parse($key);
-                    if ($date->dayOfWeek == Carbon::SATURDAY || $date->dayOfWeek == Carbon::SUNDAY)
-                        unset($attendances[$key]);
+                    $workingDays = WorkingDay::whereYear('date', $searchDate->year)->whereMonth('date', $searchDate->month)->pluck('date')->toArray();
+
+                    $holidays = Holiday::whereYear('date', $searchDate->year)->whereMonth('date', $searchDate->month)->pluck('date')->toArray();
+
+                    $leaves = EmployeeLeaves::leavesMonthly($employee->user_id, $searchDate, 'approved')->sum('number_of_leaves');
+
+                    $presentDays = count($attendances);
+
+                    $weekendDays = $satSuns['saturdays'] + $satSuns['sundays'];
+
+                    $additionalDays = count($workingDays);
+
+                    $salariedDays =  $presentDays + count($holidays) + $leaves + $weekendDays - $additionalDays;
+
+                    $absents = count($dates) - $salariedDays;
+
+                    $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
+
+
+                    array_push($this->result, [
+                        "tempered" => $tempered,
+                        "employee" => $employee,
+                        "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
+                        "days" => count($dates),
+                        "weekends" => $satSuns,
+                        "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
+                        "additionalDays" => $workingDays,
+                        "additionalDaysCount" => count($workingDays),
+                        "attendances" => count($attendances),
+                        "holidays" => $holidays,
+                        "leaves" => $leaves,
+                        "lateMinutesModule" => $lateMinutesModule,
+                        "salariedDays" => $salariedDays,
+                        "absents" => $absents,
+                        "absentDeductions" => $tempered * $absents,
+                        "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                    ]);
+                } else {
+                    array_push($this->result, [
+                        "employee" => $employee,
+                        "notValid" => true
+                    ]);
                 }
-
-                $leaves = EmployeeLeaves::leavesMonthly($employee->user_id, $searchDate, 'approved')->sum('number_of_leaves');
-                $absents = count($dates) - count($attendances) - ($satSuns['sundays'] + $satSuns['saturdays']) - $leaves;
-                $deductions = $tempered * $absents;
-
-                array_push($this->result, [
-                    'employee' => $employee,
-                    'tempered' => $tempered,
-                    'presents' => count($attendances),
-                    'absents' => $absents,
-                    'approved_leaves' => $leaves,
-                    'att' => count($attendances),
-                    'salaried_days' => count($attendances) + $leaves + $satSuns['sundays'] + $satSuns['saturdays'],
-                    'deductions' => $deductions,
-                    'net_salary' => $employee->salaryFormula->basic_salary - $deductions,
-                    'sat_suns' => $satSuns['sundays'] + $satSuns['saturdays'],
-                    'additional' => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
-                ]);
             }
         } else {
+            $employee = Employee::where('id',$this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->first();
 
-            // $data = Employee::whereId($this->employeeId)->with(['bank', 'salaryFormula'])->get();
+            if (isset($employee->salaryFormula)) {
+                $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
 
-            dd('solo');
+                $attendances = employeeAttendances($employee, $searchDate);
+
+                $workingDays = WorkingDay::whereYear('date', $searchDate->year)->whereMonth('date', $searchDate->month)->pluck('date')->toArray();
+
+                $holidays = Holiday::whereYear('date', $searchDate->year)->whereMonth('date', $searchDate->month)->pluck('date')->toArray();
+
+                $leaves = EmployeeLeaves::leavesMonthly($employee->user_id, $searchDate, 'approved')->sum('number_of_leaves');
+
+                $presentDays = count($attendances);
+
+                $weekendDays = $satSuns['saturdays'] + $satSuns['sundays'];
+
+                $additionalDays = count($workingDays);
+
+                $salariedDays =  $presentDays + count($holidays) + $leaves + $weekendDays - $additionalDays;
+
+                $absents = count($dates) - $salariedDays;
+
+                $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
+
+
+                array_push($this->result, [
+                    "tempered" => $tempered,
+                    "employee" => $employee,
+                    "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
+                    "days" => count($dates),
+                    "weekends" => $satSuns,
+                    "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
+                    "additionalDays" => $workingDays,
+                    "additionalDaysCount" => count($workingDays),
+                    "attendances" => count($attendances),
+                    "holidays" => $holidays,
+                    "leaves" => $leaves,
+                    "lateMinutesModule" => $lateMinutesModule,
+                    "salariedDays" => $salariedDays,
+                    "absents" => $absents,
+                    "absentDeductions" => $tempered * $absents,
+                    "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                ]);
+            } else {
+                array_push($this->result, [
+                    "employee" => $employee,
+                    "notValid" => true
+                ]);
+            }
         }
 
         return view('components.dashboard.reports.company-salary-reports', [

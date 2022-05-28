@@ -29,6 +29,7 @@ class Attendance extends Model
 
     protected $appends = [
         'time',
+        'custom_date'
     ];
 
     protected static function boot()
@@ -42,6 +43,18 @@ class Attendance extends Model
     {
         return Carbon::parse($this->attendance)->format('H:i:s A');
     }
+
+    public function getCustomDateAttribute()
+    {
+        return Carbon::parse($this->attendance)->format('l Y-M-d');
+    }
+
+    // comment out in production
+
+    // public function getAttendanceAttribute($value)
+    // {
+    //     return Carbon::parse($value)->subHours(5);
+    // }
 
     /**
      * Get the employee that owns the Attendance

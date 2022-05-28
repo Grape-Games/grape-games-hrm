@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <x-bread-crumb-component :modal='false' />
+    <x-bread-crumb-component :modal='true' />
 
     @can('is-universal')
 

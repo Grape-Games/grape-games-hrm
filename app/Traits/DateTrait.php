@@ -18,14 +18,14 @@ trait DateTrait
         return $dates;
     }
 
-    private function generateDateRange2(Carbon $start_date, Carbon $end_date)
+    private function generateDateRange2(Carbon $start_date, Carbon $end_date, $format = 'D d-M')
     {
         $dates = [];
 
         for ($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
-            $dates[] = $date->format('D d-M');
+            $dates[] = $date->format($format);
         }
-// dd($dates);
+        // dd($dates);
         return $dates;
     }
 
@@ -46,7 +46,7 @@ trait DateTrait
     private function getSatSuns($start, $end)
     {
         $days = $this->generateDateRange($start, $end);
-        
+
         $sundays = 0;
         $saturdays = 0;
         foreach ($days as $key => $day) {

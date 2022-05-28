@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Gate;
 class EmployeeLeaves extends Model
 {
     use HasFactory, SoftDeletes, RestrictTrait;
+
+    protected $appends = [
+        'to_date_custom',
+        'from_date_custom'
+    ];
+
     protected $fillable = [
         'description',
         'number_of_leaves',
@@ -42,6 +48,16 @@ class EmployeeLeaves extends Model
     public function getToDateAttribute($value)
     {
         return Carbon::parse($value)->format('l F j, Y, g:i a');
+    }
+
+    public function getToDateCustomAttribute()
+    {
+        return Carbon::parse($this->to_date)->format('Y-m-d');
+    }
+
+    public function getFromDateCustomAttribute()
+    {
+        return Carbon::parse($this->from_date)->format('Y-m-d');
     }
 
     public function scopeLeavesMonthly($query, $userId, $date, $status)

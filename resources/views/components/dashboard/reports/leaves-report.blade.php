@@ -50,7 +50,7 @@
                                         {{ $leave->number_of_leaves . ' day(s)' }}
                                         <br>From : <b>{{ \Carbon\Carbon::parse($leave->from_date)->format('Y-m-d l') }}</b>
                                         <br>To : <b>{{ \Carbon\Carbon::parse($leave->to_date)->format('Y-m-d l') }}</b>
-                                        <p>Approved by : <b>{{ $leave->approvedBy?->name ?? 'Not available' }}</b>
+                                        <p>Approved by : <b>{{ $leave->approvedBy->name ?? 'Not available' }}</b>
                                         </p>
                                     @empty
                                         {{ '0 day(s)' }}
@@ -68,7 +68,7 @@
                                         @endif
                                         <br>From : <b>{{ \Carbon\Carbon::parse($leave->from_date)->format('Y-m-d l') }}</b>
                                         <br>To : <b>{{ \Carbon\Carbon::parse($leave->to_date)->format('Y-m-d l') }}</b>
-                                        <p>Approved by : <b>{{ $leave->approvedBy?->name ?? 'Not available' }}</b>
+                                        <p>Approved by : <b>{{ $leave->approvedBy->name ?? 'Not available' }}</b>
                                         </p>
                                     @empty
                                         {{ '0 day(s)' }}
@@ -83,7 +83,7 @@
                                         @endif
                                         <br><b>From : {{ \Carbon\Carbon::parse($leave->from_date)->format('Y-m-d l') }}</b>
                                         <br><b>To : {{ \Carbon\Carbon::parse($leave->to_date)->format('Y-m-d l') }}</b>
-                                        <p><b>On Pending by : <b>{{ $leave->approvedBy?->name ?? 'Not available' }}</b>
+                                        <p><b>On Pending by : <b>{{ $leave->approvedBy->name ?? 'Not available' }}</b>
                                         </p>
                                     @empty
                                         {{ '0 day(s)' }}
@@ -98,7 +98,7 @@
                                         @endif
                                         <br>From : <b>{{ \Carbon\Carbon::parse($leave->from_date)->format('Y-m-d l') }}</b>
                                         <br>To : <b>{{ \Carbon\Carbon::parse($leave->to_date)->format('Y-m-d l') }}</b>
-                                        <p>Rejected by : <b>{{ $leave->approvedBy?->name ?? 'Not available' }}</b>
+                                        <p>Rejected by : <b>{{ $leave->approvedBy->name ?? 'Not available' }}</b>
                                         </p>
                                     @empty
                                         {{ '0 day(s)' }}

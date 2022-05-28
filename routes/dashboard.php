@@ -24,6 +24,7 @@ use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as 
 use App\Http\Livewire\Dashboard\Admin\Evaluations\EvaluationType;
 use App\Http\Livewire\Dashboard\Admin\LateMinutes\MainComponent;
 use App\Http\Livewire\Dashboard\Admin\ScopeManagement\MainComponent as ScopeManagementMainComponent;
+use App\Http\Livewire\Dashboard\Admin\WorkingDay\MainComponent as WorkingDayMainComponent;
 use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,7 @@ Route::group([
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
     Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');
+    Route::get('additional-working-days', WorkingDayMainComponent::class)->name('working-days');
 });
 
 Route::group([
@@ -97,4 +99,9 @@ Route::group([
 ], function () {
     Route::get('send-interview-email', [EmailAlertsController::class, 'sendInterviewLetterEmailIndex'])->name('send-interview-letter.index');
     Route::post('send-interview-email/send', [EmailAlertsController::class, 'sendInterviewLetterEmail'])->name('send-interview-letter.send');
+});
+
+
+Route::get('helpertest', function(){
+    testdd();
 });

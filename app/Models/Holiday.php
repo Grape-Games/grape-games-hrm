@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,14 +11,30 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Holiday extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $casts = [
         'date' => 'datetime:l F j, Y'
     ];
+    protected $appends = [
+        'custom_date',
+        'custom_date_second'
+    ];
+
     protected $fillable = [
         'date',
         'details',
         'owner_id'
     ];
+
+    public function getCustomDateAttribute()
+    {
+        return Carbon::parse($this->date)->format('l Y-M-d');
+    }
+
+    public function getCustomDateSecondAttribute()
+    {
+        return Carbon::parse($this->date)->format('Y-m-d');
+    }
 
     /**
      * Get the user that owns the Holiday
