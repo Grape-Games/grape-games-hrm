@@ -94,7 +94,7 @@
                                 style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; padding: 48px; text-align: center;"
                                 align="center">
                                 <a href="https://grapegames.net">
-                                    <img src="https://hrm.fast-devs.com/assets/img/logo2.png" width="155"
+                                    <img src="https://hrm.grapetechnologies.co/assets/img/logo2.png" width="155"
                                         alt="{{ env('APP_MAIN_NAME') }} Admin"
                                         style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle;">
                                 </a>
@@ -127,7 +127,7 @@
                                                 If you did not request a password reset, no further action is required.
                                             </p>
                                             <a href="https://grapegames.net">
-                                                <img src="https://hrm.fast-devs.com/assets/img/job-letter.png"
+                                                <img src="https://hrm.grapetechnologies.co/assets/img/job-letter.png"
                                                     width="500" alt="{{ env('APP_MAIN_NAME') }}"
                                                     style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle;">
                                             </a>

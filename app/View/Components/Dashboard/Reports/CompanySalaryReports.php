@@ -110,7 +110,7 @@ class CompanySalaryReports extends Component
                 }
             }
         } else {
-            $employee = Employee::where('id',$this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->first();
+            $employee = Employee::where('id',$this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->get();
 
             if (isset($employee->salaryFormula)) {
                 $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
