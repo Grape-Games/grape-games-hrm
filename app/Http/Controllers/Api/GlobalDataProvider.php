@@ -62,12 +62,6 @@ class GlobalDataProvider extends Controller
             "Y-m-d"
         );
 
-        $datesAfter = $this->generateDateRange2(
-            Carbon::now()->addDay(),
-            Carbon::parse($request->date)->endOfMonth(),
-            "Y-m-d"
-        );
-
         $attendances = employeeAttendances(
             $employee,
             $searchDate
@@ -79,7 +73,7 @@ class GlobalDataProvider extends Controller
             if (($key = array_search($key, $dates)) !== false)
                 unset($dates[$key]);
         }
-
+        
         foreach ($dates as $key => $date) {
             # code...
             $parsed = Carbon::parse($date);
@@ -123,12 +117,6 @@ class GlobalDataProvider extends Controller
                 if (!in_array($day, $dates))
                     array_push($dates, $day);
             }
-        }
-
-        foreach ($datesAfter as $key => $date) {
-            # code...
-            if (($date = array_search($date, $dates)) !== false)
-                unset($dates[$date]);
         }
 
         return JSONResponseService::getJsonSuccess($dates);
