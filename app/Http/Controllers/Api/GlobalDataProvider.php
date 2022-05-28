@@ -73,7 +73,6 @@ class GlobalDataProvider extends Controller
             if (($key = array_search($key, $dates)) !== false)
                 unset($dates[$key]);
         }
-        
         foreach ($dates as $key => $date) {
             # code...
             $parsed = Carbon::parse($date);
