@@ -170,38 +170,41 @@
                                     </td>
                                 </tr>
                             @endif
+                            @if ($loop->last)
+                                <tr>
+                                    <td>{{$loop->iteration + 1 }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Gross Total : <b class="grossResult"></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Attendance Deductions : <b class="absentResult"></b></td>
+                                    <td></td>
+                                    <td>Late Minutes Deductions : <b class="lateResult"></b></td>
+                                    <td></td>
+                                    <td>Taxable Salary Total : <b class="taxableResult"></b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total here : <b class="totalResult"></b></td>
+                                </tr>
+                            @endif
                         @endforeach
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Gross Total :  <b class="grossResult"></b></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Attendance Deductions :  <b class="absentResult"></b></td> 
-                            <td></td>
-                            <td>Late Minutes Deductions : <b class="lateResult"></b></td>  
-                            <td></td>
-                            <td>Taxable Salary Total :  <b class="taxableResult"></b></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Total here :  <b class="totalResult"></b></td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -265,7 +268,7 @@
                 netSalary += parseFloat($(this).html()); // Or this.innerHTML, this.innerText
             });
 
-           
+
 
             $(".grossResult").html(grossSalary);
             $(".absentResult").html(absentDeductions);
