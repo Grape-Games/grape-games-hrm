@@ -41,7 +41,7 @@
                             <th>Half Days Details</th>
                             <th>No of Days ( Deduction )</th>
                             <th>Days Amount Deducted</th>
-                            <th>No of Minutes ( Morning + Evening )</th>
+                            <th>No of Minutes ( Morning )</th>
                             <th>Minutes Amount Deducted</th>
                             <th>Deduction Compensated</th>
                             <th>Taxable Salary</th>
@@ -149,10 +149,7 @@
                                     <b class="absent-deductions">{{ $employee['absentDeductions'] }}</b>
                                 </td>
                                 <td>
-                                    {{ $employee['lateMinutesModule']['lateMinutesMorningCounter'] .
-                                        ' + ' .
-                                        $employee['lateMinutesModule']['lateMinutesEveningCounter'] .
-                                        ' = ' }}
+                                    {{ $employee['lateMinutesModule']['lateMinutesMorningCounter'] }}
                                     <a id="oldMinutes{{ $employee['employee']->id }}"
                                         data-still="{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}"
                                         data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
