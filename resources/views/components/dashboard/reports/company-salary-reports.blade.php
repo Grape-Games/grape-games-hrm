@@ -149,7 +149,6 @@
                                     <b class="absent-deductions">{{ $employee['absentDeductions'] }}</b>
                                 </td>
                                 <td>
-                                    {{ $employee['lateMinutesModule']['lateMinutesMorningCounter'] }}
                                     <a id="oldMinutes{{ $employee['employee']->id }}"
                                         data-still="{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}"
                                         data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
