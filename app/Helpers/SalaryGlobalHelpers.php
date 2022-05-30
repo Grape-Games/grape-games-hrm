@@ -25,12 +25,16 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
     $totalLateMinutesEveningCounter = 0;
 
     $halfDays = 0;
+    $halfDaysArr = [];
 
     foreach ($attendances as $key => $perDayPunches) {
 
         // counting employees half days if punch out is missing
         if (count($perDayPunches) <= 1) {
-            $halfDays++;
+            {
+                array_push($halfDaysArr, $perDayPunches);
+                $halfDays++;
+            }
         } else {
 
             $dummyCompanyTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $companyTimeIn);
@@ -43,8 +47,10 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
                 // matleb wo subha late aya hai
                 $mins = $dummyAttendanceTimeIn->diffInMinutes($dummyCompanyTimeIn);
 
-                if ($mins > 240) {
-                    $halfDays++;
+                if ($mins > 240) { {
+                        array_push($halfDaysArr, $perDayPunches);
+                        $halfDays++;
+                    }
                 } else {
                     array_push($totalLateMinutesMorning, [
                         "date" => $perDayPunches[0]->attendance->format("Y-m-d H:i:s"),
@@ -59,6 +65,7 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
                 // matlab wo jldi chla gya hai
                 $mins = $dummyAttendanceTimeOut->diffInMinutes($dummyCompanyTimeOut);
                 if ($mins > 240) {
+                    array_push($halfDaysArr, $perDayPunches);
                     $halfDays++;
                 } else {
                     array_push($totalLateMinutesEvening, [
@@ -78,14 +85,15 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
         ? $lateMinuteDeductions = ($totalLateMinutesMorningCounter + $totalLateMinutesEveningCounter) * $employee->salaryFormula->per_minute
         : $lateMinuteDeductions = 0;
 
-        return [
-            "lateMinutesMorningCounter" => $totalLateMinutesMorningCounter,
-            "lateMinutesEveningCounter" => $totalLateMinutesEveningCounter,
-            "lateMinutesTotal" => $totalLateMinutesEveningCounter + $totalLateMinutesMorningCounter,
-            "lateMinutesMorning" => $totalLateMinutesMorning,
-            "lateMinutesEvening" => $totalLateMinutesEvening,
-            "lateMinutesDeductions" => $lateMinuteDeductions, 
-            "halfDays" => $halfDays,
-            "halfDaysDeductions" => $halfDaysDeduction,
-        ];
+    return [
+        "lateMinutesMorningCounter" => $totalLateMinutesMorningCounter,
+        "lateMinutesEveningCounter" => $totalLateMinutesEveningCounter,
+        "lateMinutesTotal" => $totalLateMinutesEveningCounter + $totalLateMinutesMorningCounter,
+        "lateMinutesMorning" => $totalLateMinutesMorning,
+        "lateMinutesEvening" => $totalLateMinutesEvening,
+        "lateMinutesDeductions" => $lateMinuteDeductions,
+        "halfDays" => $halfDays,
+        "halfDaysDetails" => $halfDaysArr,
+        "halfDaysDeductions" => $halfDaysDeduction,
+    ];
 }

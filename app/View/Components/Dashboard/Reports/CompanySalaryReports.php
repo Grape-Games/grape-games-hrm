@@ -134,7 +134,24 @@ class CompanySalaryReports extends Component
                 $absents = count($dates) - $salariedDays;
 
                 $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
-
+// dd([
+//     "tempered" => $tempered,
+//     "employee" => $employee,
+//     "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
+//     "days" => count($dates),
+//     "weekends" => $satSuns,
+//     "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
+//     "additionalDays" => $workingDays,
+//     "additionalDaysCount" => count($workingDays),
+//     "attendances" => count($attendances),
+//     "holidays" => $holidays,
+//     "leaves" => $leaves,
+//     "lateMinutesModule" => $lateMinutesModule,
+//     "salariedDays" => $salariedDays,
+//     "absents" => $absents,
+//     "absentDeductions" => $tempered * $absents,
+//     "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+// ]);
 
                 array_push($this->result, [
                     "tempered" => $tempered,
