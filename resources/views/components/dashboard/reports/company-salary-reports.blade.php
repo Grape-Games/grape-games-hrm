@@ -169,6 +169,7 @@
                                 <td>
                                     <b id="upCalculate{{ $employee['employee']->id }}"
                                         data-salary="{{ $employee['calculatedSalary'] - $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
+                                        data-value="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
                                         class="taxable-salary">{{ $employee['calculatedSalary'] }}</b>
                                 </td>
                                 <td>
@@ -306,6 +307,7 @@
         var oldMinutesSelector = $("#oldMinutes" + empId);
         var updateEmpSalarySelector = $("#upCalculate" + empId);
         var oldSelectorResult = $("#minuteCompensate" + empId);
+        
 
         newMinutes = oldMinutesSelector.data('still') - $(this).val();
 
@@ -318,7 +320,8 @@
 
         oldSelectorResult.html(newMinutes * amount);
 
-        updateEmpSalarySelector.html(oldStaticSalary + (newMinutes * amount));
+        updateEmpSalarySelector.html(oldStaticSalary + updateEmpSalarySelector.data('value') + (amount * $(this)
+            .val()));
 
         reCal();
     });
