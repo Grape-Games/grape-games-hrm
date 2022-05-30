@@ -38,10 +38,10 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
         } else {
 
             $dummyCompanyTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $companyTimeIn);
-            $dummyCompanyTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $companyTimeOut);
+            // $dummyCompanyTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $companyTimeOut);
 
             $dummyAttendanceTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $perDayPunches[0]->attendance->format("H:i:s"));
-            $dummyAttendanceTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $perDayPunches[count($perDayPunches) - 1]->attendance->format("H:i:s"));
+            // $dummyAttendanceTimeOut = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $perDayPunches[count($perDayPunches) - 1]->attendance->format("H:i:s"));
 
             if ($dummyAttendanceTimeIn->gt($dummyCompanyTimeIn)) {
                 // matleb wo subha late aya hai
@@ -61,21 +61,21 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
                 }
             }
 
-            if ($dummyAttendanceTimeOut->lt($dummyCompanyTimeOut)) {
-                // matlab wo jldi chla gya hai
-                $mins = $dummyAttendanceTimeOut->diffInMinutes($dummyCompanyTimeOut);
-                if ($mins > 240) {
-                    array_push($halfDaysArr, $perDayPunches);
-                    $halfDays++;
-                } else {
-                    array_push($totalLateMinutesEvening, [
-                        "date" => $perDayPunches[count($perDayPunches) - 1]->attendance->format("Y-m-d H:i:s"),
-                        "date_second" => $perDayPunches[count($perDayPunches) - 1]->attendance->format("l Y-m-d h:i:s A"),
-                        "minutes" => $mins
-                    ]);
-                    $totalLateMinutesEveningCounter += $mins;
-                }
-            }
+            // if ($dummyAttendanceTimeOut->lt($dummyCompanyTimeOut)) {
+            //     // matlab wo jldi chla gya hai
+            //     $mins = $dummyAttendanceTimeOut->diffInMinutes($dummyCompanyTimeOut);
+            //     if ($mins > 240) {
+            //         array_push($halfDaysArr, $perDayPunches);
+            //         $halfDays++;
+            //     } else {
+            //         array_push($totalLateMinutesEvening, [
+            //             "date" => $perDayPunches[count($perDayPunches) - 1]->attendance->format("Y-m-d H:i:s"),
+            //             "date_second" => $perDayPunches[count($perDayPunches) - 1]->attendance->format("l Y-m-d h:i:s A"),
+            //             "minutes" => $mins
+            //         ]);
+            //         $totalLateMinutesEveningCounter += $mins;
+            //     }
+            // }
         }
     }
 
