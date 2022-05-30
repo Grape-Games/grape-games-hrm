@@ -318,7 +318,7 @@
 
         oldSelectorResult.html(newMinutes * amount);
 
-        updateEmpSalarySelector.html(oldStaticSalary - (newMinutes * amount));
+        updateEmpSalarySelector.html(oldStaticSalary + (newMinutes * amount));
 
         reCal();
     });
