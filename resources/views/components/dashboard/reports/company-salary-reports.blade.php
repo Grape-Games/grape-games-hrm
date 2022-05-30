@@ -170,7 +170,7 @@
                                     </td>
                                 </tr>
                             @endif
-                            @if ($loop->last)
+                            @if ($loop->last && request()->route()->employee_id == "all")
                                 <tr>
                                     <td>{{$loop->iteration + 1 }}</td>
                                     <td></td>
