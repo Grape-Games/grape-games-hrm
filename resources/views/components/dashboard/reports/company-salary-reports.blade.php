@@ -159,12 +159,14 @@
                                 </td>
                                 <td>
                                     <b id="minuteCompensate{{ $employee['employee']->id }}"
+                                        data-old="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
                                         class="minutes-deductions">{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}</b>
                                 </td>
                                 <td>
-                                    <input name="compensate" data-id="{{ $employee['employee']->id }}"
+                                    <input id="minutes{{ $employee['employee']->id }}" name="updateVal"
+                                        data-id="{{ $employee['employee']->id }}"
                                         data-deduction="{{ $employee['employee']->salaryFormula->per_minute }}"
-                                        class="form-control" type="number" placeholder="10">
+                                        class="form-control" type="number" placeholder="10" value="0">
                                 </td>
                                 <td>
                                     <b id="upCalculate{{ $employee['employee']->id }}"
@@ -173,21 +175,27 @@
                                         class="taxable-salary">{{ $employee['calculatedSalary'] }}</b>
                                 </td>
                                 <td>
-                                    {{ $employee['additional']->advance_salary ?? 'Not Set' }}
+                                    <input id="advance{{ $employee['employee']->id }}" name="updateVal"
+                                        data-id="{{ $employee['employee']->id }}" class="form-control"
+                                        type="number" placeholder="10" value="0">
                                 </td>
                                 <td>
-                                    NULL
+                                    <input id="loan{{ $employee['employee']->id }}" name="updateVal"
+                                        data-id="{{ $employee['employee']->id }}" class="form-control"
+                                        type="number" placeholder="10" value="0">
                                 </td>
                                 <td>
-                                    {{ $employee['additional']->electricity ?? 'Not Set' }}
+                                    <input id="electricity{{ $employee['employee']->id }}" name="updateVal"
+                                        data-id="{{ $employee['employee']->id }}" class="form-control"
+                                        type="number" placeholder="10" value="0">
                                 </td>
                                 <td>
-                                    {{ $employee['additional']->income_tax ?? 'Not Set' }}
+                                    <input id="tax{{ $employee['employee']->id }}" name="updateVal"
+                                        data-id="{{ $employee['employee']->id }}" class="form-control"
+                                        type="number" placeholder="10" value="0">
                                 </td>
                                 <td>
-                                    In points : {{ $employee['calculatedSalary'] }}
-                                    <br>
-                                    Rounded off : <b
+                                    Rs : <b id="final{{ $employee['employee']->id }}"
                                         class="net-salary">{{ round($employee['calculatedSalary']) }}</b>
                                 </td>
                             </tr>
@@ -300,31 +308,46 @@
 
     }
 
-    $('[name="compensate"]').keyup(function(e) {
+    function updateSalary(empId) {
 
-        var empId = $(this).data('id');
-        var amount = $(this).data('deduction');
-        var oldMinutesSelector = $("#oldMinutes" + empId);
+        var oldSalary = $("#upCalculate" + empId).data('salary');
         var updateEmpSalarySelector = $("#upCalculate" + empId);
-        var oldSelectorResult = $("#minuteCompensate" + empId);
-        
+        var oldMinutesSelector = $("#oldMinutes" + empId);
+        var minuteCompensated = $("#minuteCompensate" + empId);
+        var final = $("#final" + empId);
 
-        newMinutes = oldMinutesSelector.data('still') - $(this).val();
+        var minutesSelector = $("#minutes" + empId);
+        var advanceSelector = $("#advance" + empId);
+        var loanSelector = $("#loan" + empId);
+        var electricitySelector = $("#electricity" + empId);
+        var taxSelector = $("#tax" + empId);
 
-        if (newMinutes <= 0)
-            newMinutes = 0;
+        var minutesDeductions = minutesSelector.val() * minutesSelector.data('deduction');
 
-        oldMinutesSelector.html(newMinutes);
+        var advanceDeductions = advanceSelector.val();
+        var loanDeductions = loanSelector.val();
+        var electricityDeductions = electricitySelector.val();
+        var taxDeductions = taxSelector.val();
 
-        var oldStaticSalary = updateEmpSalarySelector.data('salary');
+        oldMinutesSelector.html(oldMinutesSelector.data('still') - minutesSelector.val());
+        minuteCompensated.html(minuteCompensated.data('old') - minutesDeductions)
 
-        oldSelectorResult.html(newMinutes * amount);
+        var calculation = minuteCompensated.data('old') + oldSalary + minutesDeductions - advanceDeductions -
+            loanDeductions -
+            electricityDeductions - taxDeductions;
+            
+        updateEmpSalarySelector.html(calculation);
 
-        updateEmpSalarySelector.html(oldStaticSalary + updateEmpSalarySelector.data('value') + (amount * $(this)
-            .val()));
+        final.html(calculation)
 
+    }
+
+    $('[name="updateVal"]').keyup(function(e) {
+        var empId = $(this).data('id');
+        updateSalary(empId);
         reCal();
     });
+
     $(function() {
         reCal();
         makeDTnAjax("main-table", "A0");

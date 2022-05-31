@@ -29,9 +29,9 @@ class TablesComponent extends Component
      */
     public function render()
     {
-        $employees = Employee::latest()->limit(10)->get();
+        $employees = Employee::latest()->limit(10)->with(['company','user'])->get();
 
-        $employeeLeaves = EmployeeLeaves::latest()->limit(5)->get();
+        $employeeLeaves = EmployeeLeaves::latest()->limit(5)->with(['owner','approvedBy'])->get();
 
         $salaries = SalaryFormula::orderBy('basic_salary', 'desc')->limit(5)->get();
 

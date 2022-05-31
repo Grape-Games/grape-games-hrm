@@ -35,7 +35,7 @@ class ChartsComponent extends Component
 
         foreach ($dates as $key => $value) {
             # code...
-            $query = "SELECT *, substr(CAST(attendance AS CHAR) , 1, 10) AS date FROM `attendances` where attendance LIKE '%" . $value . "%' GROUP BY `employee_id`";
+            // $query = "SELECT *, substr(CAST(attendance AS CHAR) , 1, 10) AS date FROM `attendances` where attendance LIKE '%" . $value . "%' GROUP BY `employee_id`";
 
             $data = Attendance::whereDate('attendance', $value)->get()->groupBy('employee_id');
             // $data =  DB::select($query);
