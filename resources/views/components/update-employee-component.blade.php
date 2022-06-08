@@ -316,8 +316,12 @@
             <div class="col-md-4 mb-3">
                 <label for="">Company</label>
                 <select class="form-control js-example-basic-single" name="company_id" id="company" required="">
+                    @isset($employee->company)
                     <option value="{{ $employee->company_id }}" selected> {{ $employee->company->name }}
                     </option>
+                    @else
+                    <option value="">Select Company</option>
+                    @endisset
                     @forelse ($companies as $company)
                         <option value="{{ $company->id }}">{{ $company->name }}</option>
                     @empty

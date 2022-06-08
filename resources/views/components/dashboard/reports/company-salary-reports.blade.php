@@ -47,7 +47,7 @@
                             <th>Taxable Salary</th>
                             <th>Advance Salary</th>
                             <th>Loan / Installment</th>
-                            <th>Electricity</th>
+                            <th>Arrears</th>
                             <th>Income Tax</th>
                             <th>Net Salary</th>
                         </tr>
@@ -350,7 +350,7 @@
 
     $(function() {
         reCal();
-        makeDTnAjaxCols("main-table", "A1", [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,20,21,22,23,24,25,26,27,28,29,30]);
+        makeDTnAjaxCols("main-table", "A2", [0,1,3,4,8,15,20,21,22,23,24,25,26,28,29,30]);
 
 
         var date = "{{ request()->get('date') }}";

@@ -205,7 +205,7 @@
                       text-align: center;
                     ">
                                     <a href="#" target="_blank">
-                                        <img src="https://grapegames.net/img/favicon_new_2.png"
+                                        <img src="https://dashboard.grapetechnologies.co/storage/GffmA2FYAnSjo6NNbEOsuZOTlwYT2QdJrIKnuHgK.png"
                                             alt="{{ env('APP_NAME') }}" width="100" style="border-width: 0"
                                             border="0" />
                                     </a>
