@@ -5,6 +5,7 @@ namespace App\View\Components\Dashboard\Reports;
 use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\EmployeeLeaves;
+use App\Models\EmployeeSalarySlip;
 use App\Models\Holiday;
 use App\Models\SalarySlip;
 use App\Models\WorkingDay;
@@ -101,6 +102,7 @@ class CompanySalaryReports extends Component
                         "absents" => $absents,
                         "absentDeductions" => $tempered * $absents,
                         "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                        "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                     ]);
                 } else {
                     array_push($this->result, [
@@ -110,7 +112,7 @@ class CompanySalaryReports extends Component
                 }
             }
         } else {
-            $employee = Employee::where('id',$this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->first();
+            $employee = Employee::where('id', $this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->first();
 
             if (isset($employee->salaryFormula)) {
                 $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
@@ -134,24 +136,24 @@ class CompanySalaryReports extends Component
                 $absents = count($dates) - $salariedDays;
 
                 $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
-// dd([
-//     "tempered" => $tempered,
-//     "employee" => $employee,
-//     "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
-//     "days" => count($dates),
-//     "weekends" => $satSuns,
-//     "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
-//     "additionalDays" => $workingDays,
-//     "additionalDaysCount" => count($workingDays),
-//     "attendances" => count($attendances),
-//     "holidays" => $holidays,
-//     "leaves" => $leaves,
-//     "lateMinutesModule" => $lateMinutesModule,
-//     "salariedDays" => $salariedDays,
-//     "absents" => $absents,
-//     "absentDeductions" => $tempered * $absents,
-//     "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
-// ]);
+                // dd([
+                //     "tempered" => $tempered,
+                //     "employee" => $employee,
+                //     "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
+                //     "days" => count($dates),
+                //     "weekends" => $satSuns,
+                //     "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
+                //     "additionalDays" => $workingDays,
+                //     "additionalDaysCount" => count($workingDays),
+                //     "attendances" => count($attendances),
+                //     "holidays" => $holidays,
+                //     "leaves" => $leaves,
+                //     "lateMinutesModule" => $lateMinutesModule,
+                //     "salariedDays" => $salariedDays,
+                //     "absents" => $absents,
+                //     "absentDeductions" => $tempered * $absents,
+                //     "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                // ]);
 
                 array_push($this->result, [
                     "tempered" => $tempered,
@@ -170,6 +172,7 @@ class CompanySalaryReports extends Component
                     "absents" => $absents,
                     "absentDeductions" => $tempered * $absents,
                     "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                    "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                 ]);
             } else {
                 array_push($this->result, [

@@ -9,6 +9,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmailAlertsController;
 use App\Http\Controllers\EmployeeAccountCreateController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeSalaryController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LateMinutesController;
 use App\Http\Controllers\LeaveApprovalController;
@@ -102,6 +103,9 @@ Route::group([
 });
 
 
-Route::get('helpertest', function(){
-    testdd();
+Route::group([
+    "as" => 'save.',
+    "prefix" => "save/"
+], function () {
+    Route::post("saveEmployeeSlip", EmployeeSalaryController::class)->name("employee.salary");
 });

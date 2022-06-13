@@ -50,61 +50,65 @@
                             <th>Electricity</th>
                             <th>Income Tax</th>
                             <th>Net Salary</th>
+                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($result as $employee)
                             @if (!array_key_exists('notValid', $employee))
                                 <tr>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
+                                        <input type="hidden" class="getIds"
+                                            data-id="{{ $employee['employee']->id }}" />
                                         {{ $loop->iteration }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->first_name . ' ' . $employee['employee']->last_name }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->cnic }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->designation->name ?? 'Not Set' }}
                                     </td>
                                     <td>
                                         {{ $employee['employee']->bank->account_number ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['tempered'] ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->per_hour ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->per_minute ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         <b
                                             class="gross-salary">{{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}</b>
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->house_allowance ?? 'Not Set' }}
                                     </td>
                                     <td>
                                         {{ $employee['employee']->salaryFormula->mess_allowance ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->travelling_allowance ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->medical_allowance ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['additional']->eid_allowance ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['additional']->other_allowance ?? 'Not Set' }}
                                     </td>
-                                    <td>{{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
+                                        {{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                             data-id="{{ $employee['employee']->id }}" data-type="Present"
                                             data-url="{{ route('json.getEmployeePresentDays') }}"
@@ -112,7 +116,7 @@
                                         <span class="badge badge-success">Sat/Suns
                                             {{ $employee['weekendCounts'] - $employee['additionalDaysCount'] }}</span>
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                             data-id="{{ $employee['employee']->id }}" data-type="Leaves"
                                             data-url="{{ route('json.getEmployeeLeavesApproved') }}"
@@ -120,11 +124,11 @@
                                             {{ $employee['leaves'] }}
                                         </a>
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         <p>Note Half days are deducted in taxable salary</p>
                                         {{ $employee['lateMinutesModule']['halfDays'] }}
                                     </td>
-                                    <td>
+                                    <td class="innerHtml{{ $employee['employee']->id }}">
                                         @foreach ($employee['lateMinutesModule']['halfDaysDetails'] as $punches)
                                             @if (count($punches) <= 1)
                                                 <b class="text-dager">Punch Missing</b>
@@ -137,7 +141,7 @@
                                         @endforeach
                                     @endforeach
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                         data-id="{{ $employee['employee']->id }}" data-type="Absent"
                                         data-url="{{ route('json.getEmployeeAbsentDays') }}"
@@ -145,10 +149,10 @@
                                         {{ $employee['absents'] }}
                                     </a>
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <b class="absent-deductions">{{ $employee['absentDeductions'] }}</b>
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <a id="oldMinutes{{ $employee['employee']->id }}"
                                         data-still="{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}"
                                         data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
@@ -157,16 +161,18 @@
                                         class="details">{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}
                                     </a>
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <b id="minuteCompensate{{ $employee['employee']->id }}"
                                         data-old="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
                                         class="minutes-deductions">{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}</b>
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="minutes{{ $employee['employee']->id }}" name="updateVal"
                                         data-id="{{ $employee['employee']->id }}"
                                         data-deduction="{{ $employee['employee']->salaryFormula->per_minute }}"
-                                        class="form-control" type="number" placeholder="10" value="0">
+                                        class="form-control valtoSend{{ $employee['employee']->id }}"
+                                        type="number" placeholder="10"
+                                        value="{{ isset($employee['extras']) ? $employee['extras']->deduction_compensated : '0' }}">
                                 </td>
                                 <td>
                                     <b id="upCalculate{{ $employee['employee']->id }}"
@@ -174,29 +180,44 @@
                                         data-value="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
                                         class="taxable-salary">{{ $employee['calculatedSalary'] }}</b>
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="advance{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}" class="form-control"
-                                        type="number" placeholder="10" value="0">
+                                        data-id="{{ $employee['employee']->id }}"
+                                        class="form-control valtoSend{{ $employee['employee']->id }}"
+                                        type="number" placeholder="10"
+                                        value="{{ isset($employee['extras']) ? $employee['extras']->advance : '0' }}">
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="loan{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}" class="form-control"
-                                        type="number" placeholder="10" value="0">
+                                        data-id="{{ $employee['employee']->id }}"
+                                        class="form-control valtoSend{{ $employee['employee']->id }}"
+                                        type="number" placeholder="10"
+                                        value="{{ isset($employee['extras']) ? $employee['extras']->loan : '0' }}">
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="electricity{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}" class="form-control"
-                                        type="number" placeholder="10" value="0">
+                                        data-id="{{ $employee['employee']->id }}"
+                                        class="form-control valtoSend{{ $employee['employee']->id }}"
+                                        type="number" placeholder="10"
+                                        value="{{ isset($employee['extras']) ? $employee['extras']->electricity : '0' }}">
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="tax{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}" class="form-control"
-                                        type="number" placeholder="10" value="0">
+                                        data-id="{{ $employee['employee']->id }}"
+                                        class="form-control valtoSend{{ $employee['employee']->id }}"
+                                        type="number" placeholder="10"
+                                        value="{{ isset($employee['extras']) ? $employee['extras']->income_tax : '0' }}">
                                 </td>
-                                <td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
                                     Rs : <b id="final{{ $employee['employee']->id }}"
                                         class="net-salary">{{ round($employee['calculatedSalary']) }}</b>
+                                </td>
+                                <td class="innerHtml{{ $employee['employee']->id }}">
+                                    <button id="saveSal{{ $employee['employee']->id }}" type="button"
+                                        data-id="{{ $employee['employee']->id }}"
+                                        class="btn btn-primary saveEmployee">
+                                        Save Salary
+                                    </button>
                                 </td>
                             </tr>
                         @endif
@@ -233,6 +254,7 @@
                                 <td></td>
                                 <td></td>
                                 <td>Total here : <b class="totalResult"></b></td>
+                                <td></td>
                             </tr>
                         @endif
                     @endforeach
@@ -335,7 +357,7 @@
         var calculation = minuteCompensated.data('old') + oldSalary + minutesDeductions - advanceDeductions -
             loanDeductions -
             electricityDeductions - taxDeductions;
-            
+
         updateEmpSalarySelector.html(calculation);
 
         final.html(calculation)
@@ -349,7 +371,11 @@
     });
 
     $(function() {
-        reCal();
+        $('.getIds').each(function() {
+            updateSalary($(this).data('id'));
+            reCal();
+        });
+
         makeDTnAjax("main-table", "A0");
 
 
@@ -472,7 +498,6 @@
                     console.log(response);
                     makeToastr('error', response.responseJSON.message,
                         'Network error occured');
-
                 }
             });
         });
@@ -482,5 +507,40 @@
         // do something…
         $('.another-table').DataTable().clear().destroy();
     })
+
+    $('body').on('click', 'tbody .saveEmployee', function() {
+
+        var sendData = [];
+        var url = "/save/saveEmployeeSlip";
+
+        $('.innerHtml' + $(this).data('id')).each(function() {
+            sendData.push(($(this).html()).replace(/<\/?[^>]+(>|$)/g, "").match(/\d+([\.]\d+)?/g));
+        });
+
+        $('.valtoSend' + $(this).data('id')).each(function() {
+            sendData.push($(this).val() == "" ? "0" : $(this).val());
+        })
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {
+                data: sendData,
+                id: $(this).data('id'),
+                date: "{{ request()->get('date') }}"
+            },
+            success: function(response) {
+                console.log("success", response);
+
+                makeToastr('success', response.response,
+                    'Successful');
+            },
+            error: function(response) {
+                console.log(response);
+                makeToastr('error', response.responseJSON.message,
+                    'Network error occured');
+            }
+        });
+    });
 </script>
 @endpush

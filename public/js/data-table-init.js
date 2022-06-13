@@ -1,3 +1,4 @@
+var globalDtObj;
 function makeDT(classNme, columnDefs, route = "") {
     $("." + classNme).DataTable({
         order: [],
@@ -39,7 +40,7 @@ function makeDT(classNme, columnDefs, route = "") {
 }
 
 function makeDTnAjax(classNme, pageSize = "A0") {
-    $("." + classNme).DataTable({
+    globalDtObj = $("." + classNme).DataTable({
         dom: "Bfrtip",
         buttons: [
             {
