@@ -47,7 +47,7 @@
                             <th>Taxable Salary</th>
                             <th>Advance Salary</th>
                             <th>Loan / Installment</th>
-                            <th>Electricity</th>
+                            <th>Arrears</th>
                             <th>Income Tax</th>
                             <th>Net Salary</th>
                             <td></td>
@@ -376,7 +376,7 @@
             reCal();
         });
 
-        makeDTnAjax("main-table", "A0");
+        makeDTnAjaxCols("main-table", "A2", [0,1,3,4,8,15,20,21,22,23,24,25,26,28,29,30]);
 
 
         var date = "{{ request()->get('date') }}";

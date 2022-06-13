@@ -29,7 +29,9 @@
                                         {{ $employee->registration_no }}
                                     </td>
                                     <td>
+                                        @isset($employee->company)
                                         {{ $employee->company->name }}
+                                        @endisset
                                     </td>
                                     <td>
                                         <span class="badge bg-inverse-success">Active</span>

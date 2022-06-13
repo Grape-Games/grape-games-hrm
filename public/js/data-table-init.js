@@ -83,3 +83,50 @@ function makeDTnAjax(classNme, pageSize = "A0") {
         ],
     });
 }
+
+function makeDTnAjaxCols(classNme, pageSize = "A0", cols=[]) {
+    $("." + classNme).DataTable({
+        dom: "Bfrtip",
+        buttons: [
+            {
+                extend: "excelHtml5",
+                className: "btn btn-danger",
+                exportOptions: {
+                    stripHtml: false,
+                    columns:cols,
+                    format: {
+                        body: function (data, row, column, node) {
+                            noSpace = data.replace(/ /g, "")
+                            noTags = noSpace.replace(/<\/?[^>]+(>|$)/g, "")
+                            return noTags.replace(/<br\s*\/?>/gi, "\r\n");
+                        },
+                    },
+                },
+            },
+            {
+                extend: "csvHtml5",
+                className: "btn btn-secondary",
+            },
+            {
+                extend: "pdfHtml5",
+                className: "btn btn-info",
+                orientation: "landscape",
+                pageSize: pageSize,
+                exportOptions: {
+                    stripHtml: false,
+                    columns:cols,
+                    format: {
+                        body: function (data, row, column, node) {
+                            noSpace = data.replace(/ /g, "")
+                            noTags = noSpace.replace(/<\/?[^>]+(>|$)/g, "")
+                            return noTags.replace(/<br\s*\/?>/gi, "\r\n");
+                        },
+                    },
+                },
+                // exportOptions: {
+                //     columns: ":not(:last-child)",
+                // },
+            },
+        ],
+    });
+}

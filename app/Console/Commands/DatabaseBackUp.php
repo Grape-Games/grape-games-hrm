@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\BiometricDevice;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Rats\Zkteco\Lib\ZKTeco;
 
 class DatabaseBackUp extends Command
 {
@@ -41,12 +43,28 @@ class DatabaseBackUp extends Command
         $filename = "backup-" . Carbon::now()->format('Y-m-d') . ".gz";
 
         $command = "mysqldump --user=" . env('DB_USERNAME') . " --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  | gzip > " . storage_path() . "/app/backup/" . $filename;
-        $permissions = "chmod -R 777 " . storage_path() . "/app/backup";
+        // $permissions = "chmod -R 777 " . storage_path() . "/app/backup";
         $returnVar = NULL;
         $output  = NULL;
 
         exec($command, $output, $returnVar);
-        exec($permissions, $output, $returnVar);
+        // exec($permissions, $output, $returnVar);
+
+        $devices = BiometricDevice::all();
+        foreach ($devices as $device) {
+
+            $zk = new ZKTeco($device->ip_address);
+            $ret = $zk->connect();
+
+            if ($ret) {
+                $zk->disableDevice();
+                $zk->clearAttendance();
+            }
+            sleep(1);
+            $zk->getTime();
+            $zk->enableDevice();
+            $zk->disconnect();
+        }
         return Command::SUCCESS;
     }
 }
