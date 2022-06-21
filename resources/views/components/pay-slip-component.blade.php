@@ -31,7 +31,7 @@
                         <div class="invoice-details">
                             <h3 class="text-uppercase">Payslip #{{ request()->route('id') }}</h3>
                             <ul class="list-unstyled">
-                                <li>Salary Month : <span>{{ $salaryDetails->month_year }}</span>
+                                <li>Salary Month : <span>{{ $salaryDetails->dated }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -117,10 +117,17 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Deduction Compensated</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                {{ isset($salaryDetails->deduction_compensated) ? $salaryDetails->deduction_compensated : 0 }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Calculated Salary</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right earned">
-                                                {{ isset($salaryDetails->calculated_salary) ? $salaryDetails->calculated_salary : 0 }}</span>
+                                                {{ isset($salaryDetails->net_salary) ? $salaryDetails->net_salary : 0 }}</span>
                                         </td>
                                     </tr>
                                     <tr>

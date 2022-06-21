@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\Dashboard\Employee\AttendanceRequest;
 use App\Models\SalarySlip;
 use Illuminate\Support\Facades\Route;
+use App\Models\EmployeeSalarySlip;
 
 Route::group([
     'as' => 'dashboard.',
@@ -34,7 +35,7 @@ Route::group([
 
     // to generate a salary slip
     Route::get('/generate-slip/{id}', function ($id) {
-        $result = SalarySlip::where('id', $id)->with(['employee', 'employee.company', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
+        $result = EmployeeSalarySlip::where('id', $id)->with(['employee', 'employee.company', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
         if (!is_null($result))
             return view('pages.salary-slip.index', [
                 'slip' => $result

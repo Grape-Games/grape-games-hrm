@@ -15,6 +15,7 @@ class PaySlipComponent extends Component
      */
     public function __construct($salaryDetails)
     {
+        // dd($salaryDetails);
         $this->salaryDetails = $salaryDetails;
     }
 

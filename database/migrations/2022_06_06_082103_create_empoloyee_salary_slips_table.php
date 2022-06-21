@@ -14,7 +14,7 @@ class CreateEmpoloyeeSalarySlipsTable extends Migration
     public function up()
     {
         Schema::create('employee_salary_slips', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string("per_day")->nullable();
             $table->string("basic_salary")->nullable();
             $table->string("salaried_days")->nullable();
