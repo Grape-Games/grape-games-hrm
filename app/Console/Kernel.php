@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('zkteco:fetch')->hourlyAt(5);
 
         // command to back up mySql daily.
-        $schedule->command('database:backup')->daily();
+        $schedule->command('database:backup')->weeklyOn(1, '8:00');
 
         // command to update probabtion period or statuses
         $schedule->command('employee:salary')->hourlyAt(15);

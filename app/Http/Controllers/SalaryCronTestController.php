@@ -8,14 +8,17 @@ use App\Models\EmployeeSalaryStatus;
 use App\Models\User;
 use App\Traits\EmployeeSalaryUpdatesTrait;
 use App\Traits\SalaryGeneratorTrait;
+use App\Traits\ZktecoFetchTrait;
 use Carbon\Carbon;
 
 class SalaryCronTestController extends Controller
 {
-    use SalaryGeneratorTrait, EmployeeSalaryUpdatesTrait;
+    use SalaryGeneratorTrait, EmployeeSalaryUpdatesTrait, ZktecoFetchTrait;
     
     function __invoke()
     {
+        $this->fetchAttendance();
+        dd('done');
         dd(Employee::restrict()->get());
         // for salary cron job
         // $this->generateMonthlySlipOfAllEmployeesCron();
