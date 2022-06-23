@@ -124,17 +124,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Calculated Salary</strong>
-                                            <span class="float-right">&nbsp;Rs</span>
-                                            <span class="float-right earned">
-                                                {{ isset($salaryDetails->net_salary) ? $salaryDetails->net_salary : 0 }}</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td><strong>Total Earnings</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right">
-                                                <strong class="earning-result"></strong>
+                                                <strong class="earning-result-r">{{ isset($salaryDetails->net_salary) ? $salaryDetails->net_salary : 0 }}</strong>
                                             </span>
                                         </td>
                                     </tr>
@@ -186,10 +179,18 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Late Minutes/Half Days Deductions</strong>
+                                        <td><strong>Days Deduction ({{ isset($salaryDetails->days_deduction) ? $salaryDetails->days_deduction : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
-                                                {{ $salaryDetails->calculated_salary_without_deduction - $salaryDetails->calculated_salary }}
+                                                {{  $salaryDetails->per_day * $salaryDetails->days_deduction }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Late Minutes Deduction ({{ isset($salaryDetails->late_minutes) ? $salaryDetails->late_minutes : 0 }})</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->late_minutes_deduction) ? $salaryDetails->late_minutes_deduction : 0 }}
                                             </span>
                                         </td>
                                     </tr>

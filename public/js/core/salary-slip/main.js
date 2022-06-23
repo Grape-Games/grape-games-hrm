@@ -110,10 +110,10 @@ $(function () {
         deducts != undefined &&
         deducts.length != 0
     ) {
-        let totalEarning = earnings.reduce((a, b) => numOr0(a) + numOr0(b));
+        // let totalEarning = earnings.reduce((a, b) => numOr0(a) + numOr0(b));
         let totalDeduction = deducts.reduce((a, b) => numOr0(a) + numOr0(b));
-        let netTotal = totalEarning - totalDeduction;
-        $(".earning-result").html(totalEarning);
+        let netTotal = $(".earning-result-r").html();
+        // $(".earning-result").html(totalEarning);
         $(".deduction-result").html(totalDeduction);
         $(".net-total")
             .html(
