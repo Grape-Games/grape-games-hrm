@@ -30,6 +30,7 @@ class EmployeeSalarySlip extends Model
         "electricity",
         "income_tax",
         "dated",
+        "half_days",
         "employee_id",
         "user_id"
     ];

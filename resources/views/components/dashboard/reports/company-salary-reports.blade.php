@@ -119,14 +119,14 @@
                                     <td class="innerHtml{{ $employee['employee']->id }}">
                                         <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                             data-id="{{ $employee['employee']->id }}" data-type="Leaves"
-                                            data-url="{{ route('json.getEmployeeLeavesApproved') }}"
-                                            class="details">
+                                            data-url="{{ route('json.getEmployeeLeavesApproved') }}" class="details">
                                             {{ $employee['leaves'] }}
                                         </a>
                                     </td>
                                     <td class="innerHtml{{ $employee['employee']->id }}">
                                         <p>Note Half days are deducted in taxable salary</p>
-                                        {{ $employee['lateMinutesModule']['halfDays'] }}
+                                        <b
+                                            class="halfDays{{ $employee['employee']->id }}">{{ $employee['lateMinutesModule']['halfDays'] }}</b>
                                     </td>
                                     <td class="innerHtml{{ $employee['employee']->id }}">
                                         @foreach ($employee['lateMinutesModule']['halfDaysDetails'] as $punches)
@@ -144,8 +144,7 @@
                                 <td class="innerHtml{{ $employee['employee']->id }}">
                                     <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                         data-id="{{ $employee['employee']->id }}" data-type="Absent"
-                                        data-url="{{ route('json.getEmployeeAbsentDays') }}"
-                                        class="details">
+                                        data-url="{{ route('json.getEmployeeAbsentDays') }}" class="details">
                                         {{ $employee['absents'] }}
                                     </a>
                                 </td>
@@ -376,7 +375,7 @@
             reCal();
         });
 
-        makeDTnAjaxCols("main-table", "A2", [0,1,3,4,8,15,20,21,22,23,24,25,26,28,29,30]);
+        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]);
 
 
         var date = "{{ request()->get('date') }}";
@@ -512,7 +511,6 @@
 
         var sendData = [];
         var url = "/save/saveEmployeeSlip";
-
         $('.innerHtml' + $(this).data('id')).each(function() {
             sendData.push(($(this).html()).replace(/<\/?[^>]+(>|$)/g, "").match(/\d+([\.]\d+)?/g));
         });
@@ -520,6 +518,8 @@
         $('.valtoSend' + $(this).data('id')).each(function() {
             sendData.push($(this).val() == "" ? "0" : $(this).val());
         })
+
+        sendData.push($(".halfDays" + $(this).data('id')).html());
 
         $.ajax({
             type: "POST",

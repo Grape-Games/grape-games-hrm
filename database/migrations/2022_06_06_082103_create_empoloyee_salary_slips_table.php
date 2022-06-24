@@ -29,6 +29,7 @@ class CreateEmpoloyeeSalarySlipsTable extends Migration
             $table->string("electricity")->nullable();
             $table->string("income_tax")->nullable();
             $table->string("dated");
+            $table->integer("half_days");
             $table->foreignUuid('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

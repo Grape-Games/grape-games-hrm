@@ -10,11 +10,13 @@ class EmployeeSalaryController extends Controller
 {
     public function __invoke(Request $request)
     {
+
+        dd($request->all());
         $obj = [
             "per_day" => $request->data[4][0],
             "basic_salary" => $request->data[7][0],
             "salaried_days" => $request->data[14][0],
-            "salaried_days" => $request->data[14][0],
+            "half_days" => $request->data[34],
             "leaves" => $request->data[15][0],
             "days_deduction" => $request->data[18][0],
             "late_minutes" => $request->data[20][0],
