@@ -182,7 +182,7 @@
                                         <td><strong>Days Deduction ({{ isset($salaryDetails->days_deduction) ? $salaryDetails->days_deduction : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
-                                                {{  $salaryDetails->per_day * $salaryDetails->days_deduction }}
+                                                {{  floor($salaryDetails->per_day * $salaryDetails->days_deduction) }}
                                             </span>
                                         </td>
                                     </tr>
@@ -190,7 +190,7 @@
                                         <td><strong>Late Minutes Deduction ({{ isset($salaryDetails->late_minutes) ? $salaryDetails->late_minutes : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
-                                                {{ isset($salaryDetails->late_minutes_deduction) ? $salaryDetails->late_minutes_deduction : 0 }}
+                                                {{ isset($salaryDetails->late_minutes_deduction) ? floor($salaryDetails->late_minutes_deduction) : 0 }}
                                             </span>
                                         </td>
                                     </tr>
@@ -206,7 +206,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 d-none">
                         <p>
                             <strong class="net-total"></strong>
                         </p>
