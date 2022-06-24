@@ -11,7 +11,6 @@ class EmployeeSalaryController extends Controller
     public function __invoke(Request $request)
     {
 
-        dd($request->all());
         $obj = [
             "per_day" => $request->data[4][0],
             "basic_salary" => $request->data[7][0],
