@@ -187,6 +187,14 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Half Days Deduction ({{ isset($salaryDetails->half_days) ? $salaryDetails->half_days : 0 }})</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right deduct">
+                                                {{ isset($salaryDetails->half_days) ? floor(($salaryDetails->per_day/2) * $salaryDetails->half_days) : 0 }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Late Minutes Deduction ({{ isset($salaryDetails->late_minutes) ? $salaryDetails->late_minutes : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
