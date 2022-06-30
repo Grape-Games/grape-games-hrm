@@ -39,6 +39,8 @@
                             <th>Leaves Approved</th>
                             <th>Half Days</th>
                             <th>Half Days Details</th>
+                            <th>Overtime Hours</th>
+                            <th>Overtime Payment</th>
                             <th>No of Days ( Deduction )</th>
                             <th>Days Amount Deducted</th>
                             <th>No of Minutes ( Morning )</th>
@@ -141,6 +143,17 @@
                                         @endforeach
                                     @endforeach
                                 </td>
+                                <td>
+                                    {{ $employee['overTimeHours'] ?? 0 }}
+                                </td>
+                                <td>
+                                    {{ $employee['overTimeHours'] * $employee['employee']->salaryFormula->per_hour }}
+                                    @if ($employee['payOvertime'])
+                                        <span class="badge badge-success">Overtime payment allowed</span>
+                                    @else
+                                        <span class="badge badge-danger">Overtime payment disallowed</span>
+                                    @endif
+                                </td>
                                 <td class="innerHtml{{ $employee['employee']->id }}">
                                     <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
                                         data-id="{{ $employee['employee']->id }}" data-type="Absent"
@@ -238,6 +251,8 @@
                                 <td></td>
                                 <td></td>
                                 <td>Gross Total : <b class="grossResult"></b></td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -375,7 +390,7 @@
             reCal();
         });
 
-        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30]);
+        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32]);
 
 
         var date = "{{ request()->get('date') }}";

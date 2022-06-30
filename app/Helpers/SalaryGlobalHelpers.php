@@ -30,8 +30,7 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
     foreach ($attendances as $key => $perDayPunches) {
 
         // counting employees half days if punch out is missing
-        if (count($perDayPunches) <= 1) {
-            {
+        if (count($perDayPunches) <= 1) { {
                 array_push($halfDaysArr, $perDayPunches);
                 $halfDays++;
             }
@@ -96,4 +95,24 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
         "halfDaysDetails" => $halfDaysArr,
         "halfDaysDeductions" => $halfDaysDeduction,
     ];
+}
+
+function getEmployeeOverTimeHoursByAttendances($attendances): int
+{
+    $overtimeHours = 0;
+
+    foreach ($attendances as $key => $perDayPunches) {
+        if (count($perDayPunches) < 2)
+            continue;
+
+        $in = Carbon::parse($perDayPunches[0]->attendance);
+        $out = Carbon::parse($perDayPunches[count($perDayPunches) - 1]->attendance);
+
+        $workingHours = $in->diffInHours($out);
+
+        if ($workingHours > 9)
+            $overtimeHours += $in->diffInHours($out);
+    }
+
+    return $overtimeHours;
 }

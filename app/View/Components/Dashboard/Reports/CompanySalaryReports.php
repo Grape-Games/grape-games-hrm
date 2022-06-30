@@ -84,6 +84,15 @@ class CompanySalaryReports extends Component
 
                     $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
 
+                    $allowOverTime = isset($employee->company) ? $employee->company->over_time_payment : false;
+
+                    $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
+
+                    $sal = floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']);
+
+                    $allowOverTime
+                        ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
+                        : '';
 
                     array_push($this->result, [
                         "tempered" => $tempered,
@@ -98,10 +107,12 @@ class CompanySalaryReports extends Component
                         "holidays" => $holidays,
                         "leaves" => $leaves,
                         "lateMinutesModule" => $lateMinutesModule,
+                        "payOvertime" => $allowOverTime,
+                        "overTimeHours" => $overTimeHours,
                         "salariedDays" => $salariedDays,
                         "absents" => $absents,
                         "absentDeductions" => floor($tempered * $absents),
-                        "calculatedSalary" => floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']),
+                        "calculatedSalary" => $sal,
                         "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                     ]);
                 } else {
@@ -136,6 +147,17 @@ class CompanySalaryReports extends Component
                 $absents = count($dates) - $salariedDays;
 
                 $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
+
+                $allowOverTime = isset($employee->company) ? $employee->company->over_time_payment : false;
+
+                $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
+
+                $sal = floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']);
+
+                $allowOverTime
+                    ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
+                    : '';
+
                 // dd([
                 //     "tempered" => $tempered,
                 //     "employee" => $employee,
@@ -168,10 +190,12 @@ class CompanySalaryReports extends Component
                     "holidays" => $holidays,
                     "leaves" => $leaves,
                     "lateMinutesModule" => $lateMinutesModule,
+                    "payOvertime" => $allowOverTime,
+                    "overTimeHours" => $overTimeHours,
                     "salariedDays" => $salariedDays,
                     "absents" => $absents,
                     "absentDeductions" => floor($tempered * $absents),
-                    "calculatedSalary" => floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']),
+                    "calculatedSalary" => $sal,
                     "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                 ]);
             } else {

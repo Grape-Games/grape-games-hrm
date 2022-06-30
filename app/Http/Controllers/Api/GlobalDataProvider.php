@@ -154,7 +154,7 @@ class GlobalDataProvider extends Controller
             $searchDate
         );
 
-        $tempered = $employee->salaryFormula->basic_salary / count($dates);
+        $tempered = floor($employee->salaryFormula->basic_salary / count($dates));
 
         $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
 
