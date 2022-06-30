@@ -1,8 +1,7 @@
 <div class="row mb-2">
     <div class="col-auto float-right ml-auto mb-2">
         <div class="btn-group btn-group-sm">
-            <button class="btn btn-white print-btn" onclick="download()"><i class="fa fa-file-pdf-o"
-                    aria-hidden="true"></i>
+            <button class="btn btn-white print-btn" onclick="download()"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 PDF</button>
             <button class="btn btn-primary account-btn loader-btn d-none" disabled="disabled">
                 <i class="fa fa-spinner fa-spin" style="margin-right:2%;"></i>
@@ -124,10 +123,35 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Over Time Hours</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                @if ($salaryDetails->over_time_pay_status)
+                                                    {{ isset($salaryDetails->over_time_hours) ? $salaryDetails->over_time_hours : 0 }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Over Time Payment</strong>
+                                            <span class="float-right">&nbsp;Rs</span>
+                                            <span class="float-right earned">
+                                                @if ($salaryDetails->over_time_pay_status)
+                                                    {{ isset($salaryDetails->over_time_pay) ? $salaryDetails->over_time_pay : 0 }}
+                                                @else
+                                                    0
+                                                @endif
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Total Earnings</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right">
-                                                <strong class="earning-result-r">{{ isset($salaryDetails->net_salary) ? $salaryDetails->net_salary : 0 }}</strong>
+                                                <strong
+                                                    class="earning-result-r">{{ isset($salaryDetails->net_salary) ? $salaryDetails->net_salary : 0 }}</strong>
                                             </span>
                                         </td>
                                     </tr>
@@ -179,23 +203,26 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Days Deduction ({{ isset($salaryDetails->days_deduction) ? $salaryDetails->days_deduction : 0 }})</strong>
+                                        <td><strong>Days Deduction
+                                                ({{ isset($salaryDetails->days_deduction) ? $salaryDetails->days_deduction : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
-                                                {{  floor($salaryDetails->per_day * $salaryDetails->days_deduction) }}
+                                                {{ floor($salaryDetails->per_day * $salaryDetails->days_deduction) }}
                                             </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Half Days Deduction ({{ isset($salaryDetails->half_days) ? $salaryDetails->half_days : 0 }})</strong>
+                                        <td><strong>Half Days Deduction
+                                                ({{ isset($salaryDetails->half_days) ? $salaryDetails->half_days : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
-                                                {{ isset($salaryDetails->half_days) ? floor(($salaryDetails->per_day/2) * $salaryDetails->half_days) : 0 }}
+                                                {{ isset($salaryDetails->half_days) ? floor(($salaryDetails->per_day / 2) * $salaryDetails->half_days) : 0 }}
                                             </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Late Minutes Deduction ({{ isset($salaryDetails->late_minutes) ? $salaryDetails->late_minutes : 0 }})</strong>
+                                        <td><strong>Late Minutes Deduction
+                                                ({{ isset($salaryDetails->late_minutes) ? $salaryDetails->late_minutes : 0 }})</strong>
                                             <span class="float-right">&nbsp;Rs</span>
                                             <span class="float-right deduct">
                                                 {{ isset($salaryDetails->late_minutes_deduction) ? floor($salaryDetails->late_minutes_deduction) : 0 }}

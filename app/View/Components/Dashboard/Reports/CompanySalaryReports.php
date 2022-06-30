@@ -57,7 +57,7 @@ class CompanySalaryReports extends Component
 
         if ($this->employeeId == "all") {
 
-            $employees = Employee::companies($this->companyId)->with(['bank', 'salaryFormula', 'company', 'designation'])->get();
+            $employees = Employee::enrolled()->companies($this->companyId)->with(['bank', 'salaryFormula', 'company', 'designation'])->get();
 
             foreach ($employees as $key => $employee) {
 
@@ -157,25 +157,6 @@ class CompanySalaryReports extends Component
                 $allowOverTime
                     ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
                     : '';
-
-                // dd([
-                //     "tempered" => $tempered,
-                //     "employee" => $employee,
-                //     "additional" => SalarySlip::where('employee_id', $employee->id)->latest()->first(),
-                //     "days" => count($dates),
-                //     "weekends" => $satSuns,
-                //     "weekendCounts" => $satSuns['saturdays'] + $satSuns['sundays'],
-                //     "additionalDays" => $workingDays,
-                //     "additionalDaysCount" => count($workingDays),
-                //     "attendances" => count($attendances),
-                //     "holidays" => $holidays,
-                //     "leaves" => $leaves,
-                //     "lateMinutesModule" => $lateMinutesModule,
-                //     "salariedDays" => $salariedDays,
-                //     "absents" => $absents,
-                //     "absentDeductions" => $tempered * $absents,
-                //     "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
-                // ]);
 
                 array_push($this->result, [
                     "tempered" => $tempered,

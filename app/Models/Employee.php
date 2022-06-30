@@ -21,6 +21,10 @@ class Employee extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia, RestrictTrait;
 
+    public $incrementing = false;
+
+    protected $keyType = 'uuid';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -47,7 +51,7 @@ class Employee extends Model implements HasMedia
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereScope);
-        
+
         static::creating(function ($model) {
             try {
                 $model->id = (string) Str::uuid(); // generate uuid
@@ -58,19 +62,17 @@ class Employee extends Model implements HasMedia
         });
     }
 
-    public $incrementing = false;
-
-    protected $keyType = 'uuid';
-
     public function scopeCompanies($query, $companyId)
     {
         return $query->where('company_id', $companyId);
     }
 
-    // public function scopeHolidays($query, $date)
-    // {
-    //     return $query->;
-    // }
+    public function scopeEnrolled($query)
+    {
+        return $query->whereHas('additional', function ($q) {
+            $q->whereNull('resignation_date');
+        });
+    }
 
     /**
      * Get the user that owns the Employee

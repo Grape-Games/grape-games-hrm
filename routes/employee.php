@@ -35,7 +35,7 @@ Route::group([
 
     // to generate a salary slip
     Route::get('/generate-slip/{id}', function ($id) {
-        $result = EmployeeSalarySlip::where('id', $id)->with(['employee', 'employee.company', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
+        $result = EmployeeSalarySlip::where('id', $id)->with(['employee.company', 'employee.designation', 'employee.additional', 'employee.bank'])->first();
         if (!is_null($result))
             return view('pages.salary-slip.index', [
                 'slip' => $result

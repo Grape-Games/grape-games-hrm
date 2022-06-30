@@ -10,6 +10,7 @@ class EmployeeSalaryController extends Controller
 {
     public function __invoke(Request $request)
     {
+        $check = $request->data[37] == "1" ? true : false;
 
         $obj = [
             "per_day" => $request->data[4][0],
@@ -26,6 +27,9 @@ class EmployeeSalaryController extends Controller
             "loan" => $request->data[31],
             "electricity" => $request->data[32],
             "income_tax" => $request->data[33],
+            "over_time_hours" => $request->data[35],
+            "over_time_pay" => $request->data[36],
+            "over_time_pay_status" => $check,
             "dated" => $request->date,
             "employee_id" => $request->id,
             "user_id" => auth()->id()

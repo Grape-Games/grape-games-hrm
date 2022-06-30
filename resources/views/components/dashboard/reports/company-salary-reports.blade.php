@@ -144,10 +144,16 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    {{ $employee['overTimeHours'] ?? 0 }}
+                                    <p class="overTimeHours{{ $employee['employee']->id }}">
+                                        {{ $employee['overTimeHours'] ?? 0 }}
+                                    </p>
+                                    <input type="hidden" class="overTimeCheck{{ $employee['employee']->id }}"
+                                        value="{{ $employee['payOvertime'] }}">
                                 </td>
                                 <td>
-                                    {{ $employee['overTimeHours'] * $employee['employee']->salaryFormula->per_hour }}
+                                    <p class="overTimePay{{ $employee['employee']->id }}">
+                                        {{ $employee['overTimeHours'] * $employee['employee']->salaryFormula->per_hour }}
+                                    </p>
                                     @if ($employee['payOvertime'])
                                         <span class="badge badge-success">Overtime payment allowed</span>
                                     @else
@@ -309,6 +315,7 @@
 
 @push('extended-js')
 <script>
+    let overTimeCheck = "{{$result[0]['payOvertime']}}";
     function reCal() {
         var grossSalary = 0;
         var absentDeductions = 0;
@@ -390,7 +397,9 @@
             reCal();
         });
 
-        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32]);
+        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31,
+            32
+        ]);
 
 
         var date = "{{ request()->get('date') }}";
@@ -535,6 +544,9 @@
         })
 
         sendData.push($(".halfDays" + $(this).data('id')).html());
+        sendData.push($(".overTimeHours" + $(this).data('id')).html());
+        sendData.push($(".overTimePay" + $(this).data('id')).html());
+        sendData.push(overTimeCheck);
 
         $.ajax({
             type: "POST",
@@ -544,6 +556,9 @@
                 id: $(this).data('id'),
                 date: "{{ request()->get('date') }}"
             },
+            beforeSend: function() {
+                $(".saveEmployee").attr('disabled', true);
+            },
             success: function(response) {
                 console.log("success", response);
 
@@ -552,9 +567,13 @@
             },
             error: function(response) {
                 console.log(response);
+                $(".saveEmployee").attr('disabled', false);
                 makeToastr('error', response.responseJSON.message,
                     'Network error occured');
-            }
+            },
+            complete: function(response) {
+                $(".saveEmployee").attr('disabled', false);
+            },
         });
     });
 </script>
