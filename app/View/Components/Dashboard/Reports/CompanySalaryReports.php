@@ -62,7 +62,7 @@ class CompanySalaryReports extends Component
             foreach ($employees as $key => $employee) {
 
                 if (isset($employee->salaryFormula)) {
-                    $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
+                    $tempered = floor($employee->salaryFormula->basic_salary / count($dates)); // making per day accorking to number of days
 
                     $attendances = employeeAttendances($employee, $searchDate);
 
@@ -100,8 +100,8 @@ class CompanySalaryReports extends Component
                         "lateMinutesModule" => $lateMinutesModule,
                         "salariedDays" => $salariedDays,
                         "absents" => $absents,
-                        "absentDeductions" => $tempered * $absents,
-                        "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                        "absentDeductions" => floor($tempered * $absents),
+                        "calculatedSalary" => floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']),
                         "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                     ]);
                 } else {
@@ -115,7 +115,7 @@ class CompanySalaryReports extends Component
             $employee = Employee::where('id', $this->employeeId)->with(['bank', 'salaryFormula', 'company', 'designation'])->first();
 
             if (isset($employee->salaryFormula)) {
-                $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
+                $tempered = floor($employee->salaryFormula->basic_salary / count($dates)); // making per day accorking to number of days
 
                 $attendances = employeeAttendances($employee, $searchDate);
 
@@ -170,8 +170,8 @@ class CompanySalaryReports extends Component
                     "lateMinutesModule" => $lateMinutesModule,
                     "salariedDays" => $salariedDays,
                     "absents" => $absents,
-                    "absentDeductions" => $tempered * $absents,
-                    "calculatedSalary" => ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'],
+                    "absentDeductions" => floor($tempered * $absents),
+                    "calculatedSalary" => floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']),
                     "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                 ]);
             } else {
