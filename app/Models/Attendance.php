@@ -51,10 +51,10 @@ class Attendance extends Model
 
     // comment out in production
 
-    public function getAttendanceAttribute($value)
-    {
-       return Carbon::parse($value)->subHours(11);
-    }
+    // public function getAttendanceAttribute($value)
+    // {
+    //    return Carbon::parse($value)->subHours(11);
+    // }
 
     /**
      * Get the employee that owns the Attendance
