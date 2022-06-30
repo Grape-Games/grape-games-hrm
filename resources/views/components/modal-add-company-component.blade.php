@@ -38,32 +38,31 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Branch Name <code>e.g Plaza 79 </code><span
-                                        class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Branch Name" name="branch_name"
-                                    required>
+                                <label>Branch Name <code>e.g Plaza 79 </code><span class="text-danger">*</span></label>
+                                <textarea rows="5" class="form-control" type="text" placeholder="Branch Name" name="branch_name"
+                                    required></textarea>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Time In <span class="text-danger">*</span></label>
                                 <input class="form-control" type="time" name="time_in" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Time Out <span class="text-danger">*</span></label>
                                 <input class="form-control" type="time" name="time_out" required>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>Grace Minutes<span class="text-danger">*</span></label>
                                 <input class="form-control" type="number" name="grace_minutes"
                                     placeholder="Grace Minutes" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="">Company Status</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status" value="held"
@@ -80,27 +79,45 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="">Late Minutes Deduction</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="late_minutes_deduction" value="1"
-                                    id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="late_minutes_deduction"
+                                    value="1" id="flexRadioDefault1">
                                 <label class="form-check-label" for="flexRadioDefault1">
                                     Yes
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="late_minutes_deduction" value="0"
-                                    id="flexRadioDefault2" checked>
+                                <input class="form-check-input" type="radio" name="late_minutes_deduction"
+                                    value="0" id="flexRadioDefault2" checked>
                                 <label class="form-check-label" for="flexRadioDefault2">
                                     No
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-4">
+                            <label for="">Overtime Payment</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="over_time_payment"
+                                    value="1">
+                                <label class="form-check-label">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="over_time_payment"
+                                    value="0" checked>
+                                <label class="form-check-label">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-2">
                             <label>Select an Image</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="validatedCustomFile" name="image">
+                                <input type="file" class="custom-file-input" id="validatedCustomFile"
+                                    name="image">
                                 <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                             </div>
                         </div>

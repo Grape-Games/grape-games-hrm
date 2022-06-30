@@ -34,6 +34,7 @@ class Company extends Model implements HasMedia
         'status',
         'grace_minutes',
         'late_minutes_deduction',
+        'over_time_payment',
         'owner_id'
     ];
     protected static function boot()

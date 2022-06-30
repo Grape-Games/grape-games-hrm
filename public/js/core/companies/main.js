@@ -69,8 +69,12 @@ function updateCompany(response, errorClassName, table) {
         .filter("[value=" + response.status + "]")
         .attr("checked", true);
     $('[name="late_minutes_deduction"]').removeAttr("checked");
+    $('[name="over_time_payment"]').removeAttr("checked");
     $("input:radio[name=late_minutes_deduction]")
         .filter("[value=" + response.late_minutes_deduction + "]")
+        .attr("checked", true);
+    $("input:radio[name=over_time_payment]")
+        .filter("[value=" + response.over_time_payment + "]")
         .attr("checked", true);
     btn.prop("disabled", false);
     btn.html("Add/Update Company");

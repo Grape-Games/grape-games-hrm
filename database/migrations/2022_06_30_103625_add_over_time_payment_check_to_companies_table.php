@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGraceMinutesToCompaniesTable extends Migration
+class AddOverTimePaymentCheckToCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddGraceMinutesToCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->integer('grace_minutes')->default(30);
+            $table->boolean('over_time_payment')->default(false);
         });
     }
 
