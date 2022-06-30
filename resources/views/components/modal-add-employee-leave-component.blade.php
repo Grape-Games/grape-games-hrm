@@ -39,8 +39,9 @@
                                     <select name="employee_id" class="form-control" required>
                                         <option value="">Select Employee Name</option>
                                         @forelse ($employees as $employee)
-                                            <option value="{{ $employee->user?->id }}">
-                                                {{ $employee->user?->name . ' ( ' . $employee->company?->name . ' )' }}
+                                            <option
+                                                value="{{ isset($employee->user) ? $employee->user->id : $employee->id }}">
+                                                {{ (isset($employee->user) ? $employee->user->name : $employee->first_name) . ' ( ' . (isset($employee->company) ? $employee->company->name : $employee->first) . ' )' }}
                                             </option>
                                         @empty
                                             <option value="">No leave type available.</option>
