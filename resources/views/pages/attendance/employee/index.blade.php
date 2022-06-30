@@ -35,9 +35,9 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ \Carbon\Carbon::parse($key)->format('l jS \of F Y') }}</td>
-                                            <td>{{ $item[count($item) - 1]->attendance->format('l jS \of F Y h:i:s A') }}
-                                            </td>
                                             <td>{{ isset($item[0]) ? $item[0]->attendance->format('l jS \of F Y h:i:s A') : 'Not found' }}
+                                            </td>
+                                            <td>{{ $item[count($item) - 1]->attendance->format('l jS \of F Y h:i:s A') }}
                                             </td>
                                             <td>{{ App\Http\Controllers\EmployeeAttendanceaController::convertToHoursMins(\Carbon\Carbon::parse($item[0]->attendance)->diffInMinutes(\Carbon\Carbon::parse($item[count($item) - 1]->attendance))) ?? 'Half Day or Punch Missing, 0 ' }}
                                                 hrs
