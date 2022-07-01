@@ -5,7 +5,6 @@
         li {
             cursor: pointer;
         }
-
     </style>
     @include('vendors.data-tables')
     @include('vendors.select2')
@@ -184,7 +183,7 @@
         });
         $(".employeeAttendanceUpdateForm").submit(function(e) {
             e.preventDefault();
-            $(this).valid() ? this.submit() : false;
+            $(this).valid() ? true : false;
         });
 
         $(".view-attendance-details-absent").click(function(e) {
@@ -271,8 +270,20 @@
         $(".employeeAttendanceUpdateForm").submit(function(e) {
             e.preventDefault();
             if ($(this).valid()) {
-                $(this).find("button").prop('disabled', true);
-                this.submit()
+                makeToastr("info", "Please wait for response...", "Request sent");
+                $.ajax({
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serializeArray(),
+                    dataType: "json",
+                    success: function(response) {
+                        makeToastr("success", response, "Action Successful. 😃");
+                    },
+                    error: function(response) {                        
+                        makeToastr("success", response, "Action failed. 😃");
+                    }
+                });
+                // this.submit()
             };
         });
 

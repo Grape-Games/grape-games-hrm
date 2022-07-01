@@ -84,8 +84,10 @@ class AdminAttendanceManagementController extends Controller
             if (LateMinutes::where('date', $request->day_attendance)->where('employee_id', $request->employee_id)->forceDelete())
                 $message = "Late minutes also deleted.";
 
-        session()->flash('message', 'Operation successful. ' . $message);
-        return back();
+        // session()->flash('message', 'Operation successful. ' . $message);
+        // return back();
+
+        return response()->json("Record updated, please refresh to reflect changes on screen.");
     }
 
     public function deletePunch(Request $request)

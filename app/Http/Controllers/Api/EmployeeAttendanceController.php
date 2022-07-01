@@ -34,8 +34,10 @@ class EmployeeAttendanceController extends Controller
             $message = "Late minutes also deleted.";
         }
 
-        session()->put('message', 'Successfully done the operation. ' . $message);
-        return back();
+        // session()->flash('message', 'Operation successful. ' . $message);
+        // return back();
+
+        return response()->json("Record updated, please refresh to reflect changes on screen.");
     }
     public function get(Request $request)
     {
