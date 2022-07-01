@@ -77,7 +77,7 @@
                                         {{ $employee['employee']->bank->account_number ?? 'Not Set' }}
                                     </td>
                                     <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ floor($employee['tempered']) ?? 'Not Set' }}
+                                        {{ round($employee['tempered']) ?? 'Not Set' }}
                                     </td>
                                     <td class="innerHtml{{ $employee['employee']->id }}">
                                         {{ $employee['employee']->salaryFormula->per_hour ?? 'Not Set' }}
@@ -168,7 +168,7 @@
                                     </a>
                                 </td>
                                 <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <b class="absent-deductions">{{ floor($employee['absentDeductions']) }}</b>
+                                    <b class="absent-deductions">{{ round($employee['absentDeductions']) }}</b>
                                 </td>
                                 <td class="innerHtml{{ $employee['employee']->id }}">
                                     <a id="oldMinutes{{ $employee['employee']->id }}"
@@ -196,7 +196,7 @@
                                     <b id="upCalculate{{ $employee['employee']->id }}"
                                         data-salary="{{ $employee['calculatedSalary'] - $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
                                         data-value="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
-                                        class="taxable-salary">{{ floor($employee['calculatedSalary']) }}</b>
+                                        class="taxable-salary">{{ round($employee['calculatedSalary']) }}</b>
                                 </td>
                                 <td class="innerHtml{{ $employee['employee']->id }}">
                                     <input id="advance{{ $employee['employee']->id }}" name="updateVal"
