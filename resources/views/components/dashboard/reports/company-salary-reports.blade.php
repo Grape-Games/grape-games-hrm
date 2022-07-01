@@ -195,7 +195,7 @@
                                 <td>
                                     <b id="upCalculate{{ $employee['employee']->id }}"
                                         data-salary="{{ round($employee['calculatedSalary']) - round($employee['lateMinutesModule']['lateMinutesDeductions']) }}"
-                                        data-value="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
+                                        data-value="{{ round($employee['lateMinutesModule']['lateMinutesDeductions']) }}"
                                         class="taxable-salary">{{ round($employee['calculatedSalary']) }}</b>
                                 </td>
                                 <td class="innerHtml{{ $employee['employee']->id }}">
