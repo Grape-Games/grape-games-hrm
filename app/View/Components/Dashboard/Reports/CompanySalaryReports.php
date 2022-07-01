@@ -62,7 +62,7 @@ class CompanySalaryReports extends Component
             foreach ($employees as $key => $employee) {
 
                 if (isset($employee->salaryFormula)) {
-                    $tempered = floor($employee->salaryFormula->basic_salary / count($dates)); // making per day accorking to number of days
+                    $tempered = $employee->salaryFormula->basic_salary / count($dates); // making per day accorking to number of days
 
                     $attendances = employeeAttendances($employee, $searchDate);
 
@@ -88,7 +88,7 @@ class CompanySalaryReports extends Component
 
                     $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
 
-                    $sal = floor(($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions']);
+                    $sal = ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'];
 
                     $allowOverTime
                         ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
@@ -111,7 +111,7 @@ class CompanySalaryReports extends Component
                         "overTimeHours" => $overTimeHours,
                         "salariedDays" => $salariedDays,
                         "absents" => $absents,
-                        "absentDeductions" => floor($tempered * $absents),
+                        "absentDeductions" => $tempered * $absents,
                         "calculatedSalary" => $sal,
                         "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
                     ]);
