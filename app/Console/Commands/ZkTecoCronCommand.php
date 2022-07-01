@@ -40,7 +40,9 @@ class ZkTecoCronCommand extends Command
      */
     public function handle()
     {
+        $this->info("Started fetching");
         $this->fetchAttendance();
+        $this->info("Ended fetching");
         return Command::SUCCESS;
     }
 }
