@@ -59,7 +59,7 @@ class UpdateEmployeeRequest extends FormRequest
             'primary_contact' => 'nullable|numeric',
             'registration_no' => 'nullable|string',
             'secondary_contact' => 'nullable|string',
-            'biometric_device_id' => 'required|exists:biometric_devices,id',
+            'biometric_device_id' => 'nullable|exists:biometric_devices,id',
             'type' => 'required|in:additional_information,bank_details,emergency_contact_details,employee',
         ];
     }
