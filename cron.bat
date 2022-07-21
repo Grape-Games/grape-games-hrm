@@ -1,2 +1,2 @@
-cd C:/xampp/htdocs/grape-games/grape-games-hrm/
+cd C:/laragon/www/hr.grapetechnologies.co/
 php artisan schedule:run
