@@ -52,5 +52,5 @@ Route::group([
     'prefix' => 'dashboard/'
 ], function () {
     Route::get('attendance-request-live', AttendanceRequest::class)->name('attendance.request');
-    Route::get('submit-material-request', RequestMaterialComponent::class)->name('material.request');
+    Route::get('material-request', RequestMaterialComponent::class)->name('material.request');
 });

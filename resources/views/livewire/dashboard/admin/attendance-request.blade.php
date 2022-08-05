@@ -48,10 +48,10 @@
                                             <a class="dropdown-item" href="#"
                                                 wire:click="setStatus('{{ $ticket->id }}','rejected')"
                                                 data-toggle="modal" data-target="#approve_leave"><i
-                                                    class="fa fa-dot-circle-o text-success"></i> Reject</a>
+                                                    class="fa fa-dot-circle-o text-danger"></i> Reject</a>
                                             <a class="dropdown-item" href="#"
                                                 wire:click="setStatus('{{ $ticket->id }}','resolved')"><i
-                                                    class="fa fa-dot-circle-o text-danger"></i> Resolved</a>
+                                                    class="fa fa-dot-circle-o text-success"></i> Resolved</a>
                                         </div>
                                     </div>
                                 </td>
@@ -59,7 +59,7 @@
                                     @if ($ticket->status == 'opened')
                                         <span class="text-white badge bg-info">Opened</span>
                                     @elseif($ticket->status == 'closed')
-                                        <span class="text-white badge bg-warning">closed</span>
+                                        <span class="text-white badge bg-warning">Closed</span>
                                     @elseif($ticket->status == 'rejected')
                                         <span class="text-white badge bg-danger">Rejected</span>
                                     @elseif($ticket->status == 'resolved')

@@ -83,6 +83,9 @@
                             <th>Description</th>
                             <th>Quatity</th>
                             <th>Type</th>
+                            @can('is-universal')
+                                <td>Update Status</td>
+                            @endcan
                             <th>Status</th>
                             <th>Created At</th>
                             <th>Update At</th>
@@ -108,11 +111,35 @@
                                     {{ $request->type }}
                                 </td>
                                 <td>
+                                    <div class="dropdown action-label">
+                                        <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#"
+                                            data-toggle="dropdown" aria-expanded="true">
+                                            <i class="fa fa-dot-circle-o text-success"></i> Update Status
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
+                                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-14px, 31px, 0px);">
+                                            <a class="dropdown-item" href="#"
+                                                wire:click="setStatus('{{ $request->id }}','Pending')"><i
+                                                    class="fa fa-dot-circle-o text-warning"></i> Pending</a>
+                                            <a class="dropdown-item" href="#"
+                                                wire:click="setStatus('{{ $request->id }}','Closed')"><i
+                                                    class="fa fa-dot-circle-o text-info"></i> Closed</a>
+                                            <a class="dropdown-item" href="#"
+                                                wire:click="setStatus('{{ $request->id }}','Rejected')"
+                                                data-toggle="modal" data-target="#approve_leave"><i
+                                                    class="fa fa-dot-circle-o text-danger"></i> Rejected</a>
+                                            <a class="dropdown-item" href="#"
+                                                wire:click="setStatus('{{ $request->id }}','Approved')"><i
+                                                    class="fa fa-dot-circle-o text-success"></i> Approved</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
                                     @if ($request->status == 'Pending')
                                         <span class="text-white badge bg-info">Pending</span>
                                     @elseif($request->status == 'Closed')
                                         <span class="text-white badge bg-warning">Closed</span>
-                                    @elseif($request->status == 'rejected')
+                                    @elseif($request->status == 'Rejected')
                                         <span class="text-white badge bg-danger">Rejected</span>
                                     @elseif($request->status == 'Approved')
                                         <span class="text-white badge bg-success">Approved</span>

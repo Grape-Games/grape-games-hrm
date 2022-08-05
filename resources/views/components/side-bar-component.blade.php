@@ -194,6 +194,12 @@
                         </ul>
                     </li>
 
+                    <li class="@if (Route::is('dashboard.livewire.material.request')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request') }}">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span>Material Request</span></a>
+                    </li>
+                    
                     <li class="menu-title">
                         <span>Salaries Section</span>
                     </li>
