@@ -21,6 +21,8 @@ class RequestMaterialComponent extends Component
 
     public function store()
     {
+        $this->validate();
+        
         auth()->user()->employee->materialRequests()->firstOrCreate($this->material)
             ? $this->emit('toast', 'success', "Request was submitted successfully. 😉", "Material Request")
             : $this->emit('toast', 'error', "Failed to submit your request, please try again.", "Material Request");
@@ -39,7 +41,7 @@ class RequestMaterialComponent extends Component
     public function render()
     {
         return view('livewire.request-material-component', [
-            'requests' => MaterialRequest::paginate(20)
+            'requests' => MaterialRequest::where('employee_id', auth()->user()->employee->id)->paginate(20)
         ])
             ->extends('layouts.master')->section('content');
     }
