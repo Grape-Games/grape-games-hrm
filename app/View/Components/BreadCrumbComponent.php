@@ -7,14 +7,14 @@ use Illuminate\View\Component;
 class BreadCrumbComponent extends Component
 {
 
-    public $modal, $modalId, $modalType;
+    public $modal, $modalId, $modalType, $showClock;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($modal = false, $modalType = null, $modalId = null)
+    public function __construct($modal = false, $modalType = null, $modalId = null, $showClock = "true")
     {
         if ($modalType == 'Leave' && auth()->user()->role == 'admin')
             $this->modal = false;
@@ -22,6 +22,7 @@ class BreadCrumbComponent extends Component
             $this->modal = $modal;
         $this->modalId = $modalId;
         $this->modalType = $modalType;
+        $this->showClock = $showClock;
     }
 
     /**

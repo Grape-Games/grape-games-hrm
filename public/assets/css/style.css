@@ -1520,7 +1520,7 @@ table.dataTable thead > tr > td.sorting {
 }
 .sidebar-menu ul li a i {
 	display: inline-block;
-	font-size: 24px;
+	font-size: 20px;
 	line-height: 24px;
 	text-align: left;
 	vertical-align: middle;

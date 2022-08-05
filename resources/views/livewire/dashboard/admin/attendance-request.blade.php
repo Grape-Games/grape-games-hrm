@@ -2,7 +2,7 @@
     @include('vendors.toastr')
 @endpush
 <div>
-    <x-bread-crumb-component :modal=false />
+    <x-bread-crumb-component :modal=false showClock=false />
     {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
     <div class="card">
         <div class="card-header">

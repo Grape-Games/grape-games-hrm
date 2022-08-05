@@ -57,6 +57,6 @@ class AttendanceRequest extends Component
     {
         return view('livewire.dashboard.employee.attendance-request', [
             'requests' =>  ModelsAttendanceRequest::where('submitted_by', auth()->id())->paginate(10)
-        ])->extends('layouts.master');
+        ])->extends('layouts.master')->section('content');
     }
 }

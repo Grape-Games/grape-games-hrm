@@ -183,4 +183,14 @@ class Employee extends Model implements HasMedia
     {
         return $this->hasMany(EmployeeLeaves::class, 'owner_id', 'user_id');
     }
+
+    /**
+     * Get all of the materialRequest for the Employee
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function materialRequests(): HasMany
+    {
+        return $this->hasMany(MaterialRequest::class, 'employee_id', 'id');
+    }
 }

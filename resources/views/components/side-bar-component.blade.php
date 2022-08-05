@@ -14,7 +14,9 @@
                         <span>Companies Section</span>
                     </li>
                     <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.department-type.index') || Route::is('dashboard.departments.index') || Route::is('dashboard.companies.index')) class="subdrop" @endif>
+                        <a href="#" @if (Route::is('dashboard.department-type.index') ||
+                            Route::is('dashboard.departments.index') ||
+                            Route::is('dashboard.companies.index')) class="subdrop" @endif>
                             <i class="la la-building"></i> <span> Companies</span> <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.department-type.index') || Route::is('dashboard.companies.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.department-type.index')) class="active" @endif><a
@@ -30,8 +32,7 @@
                     </li>
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) class="subdrop" @endif>
-                            <i class="la la-random"></i> <span> Designations</span> <span
-                                class="menu-arrow"></span></a>
+                            <i class="la la-random"></i> <span> Designations</span> <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.designations.index') || Route::is('dashboard.parent-designations.index')) display:block; @endif">
                             <li @if (Route::is('dashboard.parent-designations.index')) class="active" @endif><a
                                     href="{{ route('dashboard.parent-designations.index') }}">Parent Designations</a></li>
@@ -313,6 +314,11 @@
                         <a href="{{ route('dashboard.profile.index') }}">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Profile Settings</span></a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.livewire.material.request')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request') }}">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span>Material Request</span></a>
                     </li>
                 @endcan
             </ul>

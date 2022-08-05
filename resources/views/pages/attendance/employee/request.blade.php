@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-    <x-bread-crumb-component :modal=false modalType="" modalId="" />
+    <x-bread-crumb-component :modal=false modalType="" modalId="" showClock=false />
 
     <livewire:dashboard.employee.attendance-request />
 

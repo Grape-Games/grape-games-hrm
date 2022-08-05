@@ -1,5 +1,4 @@
 <div>
-    <x-bread-crumb-component :modal=false />
     <div class="card">
         <div class="card-header">
             <h4>
