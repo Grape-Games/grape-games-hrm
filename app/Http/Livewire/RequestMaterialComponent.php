@@ -84,8 +84,8 @@ class RequestMaterialComponent extends Component
     public function render()
     {
         in_array(auth()->user()->role, ['admin', 'manager', 'ceo', 'finance-admin', 'finance-dept'])
-            ? $requests = MaterialRequest::paginate(20)
-            : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->paginate(20);
+            ? $requests = MaterialRequest::with('employee.user')->paginate(20)
+            : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with('employee.user')->paginate(20);
 
         return view('livewire.request-material-component', [
             'requests' => $requests

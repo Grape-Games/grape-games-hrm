@@ -114,6 +114,7 @@
                     <thead>
                         <tr>
                             <th>Tracking ID</th>
+                            <th>Requested By</th>
                             <th>Name</th>
                             <th>Description</th>
                             <th>Quantity</th>
@@ -132,6 +133,9 @@
                             <tr>
                                 <td>
                                     {{ $request->id }}
+                                </td>
+                                <td>
+                                    {{ $request->employee->first_name . ' ' . $request->employee->last_name }}
                                 </td>
                                 <td>
                                     {{ $request->name }}
