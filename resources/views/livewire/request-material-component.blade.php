@@ -177,12 +177,11 @@
                                         @else
                                             Waiting for approval from higher level
                                         @endif
+                                        <br>
                                     @endcan
-                                    <br>
                                     <a
                                         href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}">Track
-                                        Request
-                                    </a>
+                                        Request</a>
                                 </td>
                                 {{-- <td>
                                     @if ($request->status == 'Pending')
