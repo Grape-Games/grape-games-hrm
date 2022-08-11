@@ -119,10 +119,7 @@
                             <th>Description</th>
                             <th>Quantity</th>
                             <th>Type</th>
-                            @can('materialCheck')
-                                <td>Update Status</td>
-                            @endcan
-                            <th>Status</th>
+                            <td>Status</td>
                             <th>Action</th>
                             <th>Requested On</th>
                             <th>Updated On</th>
@@ -149,8 +146,8 @@
                                 <td>
                                     {{ $request->type }}
                                 </td>
-                                @can('materialCheck')
-                                    <td>
+                                <td>
+                                    @can('materialCheck')
                                         @if (in_array(auth()->user()->role, ['admin', 'manager']) ||
                                             (auth()->user()->role == 'ceo' && $request->isApprovedByHr()) ||
                                             (auth()->user()->role == 'finance-admin' && $request->isApprovedByCeo()) ||
@@ -180,14 +177,15 @@
                                         @else
                                             Waiting for approval from higher level
                                         @endif
-                                    </td>
-                                @endcan
-                                <td>
+                                    @endcan
+                                    <br>
                                     <a
                                         href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}">Track
-                                        Request</a>
-                                    <br>
-                                    {{-- @if ($request->status == 'Pending')
+                                        Request
+                                    </a>
+                                </td>
+                                {{-- <td>
+                                    @if ($request->status == 'Pending')
                                         <span class="text-white badge bg-info">Pending</span>
                                     @elseif($request->status == 'Closed')
                                         <span class="text-white badge bg-warning">Closed</span>
@@ -195,8 +193,8 @@
                                         <span class="text-white badge bg-danger">Rejected</span>
                                     @elseif($request->status == 'Approved')
                                         <span class="text-white badge bg-success">Approved</span>
-                                    @endif --}}
-                                </td>
+                                    @endif
+                                </td> --}}
                                 <td>
                                     <button class="btn btn-danger" wire:click="delete('{{ $request->id }}')">
                                         <i class="fas fa-trash bx-tada" data-toggle="tooltip" data-placement="top"
