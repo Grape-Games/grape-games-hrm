@@ -55,6 +55,21 @@ class User extends Authenticatable implements HasMedia
         'email_verified_at' => 'datetime',
     ];
 
+    public function getDesignation()
+    {
+        if (in_array(auth()->user()->role, ['admin', 'manager']))
+            return 'Team Lead and HR';
+
+        if (auth()->user()->role == 'ceo')
+            return 'CEO';
+
+        if (auth()->user()->role == 'finance-admin')
+            return 'Finance Admin';
+
+        if (auth()->user()->role == 'finance-dept')
+            return 'Finance Department';
+    }
+
     /**
      * Get the employeeAccount associated with the User
      *
@@ -63,6 +78,11 @@ class User extends Authenticatable implements HasMedia
     public function employee(): HasOne
     {
         return $this->hasOne(Employee::class, 'user_id', 'id');
+    }
+
+    public function scopeAdminAccounts($query)
+    {
+        return $query->whereIn('role', ['ceo', 'finance-admin', 'finance-dept']);
     }
 
     /**
@@ -103,5 +123,15 @@ class User extends Authenticatable implements HasMedia
     public function evaluationTypes(): HasMany
     {
         return $this->hasMany(EvaluationType::class);
+    }
+
+    /**
+     * Get all of the materialRequestStatuses for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function materialRequestStatuses(): HasMany
+    {
+        return $this->hasMany(MaterialRequestStatus::class, 'updated_by', 'id');
     }
 }

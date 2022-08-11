@@ -45,5 +45,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('is-universal', function ($user) {
             return $user->role == 'admin' || $user->role == 'manager';
         });
+
+        Gate::define('materialCheck', function ($user) {
+            return in_array($user->role, ['admin', 'manager', 'ceo', 'finance-admin', 'finance-dept']);
+        });
     }
 }

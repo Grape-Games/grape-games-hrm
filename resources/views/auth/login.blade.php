@@ -1,8 +1,6 @@
 @extends('layouts.auth.master')
 @section('content')
-
     <div class="account-content">
-        {{-- <a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a> --}}
         <div class="container">
 
             <!-- Account Logo -->
@@ -50,18 +48,14 @@
                         </div>
                         <div class="form-group text-center d-none d-second">
                             <button class="btn btn-primary account-btn" disabled="disabled">
-                                <i class="fa fa-spinner fa-spin" style="margin-right:2%;"></i>
                                 Logging In...
+                                <span class="spinner-border text-light" style="width: 1.5rem; height: 1.5rem;"></span>
                             </button>
                         </div>
-                        {{-- <div class="account-footer">
-                            <p>Don't have an account yet? <a href="#">Register</a></p>
-                        </div> --}}
                     </form>
                     <!-- /Acc`ount Form -->
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

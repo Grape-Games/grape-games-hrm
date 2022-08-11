@@ -72,3 +72,15 @@ Livewire.on("toast", (type, message, heading) => {
 Livewire.on("select2", () => {
     $(".select2").select2();
 });
+
+Livewire.on("showModal", (id) => {
+    $("#" + id).modal("show");
+});
+
+Livewire.on("closeModal", (id) => {
+    $("#" + id).modal("hide");
+});
+
+$("#update_comments").on("hidden.bs.modal", function (e) {
+    Livewire.emit('clear')
+});

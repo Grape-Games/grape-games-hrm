@@ -9,8 +9,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NoticeBoardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\Dashboard\Employee\AttendanceRequest;
+use App\Http\Livewire\Dashboard\Finance\Accounts\MainComponent;
+use App\Http\Livewire\MaterialRequestTracking;
+use App\Http\Livewire\MaterialRequestTrackingIndex;
 use App\Http\Livewire\RequestMaterialComponent;
-use App\Models\SalarySlip;
 use Illuminate\Support\Facades\Route;
 use App\Models\EmployeeSalarySlip;
 
@@ -48,9 +50,11 @@ Route::group([
 
 Route::group([
     'as' => 'dashboard.livewire.',
-    'middleware' => ['auth', 'can:is-both'],
     'prefix' => 'dashboard/'
 ], function () {
-    Route::get('attendance-request-live', AttendanceRequest::class)->name('attendance.request');
-    Route::get('material-request', RequestMaterialComponent::class)->name('material.request');
+    Route::get('attendance-request-live', AttendanceRequest::class)->name('attendance.request')->middleware(['auth', 'can:is-both']);
+    Route::get('finance-accounts', MainComponent::class)->name('finance.accounts')->middleware(['auth', 'can:is-both']);
+    Route::get('material-request', RequestMaterialComponent::class)->name('material.request')->middleware(['auth']);
+    Route::get('material-request/tracking/{id}', MaterialRequestTracking::class)->name('material.request.tracking')->middleware(['auth']);
+    Route::get('material-request/tracking', MaterialRequestTrackingIndex::class)->name('material.request.tracking.index')->middleware(['auth']);
 });

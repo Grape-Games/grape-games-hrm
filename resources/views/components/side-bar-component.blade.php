@@ -193,13 +193,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li class="@if (Route::is('dashboard.livewire.material.request')) active @endif ">
-                        <a href="{{ route('dashboard.livewire.material.request') }}">
-                            <i class="fa fa-address-book" aria-hidden="true"></i>
-                            <span>Material Request</span></a>
-                    </li>
-                    
                     <li class="menu-title">
                         <span>Salaries Section</span>
                     </li>
@@ -257,6 +250,33 @@
                             </li>
                         </ul>
                     </li>
+                @endcan
+                @can('materialCheck')
+                    <li class="menu-title">
+                        <span>Finance Section</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.livewire.material.request')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request') }}">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span>Material Request</span>
+                        </a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
+                           <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            <span>
+                                Request Tracking
+                            </span>
+                        </a>
+                    </li>
+                    @can('is-universal')
+                        <li class="@if (Route::is('dashboard.livewire.finance.accounts')) active @endif ">
+                            <a href="{{ route('dashboard.livewire.finance.accounts') }}">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                <span>Accounts</span>
+                            </a>
+                        </li>
+                    @endcan
                 @endcan
                 @can('is-employee')
                     <li class="menu-title">
@@ -321,10 +341,21 @@
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                             <span>Profile Settings</span></a>
                     </li>
+                    <li class="menu-title">
+                        <span>Finance Section</span>
+                    </li>
                     <li class="@if (Route::is('dashboard.livewire.material.request')) active @endif ">
                         <a href="{{ route('dashboard.livewire.material.request') }}">
                             <i class="fa fa-address-book" aria-hidden="true"></i>
                             <span>Material Request</span></a>
+                    </li>
+                    <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            <span>
+                                Request Tracking
+                            </span>
+                        </a>
                     </li>
                 @endcan
             </ul>

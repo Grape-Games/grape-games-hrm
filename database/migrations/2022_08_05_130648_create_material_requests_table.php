@@ -19,7 +19,6 @@ class CreateMaterialRequestsTable extends Migration
             $table->string('type');
             $table->bigInteger('qty')->default(1);
             $table->text('description')->nullable();
-            $table->string('status')->default('Pending');
             $table->foreignUuid('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });
