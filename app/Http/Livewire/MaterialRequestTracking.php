@@ -11,7 +11,8 @@ class MaterialRequestTracking extends Component
 
     public function mount($id)
     {
-        $this->steps = MaterialRequestStatus::where('material_request_id', $id)->get()->toArray();
+        $this->steps = MaterialRequestStatus::where('material_request_id', $id)->with('user')->get()->toArray();
+        
         if (count($this->steps) < 1)
             abort(404, 'This record does not exists');
     }
