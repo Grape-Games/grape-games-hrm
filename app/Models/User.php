@@ -134,4 +134,14 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(MaterialRequestStatus::class, 'updated_by', 'id');
     }
+
+    /**
+     * Get all of the materialRequestStatuses for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class, 'ceo_id', 'id');
+    }
 }

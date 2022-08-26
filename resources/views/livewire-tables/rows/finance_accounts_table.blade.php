@@ -12,6 +12,9 @@
 
 <x-livewire-tables::bs4.table.cell>
     {{ $row->role }}
+    @if ($row->role == 'ceo')
+        <span class="badge badge-success">{{ $row->company?->name }}</span>
+    @endif
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
@@ -19,7 +22,7 @@
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
-    <button wire:click="$emit('deleteAdminFinanceAccount','{{ $row->id }}')" class="btn btn-danger">
+    <a class="text-danger" wire:click="$emit('deleteAdminFinanceAccount','{{ $row->id }}')">
         <i class="fas fa-trash"></i>
-    </button>
+    </a>
 </x-livewire-tables::bs4.table.cell>

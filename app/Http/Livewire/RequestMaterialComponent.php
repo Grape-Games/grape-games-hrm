@@ -48,8 +48,15 @@ class RequestMaterialComponent extends Component
         $this->emit('showModal', 'update_comments');
     }
 
-    public function setStatus($id, $value)
+    public function setStatus($id, $value, $employeeCompany)
     {
+        if (auth()->user()->role == 'ceo') {
+            if ($employeeCompany != auth()->user()->company->id) {
+                $this->emit('toast', 'error', "Invalid privileges", "Material Request Status");
+                return;
+            }
+        }
+
         $status = auth()->user()->materialRequestStatuses()->updateOrCreate([
             'material_request_id' => $id,
             'designation' => auth()->user()->getDesignation(),
@@ -83,9 +90,16 @@ class RequestMaterialComponent extends Component
 
     public function render()
     {
-        in_array(auth()->user()->role, ['admin', 'manager', 'ceo', 'finance-admin', 'finance-dept'])
-            ? $requests = MaterialRequest::with('employee.user')->paginate(20)
-            : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with('employee.user')->paginate(20);
+        if (auth()->user()->role == 'ceo') {
+            $requests = MaterialRequest::withWhereHas('employee', function ($employee) {
+                $employee->withWhereHas('company', function ($company) {
+                    $company->whereCeoId(auth()->user()->id);
+                });
+            })->paginate(20);
+        } else
+            in_array(auth()->user()->role, ['admin', 'manager', 'finance-admin', 'finance-dept'])
+                ? $requests = MaterialRequest::with(['employee.user', 'employee.company'])->paginate(20)
+                : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with(['employee.user', 'employee.company'])->paginate(20);
 
         return view('livewire.request-material-component', [
             'requests' => $requests

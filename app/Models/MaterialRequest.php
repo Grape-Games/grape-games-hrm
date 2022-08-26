@@ -19,6 +19,12 @@ class MaterialRequest extends Model
         'employee_id',
     ];
 
+    public function scopeWithWhereHas($query, $relation, $constraint)
+    {
+        return $query->whereHas($relation, $constraint)
+            ->with([$relation => $constraint]);
+    }
+
     public function isApprovedByHr()
     {
         return MaterialRequestStatus::whereBelongsTo($this)->whereStatus(true)->count() > 0 ? true : false;

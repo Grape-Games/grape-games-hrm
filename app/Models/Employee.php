@@ -74,6 +74,12 @@ class Employee extends Model implements HasMedia
         });
     }
 
+    public function scopeWithWhereHas($query, $relation, $constraint)
+    {
+        return $query->whereHas($relation, $constraint)
+            ->with([$relation => $constraint]);
+    }
+
     /**
      * Get the user that owns the Employee
      *

@@ -66,6 +66,25 @@
                                 @enderror
                             </div>
                         </div>
+                        @if ($showCompanies)
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Role<span class="text-danger">*</span></label>
+                                    <select wire:model.lazy='companyId'
+                                        class="form-control @error('companyId') is-invalid @enderror">
+                                        <option value="">Select Company</option>
+                                        @foreach ($companies as $company)
+                                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('companyId')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
                         <div class="col-md-12">
                             <div class="submit-section">
                                 <button wire:click.prevent="store" wire:loading.attr="disabled" type="submit"
@@ -73,7 +92,7 @@
                                     <span wire:loading.remove wire:target="store">Create Now</span>
                                     <span class="d-none" wire:loading.class.remove="d-none" wire:target="store">Adding
                                         Please wait...
-                                        <span class="spinner-border spinner-border-sm btn-spinner ml-2 mr-2"
+                                        <span class="ml-2 mr-2 spinner-border spinner-border-sm btn-spinner"
                                             role="status" aria-hidden="true">
                                         </span>
                                     </span>
