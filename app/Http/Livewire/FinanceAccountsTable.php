@@ -20,6 +20,13 @@ class FinanceAccountsTable extends DataTableComponent
             : $this->emit('toast', 'error', "Failed to remove account.", "Account Status");
     }
 
+    public function unassign($companyId)
+    {
+        Company::whereId($companyId)->update([
+            'ceo_id' => null
+        ]);
+    }
+
     public function columns(): array
     {
         return [

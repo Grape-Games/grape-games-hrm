@@ -13,7 +13,11 @@
 <x-livewire-tables::bs4.table.cell>
     {{ $row->role }}
     @if ($row->role == 'ceo')
-        <span class="badge badge-success">{{ $row->company?->name }}</span>
+        @foreach ($row->companies as $company)
+            <span wire:click="unassign('{{ $company->id }}')" style="cursor: pointer;" class="badge badge-success"
+                data-toggle="tooltip" data-placement="top" title="Click to unassign">{{ $company->name }}
+            </span>
+        @endforeach
     @endif
 </x-livewire-tables::bs4.table.cell>
 

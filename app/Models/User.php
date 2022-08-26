@@ -140,8 +140,8 @@ class User extends Authenticatable implements HasMedia
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function company(): HasOne
+    public function companies(): HasMany
     {
-        return $this->hasOne(Company::class, 'ceo_id', 'id');
+        return $this->hasMany(Company::class, 'ceo_id', 'id');
     }
 }

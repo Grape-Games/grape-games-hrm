@@ -1,7 +1,7 @@
 @push('extended-css')
     <link rel="stylesheet" href="{{ asset('css/tick.css') }}">
 @endpush
-<div class="page-header">
+<div wire:ignore class="page-header">
     <div class="row align-items-center">
         <div class="col">
             <ul class="breadcrumb">
@@ -17,12 +17,12 @@
             <h3 class="page-title card-title breadcrumb-card-head text-capitalize">
                 {{ collect(request()->segments())->last() }}</h3>
         </div>
-        {{-- <div class="badge badge-success float-right">
+        {{-- <div class="float-right badge badge-success">
             Next Attendance update in : <span id="attendanceUpdate"></span>
-            <i class="fas fa-sync fa-spin ml-2"></i>
+            <i class="ml-2 fas fa-sync fa-spin"></i>
         </div> --}}
         @if ($modal == true)
-            <div class="col-auto float-right ml-auto" style="margin-top:30px">
+            <div class="float-right col-auto ml-auto" style="margin-top:30px">
                 <a href="#" class="btn add-btn" data-toggle="modal" data-target="#{{ $modalId }}">
                     <i class="fa fa-plus"></i> Add {{ $modalType }}</a>
             </div>
@@ -49,7 +49,7 @@
     </div>
 </div>
 @if ($showClock == 'true')
-    <div class="col-md-12 text-center">
+    <div class="text-center col-md-12">
         <p class="mr-3" style="display:inline-block;">Till next attendance update</p>
         <i class="fas fa-sync fa-spin"></i>
     </div>
