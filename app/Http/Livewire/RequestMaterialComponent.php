@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Company;
 use App\Models\MaterialRequest;
 use App\Models\MaterialRequestStatus;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,9 @@ class RequestMaterialComponent extends Component
     public function setStatus($id, $value, $employeeCompany)
     {
         if (auth()->user()->role == 'ceo') {
-            if ($employeeCompany != auth()->user()->company->id) {
+            $companies = Company::where('ceo_id', auth()->id())->pluck('id')->toArray();
+
+            if (!in_array($employeeCompany, $companies)) {
                 $this->emit('toast', 'error', "Invalid privileges", "Material Request Status");
                 return;
             }
