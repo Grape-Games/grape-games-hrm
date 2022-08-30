@@ -263,7 +263,7 @@
                     </li>
                     <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
                         <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
-                           <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                             <span>
                                 Request Tracking
                             </span>
@@ -349,14 +349,16 @@
                             <i class="fa fa-address-book" aria-hidden="true"></i>
                             <span>Material Request</span></a>
                     </li>
-                    <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
-                        <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
-                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                            <span>
-                                Request Tracking
-                            </span>
-                        </a>
-                    </li>
+                    @can('materialCheck')
+                        <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
+                            <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
+                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                                <span>
+                                    Request Tracking
+                                </span>
+                            </a>
+                        </li>
+                    @endcan
                 @endcan
             </ul>
         </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MaterialRequest extends Model
 {
@@ -53,6 +54,11 @@ class MaterialRequest extends Model
     public function userStatuses(): HasMany
     {
         return $this->hasMany(MaterialRequestStatus::class, 'material_request_id', 'id')->whereBelongsTo(auth()->user());
+    }
+
+    public function latest(): HasOne
+    {
+        return $this->hasOne(MaterialRequestStatus::class, 'material_request_id', 'id')->latest();
     }
 
     /**

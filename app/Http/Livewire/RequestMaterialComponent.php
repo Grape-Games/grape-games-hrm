@@ -94,15 +94,15 @@ class RequestMaterialComponent extends Component
     public function render()
     {
         if (auth()->user()->role == 'ceo') {
-            $requests = MaterialRequest::withWhereHas('employee', function ($employee) {
+            $requests = MaterialRequest::with('latest')->withWhereHas('employee', function ($employee) {
                 $employee->withWhereHas('company', function ($company) {
                     $company->whereCeoId(auth()->user()->id);
                 });
             })->paginate(20);
         } else
             in_array(auth()->user()->role, ['admin', 'manager', 'finance-admin', 'finance-dept'])
-                ? $requests = MaterialRequest::with(['employee.user', 'employee.company'])->paginate(20)
-                : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with(['employee.user', 'employee.company'])->paginate(20);
+                ? $requests = MaterialRequest::with(['latest', 'employee.user', 'employee.company'])->paginate(20)
+                : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with(['latest', 'employee.user', 'employee.company'])->paginate(20);
 
         return view('livewire.request-material-component', [
             'requests' => $requests

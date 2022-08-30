@@ -113,12 +113,16 @@
                 <table class="table mb-0 table-striped custom-table table-nowrap">
                     <thead>
                         <tr>
-                            <th>Tracking ID</th>
+                            @can('materialCheck')
+                                <th>Tracking ID</th>
+                            @endcan
                             <th>Requested By</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Quantity</th>
-                            <th>Type</th>
+                            <th>Qty</th>
+                            @can('materialCheck')
+                                <th>Update</th>
+                            @endcan
                             <td>Status</td>
                             <th>Requested On</th>
                             <th>Updated On</th>
@@ -128,9 +132,14 @@
                     <tbody>
                         @forelse ($requests as $request)
                             <tr>
-                                <td>
-                                    {{ $request->id }}
-                                </td>
+                                @can('materialCheck')
+                                    <td>
+                                        <a href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}"
+                                            title="Click to track">
+                                            {{ $request->id }}
+                                        </a>
+                                    </td>
+                                @endcan
                                 <td>
                                     {{ $request->employee->first_name . ' ' . $request->employee->last_name }}
                                 </td>
@@ -143,11 +152,8 @@
                                 <td>
                                     {{ $request->qty }}
                                 </td>
-                                <td>
-                                    {{ $request->type }}
-                                </td>
-                                <td>
-                                    @can('materialCheck')
+                                @can('materialCheck')
+                                    <td>
                                         @if (in_array(auth()->user()->role, ['admin', 'manager']) ||
                                             (auth()->user()->role == 'ceo' && $request->isApprovedByHr()) ||
                                             (auth()->user()->role == 'finance-admin' && $request->isApprovedByCeo()) ||
@@ -177,11 +183,27 @@
                                         @else
                                             Waiting for approval from higher level
                                         @endif
-                                        <br>
-                                    @endcan
-                                    <a
-                                        href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}">Track
-                                        Request</a>
+                                    </td>
+                                @endcan
+
+                                <td>
+                                    @if ($request->latest)
+                                        @if ($request->latest->status == 1)
+                                            <span class="label label-success">Approved by :
+                                                {{ $request->latest->designation }}</span>
+                                            <br>
+                                            <small class="text-muted">Remarks :
+                                                {{ $request->latest->comments }}</small>
+                                        @else
+                                            <span class="label label-warning">Rejected by :
+                                                {{ $request->latest->designation }}</span>
+                                            <br>
+                                            <small class="text-muted">Remarks :
+                                                {{ $request->latest->comments }}</small>
+                                        @endif
+                                    @else
+                                        <span class="badge badge-info">Pending</span>
+                                    @endif
                                 </td>
                                 {{-- <td>
                                     @if ($request->status == 'Pending')
@@ -195,10 +217,10 @@
                                     @endif
                                 </td> --}}
                                 <td>
-                                    {{ $request->created_at->format('Y/m/d H:i:s a') }}
+                                    {{ $request->created_at->format('Y/m/d') }}
                                 </td>
                                 <td>
-                                    {{ $request->updated_at->format('Y/m/d h:i:s a') }}
+                                    {{ $request->updated_at->format('Y/m/d') }}
                                 </td>
                                 <td>
                                     <a class="text-danger" wire:click="delete('{{ $request->id }}')">

@@ -55,6 +55,6 @@ Route::group([
     Route::get('attendance-request-live', AttendanceRequest::class)->name('attendance.request')->middleware(['auth', 'can:is-both']);
     Route::get('finance-accounts', MainComponent::class)->name('finance.accounts')->middleware(['auth', 'can:is-both']);
     Route::get('material-request', RequestMaterialComponent::class)->name('material.request')->middleware(['auth']);
-    Route::get('material-request/tracking/{id}', MaterialRequestTracking::class)->name('material.request.tracking')->middleware(['auth']);
-    Route::get('material-request/tracking', MaterialRequestTrackingIndex::class)->name('material.request.tracking.index')->middleware(['auth']);
+    Route::get('material-request/tracking/{id}', MaterialRequestTracking::class)->name('material.request.tracking')->middleware(['can:materialCheck']);
+    Route::get('material-request/tracking', MaterialRequestTrackingIndex::class)->name('material.request.tracking.index')->middleware(['can:materialCheck']);
 });
