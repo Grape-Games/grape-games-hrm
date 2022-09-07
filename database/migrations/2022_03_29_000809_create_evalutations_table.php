@@ -15,10 +15,17 @@ class CreateEvalutationsTable extends Migration
     {
         Schema::create('evalutations', function (Blueprint $table) {
             $table->id();
-            $table->string('performance');
-            $table->integer('points');
-            $table->string('behaviour', 2000);
-            $table->foreignId('evaluation_type_id')->constrained();
+             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('employee_id')->nullable()->references('id')->on('employees')->onDelete('cascade');
+            $table->string('month')->nullable();
+            $table->integer('planning_coordination')->nullable();
+            $table->integer('quality_work')->nullable();
+            $table->integer('communication_skill')->nullable();
+            $table->integer('confidence_level')->nullable();
+            $table->integer('time_managment')->nullable();
+            $table->text('additional_comments')->nullable();
+            $table->text('over_all_performance')->nullable();
+            $table->text('area_of_improvements')->nullable();
             $table->timestamps();
         });
     }

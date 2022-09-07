@@ -297,7 +297,7 @@
                             @else
                             style="color:red" @endif
                             @endif
-                            >{{ array_key_exists(0, $steps) ? ($steps[0]['status'] ? 'Approved by ' . $steps[0]['user']['name'] : 'Declined by ' . $steps[0]['user']['name']) : 'Waiting for approval' }}
+                            >{{ array_key_exists(0, $steps) ? ($steps[0]['status'] ? 'Approved' : 'Declined') : 'Waiting for approval' }}
                         </span>
                     </span>
                 </div>
@@ -317,7 +317,7 @@
                             @else
                             style="color:red" @endif
                             @endif
-                            >{{ array_key_exists(1, $steps) ? ($steps[1]['status'] ? 'Approved by ' . $steps[1]['user']['name'] : 'Declined by ' . $steps[1]['user']['name']) : 'Waiting for approval' }}
+                            >{{ array_key_exists(1, $steps) ? ($steps[1]['status'] ? 'Approved' : 'Declined') : 'Waiting for approval' }}
                         </span>
                     </span>
                 </div>
@@ -338,7 +338,7 @@
                             @else
                             style="color:red" @endif
                             @endif
-                            >{{ array_key_exists(2, $steps) ? ($steps[2]['status'] ? 'Approved by ' . $steps[2]['user']['name'] : 'Declined by ' . $steps[2]['user']['name']) : 'Waiting for approval' }}
+                            >{{ array_key_exists(2, $steps) ? ($steps[2]['status'] ? 'Approved' : 'Declined') : 'Waiting for approval' }}
                         </span>
                     </span>
                 </div>
@@ -359,7 +359,7 @@
                             @else
                             style="color:red" @endif
                             @endif
-                            >{{ array_key_exists(3, $steps) ? ($steps[3]['status'] ? 'Approved by ' . $steps[3]['user']['name'] : 'Declined by ' . $steps[3]['user']['name']) : 'Waiting for approval' }}
+                            >{{ array_key_exists(3, $steps) ? ($steps[3]['status'] ? 'Approved' : 'Declined') : 'Waiting for approval' }}
                         </span>
                     </span>
                 </div>

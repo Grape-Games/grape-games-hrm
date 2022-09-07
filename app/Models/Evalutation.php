@@ -9,8 +9,25 @@ class Evalutation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'performance',
-        'points',
-        'behaviour'
+        'user_id',
+        'employee_id',
+        'month',
+        'planning_coordination',
+        'quality_work',
+        'communication_skill',
+        'confidence_level',
+        'time_managment',
+        'over_all_performance',
+        'area_of_improvements',
+        'additional_comments'
     ];
+
+    public function employee() 
+    {
+        return $this->hasOne(Employee::class, 'id', 'employee_id');
+    }
+
+    public function user(){
+        return $this->hasOne (User::class, 'id', 'user_id');
+    }
 }

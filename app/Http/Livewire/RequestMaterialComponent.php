@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Company;
 use App\Models\MaterialRequest;
 use App\Models\MaterialRequestStatus;
 use Illuminate\Support\Facades\Auth;
@@ -49,17 +48,8 @@ class RequestMaterialComponent extends Component
         $this->emit('showModal', 'update_comments');
     }
 
-    public function setStatus($id, $value, $employeeCompany)
+    public function setStatus($id, $value)
     {
-        if (auth()->user()->role == 'ceo') {
-            $companies = Company::where('ceo_id', auth()->id())->pluck('id')->toArray();
-
-            if (!in_array($employeeCompany, $companies)) {
-                $this->emit('toast', 'error', "Invalid privileges", "Material Request Status");
-                return;
-            }
-        }
-
         $status = auth()->user()->materialRequestStatuses()->updateOrCreate([
             'material_request_id' => $id,
             'designation' => auth()->user()->getDesignation(),
@@ -93,16 +83,9 @@ class RequestMaterialComponent extends Component
 
     public function render()
     {
-        if (auth()->user()->role == 'ceo') {
-            $requests = MaterialRequest::with('latest')->withWhereHas('employee', function ($employee) {
-                $employee->withWhereHas('company', function ($company) {
-                    $company->whereCeoId(auth()->user()->id);
-                });
-            })->paginate(20);
-        } else
-            in_array(auth()->user()->role, ['admin', 'manager', 'finance-admin', 'finance-dept'])
-                ? $requests = MaterialRequest::with(['latest', 'employee.user', 'employee.company'])->paginate(20)
-                : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with(['latest', 'employee.user', 'employee.company'])->paginate(20);
+        in_array(auth()->user()->role, ['admin', 'manager', 'ceo', 'finance-admin', 'finance-dept'])
+            ? $requests = MaterialRequest::with('employee.user')->paginate(20)
+            : $requests = MaterialRequest::where('employee_id', auth()->user()->employee->id)->with('employee.user')->paginate(20);
 
         return view('livewire.request-material-component', [
             'requests' => $requests

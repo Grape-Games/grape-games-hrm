@@ -66,3 +66,52 @@ function esfCallback(response, errorClassName, table) {
         );
     } else successFlow(errorClassName, response.response, "bg-danger");
 }
+
+$("body").on("click", ".incrementDetail", function () {
+    var id = $(this).data("id");
+    var emp_name = $(this).data("title");
+    $(".modal-title").html(emp_name + " " + "Increment Details");
+    $(".alert").remove();
+    $(".inc-row").remove();
+    $.ajax({
+        type: "GET",
+        url: "/dashboard/show/all-increments/" + id,
+        enctype: "multipart/form-data",
+
+        success: function (response) {
+            console.log(response);
+            if (response.next_Increment == "empty") {
+                $(".top-section").append(
+                    '<div class="text-center alert next-increment alert-primary" role="alert">' +
+                        "Next Increment Yet Not set </div>"
+                );
+            } else {
+                $(".top-section").append(
+                    '<div class="text-center alert next-increment alert-primary" role="alert">' +
+                        "Next Increment will be Start From " +
+                        "<strong>" +
+                        response.next_Increment +
+                        "</strong></div>"
+                );
+            }
+            response.all_inc.forEach(function (value, index) {
+                var d = new Date(value.month);
+                month = "" + (d.getMonth() + 1);
+                if (month.length < 2) month = "0" + month;
+                year = d.getFullYear();
+                $(".Last-incements-tb").append(
+                    '<tr class="inc-row"><td>' +
+                        month +
+                        "-" +
+                        year +
+                        "</td><td>" +
+                        value.amount +
+                        "</td><td>" +
+                        value.percentage +
+                        "%" +
+                        "</td></tr>"
+                );
+            });
+        },
+    });
+});

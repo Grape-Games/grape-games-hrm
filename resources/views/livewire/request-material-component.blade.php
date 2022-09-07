@@ -28,7 +28,7 @@
                         <span wire:loading.remove wire:target="saveRemarks">Save Remarks</span>
                         <span class="d-none" wire:loading.class.remove="d-none" wire:target="saveRemarks">
                             Please wait...
-                            <span class="ml-2 mr-2 spinner-border spinner-border-sm btn-spinner" role="status"
+                            <span class="spinner-border spinner-border-sm btn-spinner ml-2 mr-2" role="status"
                                 aria-hidden="true">
                             </span>
                         </span>
@@ -47,7 +47,7 @@
             </div>
             <div class="card-body">
                 <div class="row filter-row">
-                    <div class="mb-1 col-sm-4">
+                    <div class="col-sm-4 mb-1">
                         <label class="focus-label">Name <span class="text-danger">*</span></label>
                         <input wire:model.lazy="material.name" type="text"
                             class="form-control @error('material.name') is-invalid @enderror" placeholder="Material Name">
@@ -55,7 +55,7 @@
                             <span class="text-danger"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
-                    <div class="mb-1 col-sm-4">
+                    <div class="col-sm-4 mb-1">
                         <label class="focus-label">Select Type <span class="text-danger">*</span></label>
                         <select wire:model.lazy="material.type"
                             class="form-control @error('material.type') is-invalid @enderror">
@@ -66,7 +66,7 @@
                             <span class="text-danger"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
-                    <div class="mb-1 col-sm-4">
+                    <div class="col-sm-4 mb-1">
                         <label class="focus-label">Quantity <span class="text-danger">*</span></label>
                         <input wire:model.lazy="material.qty" type="number"
                             class="form-control @error('material.qty') is-invalid @enderror"
@@ -75,7 +75,7 @@
                             <span class="text-danger"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
-                    <div class="mb-4 col-sm-12">
+                    <div class="col-sm-12 mb-4">
                         <label class="focus-label">Enter description <span class="text-danger">*</span></label>
                         <textarea wire:model.lazy="material.description" rows="5"
                             class="form-control @error('material.description') is-invalid @enderror"
@@ -84,7 +84,7 @@
                             <span class="text-danger"><strong>{{ $message }}</strong></span>
                         @enderror
                     </div>
-                    <div class="mb-1 col-sm-4">
+                    <div class="col-sm-4 mb-1">
                         <button href="#" wire:click="store" class="btn btn-success btn-block"
                             wire:loading.attr="disabled">
                             <span wire:loading.remove wire:target="store">
@@ -102,7 +102,7 @@
             </div>
         </div>
     @endcan
-    <div class="mt-2 card">
+    <div class="card mt-2">
         <div class="card-header">
             <h4>
                 Material Requests
@@ -110,36 +110,27 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table mb-0 table-striped custom-table table-nowrap">
+                <table class="table table-striped custom-table table-nowrap mb-0">
                     <thead>
                         <tr>
-                            @can('materialCheck')
-                                <th>Tracking ID</th>
-                            @endcan
+                            <th>Tracking ID</th>
                             <th>Requested By</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Qty</th>
-                            @can('materialCheck')
-                                <th>Update</th>
-                            @endcan
+                            <th>Quantity</th>
+                            <th>Type</th>
                             <td>Status</td>
+                            <th>Action</th>
                             <th>Requested On</th>
                             <th>Updated On</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($requests as $request)
                             <tr>
-                                @can('materialCheck')
-                                    <td>
-                                        <a href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}"
-                                            title="Click to track">
-                                            {{ $request->id }}
-                                        </a>
-                                    </td>
-                                @endcan
+                                <td>
+                                    {{ $request->id }}
+                                </td>
                                 <td>
                                     {{ $request->employee->first_name . ' ' . $request->employee->last_name }}
                                 </td>
@@ -152,8 +143,11 @@
                                 <td>
                                     {{ $request->qty }}
                                 </td>
-                                @can('materialCheck')
-                                    <td>
+                                <td>
+                                    {{ $request->type }}
+                                </td>
+                                <td>
+                                    @can('materialCheck')
                                         @if (in_array(auth()->user()->role, ['admin', 'manager']) ||
                                             (auth()->user()->role == 'ceo' && $request->isApprovedByHr()) ||
                                             (auth()->user()->role == 'finance-admin' && $request->isApprovedByCeo()) ||
@@ -166,44 +160,28 @@
                                                 <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end"
                                                     style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-14px, 31px, 0px);">
                                                     <a class="dropdown-item" href="#"
-                                                        wire:click="setStatus('{{ $request->id }}','Pending', '{{ $request->employee?->company->id }}')"><i
+                                                        wire:click="setStatus('{{ $request->id }}','Pending')"><i
                                                             class="fa fa-dot-circle-o text-warning"></i> Pending</a>
                                                     <a class="dropdown-item" href="#"
-                                                        wire:click="setStatus('{{ $request->id }}','Closed', '{{ $request->employee?->company->id }}')"><i
+                                                        wire:click="setStatus('{{ $request->id }}','Closed')"><i
                                                             class="fa fa-dot-circle-o text-info"></i> Closed</a>
                                                     <a class="dropdown-item" href="#"
-                                                        wire:click="setStatus('{{ $request->id }}','Rejected', '{{ $request->employee?->company->id }}')"
+                                                        wire:click="setStatus('{{ $request->id }}','Rejected')"
                                                         data-toggle="modal" data-target="#approve_leave"><i
                                                             class="fa fa-dot-circle-o text-danger"></i> Rejected</a>
                                                     <a class="dropdown-item" href="#"
-                                                        wire:click="setStatus('{{ $request->id }}','Approved', '{{ $request->employee?->company->id }}')"><i
+                                                        wire:click="setStatus('{{ $request->id }}','Approved')"><i
                                                             class="fa fa-dot-circle-o text-success"></i> Approved</a>
                                                 </div>
                                             </div>
                                         @else
                                             Waiting for approval from higher level
                                         @endif
-                                    </td>
-                                @endcan
-
-                                <td>
-                                    @if ($request->latest)
-                                        @if ($request->latest->status == 1)
-                                            <span class="label label-success">Approved by :
-                                                {{ $request->latest->designation }}</span>
-                                            <br>
-                                            <small class="text-muted">Remarks :
-                                                {{ $request->latest->comments }}</small>
-                                        @else
-                                            <span class="label label-warning">Rejected by :
-                                                {{ $request->latest->designation }}</span>
-                                            <br>
-                                            <small class="text-muted">Remarks :
-                                                {{ $request->latest->comments }}</small>
-                                        @endif
-                                    @else
-                                        <span class="badge badge-info">Pending</span>
-                                    @endif
+                                        <br>
+                                    @endcan
+                                    <a
+                                        href="{{ route('dashboard.livewire.material.request.tracking', ['id' => $request->id]) }}">Track
+                                        Request</a>
                                 </td>
                                 {{-- <td>
                                     @if ($request->status == 'Pending')
@@ -217,16 +195,16 @@
                                     @endif
                                 </td> --}}
                                 <td>
-                                    {{ $request->created_at->format('Y/m/d') }}
-                                </td>
-                                <td>
-                                    {{ $request->updated_at->format('Y/m/d') }}
-                                </td>
-                                <td>
-                                    <a class="text-danger" wire:click="delete('{{ $request->id }}')">
-                                        <i class="fas fa-trash" data-toggle="tooltip" data-placement="top"
+                                    <button class="btn btn-danger" wire:click="delete('{{ $request->id }}')">
+                                        <i class="fas fa-trash bx-tada" data-toggle="tooltip" data-placement="top"
                                             title="Delete Request Submitted"></i>
-                                    </a>
+                                    </button>
+                                </td>
+                                <td>
+                                    {{ $request->created_at->format('l F j') }}
+                                </td>
+                                <td>
+                                    {{ $request->created_at->format('l F j') }}
                                 </td>
                             </tr>
                         @empty

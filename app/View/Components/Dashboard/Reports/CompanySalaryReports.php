@@ -85,15 +85,22 @@ class CompanySalaryReports extends Component
                     $lateMinutesModule = getEmployeeLateMinutesByAttendances($employee, $attendances, $tempered);
 
                     $allowOverTime = isset($employee->company) ? $employee->company->over_time_payment : false;
-
+                    $snadWhichRuleDates = GetSandWichRuleDate($searchDate,$employee);
                     $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
 
-                    $sal = ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'];
 
+                    $totalDeductionsWithLoan =  $lateMinutesModule['halfDaysDeductions'] + $lateMinutesModule['lateMinutesDeductions'] + ($tempered * $absents) + GetEmployeeMonthlyLoan($employee->id,$searchDate)+(count($snadWhichRuleDates) * $tempered)+GetEmployeeDeduction($employee->id,$searchDate);
+
+                   $sal = $employee['salaryFormula']['basic_salary']+GetEmployeeIncrements($employee->id)+GetEmployeeBouns($employee->id,$searchDate)-$totalDeductionsWithLoan;
+                    
                     $allowOverTime
                         ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
                         : '';
+                    $lateMinutes = getEmployeeLateMinutesByAttendances($employee,  $attendances, $employee->salaryFormula->basic_salary);
+                    $slipArr =array();
+                 
 
+                     
                     array_push($this->result, [
                         "tempered" => $tempered,
                         "employee" => $employee,
@@ -112,9 +119,24 @@ class CompanySalaryReports extends Component
                         "salariedDays" => $salariedDays,
                         "absents" => $absents,
                         "absentDeductions" => $tempered * $absents,
+                        
                         "calculatedSalary" => $sal,
-                        "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
+                        "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first(),
+                        'loan' => GetEmployeeMonthlyLoan($employee->id,$searchDate),
+                        'bouns' => GetEmployeeBouns($employee->id,$searchDate),
+                        'deduction' => GetEmployeeDeduction($employee->id,$searchDate),
+                        'increment' => GetEmployeeIncrements($employee->id),
+                       
+                        'totalLateMinutes' => $lateMinutes['lateMinutesTotal'],
+                    'totalHalfDays' => $lateMinutes['halfDays'],
+                    'halfDaysDeductions' => $lateMinutesModule['halfDaysDeductions'],
+                    'snadWhichRuleDates'=> count($snadWhichRuleDates),
+                    'snadWhichRuleDeductions'=> count($snadWhichRuleDates) * $tempered,
+                     'totalDeductions' => ($tempered * $absents)+($lateMinutesModule['halfDaysDeductions']+$lateMinutesModule['lateMinutesDeductions']+(count($snadWhichRuleDates) * $tempered)+GetEmployeeDeduction($employee->id,$searchDate)),
+                     'empsalarySlip' => EmployeeSalarySlip::where(['dated'=> $searchDate->format('Y-m')  , 'employee_id' => $employee->id])->first(),
+                      
                     ]);
+                  
                 } else {
                     array_push($this->result, [
                         "employee" => $employee,
@@ -151,12 +173,18 @@ class CompanySalaryReports extends Component
                 $allowOverTime = isset($employee->company) ? $employee->company->over_time_payment : false;
 
                 $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
+                $snadWhichRuleDates = GetSandWichRuleDate($searchDate,$employee);
+                $totalDeductionsWithLoan =  $lateMinutesModule['halfDaysDeductions'] + $lateMinutesModule['lateMinutesDeductions'] + ($tempered * $absents) + GetEmployeeMonthlyLoan($employee->id,$searchDate)+(count($snadWhichRuleDates) * $tempered)+GetEmployeeDeduction($employee->id,$searchDate);
 
-                $sal = ($salariedDays * $tempered) - $lateMinutesModule['halfDaysDeductions'] - $lateMinutesModule['lateMinutesDeductions'];
+                $sal = $employee['salaryFormula']['basic_salary']+GetEmployeeIncrements($employee->id)+GetEmployeeBouns($employee->id,$searchDate)-$totalDeductionsWithLoan;
 
                 $allowOverTime
                     ? $sal += $overTimeHours * $employee->salaryFormula->per_hour
                     : '';
+
+                $lateMinutes = getEmployeeLateMinutesByAttendances($employee,  $attendances, $employee->salaryFormula->basic_salary);
+                    
+                
 
                 array_push($this->result, [
                     "tempered" => $tempered,
@@ -177,7 +205,19 @@ class CompanySalaryReports extends Component
                     "absents" => $absents,
                     "absentDeductions" => $tempered * $absents,
                     "calculatedSalary" => $sal,
-                    "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first()
+                    "extras" => EmployeeSalarySlip::where("dated", $this->date)->where("employee_id", $employee->id)->first(),
+                    'loan' => GetEmployeeMonthlyLoan($employee->id,$searchDate),
+                    'bouns' => GetEmployeeBouns($employee->id,$searchDate),
+                    'deduction' => GetEmployeeDeduction($employee->id,$searchDate),
+                    'increment' => GetEmployeeIncrements($employee->id),
+                    'total_salary' => $employee['salaryFormula']['basic_salary'],
+                    'totalLateMinutes' => $lateMinutes['lateMinutesTotal'],
+                    'totalHalfDays' => $lateMinutes['halfDays'],
+                    'halfDaysDeductions' => $lateMinutesModule['halfDaysDeductions'],
+                    'snadWhichRuleDates'=> count($snadWhichRuleDates),
+                    'snadWhichRuleDeductions'=> count($snadWhichRuleDates) * $tempered,
+                     'totalDeductions' => ($tempered * $absents)+($lateMinutesModule['halfDaysDeductions']+$lateMinutesModule['lateMinutesDeductions']+(count($snadWhichRuleDates) * $tempered)+GetEmployeeDeduction($employee->id,$searchDate)),
+                    'empsalarySlip' => EmployeeSalarySlip::where(['dated'=> $searchDate->format('Y-m')  , 'employee_id' => $employee->id])->first(),
                 ]);
             } else {
                 array_push($this->result, [

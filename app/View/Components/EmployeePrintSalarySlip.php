@@ -33,7 +33,7 @@ class EmployeePrintSalarySlip extends Component
             'employee_id' => $employeeId, 'dated' => Carbon::now()->format('Y-m')
         ])
             ->first();
-            
+             
         return view('components.employee-print-salary-slip', [
             'slip' => $slip,
             'slipRoute' => !empty($slip) ? route('dashboard.print-slip', [$slip->id]) : ''

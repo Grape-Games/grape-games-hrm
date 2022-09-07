@@ -15,6 +15,7 @@
     <x-table-view-emplyee-salary-formulas-component />
 
     <x-modal-add-employee-salary-component />
+    <x-modal-employee-incrment-sheet-component />
 
 @endsection
 

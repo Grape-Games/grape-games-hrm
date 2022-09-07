@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCeoIdToCompaniesTable extends Migration
+class AddIncrementDueToSalaryFormulasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddCeoIdToCompaniesTable extends Migration
      */
     public function up()
     {
-        Schema::table('companies', function (Blueprint $table) {
-            $table->foreignUuid('ceo_id')->nullable()->references('id')->on('users')->nullOnDelete();
-        });
+        Schema::table('salary_formulas', function (Blueprint $table) {
+            $table->string('increment_due')->nullable();
+        }); 
     }
 
     /**
@@ -25,7 +25,7 @@ class AddCeoIdToCompaniesTable extends Migration
      */
     public function down()
     {
-        Schema::table('companies', function (Blueprint $table) {
+        Schema::table('salary_formulas', function (Blueprint $table) {
             //
         });
     }

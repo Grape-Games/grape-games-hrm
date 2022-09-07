@@ -1,6 +1,14 @@
 <?php
 
 use App\Models\Attendance;
+use App\Models\Loan; 
+use App\Models\LoanInstallment; 
+use App\Models\EmployeeBonus; 
+use App\Models\Deduction; 
+use App\Models\Increment; 
+use App\Models\SandWichRule;
+use App\Models\LateMinutes; 
+use App\Models\EmployeeSalarySlip; 
 use Carbon\Carbon;
 
 
@@ -115,4 +123,70 @@ function getEmployeeOverTimeHoursByAttendances($attendances): int
     }
 
     return $overtimeHours;
+}
+
+function GetEmployeeMonthlyLoan($employee, $date){
+        $loan_data =  LoanInstallment::select('amount')->where('employee_id', $employee)->whereMonth('date',$date->month)->get();   
+        return $loan_data->sum('amount');
+
+}
+function GetEmployeeBouns($employee, $date){
+    $data = EmployeeBonus::select('amount')->where('employee_id', $employee)->where('month',$date->format('Y-m'))->get();   
+    return $data->sum('amount');
+}
+
+function GetEmployeeDeduction($employee, $date){
+    $data = Deduction::select('amount')->where('employee_id', $employee)->where('month',$date->format('Y-m'))->get();   
+    return $data->sum('amount');
+}
+function GetEmployeeIncrements($employee){
+    $date = Carbon::now()->format('Y-m');
+   $data  = Increment::select('amount')->where('employee_id',$employee)->where('month','<=', $date)->get();
+   return $data->sum('amount');
+}
+
+function GetSandWichRuleDate($searchDate,$employee){
+    $SandwhichRuleDates = SandWichRule::whereMonth('date',$searchDate)->pluck('date')->toArray();
+  
+ $attendances = employeeAttendances(
+            $employee,
+            $searchDate
+        );
+ $attendances1 = employeeAttendances(
+            $employee,
+            $searchDate
+        );
+    
+        $arr = $attendances->toArray();
+        foreach ($arr as $key => $data) {
+             if (($key = array_search($key, $SandwhichRuleDates)) !== false)
+                unset($SandwhichRuleDates[$key]);      
+        }
+    $dates = array();
+    foreach($SandwhichRuleDates as $data){
+        $dates[] = $data;
+    }
+    return $dates;
+     
+    
+}
+
+
+function SetRatingStars($star){
+   if($star == 1){
+       return "★☆☆☆☆";
+   }else if($star == 2){
+          return "★★☆☆☆";
+   
+   }else if($star == 3){
+          return "★★★☆☆";
+  
+   }else if($star == 4){
+          return "★★★★☆";
+  
+   }else if($star == 5){
+          return "★★★★★";
+   }else {
+       return "☆☆☆☆☆";
+   }
 }

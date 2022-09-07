@@ -20,9 +20,17 @@ use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalaryReportController;
 use App\Http\Controllers\SalarySlipController;
+use App\Http\Controllers\EmployeeBounsController;
+use App\Http\Controllers\IncrementController;
+use App\Http\Controllers\SandWichRuleController;
+use App\Http\Controllers\DeductionController;
+use App\Http\Controllers\LoanController;
+use App\Http\Controllers\EvaluationController;
+
 use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as EmployeeSalaryIncrementsMainComponent;
-use App\Http\Livewire\Dashboard\Admin\Evaluations\EvaluationType;
+use App\Http\Livewire\Dashboard\Admin\Evaluations\EvaluationType; 
+use App\Http\Livewire\Dashboard\Admin\Evaluations\Evaluations; 
 use App\Http\Livewire\Dashboard\Admin\LateMinutes\MainComponent;
 use App\Http\Livewire\Dashboard\Admin\ScopeManagement\MainComponent as ScopeManagementMainComponent;
 use App\Http\Livewire\Dashboard\Admin\WorkingDay\MainComponent as WorkingDayMainComponent;
@@ -52,13 +60,20 @@ Route::group([
         'notice-board' => NoticeBoardController::class,
         'holidays' => HolidayController::class,
         'attendance-report' => LateMinutesController::class,
+        'employee-bouns' => EmployeeBounsController::class,
+        'increment' => IncrementController::class,
+        'deduction' => DeductionController::class,
+        'loan' => LoanController::class,
+        'sand-wich' => SandWichRuleController::class,
+        'evaluation' => EvaluationController::class,
     ]);
 
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
     Route::get('manage-attendance', [AdminAttendanceManagementController::class, 'index'])->name('admin-attendance.management');
     Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');
     Route::post('update-att', [AdminAttendanceManagementController::class, 'save'])->name('update-att');
-
+    Route::get('employee-attendance/{date}',[AdminAttendanceManagementController::class,'GetAttendanceByDate'])->name('date.attendance');
+    
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');
         $count = Department::where('company_id', $companyId)->count();
@@ -76,7 +91,10 @@ Route::group([
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
     Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
     Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');
+    
     Route::get('additional-working-days', WorkingDayMainComponent::class)->name('working-days');
+    Route::get('employee/last-increment&salry/{employee_id}', [IncrementController::class,'employeeLastIncrement']);
+    Route::get('show/all-increments/{employee_id}', [IncrementController::class,'EmployeeAllIncrements'])->name('show.all-increments');
 });
 
 Route::group([

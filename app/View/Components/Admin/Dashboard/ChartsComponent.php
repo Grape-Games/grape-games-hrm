@@ -54,9 +54,16 @@ class ChartsComponent extends Component
 
             array_push($barData, $obj);
         }
+
+        $days = [];
+        for ($i = 0; $i < 7; $i++)
+        {
+            $days[] = now()->subDays($i);
+        }
         return view('components.admin.dashboard.charts-component', [
             'barData' => $barData,
             'lineData' => $lineData,
+            'days'    =>$days
         ]);
     }
 }
