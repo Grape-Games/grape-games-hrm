@@ -15,7 +15,7 @@ class EmployeeSalaryDetailsController extends Controller
         return view('pages.employee-salary.report');
     }
 
-    public function index()
+    public function index()  
     {
         return view('pages.employee-salary.index');
     }
@@ -24,11 +24,11 @@ class EmployeeSalaryDetailsController extends Controller
         $employeeId = Employee::where('user_id', auth()->id())->value('id');
         $slip = EmployeeSalarySlip::where([
             'employee_id' => $employeeId, 'dated' => $request->month
-        ])->first();
+        ])->first(); 
 
         if (!empty($slip)) {
             return JsonResponseService::getJsonSuccess(route('dashboard.print-slip', [$slip->id]));
         }
-        return JsonResponseService::getJsonFailed('Salary Slip is not yet available, please contact admin.');
-    }
+        return JsonResponseService::getJsonFailed('Salary Slip is not yet available, please contact admin.'); 
+    } 
 }

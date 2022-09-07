@@ -41,7 +41,10 @@ class StoreSalaryFormulaRequest extends FormRequest
             // 'arrears' => 'numeric|nullable',
             // 'income_tax' => 'numeric|nullable',
             // 'dated' => 'date|nullable',
-            'employee_id' => 'required|exists:employees,id'
+            'employee_id' => 'required|exists:employees,id',
+            'increment_time' => "required",
+            'salary_start' => "required",
+            
         ];
     }
 }

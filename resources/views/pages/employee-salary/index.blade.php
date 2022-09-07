@@ -12,7 +12,7 @@
 
     <x-employee-print-salary-slip />
 
-@endsection
+@endsection 
 
 @push('extended-js')
 @endpush

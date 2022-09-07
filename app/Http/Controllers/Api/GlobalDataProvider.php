@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\EmployeeLeaves;
 use App\Models\Holiday;
 use App\Models\WorkingDay;
+use App\Models\SandWichRule;
 use App\Services\JsonResponseService;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
@@ -117,8 +118,39 @@ class GlobalDataProvider extends Controller
                     array_push($dates, $day);
             }
         }
+         $halfDaysArr = [];
+         foreach ($attendances as $key => $perDayPunches) {
+              $companyTimeIn = Carbon::parse($employee->company->time_in)->addMinutes             ($employee->company->grace_minutes)->format('H:i');
+              $dummyCompanyTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $companyTimeIn);
+              $dummyAttendanceTimeIn = Carbon::parse(Carbon::now()->format('Y-m-d') . " " . $perDayPunches[0]->attendance->format("H:i:s"));
 
-        return JSONResponseService::getJsonSuccess($dates);
+              if ($dummyAttendanceTimeIn->gt($dummyCompanyTimeIn)) {
+                $mins = $dummyAttendanceTimeIn->diffInMinutes($dummyCompanyTimeIn);
+                if ($mins > 240) { {
+                        array_push($halfDaysArr, $perDayPunches);
+                        
+                    }
+                }
+              }
+
+         }
+
+         
+        $SandWichRule = SandWichRule::whereMonth('date',$searchDate)->pluck('date')->toArray();
+         foreach ($arr as $key => $data) {
+             if (($key = array_search($key, $SandWichRule)) !== false)
+                unset($SandWichRule[$key]);      
+        }
+        $SandWichRuleDates = array();
+        foreach($SandWichRule as $data){
+            $SandWichRuleDates[] = $data;
+        }
+        // echo $dates;
+        return JSONResponseService::getJsonSuccess( [
+                'dates'=>$dates,
+                'sendWhichRule'=>$SandWichRuleDates,
+                "halfDaysDetails" => $halfDaysArr,
+                ]);
     }
 
     public function getEmployeeLeavesApproved(Request $request)

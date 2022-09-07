@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -18,13 +17,6 @@ class FinanceAccountsTable extends DataTableComponent
         $user->delete()
             ? $this->emit('toast', 'success', "Account was deleted successfully.", "Account Status")
             : $this->emit('toast', 'error', "Failed to remove account.", "Account Status");
-    }
-
-    public function unassign($companyId)
-    {
-        Company::whereId($companyId)->update([
-            'ceo_id' => null
-        ]);
     }
 
     public function columns(): array

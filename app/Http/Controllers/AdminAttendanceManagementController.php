@@ -99,4 +99,10 @@ class AdminAttendanceManagementController extends Controller
             return JsonResponseService::getJsonFailed('Failed to delete the record , please try again.');
         }
     }
+
+
+    public function GetAttendanceByDate($date){
+       $data = Attendance::with('employee')->whereDate('attendance',$date)->groupBy('employee_id')->get();
+        return response()->json($data);
+    }
 }

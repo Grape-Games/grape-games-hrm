@@ -13,9 +13,9 @@
             <ul class="notification-list">
                 @forelse ($notifications as $notification)
                     <li class="notification-message" @if ($notification->read_at == null) style="background-color: lightgoldenrodyellow;" @endif>
-                        <a href="{{ $notification->data['redirect'] }}">
+                        <a href="{{route('read-notification',$notification->id)}}">
                             <div class="media">
-                                <span class="avatar">
+                                <span class="avatar"> 
                                     <img alt="" src="{{ asset($notification->data['avatar']) }}">
                                 </span>
                                 <div class="media-body">
@@ -46,4 +46,4 @@
         </div>
     </div>
 </li>
-<!-- /Notifications -->
+<!-- /Notifications -->    

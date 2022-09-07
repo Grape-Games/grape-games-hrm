@@ -24,11 +24,11 @@
                 </div>
                 <div class="col-sm-4">
                     <button type="submit" class="btn btn-success btn-block submit-btn">Submit</button>
-                </div>
+                </div> 
             </div>
         </form>
     </div>
-</div>
+</div> 
 
 @push('extended-js')
 

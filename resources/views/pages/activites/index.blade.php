@@ -19,5 +19,5 @@
     {{-- <script src="{{ asset('js/core/biometric-device/main.js') }}"></script>
     <script src="{{ asset('js/data-table-init.js') }}"></script>
     <script src="{{ asset('js/core/biometric-device/table.js') }}"></script>
-    <script src="{{ asset('js/delete.js') }}"></script> --}}
+    <script src="{{ asset('js/delete.js') }}"></script> --}} 
 @endpush

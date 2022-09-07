@@ -32,7 +32,9 @@ class SalaryFormula extends Model
         // 'arrears',
         // 'income_tax',
         // 'dated',
-        'employee_id'
+        'employee_id',
+        'increment_due',
+       
     ];
 
     protected $dates = ['dated'];

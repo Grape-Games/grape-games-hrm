@@ -1,3 +1,14 @@
+<style>
+    input {
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: groove;
+        background-color: #eee;
+        width: 150px;
+      }
+    
+</style>
 <div>
     <!-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin -->
     <div class="card">
@@ -18,265 +29,147 @@
                                 <span class="text-white badge bg-success">Note : Saturdays and Sundays are paid</span>
                             </th>
                         </tr>
-                        <tr>
+                        <tr>  
                             <th>Sr.No</th>
                             <th>Name</th>
-                            <th>CNIC</th>
-                            <th>Designation</th>
                             <th>Bank Acc#</th>
-                            <th>Per Day</th>
-                            <th>Per Hour</th>
-                            <th>Per Minute</th>
+                            <th>Designation</th>
                             <th>Basic Salary</th>
-                            <th>House Allowance</th>
-                            <th>Mess/Food Allowance</th>
-                            <th>Travelling Allowance</th>
-                            <th>Medical Allowance</th>
-                            <th>Eid Allowance</th>
-                            <th>Other Allowances</th>
-                            <th>Gross Salary</th>
-                            <th>Salaried Days</th>
-                            <th>Leaves Approved</th>
-                            <th>Half Days</th>
-                            <th>Half Days Details</th>
-                            <th>Overtime Hours</th>
-                            <th>Overtime Payment</th>
-                            <th>No of Days ( Deduction )</th>
-                            <th>Days Amount Deducted</th>
-                            <th>No of Minutes ( Morning )</th>
-                            <th>Minutes Amount Deducted</th>
-                            <th>Deduction Compensated</th>
-                            <th>Taxable Salary</th>
-                            <th>Advance Salary</th>
-                            <th>Loan / Installment</th>
-                            <th>Arrears</th>
-                            <th>Income Tax</th>
-                            <th>Net Salary</th>
-                            <td></td>
+                            <th>Absents</th>
+                            <th>Absents amount Deduction</th>
+                            <th>No of Half Days</th>  
+                            <th>Half Days Deduction</th>
+                            <th>Late Minutes</th>
+                            <th>Late Minutes Deduction</th>
+                            <th>Sand Wich Rule Deduction</th>
+                            <th>Other Deduction</th>
+                            <th>Tax Deduction</th>
+                            <th>Loan</th>
+                            <th>Total Increment</th>
+                            <th>Total Salary</th>
+                            <th>Deduction befor Compensation</th>
+                            <th>Bouns</th>
+                            <th>Compensation</th>
+                            <th>Deduction after Compensation</th>
+                            <th>Total Salary approved</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($result as $employee)
+                        @foreach ($result as $key=> $employee)
                             @if (!array_key_exists('notValid', $employee))
                                 <tr>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        <input type="hidden" class="getIds"
-                                            data-id="{{ $employee['employee']->id }}" />
-                                        {{ $loop->iteration }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->first_name . ' ' . $employee['employee']->last_name }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->cnic }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->designation->name ?? 'Not Set' }}
-                                    </td>
                                     <td>
-                                        {{ $employee['employee']->bank->account_number ?? 'Not Set' }}
+                                        {{ $loop->iteration }} 
                                     </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ round($employee['tempered']) ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->per_hour ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->per_minute ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        <b
-                                            class="gross-salary">{{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}</b>
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->house_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td>
-                                        {{ $employee['employee']->salaryFormula->mess_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->travelling_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->medical_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['additional']->eid_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['additional']->other_allowance ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        {{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
+                                    <th class="emp_name">
+                                       {{ $employee['employee']->first_name . ' ' . $employee['employee']->last_name }}
+                                      
+                                    </th>
+                                    <th class="emp_account">
+                                       {{ $employee['employee']->bank->account_number ?? 'Not Set' }}
+                                    </th>
+                                    <th class="emp_designation">
+                                    {{ $employee['employee']->designation->name ?? 'Not Set' }}
+                                    </th>
+                                    <th class="emp_basicSalary">
+                                              {{ $employee['employee']->salaryFormula->basic_salary ?? 'Not Set' }}
+                                    </th>
+                                    <th class="absents">
                                         <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
-                                            data-id="{{ $employee['employee']->id }}" data-type="Present"
-                                            data-url="{{ route('json.getEmployeePresentDays') }}"
-                                            class="details">{{ $employee['salariedDays'] }}</a>
-                                        <span class="badge badge-success">Sat/Suns
-                                            {{ $employee['weekendCounts'] - $employee['additionalDaysCount'] }}</span>
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
-                                            data-id="{{ $employee['employee']->id }}" data-type="Leaves"
-                                            data-url="{{ route('json.getEmployeeLeavesApproved') }}" class="details">
-                                            {{ $employee['leaves'] }}
+                                        data-id="{{ $employee['employee']->id }}" data-type="Absent"
+                                        data-url="{{ route('json.getEmployeeAbsentDays') }}"
+                                        class="details">
+                                         @if ($employee['absents'] > 0)
+                                           {{ $employee['absents'] }}
+                                         @else
+                                           0
+                                         @endif
+                                      </a>
+                                    </th>
+                                    <th class="absentDeductions ">
+                                         @if ($employee['absentDeductions'] > 0)
+                                           {{$employee['absentDeductions']}}
+                                         @else
+                                           0
+                                         @endif 
+                                    </th>
+                                    <th class="totalHalfDays">
+                                         <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
+                                        data-id="{{ $employee['employee']->id }}" data-type="HalfDaysDetails"
+                                        data-url="{{ route('json.getEmployeeAbsentDays') }}"
+                                        class="details">
+                                        {{ $employee['totalHalfDays'] }}
+                                      </a>
+                                       
+                                    </th>
+                                   
+                                    <th class="halfDaysDeductions deduct">
+                                        {{$employee['halfDaysDeductions']}}
+                                    </th>
+                                   <td class="innerHtml{{ $employee['employee']->id }} total_lateMinutes">
+                                        <a id="oldMinutes{{ $employee['employee']->id }}"
+                                            data-still="{{ $employee['lateMinutesModule']   ['lateMinutesTotal'] }}"
+                                            data-target="#detailsModal" data-toggle="modal"     href="#detailsModal"
+                                            data-id="{{ $employee['employee']->id }}" data-type="Minutes"
+                                            data-url="{{ route('json.getEmployeeLateMinutes') }}"
+                                            class="details">{{ $employee['lateMinutesModule']   ['lateMinutesTotal'] }}
                                         </a>
                                     </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        <p>Note Half days are deducted in taxable salary</p>
-                                        <b
-                                            class="halfDays{{ $employee['employee']->id }}">{{ $employee['lateMinutesModule']['halfDays'] }}</b>
-                                    </td>
-                                    <td class="innerHtml{{ $employee['employee']->id }}">
-                                        @foreach ($employee['lateMinutesModule']['halfDaysDetails'] as $punches)
-                                            @if (count($punches) <= 1)
-                                                <b class="text-dager">Punch Missing</b>
-                                            @else
-                                                <b>Working Hours Less than 4 hours</b>
-                                            @endif
-                                            @foreach ($punches as $punch)
-                                                <p>Punch : {{ $punch->custom_date }}</p>
-                                            @break;
-                                        @endforeach
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <p class="overTimeHours{{ $employee['employee']->id }}">
-                                        {{ $employee['overTimeHours'] ?? 0 }}
-                                    </p>
-                                    <input type="hidden" class="overTimeCheck{{ $employee['employee']->id }}"
-                                        value="{{ $employee['payOvertime'] }}">
-                                </td>
-                                <td>
-                                    <p class="overTimePay{{ $employee['employee']->id }}">
-                                        {{ $employee['overTimeHours'] * $employee['employee']->salaryFormula->per_hour }}
-                                    </p>
-                                    @if ($employee['payOvertime'])
-                                        <span class="badge badge-success">Overtime payment allowed</span>
-                                    @else
-                                        <span class="badge badge-danger">Overtime payment disallowed</span>
-                                    @endif
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
-                                        data-id="{{ $employee['employee']->id }}" data-type="Absent"
-                                        data-url="{{ route('json.getEmployeeAbsentDays') }}" class="details">
-                                        {{ $employee['absents'] }}
-                                    </a>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <b class="absent-deductions">{{ round($employee['absentDeductions']) }}</b>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <a id="oldMinutes{{ $employee['employee']->id }}"
-                                        data-still="{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}"
-                                        data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
-                                        data-id="{{ $employee['employee']->id }}" data-type="Minutes"
-                                        data-url="{{ route('json.getEmployeeLateMinutes') }}"
-                                        class="details">{{ $employee['lateMinutesModule']['lateMinutesTotal'] }}
-                                    </a>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <b id="minuteCompensate{{ $employee['employee']->id }}"
-                                        data-old="{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}"
-                                        class="minutes-deductions">{{ $employee['lateMinutesModule']['lateMinutesDeductions'] }}</b>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <input id="minutes{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        data-deduction="{{ $employee['employee']->salaryFormula->per_minute }}"
-                                        class="form-control valtoSend{{ $employee['employee']->id }}"
-                                        type="number" placeholder="10"
-                                        value="{{ isset($employee['extras']) ? $employee['extras']->deduction_compensated : '0' }}">
-                                </td>
-                                <td>
-                                    <b id="upCalculate{{ $employee['employee']->id }}"
-                                        data-salary="{{ round($employee['calculatedSalary']) - round($employee['lateMinutesModule']['lateMinutesDeductions']) }}"
-                                        data-value="{{ round($employee['lateMinutesModule']['lateMinutesDeductions']) }}"
-                                        class="taxable-salary">{{ round($employee['calculatedSalary']) }}</b>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <input id="advance{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        class="form-control valtoSend{{ $employee['employee']->id }}"
-                                        type="number" placeholder="10"
-                                        value="{{ isset($employee['extras']) ? $employee['extras']->advance : '0' }}">
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <input id="loan{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        class="form-control valtoSend{{ $employee['employee']->id }}"
-                                        type="number" placeholder="10"
-                                        value="{{ isset($employee['extras']) ? $employee['extras']->loan : '0' }}">
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <input id="electricity{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        class="form-control valtoSend{{ $employee['employee']->id }}"
-                                        type="number" placeholder="10"
-                                        value="{{ isset($employee['extras']) ? $employee['extras']->electricity : '0' }}">
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <input id="tax{{ $employee['employee']->id }}" name="updateVal"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        class="form-control valtoSend{{ $employee['employee']->id }}"
-                                        type="number" placeholder="10"
-                                        value="{{ isset($employee['extras']) ? $employee['extras']->income_tax : '0' }}">
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    Rs : <b id="final{{ $employee['employee']->id }}"
-                                        class="net-salary">{{ round($employee['calculatedSalary']) }}</b>
-                                </td>
-                                <td class="innerHtml{{ $employee['employee']->id }}">
-                                    <button id="saveSal{{ $employee['employee']->id }}" type="button"
-                                        data-id="{{ $employee['employee']->id }}"
-                                        class="btn btn-primary saveEmployee">
-                                        Save Salary
-                                    </button>
-                                </td>
-                            </tr>
+                                    <th class="lateMinutesDeductions "> 
+                                            {{$employee['lateMinutesModule']  ['lateMinutesDeductions'] }}
+                                    </th>
+                                    <th class="snadWhichRuleDeductions "> 
+                                        <a data-target="#detailsModal" data-toggle="modal" href="#detailsModal"
+                                        data-id="{{ $employee['employee']->id }}" data-type="snadWhichRule"
+                                        data-url="{{ route('json.getEmployeeAbsentDays') }}"
+                                        class="details"> {{(int)$employee['snadWhichRuleDeductions']}} </a>
+                                    </th>
+                                    <th class="otherDeduction">
+                                              {{$employee['deduction']}}
+                                    </th>
+                                    <th><input  type="number" value="{{$employee['empsalarySlip']['tax_deduction'] ?? 0}}" name="taxDeduction"></th>
+                                    <th class="loan">
+                                           {{$employee['loan']}}
+                                    </th>
+                                     <th class="emp_totalIncrement">
+                                              {{ $employee['increment'] ?? 'Not Set' }}
+                                    </th>
+                                     <th class="emp_totalSalary">
+                                              {{ $employee['employee']->salaryFormula->basic_salary + $employee['increment'] ?? 'Not Set' }}
+                                    </th>
+                                    <th class="DeductionBeforComp">
+                                          {{$employee['empsalarySlip']['deduction_before_compensation'] ?? $employee['totalDeductions']}}   
+                                   </th>  
+                                    <th class="bouns">
+                                       {{$employee['bouns']}}
+                                    </th>
+                                    <th>
+                                        <input type="text" name="compensation" value="{{$employee['empsalarySlip']['compensation'] ?? 0}}" >
+                                    </th>  
+                                    <th class="DeductionafterComp">
+                                             {{$employee['empsalarySlip']['deduction_after_compensation'] ?? $employee['totalDeductions']}}
+                                    <th class="totalSalaryApprove">
+                                        @if(isset($employee['empsalarySlip']['tax_deduction']))
+                                            {{$employee['calculatedSalary']+$employee['empsalarySlip']['compensation']-$employee['empsalarySlip']['tax_deduction']}}
+                                        @else
+                                           {{$employee['calculatedSalary']}}
+                                        @endif
+                                    </th>  
+                                   <td class="innerHtml{{ $employee['employee']->id }}">
+                                        <button id="saveSal{{ $employee['employee']->id }}" type="button"
+                                            data-id="{{ $employee['employee']->id }}"
+                                            class="btn btn-primary saveEmployee">
+                                             Save Salary
+                                        </button>
+                                   </td>
+                                </tr>
+                              
+                                    
+                            
+
                         @endif
-                        @if ($loop->last)
-                            <tr>
-                                <td>{{ $loop->iteration + 1 }}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Gross Total : <b class="grossResult"></b></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Attendance Deductions : <b class="absentResult"></b></td>
-                                <td></td>
-                                <td>Late Minutes Deductions : <b class="lateResult"></b></td>
-                                <td></td>
-                                <td>Taxable Salary Total : <b class="taxableResult"></b></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Total here : <b class="totalResult"></b></td>
-                                <td></td>
-                            </tr>
-                        @endif
+                       
                     @endforeach
 
                 </tbody>
@@ -313,9 +206,9 @@
 </div>
 </div>
 
+
 @push('extended-js')
 <script>
-    let overTimeCheck = "{{$result[0]['payOvertime']}}";
     function reCal() {
         var grossSalary = 0;
         var absentDeductions = 0;
@@ -378,7 +271,7 @@
         var calculation = minuteCompensated.data('old') + oldSalary + minutesDeductions - advanceDeductions -
             loanDeductions -
             electricityDeductions - taxDeductions;
-
+            
         updateEmpSalarySelector.html(calculation);
 
         final.html(calculation)
@@ -392,14 +285,8 @@
     });
 
     $(function() {
-        $('.getIds').each(function() {
-            updateSalary($(this).data('id'));
-            reCal();
-        });
-
-        makeDTnAjaxCols("main-table", "A2", [0, 1, 3, 4, 8, 15, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31,
-            32
-        ]);
+        reCal();
+        makeDTnAjaxCols("main-table", "A2", [0,1,3,4,8,15,20,21,22,23,24,25,26,28,29,30]);
 
 
         var date = "{{ request()->get('date') }}";
@@ -419,7 +306,7 @@
                     date: date
                 },
                 success: function(response) {
-                    console.log("success", response);
+                    // console.log("success", response);
 
                     var html = "";
                     var counter = 1;
@@ -473,17 +360,48 @@
 
 
                     } else if (type == "Absent") {
-                        $.each(response.response, function(indexInArray,
+                       console.log(response.response);
+                        $.each(response.response.dates, function(indexInArray,
                             valueOfElement) {
-
-                            html += '<tr><td scope="row">' + counter + '</td><td>' +
-                                "Absent" + '</td><td>' +
-                                valueOfElement +
-                                '</td></tr>';
+                           
+                                
+                                    html += '<tr><td scope="row">' + counter + '</td><td>' +
+                                   "Absent" + '</td><td>' +
+                                   valueOfElement +
+                                   '</td></tr>';
+                              
 
                             counter++;
                         });
-                    } else if (type == "Leaves") {
+                        
+                    } else if(type=='snadWhichRule'){
+                        console.log(response.response);
+                         $.each(response.response.sendWhichRule, function(indexInArray,
+                            valueOfElement) {     
+                                    html += '<tr><td scope="row">' + counter + '</td><td>' +
+                                   "Apply Sand Which Rule" + '</td><td>' +
+                                   valueOfElement +
+                                   '</td></tr>';
+                              
+
+                            counter++;
+                        });
+
+                    } else if (type =="HalfDaysDetails"){
+                         console.log(response.response.halfDaysDetails);
+                           $.each(response.response.halfDaysDetails, function(indexInArray,
+                            valueOfElement) {
+                                  
+                                    html += '<tr><td scope="row">' + counter + '</td><td>' +
+                                   "Working Hours Less than 4 hours" + '</td><td>' +
+                                   valueOfElement[0].custom_date+
+                                   '</td></tr>';
+                              
+
+                            counter++;
+                        });
+                    }
+                     else if (type == "Leaves") {
                         $.each(response.response, function(indexInArray,
                             valueOfElement) {
                             html += '<tr><td scope="row">' + counter + '</td><td>' +
@@ -521,6 +439,7 @@
                     console.log(response);
                     makeToastr('error', response.responseJSON.message,
                         'Network error occured');
+
                 }
             });
         });
@@ -529,35 +448,88 @@
     $('#detailsModal').on('hidden.bs.modal', function() {
         // do something…
         $('.another-table').DataTable().clear().destroy();
-    })
+    });
 
-    $('body').on('click', 'tbody .saveEmployee', function() {
+ $("table").on("paste keyup", "input[name='taxDeduction']", function() {
+      var row = $(this).closest("tr");
+       if($(this).val()=='' || row.find("input[name='compensation']").val()==''){
+           row.find(".saveEmployee").prop('disabled', true);
+        }else{
+            row.find(".saveEmployee").prop('disabled', false);
+        }
+      var taxDeduction = parseFloat(row.find("input[name='taxDeduction']").val());
+      var absentDeductions = parseFloat(row.find(".absentDeductions").text());
+      var halfDaysDeductions = parseFloat(row.find(".halfDaysDeductions").text());
+      var lateMinutesDeductions = parseInt(row.find(".lateMinutesDeductions").text());
+      var snadWhichRuleDeductions = parseFloat(row.find(".snadWhichRuleDeductions").text());
+      var otherDeduction = parseFloat(row.find(".otherDeduction").text());
+     
+      var compensation = parseFloat(row.find("input[name='compensation']").val());
+   
+     var totalDeductions = taxDeduction+absentDeductions+halfDaysDeductions+lateMinutesDeductions+snadWhichRuleDeductions+otherDeduction;
 
-        var sendData = [];
+     var totalDeductionsafterComp = totalDeductions-compensation;
+     var bouns = parseFloat(row.find(".bouns").text());
+     var loan = parseFloat(row.find(".loan").text());
+
+     var totalSalary = parseFloat(row.find(".emp_totalSalary").text());
+     var totalSalaryApprove = (totalSalary+bouns)-(totalDeductionsafterComp+loan);
+       row.find(".DeductionBeforComp").text(isNaN(totalDeductions) ? "" : totalDeductions);
+       row.find(".DeductionafterComp").text(isNaN(totalDeductionsafterComp) ? "" : totalDeductionsafterComp);
+       row.find(".totalSalaryApprove").text(isNaN(totalSalaryApprove) ? "" : totalSalaryApprove);
+    });
+    $("table").on("paste keyup", "input[name='compensation']", function() {
+        var row = $(this).closest("tr");
+        if($(this).val()=='' || row.find("input[name='taxDeduction']").val()==''){
+           row.find(".saveEmployee").prop('disabled', true);
+        }else{
+            row.find(".saveEmployee").prop('disabled', false);
+        }
+        
+        var compensation = parseFloat(row.find("input[name='compensation']").val());
+        var DeductionBeforComp = parseFloat(row.find(".DeductionBeforComp").text());
+        var DeductionAfterComp = DeductionBeforComp-compensation;
+        row.find(".DeductionafterComp").text(isNaN(DeductionAfterComp) ? "" : DeductionAfterComp);
+        var totalSalary = parseFloat(row.find(".emp_totalSalary").text());
+        var bouns = parseFloat(row.find(".bouns").text());
+        var loan = parseFloat(row.find(".loan").text());
+        var totalSalaryApprove = (totalSalary+bouns)-(DeductionAfterComp+loan);
+        row.find(".totalSalaryApprove").text(isNaN(totalSalaryApprove) ? "" : totalSalaryApprove);
+
+    });
+    $(".saveEmployee").click(function(){
         var url = "/save/saveEmployeeSlip";
-        $('.innerHtml' + $(this).data('id')).each(function() {
-            sendData.push(($(this).html()).replace(/<\/?[^>]+(>|$)/g, "").match(/\d+([\.]\d+)?/g));
-        });
-
-        $('.valtoSend' + $(this).data('id')).each(function() {
-            sendData.push($(this).val() == "" ? "0" : $(this).val());
-        })
-
-        sendData.push($(".halfDays" + $(this).data('id')).html());
-        sendData.push($(".overTimeHours" + $(this).data('id')).html());
-        sendData.push($(".overTimePay" + $(this).data('id')).html());
-        sendData.push(overTimeCheck);
-
+        var $row = $(this).closest("tr");
         $.ajax({
             type: "POST",
-            url: url,
+            url: url, 
             data: {
-                data: sendData,
-                id: $(this).data('id'),
-                date: "{{ request()->get('date') }}"
-            },
+            'id':$(this).data('id'),
+            'emp_name':$row.find(".emp_name").text(),
+            'emp_account':$row.find(".emp_account").text(),
+            'emp_designation':$row.find(".emp_designation").text(),
+            'emp_basicSalary':$row.find(".emp_basicSalary").text(),
+            'emp_totalIncrement':$row.find(".emp_totalIncrement").text(),
+            'emp_totalSalary':$row.find(".emp_totalSalary").text(),
+            'absents':$row.find(".absents").text(),
+            'absentDeductions':$row.find(".absentDeductions").text(),
+            'totalHalfDays':$row.find(".totalHalfDays").text(),
+            'halfDaysDeductions':$row.find(".halfDaysDeductions").text(),
+            'total_lateMinutes':$row.find(".total_lateMinutes").text(),
+            'lateMinutesDeductions':$row.find(".lateMinutesDeductions").text(),
+            'snadWhichRuleDeductions':$row.find(".snadWhichRuleDeductions").text(),
+            'otherDeduction':$row.find(".otherDeduction").text(),
+            'loan':$row.find(".loan").text(),
+            'taxDeduction':$row.find("input[name='taxDeduction']").val(),
+            'compensation':$row.find("input[name='compensation']").val(),
+            'DeductionBeforComp':$row.find(".DeductionBeforComp").text(),
+            'bouns':$row.find(".bouns").text(),
+            'DeductionafterComp':$row.find(".DeductionafterComp").text(),
+            'totalSalaryApprove':$row.find(".totalSalaryApprove").text(),
+            'monthYear':"{{ request()->get('date') }}",
+        },
             beforeSend: function() {
-                $(".saveEmployee").attr('disabled', true);
+                $row.find(".saveEmployee").attr('disabled', true);
             },
             success: function(response) {
                 console.log("success", response);
@@ -567,14 +539,17 @@
             },
             error: function(response) {
                 console.log(response);
-                $(".saveEmployee").attr('disabled', false);
+                $row.find(".saveEmployee").attr('disabled', false);
                 makeToastr('error', response.responseJSON.message,
                     'Network error occured');
             },
             complete: function(response) {
-                $(".saveEmployee").attr('disabled', false);
+                $row.find(".saveEmployee").attr('disabled', false);
             },
         });
+       
     });
+
 </script>
-@endpush
+@endpush  
+  

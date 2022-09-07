@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MaterialRequest extends Model
 {
@@ -19,12 +18,6 @@ class MaterialRequest extends Model
         'description',
         'employee_id',
     ];
-
-    public function scopeWithWhereHas($query, $relation, $constraint)
-    {
-        return $query->whereHas($relation, $constraint)
-            ->with([$relation => $constraint]);
-    }
 
     public function isApprovedByHr()
     {
@@ -54,11 +47,6 @@ class MaterialRequest extends Model
     public function userStatuses(): HasMany
     {
         return $this->hasMany(MaterialRequestStatus::class, 'material_request_id', 'id')->whereBelongsTo(auth()->user());
-    }
-
-    public function latest(): HasOne
-    {
-        return $this->hasOne(MaterialRequestStatus::class, 'material_request_id', 'id')->latest();
     }
 
     /**

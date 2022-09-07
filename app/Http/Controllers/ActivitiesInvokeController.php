@@ -8,6 +8,6 @@ class ActivitiesInvokeController extends Controller
 {
     public function __invoke()
     {
-        return view('pages.activites.index');
+        return view('pages.activites.index'); 
     }
 }

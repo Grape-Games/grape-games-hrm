@@ -59,6 +59,49 @@
                         </ul>
                     </li>
                     <li class="submenu">
+
+                     <a href="#" @if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) class="subdrop" @endif>
+                            <i class="la la-money bx-tada"></i> <span>  Payroll Management</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul >
+                          <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif>       <a
+                                    href="{{ route('dashboard.employee-salaries.index') }}">Set Employee Salary</a>
+                            </li>
+                            <li @if (Route::is('dashboard.employee-salaries-update')) active @endif >
+                                  <a href="{{ route('dashboard.employee-salaries-update') }}">
+                                  <span>Salary Increments</span></a>
+                           </li>
+                             <li @if (Route::is('dashboard.reports.salary-report.index')) active @endif >
+                                <a href="{{ route('dashboard.reports.salary-report.index') }}">
+                                 <span>Salary Report</span></a>
+                           </li>
+                            <li @if (Route::is('dashboard.employee-salaries.create')) class="active" @endif>
+                                <a href="{{ route('dashboard.employee-salaries.create') }}">
+                                    Print/Save Employee Salary</a>
+                            </li>
+                            <li @if (Route::is('dashboard.leaves.index')) active @endif >
+                                <a href="{{ route('dashboard.leaves.index') }}">
+                                <span>Salary Slips History</span></a>
+                            </li>
+                            <li @if (Route::is('dashboard.employee-bouns.index')) active @endif >
+                                <a href="{{ route('dashboard.employee-bouns.index') }}">
+                                <span>Employee Bouns Manage</span></a>
+                            </li>
+                            <li @if (Route::is('dashboard.deduction.index')) active @endif >
+                                <a href="{{ route('dashboard.deduction.index') }}">
+                                <span>Deduction Manage</span></a>
+                            </li>
+                            <li @if (Route::is('dashboard.loan.index')) active @endif >
+                                <a href="{{ route('dashboard.loan.index') }}">
+                                <span>Loan Manage</span></a>
+                            </li>
+                            <li @if (Route::is('dashboard.increment.index')) active @endif >
+                                <a href="{{ route('dashboard.increment.index') }}">
+                                <span>Increment Manage</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fa fa-smile-o" aria-hidden="true"></i> <span>Employee Leaves</span>
                             <span class="menu-arrow"></span></a>
@@ -99,6 +142,11 @@
 
                     <li class="menu-title">
                         <span>Attendance Management</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.sand-wich.index')) active @endif ">
+                        <a href="{{ route('dashboard.sand-wich.index') }}">
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            <span>Sand Wich Rule </span></a>
                     </li>
 
                     <li class="@if (Route::is('dashboard.admin-attendance.management')) active @endif ">
@@ -151,6 +199,11 @@
                                     Add/View Evaluation Type
                                 </a>
                             </li>
+                            <li @if (Route::is('dashboard.evaluation.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.evaluation.index') }}">
+                                    Add/View Evaluation 
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -193,34 +246,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-title">
-                        <span>Salaries Section</span>
-                    </li>
-                    <li class="@if (Route::is('dashboard.reports.salary-report.index')) active @endif ">
-                        <a href="{{ route('dashboard.reports.salary-report.index') }}">
-                            <i class="fa fa-check" aria-hidden="true"></i><span>Salary Report</span></a>
-                    </li>
-                    <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) class="subdrop" @endif>
-                            <i class="la la-money bx-tada"></i> <span> Employees
-                                Salaries</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.employee-salaries.index') || Route::is('dashboard.employee-salaries.create')) display:block; @endif">
-                            <li @if (Route::is('dashboard.employee-salaries.index')) class="active" @endif>
-                                <a href="{{ route('dashboard.employee-salaries.index') }}">
-                                    Set Employee Salary</a>
-                            </li>
-                            <li @if (Route::is('dashboard.employee-salaries.create')) class="active" @endif>
-                                <a href="{{ route('dashboard.employee-salaries.create') }}">
-                                    Print/Save Employee Salary</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="@if (Route::is('dashboard.leaves.index')) active @endif ">
-                        <a href="{{ route('dashboard.leaves.index') }}"><i class="la la-leaf"></i>
-                            <span>Salary Slips History</span></a>
-                    </li>
-
+                   
                     <li class="menu-title">
                         <span>Biometric Devices Section</span>
                     </li>
@@ -263,7 +289,7 @@
                     </li>
                     <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
                         <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
-                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                           <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                             <span>
                                 Request Tracking
                             </span>
@@ -294,6 +320,15 @@
                                 aria-hidden="true"></i>
                             <span>Upcoming events</span></a>
                     </li>
+                     <li class="menu-title">
+                        <span>Evaluation</span>
+                    </li>
+                    <li class="@if (Route::is('dashboard.employee-evaluation.index')) active @endif ">
+                        <a href="{{ route('dashboard.employee-evaluation.index') }}"><i class="fa fa-check"
+                                aria-hidden="true"></i>
+                            <span>See Evaluation</span></a>
+                    </li>
+                   
                     <li class="menu-title">
                         <span>Attendance Section</span>
                     </li>
@@ -320,7 +355,7 @@
                             <i class="fa fa-file" aria-hidden="true"></i>
                             <span>Salary Report</span></a>
                     </li>
-
+                    
                     <li class="menu-title">
                         <span>Leaves Management</span>
                     </li>
@@ -349,16 +384,14 @@
                             <i class="fa fa-address-book" aria-hidden="true"></i>
                             <span>Material Request</span></a>
                     </li>
-                    @can('materialCheck')
-                        <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
-                            <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
-                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                <span>
-                                    Request Tracking
-                                </span>
-                            </a>
-                        </li>
-                    @endcan
+                    <li class="@if (Route::is('dashboard.livewire.material.request.tracking.index')) active @endif ">
+                        <a href="{{ route('dashboard.livewire.material.request.tracking.index') }}">
+                            <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                            <span>
+                                Request Tracking
+                            </span>
+                        </a>
+                    </li>
                 @endcan
             </ul>
         </div>

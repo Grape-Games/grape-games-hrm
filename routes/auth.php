@@ -62,3 +62,13 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+     Route::get('notification/marked-as-read/{notification_id}',function($notification_id){
+        $notification = auth()->user()->notifications()->where('id',$notification_id)->first();
+        $notification->markAsRead();
+        return back();
+     })->middleware('auth')->name('read-notification');
+     Route::get('notification-delete/{notification_id}',function($notification_id){
+        $notification = auth()->user()->notifications()->where('id',$notification_id)->first();
+        $notification->delete();
+        return back();
+     })->middleware('auth')->name('notification.delete'); 

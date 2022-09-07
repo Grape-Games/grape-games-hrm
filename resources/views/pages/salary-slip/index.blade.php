@@ -10,7 +10,7 @@
 
     <x-bread-crumb-component :modal=false />
 
-    <x-pay-slip-component :salaryDetails=$slip />
+    <x-pay-slip-component :salaryDetails=$slip /> 
 
 @endsection
 

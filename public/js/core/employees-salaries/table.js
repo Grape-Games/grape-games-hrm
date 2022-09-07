@@ -11,6 +11,21 @@ const dtColumns = [
     { title: "Added by", data: "owner.name" },
     { title: "Company Name", data: "company.name" },
     {
+        title: "More",
+        render: function (data, type, row, meta) {
+            return (
+                '<button class="btn btn-success btn-sm mx-auto mt-1 incrementDetail" data-id="' +
+                row.id +
+                '" data-title="' +
+                row.first_name +
+                " " +
+                row.last_name +
+                '"data-toggle="modal" data-target="#IncementSheetView" title="Generate Employee Salary Slip">' +
+                '<i class="fa fa-eye" aria-hidden="true"></i></button>'
+            );
+        },
+    },
+    {
         data: "id",
         title: "Set Salary",
         render: function (data, type, row, meta) {

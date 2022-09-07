@@ -16,7 +16,7 @@ class EvaluationType extends Component
 
     public $name, $update_id = null;
 
-    public function rules()
+    public function rules() 
     {
         return [
             'name' => ['required', 'string', 'max:255'],

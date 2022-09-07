@@ -9,6 +9,6 @@ class EvaluationType extends Component
     public function render()
     {
         return view('livewire.dashboard.admin.evaluations.evaluation-type')
-            ->extends('layouts.master');
+            ->extends('layouts.master'); 
     }
 }
