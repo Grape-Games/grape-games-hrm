@@ -21,7 +21,7 @@ class CreateEvalutationsTable extends Migration
             $table->integer('planning_coordination')->nullable();
             $table->integer('quality_work')->nullable();
             $table->integer('communication_skill')->nullable();
-            $table->integer('confidence_level')->nullable();
+            $table->integer('overall_rating')->nullable();
             $table->integer('time_managment')->nullable();
             $table->text('additional_comments')->nullable();
             $table->text('over_all_performance')->nullable();

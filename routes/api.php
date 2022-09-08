@@ -32,7 +32,7 @@ Route::group([
     Route::get('{ip}/restart', [ZKTecoApiService::class, 'restartDevice'])->name('restart');
     Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
 });
-
+  
 
 Route::group([
     'prefix' => 'ZKteco/node/',

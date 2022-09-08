@@ -61,7 +61,7 @@ function updateEvaluation(response, errorClassName, table) {
     $("[name=planning_coordination]").val(response.planning_coordination);
     $("[name=quality_work]").val(response.quality_work);
     $("[name=communication_skill]").val(response.communication_skill);
-    $("[name=confidence_level]").val(response.confidence_level);
+    $("[name=overall_rating]").val(response.overall_rating);
     $("[name=time_managment]").val(response.time_managment);
     $("[name=additional_comments]").val(response.additional_comments);
     $("[name=over_all_performance]").val(response.over_all_performance);
@@ -84,8 +84,8 @@ function updateEvaluation(response, errorClassName, table) {
         $(".communication_star_rating > span")
     );
     ShowUpdateRatingStar(
-        response.confidence_level,
-        $(".confidence_level_star_rating > span")
+        response.overall_rating,
+        $(".overall_rating_star > span")
     );
     ShowUpdateRatingStar(
         response.time_managment,

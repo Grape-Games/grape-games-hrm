@@ -10,7 +10,7 @@ use Exception;
 use Rats\Zkteco\Lib\ZKTeco;
 use App\Services\JsonResponseService;
 
-class ZKTecoApiService
+class ZKTecoApiService 
 {
     public static function getDeviceUser(JsGetDeviceUsers $request)
     {

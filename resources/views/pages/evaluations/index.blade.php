@@ -12,8 +12,8 @@
 @section('content')
 
    <x-bread-crumb-component :modal=true modalType="Evaluation" modalId="add_evaluation" />
-  <x-modal-add-evaluation-component />
-  <x-table-evaluation-component />
+   <x-modal-add-evaluation-component />
+   <x-table-evaluation-component />
   
     
 
