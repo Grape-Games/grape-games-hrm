@@ -33,7 +33,7 @@ class StoreEvaluationRequest extends FormRequest
             'planning_coordination' => '',
             'quality_work' => '',
             'communication_skill' => '', 
-            'confidence_level' => '',  
+            'overall_rating' => '',  
             'time_managment' => '',   
             'over_all_performance' => '',   
             'area_of_improvements' => '',   

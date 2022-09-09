@@ -44,17 +44,18 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><strong>Confidence Lavel</strong>
-                                          <span class="float-right star">
-                                            {{SetRatingStars($result->confidence_level)}}
-                                            </span>
-                                        </td>
-                                    </tr>
+                                   
                                     <tr>
                                         <td><strong>Time Managment</strong>
                                            <span class="float-right star">
                                             {{SetRatingStars($result->time_managment)}}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Over All Rating</strong>
+                                          <span class="float-right star">
+                                            {{SetRatingStars($result->overall_rating)}}
                                             </span>
                                         </td>
                                     </tr>

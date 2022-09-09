@@ -31,8 +31,8 @@ const dtColumns = [
         searchable: false,
     },
     {
-        title: "Confidence Level",
-        data: "confidence_level",
+        title: "Overall Rating",
+        data: "overall_rating",
         render: function (data, type, row, meta) {
             return SetStar(data);
         },

@@ -78,10 +78,11 @@
 			                        <span data-rating="5">☆</span>
 		                        </div>
                             </div>
+                            
                             <div class="col-md-4">
-                                <label for="">Confidence Lavel</label>
-                                <input type="hidden" class="confidence-level-rating" value="0" name="confidence_level">
-                                <div class="confidence_level_star_rating star">
+                                <label for="">Time Managment</label>
+                                <input type="hidden" class="time-rating" value="0" name="time_managment">
+                                <div class="time_star_rating star">
 			                        <span data-rating="1">☆</span>
 			                        <span data-rating="2">☆</span>
 			                        <span data-rating="3">☆</span>
@@ -90,9 +91,9 @@
 		                        </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="">Time Managment</label>
-                                <input type="hidden" class="time-rating" value="0" name="time_managment">
-                                <div class="time_star_rating star">
+                                <label for="">Overall Rating</label>
+                                <input type="hidden" class="overall-rating" value="0" name="overall_rating">
+                                <div class="overall_rating_star star">
 			                        <span data-rating="1">☆</span>
 			                        <span data-rating="2">☆</span>
 			                        <span data-rating="3">☆</span>
@@ -132,13 +133,13 @@
 	var planning_star;
 	var quality_star;
 	var communication_star;
-	var confidence_star;
+	var overallRating_star;
 	var time_star;
 	document.addEventListener('DOMContentLoaded', () => {
 		planning_star = document.querySelectorAll(".planning_star_rating span");
 		quality_star = document.querySelectorAll(".quality_star_rating span");
 		communication_star = document.querySelectorAll(".communication_star_rating span");
-		confidence_star = document.querySelectorAll(".confidence_level_star_rating span");
+		overallRating_star = document.querySelectorAll(".overall_rating_star span");
 		time_star = document.querySelectorAll(".time_star_rating span");
 
 		planning_star.forEach(item => {
@@ -164,11 +165,11 @@
 				return SetRatingStar(rating, communication_star);
 			});
 		});
-		confidence_star.forEach(item => {
+		overallRating_star.forEach(item => {
 			item.addEventListener('click', function () {
 				var rating = this.getAttribute("data-rating");
-				document.querySelector(".confidence-level-rating").value = rating;
-				return SetRatingStar(rating, confidence_star);
+				document.querySelector(".overall-rating").value = rating;
+				return SetRatingStar(rating, overallRating_star);
 			});
 		});
 		time_star.forEach(item => {
@@ -180,16 +181,7 @@
 		});
 	});
 
-/**
-* SetRatingStar sets the rating on page
-*
-* @param {int} rating           Int of the rating value. 
-* @returns {object} stars       html stars elements
-*
-*/
 
-
-	
 
 	function SetRatingStar(rating, stars) {
 		var len = stars.length;
