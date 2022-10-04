@@ -32,7 +32,10 @@ function emCallback(response, errorClassName, table) {
         makeToastr(
             "error",
             response.responseJSON.response,
-            "Exception occured 😢"
+            "Exception occured 😢"    
         );
     } else successFlow(errorClassName, response.response, "bg-danger");
 }
+
+
+

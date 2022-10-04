@@ -1,3 +1,8 @@
+<style>
+    .selectpicker {
+       height:34px;
+    }
+</style>
 <div class="row">
     <div class="col-sm-12">
         <div class="card mb-0">

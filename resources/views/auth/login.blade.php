@@ -21,7 +21,7 @@
                     <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                     <!-- Account Form -->
-                    <form id="loginForm" method="POST" action="{{ route('login') }}" novalidate>
+                    <form id="loginForm" method="POST" action="{{ route('login') }}"  novalidate>  
                         @csrf
                         <div class="form-group">
                             <label>Email Address</label>

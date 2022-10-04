@@ -2,7 +2,31 @@
     .star{
         font-size:30px;
     }
+  
+  .Progress {
+  width: 100%;
+  background-color: #E2F6ED;
+  height:50px;
+  
+}
+
+.Bar {
+  width: 0%;
+  height: 50px;
+  background-color: #4CAF50;
+  padding-left:10px;
+  padding-right:10px;
+  line-height: 20px;
+  color: white;
+  display:flex;
+  align-items:center;
+
+  
+}
+.pct{font-size:20px}
+
 </style>
+
  
 <div class="row">
     <div class="col-md-12">
@@ -18,8 +42,8 @@
                             <table class="table table-bordered pay-slip-table">
                                 <tbody>
                                     <tr>
-                                        <td><strong>Added by</strong>
-                                            <span class="float-right">{{$result->user->name}}</span>
+                                        <td>
+                                        <div class="Progress"><div class="Bar" style="width:{{RatingPercentage($result->total_rating)}}%"><div class="pct">{{RatingPercentage($result->total_rating)}}%</div></div></div>
                                         </td>
                                     </tr>
                                     <tr>

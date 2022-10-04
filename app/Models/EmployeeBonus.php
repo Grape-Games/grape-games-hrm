@@ -13,7 +13,7 @@ class EmployeeBonus extends Model
     'user_id',
     'employee_id',
     'assigned_by',
-    'bouns_name',
+    'bonus_name',
     'month',
     'amount',
     'description',

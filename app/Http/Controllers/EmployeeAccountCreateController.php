@@ -29,7 +29,11 @@ class EmployeeAccountCreateController extends Controller
 
         return view('pages.employees.accounts.index');
     }
-
+    
+    public function EmployeeCompany($id){
+         $data = Employee::where('id',$id)->with('company')->first();
+         return ['data' => $data, 'status' => 'Data fetching Successful'];
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -57,7 +61,7 @@ class EmployeeAccountCreateController extends Controller
             });
             return JsonResponseService::getJsonSuccess('Employee account was created successfully.');
         } catch (Exception $exception) {
-            return JsonResponseService::getJsonException($exception);
+            return JsonResponseService::getJsonException($exception);  
         }
     }
 

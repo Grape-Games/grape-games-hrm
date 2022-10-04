@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 class StoreSandWichRuleRequest extends FormRequest
@@ -22,10 +22,11 @@ class StoreSandWichRuleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            'date' => 'required',
+            'name' => 'required',
+            'date' => "required|unique:sand_wich_rules,date,$request->sandwich_id",
             'assigned_by' => 'required',
             'status' => ''
         ];

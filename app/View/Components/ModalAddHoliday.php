@@ -1,7 +1,7 @@
 <?php
 
 namespace App\View\Components;
-
+use App\Models\SandWichRule;
 use Illuminate\View\Component;
 
 class ModalAddHoliday extends Component
@@ -23,6 +23,9 @@ class ModalAddHoliday extends Component
      */
     public function render()
     {
-        return view('components.modal-add-holiday');
+        
+        return view('components.modal-add-holiday',[
+            'results' => SandWichRule::where('status',1)->get(),
+        ]);
     }
 }

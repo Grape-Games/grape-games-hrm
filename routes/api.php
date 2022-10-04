@@ -25,7 +25,7 @@ Route::group([
     'prefix' => 'ZKteco/',
     'as' => 'zkteco.',
 ], function () {
-    Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users');
+    Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users'); 
     Route::get('{ip}/getAttendance', [ZKTecoApiService::class, 'getAttendance'])->name('get-attendance');
     Route::get('{ip}/setAttendance', [ZKTecoApiService::class, 'setAttendance'])->name('set-attendance');
     Route::get('{ip}/getUsers', [ZKTecoApiService::class, 'getUsers'])->name('users');
@@ -62,5 +62,5 @@ Route::group([
     Route::get('getEmployeePresentDays', [GlobalDataProvider::class, 'getEmployeePresentDays'])->name('getEmployeePresentDays');
     Route::get('getEmployeeAbsentDays', [GlobalDataProvider::class, 'getEmployeeAbsentDays'])->name('getEmployeeAbsentDays');
     Route::get('getEmployeeLeavesApproved', [GlobalDataProvider::class, 'getEmployeeLeavesApproved'])->name('getEmployeeLeavesApproved');
-    Route::get('getEmployeeLateMinutes', [GlobalDataProvider::class, 'getEmployeeLateMinutes'])->name('getEmployeeLateMinutes');
+    Route::get('getEmployeeLateMinutes', [GlobalDataProvider::class, 'getEmployeeLateMinutes'])->name('getEmployeeLateMinutes');  
 });

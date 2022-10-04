@@ -14,6 +14,22 @@
                     @csrf
                     <div class="em-errors-print mb-2"></div>
                     <div class="row">
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Please select the employee from the list of employees you have added <span
+                                        class="text-danger">*</span></label>
+                                <select  class="js-example-basic-single select2 form-control select" id="employee_id"
+                                    name="employee_id" required>
+                                    <option value="">Select employee</option>
+                                    @forelse ($employees as $employee)
+                                        <option value="{{ $employee->id }}">
+                                            {{ $employee->first_name . ' ' .   $employee->last_name }}</option>
+                                    @empty
+                                        <option value="">No employee eligible for account is found.</option>
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Full Name<span class="text-danger">*</span></label>
@@ -23,9 +39,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Email Address<span class="text-danger">*</span></label>
+                                <label>Primary Email<span class="text-danger">*</span></label>
                                 <input id="email" class="block mt-1 w-full form-control" type="email" name="email"
-                                    required autofocus placeholder="Email Address">
+                                    required autofocus placeholder="Primary Email Address">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Secondary Email<span class="text-danger">*</span></label>
+                                <input id="secondary_email" class="block mt-1 w-full form-control" type="email" name="secondary_email"
+                                    required autofocus placeholder="Secondary Email Address">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -45,19 +68,13 @@
                                     data-rule-password="true" data-rule-equalTo="#password">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                       
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label>Please select the employee from the list of employees you have added <span
-                                        class="text-danger">*</span></label>
-                                <select class="js-example-basic-single select2 form-control select" id="employee_id"
-                                    name="employee_id" required>
-                                    <option value="">Select employee</option>
-                                    @forelse ($employees as $employee)
-                                        <option value="{{ $employee->id }}">
-                                            {{ $employee->first_name . ' ' . $employee->last_name }}</option>
-                                    @empty
-                                        <option value="">No employee eligible for account is found.</option>
-                                    @endforelse
+                                <label for="">Please Select Type</label>
+                                <select name="role" class="form-control">
+                                    <option value="employee">Employee</option>
+                                    <option value="team_lead">Team Lead</option>
                                 </select>
                             </div>
                         </div>
@@ -70,4 +87,26 @@
         </div>
     </div>
 </div>
-<!-- Add Employee Salary Modal -->
+@push('extended-js')
+<script>
+    $("body").on("change", "#employee_id", function () {
+        $.ajax({
+        url: "/dashboard/employee-company/"+$(this).val(),
+        type: "get",
+        success: function(response) {
+            console.log("success", response);
+            $("[name=name]").val(response.data.first_name+' '+response.data.last_name);
+            $("[name=email]").val(response.data.email_address);
+            var secondryEmail = response.data.email_address.split('@')[0]+"@"+response.data.company.name.split(' ')[0]+".com";
+            $("[name=secondary_email]").val(secondryEmail);
+            $("[type=password]").val('');
+            makeToastr('success', response.status,
+                'Successful');
+
+        },
+      });
+});
+</script>
+@endpush
+
+<!-- Add Employee Salary Modal -->  

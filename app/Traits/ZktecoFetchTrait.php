@@ -15,8 +15,8 @@ trait ZktecoFetchTrait
 {
     public function fetchAttendance(){
         try {
-            if (DeviceLogs::all()->count() > 10000)
-                DeviceLogs::truncate();
+            if (DeviceLogs::all()->count() > 10000) 
+            DeviceLogs::truncate();
             $devices = BiometricDevice::all();
             foreach ($devices as $device) {
                 $zk = new ZKTeco($device->ip_address);

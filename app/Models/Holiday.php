@@ -23,7 +23,9 @@ class Holiday extends Model
     protected $fillable = [
         'date',
         'details',
-        'owner_id'
+        'owner_id',
+        'owner_id',
+        'sandwich_id',
     ];
 
     public function getCustomDateAttribute()
@@ -44,5 +46,8 @@ class Holiday extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+    public function sandwich(){
+        return $this->belongsTo(SandWichRule::class, 'sandwich_id', 'id');
     }
 }

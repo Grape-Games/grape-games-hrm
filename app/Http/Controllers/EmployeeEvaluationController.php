@@ -19,7 +19,7 @@ class EmployeeEvaluationController extends Controller
     public function employeeEvaluationReport(SearchEvaluationRequest $request){
         $employeeId = Employee::where('user_id', auth()->id())->value('id');
         $data = Evalutation::where(
-            ['employee_id' => $employeeId,'month' => $request->month], 
+            ['employee_id' => $employeeId,'month' => $request->month,'status' => 1], 
         )->first(); 
         if (!empty($data)) {
              

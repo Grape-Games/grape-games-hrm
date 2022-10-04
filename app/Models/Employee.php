@@ -38,7 +38,7 @@ class Employee extends Model implements HasMedia
         'enrollment_no',
         'city',
         'gender',
-        'company_id',
+        'company_id', 
         'designation_id',
         'biometric_device_id',
         'owner_id',

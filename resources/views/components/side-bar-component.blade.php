@@ -9,6 +9,25 @@
                 <li class="@if (Route::is('dashboard')) active @endif ">
                     <a href="{{ route('dashboard') }}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
                 </li>
+                @can('is-team-lead')
+                    <li class="submenu">
+                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
+                            <i class="fa fa-check" aria-hidden="true"></i><span>Evaluations</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul style="@if (Route::is('dashboard.evaluation-type')) display:block; @endif">
+                            <li @if (Route::is('dashboard.evaluation-type')) class="active" @endif>
+                                <a href="{{ route('dashboard.evaluation-type') }}">
+                                    Add/View Evaluation Type
+                                </a>
+                            </li>
+                            <li @if (Route::is('dashboard.evaluation.index')) class="active" @endif>
+                                <a href="{{ route('dashboard.evaluation.index') }}">
+                                    Add/View Evaluation 
+                                </a>
+                            </li>
+                        </ul>
+                    </li> 
+                @endcan
                 @can('is-universal')
                     <li class="menu-title">
                         <span>Companies Section</span>
@@ -83,9 +102,9 @@
                                 <a href="{{ route('dashboard.leaves.index') }}">
                                 <span>Salary Slips History</span></a>
                             </li>
-                            <li @if (Route::is('dashboard.employee-bouns.index')) active @endif >
-                                <a href="{{ route('dashboard.employee-bouns.index') }}">
-                                <span>Employee Bouns Manage</span></a>
+                            <li @if (Route::is('dashboard.employee-bonus.index')) active @endif >
+                                <a href="{{ route('dashboard.employee-bonus.index') }}">
+                                <span>Employee Bonus Manage</span></a>
                             </li>
                             <li @if (Route::is('dashboard.deduction.index')) active @endif >
                                 <a href="{{ route('dashboard.deduction.index') }}">
@@ -139,15 +158,21 @@
                         <a href="{{ route('dashboard.employee-salaries-update') }}">
                             <i class="fas fa-plus-square"></i></i><span>Salary Increments</span></a>
                     </li>
-
+                    <li class="@if (Route::is('dashboard.project.index')) active @endif ">
+                        <a href="{{ route('dashboard.project.index') }}">
+                        <i class="fas fa-project-diagram"></i></i><span>Projects Manage</span></a>
+                    </li>
+            
+                    <li class="@if (Route::is('dashboard.task.index')) active @endif ">
+                        <a href="{{ route('dashboard.task.index') }}">
+                            <i class="fas fa-tasks"></i></i><span>Task Manage</span></a>
+                    </li>
+                    
+                     
                     <li class="menu-title">
                         <span>Attendance Management</span>
                     </li>
-                    <li class="@if (Route::is('dashboard.sand-wich.index')) active @endif ">
-                        <a href="{{ route('dashboard.sand-wich.index') }}">
-                            <i class="fa fa-gavel" aria-hidden="true"></i>
-                            <span>Sand Wich Rule </span></a>
-                    </li>
+                    
 
                     <li class="@if (Route::is('dashboard.admin-attendance.management')) active @endif ">
                         <a href="{{ route('dashboard.admin-attendance.management') }}">
@@ -188,25 +213,13 @@
                             <span>Additional Working Days</span>
                         </a>
                     </li>
-
-                    <li class="submenu">
-                        <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
-                            <i class="fa fa-check" aria-hidden="true"></i><span>Evaluations (In progress )</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul style="@if (Route::is('dashboard.evaluation-type')) display:block; @endif">
-                            <li @if (Route::is('dashboard.evaluation-type')) class="active" @endif>
-                                <a href="{{ route('dashboard.evaluation-type') }}">
-                                    Add/View Evaluation Type
-                                </a>
-                            </li>
-                            <li @if (Route::is('dashboard.evaluation.index')) class="active" @endif>
-                                <a href="{{ route('dashboard.evaluation.index') }}">
-                                    Add/View Evaluation 
-                                </a>
-                            </li>
-                        </ul>
+                
+                 
+                    <li class="@if (Route::is('dashboard.sand-wich.index')) active @endif ">
+                        <a href="{{ route('dashboard.sand-wich.index') }}">
+                            <i class="fa fa-gavel" aria-hidden="true"></i>
+                            <span>Sand Wich Rule </span></a>
                     </li>
-
                     <li class="submenu">
                         <a href="#" @if (Route::is('dashboard.leave-types.index') || Route::is('dashboard.employee-leave-approvals')) class="subdrop" @endif>
                             <i class="fas fa-gift"></i><span>Holidays</span>
@@ -304,12 +317,13 @@
                         </li>
                     @endcan
                 @endcan
+              
                 @can('is-employee')
                     <li class="menu-title">
                         <span>Tasks</span>
                     </li>
-                    <li class="#">
-                        <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i>
+                    <li class="@if (Route::is('dashboard.employee.task')) active @endif ">
+                        <a href="{{ route('dashboard.employee.task') }}"><i class="fa fa-clipboard" aria-hidden="true"></i>
                             <span>View Tasks</span></a>
                     </li>
                     <li class="menu-title">
@@ -326,7 +340,7 @@
                     <li class="@if (Route::is('dashboard.employee-evaluation.index')) active @endif ">
                         <a href="{{ route('dashboard.employee-evaluation.index') }}"><i class="fa fa-check"
                                 aria-hidden="true"></i>
-                            <span>See Evaluation</span></a>
+                            <span>See Evaluation</span></a> 
                     </li>
                    
                     <li class="menu-title">
@@ -393,7 +407,7 @@
                         </a>
                     </li>
                 @endcan
-            </ul>
+            </ul>  
         </div>
     </div>
 </div>

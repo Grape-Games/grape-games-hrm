@@ -34,3 +34,34 @@ function hdCallback(response, errorClassName, table) {
         );
     } else successFlow(errorClassName, response.response, "bg-danger");
 }
+$("body").on("click", ".update2", function () {
+    $("#" + $(this).data("modal")).modal("toggle");
+    dynamicAjax(
+        window.location.pathname + "/" + $(this).data("id") + "/edit",
+        "GET",
+        "",
+        "updateHoliday",
+        
+    );
+   
+});
+
+function updateHoliday(response, errorClassName, table) {
+     console.log(response)
+     var input = $(
+        '<input type="hidden" name="hd_id" value="' + response.id + '">'
+    );
+    $("#addHoldidayForm").append(input);
+    $("[name=date]").val(response.custom_date_second);
+    $("[name=sandwich_id]").val(response.sandwich_id);
+    $("[name=details]").val(response.details);
+    btn.prop("disabled", false);
+    btn.html("Add/Update Holiday");
+}
+
+$("#add_holiday").on("hidden.bs.modal", function () {
+    // do something…
+    $("[name=hd_id]").remove();
+    $(this).find("form").trigger("reset");
+    $(this).find("select").trigger("change");
+});

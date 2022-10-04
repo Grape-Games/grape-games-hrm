@@ -52,8 +52,8 @@ function updateEvaluation(response, errorClassName, table) {
     );
     var input2 = $(
         '<input type="hidden" name="created_at" value="' +
-            response.created_at +
-            '">'
+        response.created_at +
+        '">'
     );
     $("#addEvaluation").append(input, input2);
     $("[name=employee_id]").val(response.employee_id);
@@ -112,4 +112,12 @@ function ShowUpdateRatingStar(rating, stars) {
             stars[i].innerHTML = "☆";
         }
     }
+
+  
+   
 }
+
+
+
+ 
+

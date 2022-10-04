@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Http\Request;
 class StoreHolidayRequest extends FormRequest
 {
     /**
@@ -23,11 +23,13 @@ class StoreHolidayRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'details' => 'required|string|max:255',
-            'date' => 'required|date|unique:holidays,date,NULL,id,deleted_at,NULL',
+            // 'date' => 'required|date|unique:holidays,date,NULL,id,deleted_at,NULL',
+            'date' => "required|unique:holidays,date,$request->hd_id",
+            'sandwich_id' => '',  
         ];
     }
 

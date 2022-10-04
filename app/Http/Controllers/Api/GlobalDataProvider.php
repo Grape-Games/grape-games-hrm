@@ -67,7 +67,8 @@ class GlobalDataProvider extends Controller
             $employee,
             $searchDate
         );
-
+       
+       
         $arr = $attendances->toArray();
 
         foreach ($arr as $key => $value) {
@@ -91,7 +92,7 @@ class GlobalDataProvider extends Controller
             # code...
             if (($value = array_search($value, $dates)) !== false)
                 unset($dates[$value]);
-        }
+        }  
 
         $leaves = EmployeeLeaves::leavesMonthly($employee->user_id, $searchDate, 'approved');
 
@@ -115,7 +116,7 @@ class GlobalDataProvider extends Controller
 
             if (!array_key_exists($day, $attendances->toArray())) {
                 if (!in_array($day, $dates))
-                    array_push($dates, $day);
+                    array_push($dates, $day);    
             }
         }
          $halfDaysArr = [];
@@ -135,22 +136,12 @@ class GlobalDataProvider extends Controller
 
          }
 
-         
-        $SandWichRule = SandWichRule::whereMonth('date',$searchDate)->pluck('date')->toArray();
-         foreach ($arr as $key => $data) {
-             if (($key = array_search($key, $SandWichRule)) !== false)
-                unset($SandWichRule[$key]);      
-        }
-        $SandWichRuleDates = array();
-        foreach($SandWichRule as $data){
-            $SandWichRuleDates[] = $data;
-        }
-        // echo $dates;
         return JSONResponseService::getJsonSuccess( [
                 'dates'=>$dates,
-                'sendWhichRule'=>$SandWichRuleDates,
+                'sendWhichRule'=> GetSandWichRuleDate($searchDate,$employee),
                 "halfDaysDetails" => $halfDaysArr,
                 ]);
+        
     }
 
     public function getEmployeeLeavesApproved(Request $request)

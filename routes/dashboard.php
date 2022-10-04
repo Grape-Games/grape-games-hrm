@@ -7,7 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmailAlertsController;
-use App\Http\Controllers\EmployeeAccountCreateController;
+use App\Http\Controllers\EmployeeAccountCreateController; 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeSalaryController;
 use App\Http\Controllers\HolidayController;
@@ -20,12 +20,14 @@ use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalaryReportController;
 use App\Http\Controllers\SalarySlipController;
-use App\Http\Controllers\EmployeeBounsController;
+use App\Http\Controllers\EmployeeBonusController;
 use App\Http\Controllers\IncrementController;
 use App\Http\Controllers\SandWichRuleController;
 use App\Http\Controllers\DeductionController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
 
 use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as EmployeeSalaryIncrementsMainComponent;
@@ -45,7 +47,7 @@ Route::get('salary-cron', SalaryCronTestController::class);
 Route::group([
     'as' => 'dashboard.',
     'middleware' => ['auth', 'can:is-universal'],
-    'prefix' => 'dashboard/'
+    'prefix' => 'dashboard/' 
 ], function () {
     Route::resources([
         'companies' => CompanyController::class,
@@ -56,16 +58,17 @@ Route::group([
         'employee-salaries' => SalaryFormulaController::class,
         'biometric-devices' => BiometricDeviceController::class,
         'leave-types' => LeaveTypeController::class,
-        'employee-web-accounts' => EmployeeAccountCreateController::class,
+        'employee-web-accounts' => EmployeeAccountCreateController::class, 
         'notice-board' => NoticeBoardController::class,
         'holidays' => HolidayController::class,
         'attendance-report' => LateMinutesController::class,
-        'employee-bouns' => EmployeeBounsController::class,
+        'employee-bonus' => EmployeeBonusController::class,
         'increment' => IncrementController::class,
         'deduction' => DeductionController::class,
         'loan' => LoanController::class,
-        'sand-wich' => SandWichRuleController::class,
-        'evaluation' => EvaluationController::class,
+        'sand-wich' => SandWichRuleController::class, 
+        'project' =>ProjectController::class, 
+        'task' =>TaskController::class, 
     ]);
 
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
@@ -73,7 +76,7 @@ Route::group([
     Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');
     Route::post('update-att', [AdminAttendanceManagementController::class, 'save'])->name('update-att');
     Route::get('employee-attendance/{date}',[AdminAttendanceManagementController::class,'GetAttendanceByDate'])->name('date.attendance');
-    
+   
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');
         $count = Department::where('company_id', $companyId)->count();
@@ -95,6 +98,14 @@ Route::group([
     Route::get('additional-working-days', WorkingDayMainComponent::class)->name('working-days');
     Route::get('employee/last-increment&salry/{employee_id}', [IncrementController::class,'employeeLastIncrement']);
     Route::get('show/all-increments/{employee_id}', [IncrementController::class,'EmployeeAllIncrements'])->name('show.all-increments');
+
+    Route::post('project-status',[ProjectController::class,'projectStatusChange']);
+    Route::post('task-status',[TaskController::class,'taskStatusChange']);
+
+
+    Route::get('employee-company/{id}',[EmployeeAccountCreateController::class,'EmployeeCompany']);
+
+    
 });
 
 Route::group([
@@ -119,7 +130,16 @@ Route::group([
     Route::get('send-interview-email', [EmailAlertsController::class, 'sendInterviewLetterEmailIndex'])->name('send-interview-letter.index');
     Route::post('send-interview-email/send', [EmailAlertsController::class, 'sendInterviewLetterEmail'])->name('send-interview-letter.send');
 });
-
+Route::group([
+    'as' => 'dashboard.',
+    'middleware' => ['auth', 'can:is-team-lead'],
+    'prefix' => 'dashboard/' 
+], function () {
+    Route::resources([
+        'evaluation' => EvaluationController::class,
+    ]);
+    Route::post('evaluation-status',[EvaluationController::class,'evaluationStatus']);
+});
 
 Route::group([
     "as" => 'save.',

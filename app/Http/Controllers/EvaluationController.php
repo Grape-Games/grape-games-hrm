@@ -9,6 +9,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Services\JsonResponseService;
 use Exception;
 use DB;
+use Auth;
 
 class EvaluationController extends Controller
 {
@@ -20,14 +21,37 @@ class EvaluationController extends Controller
     public function index(Request $request)
     {
          if ($request->ajax()) { 
-             $data  = Evalutation::with(['employee','user'])->get();
+             $data  = Evalutation::with(['employee','user','approvedby'])->get();  
             return DataTables::of($data)
-             
+            ->addColumn('role', function (){
+                return Auth::user()->role;
+                    })
+            ->addColumn('approvedby', function ($data){
+                if($data->approvedby){
+                    return $data->approvedby->name;
+                }else {
+                    return "Not available";
+                }
+                    })
             ->make(true);
         }
         
         return view('pages.evaluations.index');
        
+    }
+
+
+    public function evaluationStatus(Request $request){
+        if($request->status == 0){
+            $approved_by = NULL;
+        }else{
+            $approved_by = Auth::user()->id;
+        }
+        Evalutation::where('id',$request->id)->update([
+            'status' => $request->status,
+            'approved_by'  =>  $approved_by
+        ]);
+        return JsonResponseService::getJsonSuccess('Evalutation Status was updated successfully.');
     }
 
     /**

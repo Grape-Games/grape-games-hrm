@@ -22,5 +22,5 @@
     <script src="{{ asset('js/delete.js') }}"></script>
     <script>
         let EmployeeEdit = "{{ route('dashboard.employees.edit', [1]) }}";
-    </script>
+    </script> 
 @endpush

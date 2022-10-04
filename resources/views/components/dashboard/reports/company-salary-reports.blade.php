@@ -81,7 +81,7 @@
                                         data-url="{{ route('json.getEmployeeAbsentDays') }}"
                                         class="details">
                                          @if ($employee['absents'] > 0)
-                                           {{ $employee['absents'] }}
+                                           {{ $employee['absents'] }}  
                                          @else
                                            0
                                          @endif
@@ -208,7 +208,7 @@
 
 
 @push('extended-js')
-<script>
+<script>  
     function reCal() {
         var grossSalary = 0;
         var absentDeductions = 0;
@@ -368,7 +368,7 @@
                                     html += '<tr><td scope="row">' + counter + '</td><td>' +
                                    "Absent" + '</td><td>' +
                                    valueOfElement +
-                                   '</td></tr>';
+                                   '</td></tr>';     
                               
 
                             counter++;
@@ -379,8 +379,8 @@
                          $.each(response.response.sendWhichRule, function(indexInArray,
                             valueOfElement) {     
                                     html += '<tr><td scope="row">' + counter + '</td><td>' +
-                                   "Apply Sand Which Rule" + '</td><td>' +
-                                   valueOfElement +
+                                    valueOfElement.details + '</td><td>' +
+                                   valueOfElement.date +
                                    '</td></tr>';
                               
 

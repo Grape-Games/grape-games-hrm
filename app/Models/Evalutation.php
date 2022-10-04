@@ -19,7 +19,9 @@ class Evalutation extends Model
         'time_managment',
         'over_all_performance',
         'area_of_improvements',
-        'additional_comments'
+        'additional_comments',
+        'total_rating',
+        'approved_by'
     ];
 
     public function employee() 
@@ -29,5 +31,8 @@ class Evalutation extends Model
 
     public function user(){
         return $this->hasOne (User::class, 'id', 'user_id');
+    }
+    public function approvedby(){
+        return $this->hasOne (User::class, 'id', 'approved_by');
     }
 }

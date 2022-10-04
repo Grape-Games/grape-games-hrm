@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use App\Models\SandWichRule;
 
 class HolidayController extends Controller
 {
@@ -20,9 +21,19 @@ class HolidayController extends Controller
      */
     public function index(Request $request)
     {
+       
         if ($request->ajax()) {
-            $data = Holiday::with('owner')->get();
-            return DataTables::of($data)->make(true);
+            $data = Holiday::with('owner','sandwich')->get();
+            
+            return DataTables::of($data)
+            ->addColumn('sandwhichRules', function ($data){
+                  if($data->sandwich){
+                    return $data->sandwich->date;
+                  }else{
+                    return 'Not Applay ';
+                  }
+              })
+            ->make(true);
         }
         return view('pages.holidays.index');
     }
@@ -46,12 +57,21 @@ class HolidayController extends Controller
     public function store(StoreHolidayRequest $request)
     {
         try {
-            DB::transaction(function () use ($request) {
-                Holiday::create($request->validated());
-            });
-            return JsonResponseService::getJsonSuccess('Holiday was added successfully.');
+
+            if($request->filled('hd_id')){
+                DB::transaction(function () use ($request) {
+                    Holiday::where('id',$request->hd_id)->update($request->validated());
+                });
+                return JsonResponseService::getJsonSuccess('Holiday was updated successfully.');
+            }else{
+                DB::transaction(function () use ($request) {
+                    Holiday::create($request->validated());
+                });
+                return JsonResponseService::getJsonSuccess('Holiday was added successfully.');
+            }
+            
         } catch (Exception $exception) {
-            return JsonResponseService::getJsonException($exception);
+            return JsonResponseService::getJsonException($exception);  
         }
     }
 
@@ -74,7 +94,7 @@ class HolidayController extends Controller
      */
     public function edit(Holiday $holiday)
     {
-        //
+        return response($holiday);
     }
 
     /**

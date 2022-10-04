@@ -10,7 +10,7 @@ use App\Models\SandWichRule;
 use App\Models\LateMinutes; 
 use App\Models\EmployeeSalarySlip; 
 use Carbon\Carbon;
-
+use App\Models\Holiday;
 
 function employeeAttendances($employee, $searchDate)
 {
@@ -147,7 +147,7 @@ function GetEmployeeIncrements($employee){
 
 function GetSandWichRuleDate($searchDate,$employee){
     $SandwhichRuleDates = SandWichRule::whereMonth('date',$searchDate)->pluck('date')->toArray();
-  
+ 
  $attendances = employeeAttendances(
             $employee,
             $searchDate
@@ -160,14 +160,20 @@ function GetSandWichRuleDate($searchDate,$employee){
         $arr = $attendances->toArray();
         foreach ($arr as $key => $data) {
              if (($key = array_search($key, $SandwhichRuleDates)) !== false)
-                unset($SandwhichRuleDates[$key]);      
+                unset($SandwhichRuleDates[$key]); 
+               
         }
     $dates = array();
-    foreach($SandwhichRuleDates as $data){
-        $dates[] = $data;
-    }
-    return $dates;
-     
+    
+      foreach($SandwhichRuleDates as $Key=>$data){  
+         $sand_wich_id = SandWichRule::where('date',$data)->pluck('id')->first();
+         $holiday = Holiday::where('sandwich_id',$sand_wich_id)->get();
+         foreach($holiday as $dd){
+             $dates[] = $dd;
+             }
+        }
+         
+    return $dates;   
     
 }
 
@@ -189,4 +195,12 @@ function SetRatingStars($star){
    }else {
        return "☆☆☆☆☆";
    }
+}
+
+function RatingPercentage($total_rating){
+    $percent = $total_rating * 100 / 25;
+    if($percent > 100){
+     $percent = 100;
+    }
+    return $percent;
 }

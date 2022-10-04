@@ -28,7 +28,8 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'secondary_email'
     ];
 
     public function scopeAdmins($query)
@@ -61,7 +62,7 @@ class User extends Authenticatable implements HasMedia
             return 'Team Lead and HR';
 
         if (auth()->user()->role == 'ceo')
-            return 'CEO';
+            return 'CEO';  
 
         if (auth()->user()->role == 'finance-admin')
             return 'Finance Admin';

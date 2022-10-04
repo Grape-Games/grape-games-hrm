@@ -31,15 +31,15 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('is-employee', function ($user) {
-            return $user->role == 'employee';
+            return $user->role == 'employee' || $user->role == 'team_lead';
         });
 
         Gate::define('is-manager', function ($user) {
-            return $user->role == 'manager';
+            return $user->role == 'manager'; 
         });
 
         Gate::define('is-both', function ($user) {
-            return $user->role == 'employee' || $user->role == 'admin' || $user->role == 'manager';
+            return $user->role == 'employee' || $user->role == 'admin' || $user->role == 'manager' || $user->role == 'team_lead';  
         });
 
         Gate::define('is-universal', function ($user) {
@@ -48,6 +48,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('materialCheck', function ($user) {
             return in_array($user->role, ['admin', 'manager', 'ceo', 'finance-admin', 'finance-dept']);
+        });
+        Gate::define('is-team-lead',function($user){
+            return $user->role == 'admin' || $user->role == 'manager' || $user->role == 'team_lead' ;     
         });
     }
 }
