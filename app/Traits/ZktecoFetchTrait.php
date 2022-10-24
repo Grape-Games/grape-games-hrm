@@ -20,7 +20,7 @@ trait ZktecoFetchTrait
             $devices = BiometricDevice::all();
             foreach ($devices as $device) {
                 $zk = new ZKTeco($device->ip_address);
-                $ret = $zk->connect();
+                $ret = $zk->connect();  
 
                 if ($ret) {
                     $zk->disableDevice();

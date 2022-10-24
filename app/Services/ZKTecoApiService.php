@@ -53,7 +53,7 @@ class ZKTecoApiService
         $zk = new ZKTeco($deviceIp);
         $ret = $zk->connect();
         if ($ret) {
-            $zk->disableDevice(); 
+            $zk->disableDevice();     
             // $zk->setTime(Carbon::now()->format('Y-m-d H:i:s'));
             try {
                 $users = $zk->getUser();

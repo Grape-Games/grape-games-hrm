@@ -13,7 +13,7 @@ class DeviceUser extends Model
     protected $fillable = [
         'name',
         'enrollment_no',
-        'device_id'
+        'device_id'  
     ];
 
     /**

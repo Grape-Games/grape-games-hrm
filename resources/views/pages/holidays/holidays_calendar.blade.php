@@ -2,32 +2,32 @@
 
 @push('extended-js')
     <script>
-        var deleteEventRoute = "{{ route('dashboard.events.delete2') }}";
-        var updateEventRoute = "{{ route('dashboard.events.update2') }}";
-        var createEventRoute = "{{ route('dashboard.events.create2') }}";
+       
         var defaultEvents = [];
-        var events = @json($events);
-        var birthdays = @json($birthdays);
-        
-        $.each(events, function(indexInArray, valueOfElement) {
+        // var events = @json($holiday);
+        var birthdays = @json($holiday);
+        console.log(birthdays);
+        $.each(birthdays, function(indexInArray, valueOfElement) {
             let obj = {};
-            obj.title = valueOfElement.name;
-            obj.className = "bg-" + valueOfElement.category;
-            obj.start = valueOfElement.start_time;
-            obj.end = valueOfElement.end_time;
-            obj.id = valueOfElement.id;   
-            defaultEvents.push(obj);
+            obj.title = valueOfElement.date;
+            // obj.className = "bg-" + valueOfElement.date;
+            // obj.start = valueOfElement.start_time;
+            // obj.end = valueOfElement.end_time;
+            // obj.id = valueOfElement.id;   
+            // defaultEvents.push(obj);  
         });
         var currentTime = new Date();
+        console.log(currentTime);
         $.each(birthdays, function(indexInArray, valueOfElement) {
-            if (valueOfElement.dob !== null) {
+            if (valueOfElement.date !== null) {
                 var check = 0;
+                var date = new Date(valueOfElement.date);
                 while (check < 2) {
                     let obj = {};
-                    obj.title = '🎂 ' + valueOfElement.employee.first_name + ' ' + valueOfElement.employee
-                        .last_name;
+                    obj.title = '🎂 ';
+                       
                     obj.className = "bg-success";
-                    var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
+                    var str = currentTime.getFullYear() + check + '-' + valueOfElement.created_at.substring(5);
                     obj.start = str;
                     obj.id = valueOfElement.id;  
                     defaultEvents.push(obj);
@@ -35,7 +35,7 @@
                 }
             }
 
-        });  
+        });
     </script>
 @endpush
 

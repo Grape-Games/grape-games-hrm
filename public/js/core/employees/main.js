@@ -88,6 +88,7 @@ function employeeCallback(response, errorClassName, table) {
 }
 
 $("[name=biometric_device_id]").change(function (e) {
+    alert($(this).find(":selected").val());
     e.preventDefault();
     $.ajax({
         type: "GET",
@@ -107,7 +108,7 @@ $("[name=biometric_device_id]").change(function (e) {
                     false,
                     false
                 );
-                $("#enrollment_no").append(newOption).trigger("change");
+                $("#enrollment_no").append(newOption).trigger("change");  
             });
         },
         error: function (error) {

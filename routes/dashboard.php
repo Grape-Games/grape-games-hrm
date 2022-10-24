@@ -54,7 +54,7 @@ Route::group([
         'department-type' => DepartmentTypeController::class,
         'parent-designations' => ParentDesignationController::class,
         'designations' => DesignationController::class,
-        'employees' => EmployeeController::class,
+        'employees' => EmployeeController::class,    
         'employee-salaries' => SalaryFormulaController::class,
         'biometric-devices' => BiometricDeviceController::class,
         'leave-types' => LeaveTypeController::class,

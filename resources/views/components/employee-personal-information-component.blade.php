@@ -9,7 +9,7 @@
             <div class="col-md-4 mb-3">
                 <label for="">Last Name</label>
                 <input type="text" class="form-control" placeholder="Last Name" name="last_name" required="">
-            </div>
+            </div>   
             <div class="col-md-4 mb-3">
                 <label for="">Father Name</label>
                 <input type="test" class="form-control" placeholder="Father Name" name="father_name" required="">
@@ -54,7 +54,7 @@
                         NULL</p></label>
                 <select class="js-example-basic-single select2 form-control" id="enrollment_no" name="enrollment_no" required>
                     <option value="" disabled selected>Please select employee device first.</option>
-                </select>
+                </select>     
             </div>
             <div class="col-md-4 mb-3">
                 <label for="">City</label>

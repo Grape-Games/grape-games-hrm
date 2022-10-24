@@ -31,7 +31,7 @@ Route::group([
     Route::get('{ip}/getUsers', [ZKTecoApiService::class, 'getUsers'])->name('users');
     Route::get('{ip}/restart', [ZKTecoApiService::class, 'restartDevice'])->name('restart');
     Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
-});
+});  
   
 
 Route::group([
@@ -39,7 +39,7 @@ Route::group([
     'as' => 'zkteco.node.'
 ], function () {
     // node library routes here
-    Route::post('saveDataToDevice', [NodeZkTecoService::class, 'saveDataToDevice'])->name('saveDataToDevice');
+    Route::post('saveDataToDevice', [NodeZkTecoService::class, 'saveDataToDevice'])->name('saveDataToDevice');  
     Route::post('saveUsersToDevice', [NodeZkTecoService::class, 'saveUsersToDevice'])->name('saveUsersToDevice');
     Route::post('saveAttendanceToDevice', [NodeZkTecoService::class, 'saveAttendanceToDevice'])->name('saveAttendanceToDevice');
     Route::get('getDevices', [NodeZkTecoService::class, 'getDevices'])->name('getDevices');
