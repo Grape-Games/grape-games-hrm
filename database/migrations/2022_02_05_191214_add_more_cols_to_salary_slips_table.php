@@ -22,6 +22,8 @@ class AddMoreColsToSalarySlipsTable extends Migration
             $table->integer('saturdays_included')->nullable();
             $table->integer('sundays_included')->nullable();
             $table->bigInteger('calculated_salary')->nullable();
+            $table->bigInteger('half_days')->nullable();
+            $table->bigInteger('calculated_salary_without_deduction')->nullable();
         });
     }
 
