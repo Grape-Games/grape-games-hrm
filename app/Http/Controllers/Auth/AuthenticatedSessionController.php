@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         session()->put('toast', true);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended(RouteServiceProvider::HOME);   
     }
 
     /**

@@ -12,13 +12,13 @@
 
     @can('is-universal')
 
-        <x-dashboard-cards-first-admin-component />
+        <x-dashboard-cards-first-admin-component /> 
 
         <x-admin.dashboard.charts-component />
 
         <x-statistics-component />
 
-        <x-admin.dashboard.tables-component />
+        <x-admin.dashboard.tables-component />  
 
     @endcan
 
@@ -46,6 +46,18 @@
             //     $('#myChart-license-text').fadeOut('fast').css("display", "none !important;");
             // }, 1);
         });
+
+$( ".Bar" ).each(function() {
+  let percent = $(this).attr('data-value');
+  percent = percent * 100 / 25;
+  //For too high values :
+  if(percent > 100){
+    percent = 100;
+  }
+  console.log(percent);
+    $(this).animate({width: percent+'%' }, 2000);
+    $(this).children('.pct').html(percent+'%');
+});
     </script>
     @if (session()->has('toast'))
         <script>

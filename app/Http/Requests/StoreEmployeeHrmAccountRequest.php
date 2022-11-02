@@ -30,7 +30,9 @@ class StoreEmployeeHrmAccountRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'secondary_email' => 'required|email|unique:users,secondary_email',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' =>'required'
         ];
     }
 
@@ -38,8 +40,6 @@ class StoreEmployeeHrmAccountRequest extends FormRequest
     {
         $validated = parent::validated();
         $validated['password'] = Hash::make($this->password);
-        return array_merge($validated, [
-            'role' => 'employee'
-        ]);
-    }
+        return array_merge($validated);    
+    }   
 }

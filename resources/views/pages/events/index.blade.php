@@ -8,14 +8,14 @@
         var defaultEvents = [];
         var events = @json($events);
         var birthdays = @json($birthdays);
-
+        
         $.each(events, function(indexInArray, valueOfElement) {
             let obj = {};
             obj.title = valueOfElement.name;
             obj.className = "bg-" + valueOfElement.category;
             obj.start = valueOfElement.start_time;
             obj.end = valueOfElement.end_time;
-            obj.id = valueOfElement.id;
+            obj.id = valueOfElement.id;   
             defaultEvents.push(obj);
         });
         var currentTime = new Date();
@@ -29,13 +29,13 @@
                     obj.className = "bg-success";
                     var str = currentTime.getFullYear() + check + '-' + valueOfElement.dob.substring(5);
                     obj.start = str;
-                    obj.id = valueOfElement.id;
+                    obj.id = valueOfElement.id;  
                     defaultEvents.push(obj);
                     check++;
                 }
             }
 
-        });
+        });  
     </script>
 @endpush
 

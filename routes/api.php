@@ -25,13 +25,13 @@ Route::group([
     'prefix' => 'ZKteco/',
     'as' => 'zkteco.',
 ], function () {
-    Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users');
+    Route::get('js/getDeviceUsers', [ZKTecoApiService::class, 'getDeviceUser'])->name('get-device-users'); 
     Route::get('{ip}/getAttendance', [ZKTecoApiService::class, 'getAttendance'])->name('get-attendance');
     Route::get('{ip}/setAttendance', [ZKTecoApiService::class, 'setAttendance'])->name('set-attendance');
     Route::get('{ip}/getUsers', [ZKTecoApiService::class, 'getUsers'])->name('users');
     Route::get('{ip}/restart', [ZKTecoApiService::class, 'restartDevice'])->name('restart');
     Route::get('{ip}/getDeviceTime', [ZKTecoApiService::class, 'getDeviceTime'])->name('device-time');
-});
+});  
   
 
 Route::group([
@@ -39,7 +39,7 @@ Route::group([
     'as' => 'zkteco.node.'
 ], function () {
     // node library routes here
-    Route::post('saveDataToDevice', [NodeZkTecoService::class, 'saveDataToDevice'])->name('saveDataToDevice');
+    Route::post('saveDataToDevice', [NodeZkTecoService::class, 'saveDataToDevice'])->name('saveDataToDevice');  
     Route::post('saveUsersToDevice', [NodeZkTecoService::class, 'saveUsersToDevice'])->name('saveUsersToDevice');
     Route::post('saveAttendanceToDevice', [NodeZkTecoService::class, 'saveAttendanceToDevice'])->name('saveAttendanceToDevice');
     Route::get('getDevices', [NodeZkTecoService::class, 'getDevices'])->name('getDevices');
@@ -62,5 +62,5 @@ Route::group([
     Route::get('getEmployeePresentDays', [GlobalDataProvider::class, 'getEmployeePresentDays'])->name('getEmployeePresentDays');
     Route::get('getEmployeeAbsentDays', [GlobalDataProvider::class, 'getEmployeeAbsentDays'])->name('getEmployeeAbsentDays');
     Route::get('getEmployeeLeavesApproved', [GlobalDataProvider::class, 'getEmployeeLeavesApproved'])->name('getEmployeeLeavesApproved');
-    Route::get('getEmployeeLateMinutes', [GlobalDataProvider::class, 'getEmployeeLateMinutes'])->name('getEmployeeLateMinutes');
+    Route::get('getEmployeeLateMinutes', [GlobalDataProvider::class, 'getEmployeeLateMinutes'])->name('getEmployeeLateMinutes');  
 });

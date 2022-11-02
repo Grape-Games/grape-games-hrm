@@ -23,13 +23,16 @@
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-
+  	
+        <!-- ckeditor cdn -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+        
 
     <!-- Lineawesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/line-awesome.min.css') }}">
 
     <!-- Boxicons CSS -->
-    <link href='{{ asset('assets/css/boxicons.min.css') }}' rel='stylesheet'>
+    <link href="{{ asset('assets/css/boxicons.min.css') }}" rel='stylesheet'>
 
     <!-- Chart CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/morris/morris.css') }}">

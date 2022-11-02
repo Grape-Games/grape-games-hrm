@@ -16,7 +16,7 @@ $("#addEventForm").submit(function (e) {
             $(this).attr("method"),
             new FormData($(this)[0]),
             "evCallback",
-            "ev-errors-print",
+            "ev-errors-print",  
             ""
         );
     }

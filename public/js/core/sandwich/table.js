@@ -1,6 +1,16 @@
 const dtColumns = [
     { title: "Added By", data: "user.name" },
+    { title: "Name", data: "name" },
     { title: "Date", data: "date" },
+    { title: "Status", data: "status",
+    render: function (data, type, row, meta) {
+        if(data == 1) {
+            return '<span class="badge badge-success">Active</span>';
+        }else{
+            return '<span class="badge badge-danger">In Active</span>';
+        }
+    }
+     },
     { title: "Added time", data: "created_at" },
     {
         data: "id",

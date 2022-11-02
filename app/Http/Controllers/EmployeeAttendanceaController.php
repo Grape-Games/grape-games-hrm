@@ -19,7 +19,7 @@ class EmployeeAttendanceaController extends Controller
         $minutes = ($time % 60);
         return sprintf($format, $hours, $minutes);
     }
-    public function index(Request $request)
+    public function index(Request $request)  
     {
         if ($request->filled(['month', 'year'])) {
             $employeeId = Employee::where('user_id', auth()->id())->value('id');

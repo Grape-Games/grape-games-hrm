@@ -175,7 +175,7 @@ class CompanySalaryReports extends Component
                 $overTimeHours = getEmployeeOverTimeHoursByAttendances($attendances);
                 $snadWhichRuleDates = GetSandWichRuleDate($searchDate,$employee);
                 $totalDeductionsWithLoan =  $lateMinutesModule['halfDaysDeductions'] + $lateMinutesModule['lateMinutesDeductions'] + ($tempered * $absents) + GetEmployeeMonthlyLoan($employee->id,$searchDate)+(count($snadWhichRuleDates) * $tempered)+GetEmployeeDeduction($employee->id,$searchDate);
-
+  
                 $sal = $employee['salaryFormula']['basic_salary']+GetEmployeeIncrements($employee->id)+GetEmployeeBouns($employee->id,$searchDate)-$totalDeductionsWithLoan;
 
                 $allowOverTime

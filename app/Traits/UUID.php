@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use Exception;
-use Illuminate\Support\Str;
+use Illuminate\Support\Str;  
 
 
 trait UUID

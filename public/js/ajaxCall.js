@@ -15,7 +15,7 @@ function dynamicAjax(url, method, data, callBackFunc, arg2, arg3) {
         processData: false,
         data: data,
         dataType: "json",
-        beforeSend: function () {},
+        beforeSend: function () { },
         success: function (response) {
             // console.log("success");
             // console.log(response);

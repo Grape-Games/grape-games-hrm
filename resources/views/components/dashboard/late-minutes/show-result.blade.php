@@ -22,7 +22,7 @@
                             <th>Designation</th>
                             <th>Late Minutes/Absents/Presents/HD</th>
                             @foreach ($dates as $date)
-                                <th><strong>{{ date('d-M', strtotime($date)) }}</strong></th>
+                                <th><strong>{{ date('d-M', strtotime($date)) }}</strong></th>   
                             @endforeach
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
                                     @else
                                         Not Set
                                     @endisset
-                                </td>
+                                </td>  
                                 <td>
                                     @isset($data->first()[0]->employee)
                                         {{ $data->first()[0]->employee->designation->name }}
@@ -48,7 +48,7 @@
                                 </td>
                                 <td>
                                     @php
-                                        $absents = count($dates) - count($data);
+                                        $absents = count($dates) - count($data);  
                                     @endphp
                                     {{ $data->lateMinutes . ' / ' . $absents . ' / ' . count($data) . ' / ' . $data->hd }}
                                 </td>

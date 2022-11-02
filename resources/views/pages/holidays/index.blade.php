@@ -5,7 +5,7 @@
     @include('vendors.data-tables')
     @include('vendors.toastr')
     @include('vendors.sweet-alerts')
-
+    @include('vendors.select2')
 @endpush
 
 @section('content')

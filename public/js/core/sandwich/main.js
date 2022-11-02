@@ -54,7 +54,12 @@ function updateSandWich(response, errorClassName, table) {
     );
     $("#addNewSandWichRule").append(input);
     $("[name=date]").val(response.date);
-
+    $("[name=name]").val(response.name);
+    if(response.status == 1){
+        $("#active").prop("checked", true);
+    }else{
+        $("#inactive").prop("checked", true);
+    }
     btn.prop("disabled", false);
     btn.html("Add/Update Sand Wich Rule");
 }

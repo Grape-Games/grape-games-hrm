@@ -6,6 +6,7 @@ use App\Models\AssignedCompany;
 use App\Models\Employee;
 use App\Models\EmployeeLeaves;
 use App\Models\SalaryFormula;
+use App\Models\Evalutation;
 use App\Traits\RestrictTrait;
 use Illuminate\View\Component;
 
@@ -34,11 +35,14 @@ class TablesComponent extends Component
         $employeeLeaves = EmployeeLeaves::latest()->limit(5)->with(['owner','approvedBy'])->get();
 
         $salaries = SalaryFormula::orderBy('basic_salary', 'desc')->limit(5)->get();
-
-        return view('components.admin.dashboard.tables-component', [
+        
+        $evalution = Evalutation::where('month',date('Y-m'))->with('employee')
+        ->orderBy('total_rating', 'DESC')->limit(5)->get();
+        return view('components.admin.dashboard.tables-component', [ 
             'employees' => $employees,
             'employeeLeaves' => $employeeLeaves,
             'salaries' => $salaries,
+            'evalutions' => $evalution,
         ]);
     }
 }

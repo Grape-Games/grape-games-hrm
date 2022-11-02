@@ -1,6 +1,7 @@
 const dtColumns = [
     { title: "Employee Name", data: "name" },
-    { title: "Employee Email address", data: "email" },
+    { title: "Employee Primary Email", data: "email" },
+    { title: "Employee Secondary Email", data: "secondary_email" },
     {
         title: "Action",
         render: function (data, type, row, meta) {

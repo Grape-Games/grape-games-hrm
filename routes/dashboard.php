@@ -7,7 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentTypeController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\EmailAlertsController;
-use App\Http\Controllers\EmployeeAccountCreateController;
+use App\Http\Controllers\EmployeeAccountCreateController; 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeSalaryController;
 use App\Http\Controllers\HolidayController;
@@ -20,12 +20,15 @@ use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalaryFormulaController;
 use App\Http\Controllers\SalaryReportController;
 use App\Http\Controllers\SalarySlipController;
-use App\Http\Controllers\EmployeeBounsController;
+use App\Http\Controllers\EmployeeBonusController;
 use App\Http\Controllers\IncrementController;
 use App\Http\Controllers\SandWichRuleController;
 use App\Http\Controllers\DeductionController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamMemberController;
 
 use App\Http\Livewire\Dashboard\Admin\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Admin\EmployeeSalaryIncrements\MainComponent as EmployeeSalaryIncrementsMainComponent;
@@ -33,7 +36,7 @@ use App\Http\Livewire\Dashboard\Admin\Evaluations\EvaluationType;
 use App\Http\Livewire\Dashboard\Admin\Evaluations\Evaluations; 
 use App\Http\Livewire\Dashboard\Admin\LateMinutes\MainComponent;
 use App\Http\Livewire\Dashboard\Admin\ScopeManagement\MainComponent as ScopeManagementMainComponent;
-use App\Http\Livewire\Dashboard\Admin\WorkingDay\MainComponent as WorkingDayMainComponent;
+use App\Http\Livewire\Dashboard\Admin\WorkingDay\MainComponent as WorkingDayMainComponent; 
 use App\Models\Department;
 use App\Services\JsonResponseService;
 use Illuminate\Support\Facades\Route;
@@ -45,27 +48,29 @@ Route::get('salary-cron', SalaryCronTestController::class);
 Route::group([
     'as' => 'dashboard.',
     'middleware' => ['auth', 'can:is-universal'],
-    'prefix' => 'dashboard/'
+    'prefix' => 'dashboard/' 
 ], function () {
     Route::resources([
         'companies' => CompanyController::class,
         'department-type' => DepartmentTypeController::class,
         'parent-designations' => ParentDesignationController::class,
         'designations' => DesignationController::class,
-        'employees' => EmployeeController::class,
+        'employees' => EmployeeController::class,    
         'employee-salaries' => SalaryFormulaController::class,
         'biometric-devices' => BiometricDeviceController::class,
         'leave-types' => LeaveTypeController::class,
-        'employee-web-accounts' => EmployeeAccountCreateController::class,
+        'employee-web-accounts' => EmployeeAccountCreateController::class, 
         'notice-board' => NoticeBoardController::class,
         'holidays' => HolidayController::class,
-        'attendance-report' => LateMinutesController::class,
-        'employee-bouns' => EmployeeBounsController::class,
+        'attendance-report' => LateMinutesController::class,  
+        'employee-bonus' => EmployeeBonusController::class,
         'increment' => IncrementController::class,
         'deduction' => DeductionController::class,
         'loan' => LoanController::class,
-        'sand-wich' => SandWichRuleController::class,
-        'evaluation' => EvaluationController::class,
+        'sand-wich' => SandWichRuleController::class, 
+        'project' =>ProjectController::class, 
+        'task' =>TaskController::class, 
+        'team-members' => TeamMemberController::class,
     ]);
 
     Route::post('save-salary-slip', SalarySlipController::class)->name('save-salary-slip');
@@ -73,7 +78,7 @@ Route::group([
     Route::post('delete-punch', [AdminAttendanceManagementController::class, 'deletePunch'])->name('delete-punch');
     Route::post('update-att', [AdminAttendanceManagementController::class, 'save'])->name('update-att');
     Route::get('employee-attendance/{date}',[AdminAttendanceManagementController::class,'GetAttendanceByDate'])->name('date.attendance');
-    
+   
     Route::delete('companies/dept/{id}', function ($id) {
         $companyId = Department::where('id', $id)->value('company_id');
         $count = Department::where('company_id', $companyId)->count();
@@ -89,12 +94,20 @@ Route::group([
     Route::get('employee-leave-approvals', [LeaveApprovalController::class, 'index'])->name('employee-leave-approvals');
     Route::delete('employee-leave-approvals/{id}', [LeaveApprovalController::class, 'delete'])->name('employee-leave-approvals.delete');
     Route::get('attendance-requests-admin', AttendanceRequest::class)->name('employee-attendance-approvals');
-    Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');
+    Route::get('access-restrictions', ScopeManagementMainComponent::class)->name('access-restrictions')->middleware('can:is-manager');  
     Route::get('evaluation-types', EvaluationType::class)->name('evaluation-type');
     
     Route::get('additional-working-days', WorkingDayMainComponent::class)->name('working-days');
     Route::get('employee/last-increment&salry/{employee_id}', [IncrementController::class,'employeeLastIncrement']);
     Route::get('show/all-increments/{employee_id}', [IncrementController::class,'EmployeeAllIncrements'])->name('show.all-increments');
+
+    Route::post('project-status',[ProjectController::class,'projectStatusChange']);
+    Route::post('task-status',[TaskController::class,'taskStatusChange']);
+
+
+    
+
+    
 });
 
 Route::group([
@@ -119,7 +132,16 @@ Route::group([
     Route::get('send-interview-email', [EmailAlertsController::class, 'sendInterviewLetterEmailIndex'])->name('send-interview-letter.index');
     Route::post('send-interview-email/send', [EmailAlertsController::class, 'sendInterviewLetterEmail'])->name('send-interview-letter.send');
 });
-
+Route::group([
+    'as' => 'dashboard.',
+    'middleware' => ['auth', 'can:is-team-lead'],
+    'prefix' => 'dashboard/' 
+], function () {
+    Route::resources([
+        'evaluation' => EvaluationController::class,
+    ]);
+    Route::post('evaluation-status',[EvaluationController::class,'evaluationStatus']);
+});
 
 Route::group([
     "as" => 'save.',

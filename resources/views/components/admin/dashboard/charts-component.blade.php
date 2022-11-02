@@ -43,7 +43,7 @@
     text-decoration: none;
 }
 .tab-box {
-    display: none;
+    display: none;   
 }
 
 .tab-teaser {

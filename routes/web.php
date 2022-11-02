@@ -59,5 +59,5 @@ Route::get('/test-cron', SalaryCronTestController::class);
 Route::get('/dashboard', function () {
     return view('dashboard', [
         'name' => auth()->user()->name
-    ]);
+    ]); 
 })->middleware(['auth'])->name('dashboard');

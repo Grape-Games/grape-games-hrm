@@ -17,34 +17,39 @@
             </div>
             <div class="modal-body">
                 <form id="addEvaluation" method="POST"
-                   action="{{ route('dashboard.evaluation.store') }}" novalidate>
+                   action="{{ route('dashboard.evaluation.store') }}" novalidate>  
                     @csrf
                     <div class="row">
-                        <input type="hidden" name="user_id" id="" value="{{$user_id}}"> 
+                        <input type="hidden" name="user_id" id="" value="{{$user->id}}"> 
                             <div class="col-md-6">
                                <div class="form-group">
                                 <label>Please select the Employee <span
                                         class="text-danger">*</span></label>
                                 <select class="js-example-basic-single select2 form-control select" 
-                                    name="employee_id" required>
+                                    name="employee_id" required id="employee_id">
                                     <option value="">Select employee</option>
-                                    @forelse ($employees as $employee)
-                                        <option value="{{ $employee->id }}">
-                                            {{ $employee->first_name.' '.$employee->last_name }}</option>
+                                    @forelse ($employees as $emp)
+                                    @if($user->role == 'team_lead')
+                                        <option value="{{ $emp->employee->id }}">
+                                            {{ $emp->employee->first_name.' '.$emp->employee->last_name }}
+                                        </option>
+                                    @else
+                                        <option value="{{ $emp->id }}">
+                                            {{ $emp->first_name.' '.$emp->last_name }}
+                                        </option>
+                                    @endif
                                     @empty
                                         <option value="">No employee eligible for account is found.</option>
                                     @endforelse
                                 </select>
-                                
-                            </div>
-                           
-                            </div>
-                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label > Month</label>
-                                    <input type="month" class="form-control" name="month" required>
                                 </div>
                             </div>
+                           <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Date *</label>
+                                <input type="date" class="form-control" disabled name="from_date" id="evaluationDate"  required>
+                            </div>
+                           </div>
                             <div class="col-md-4">
                                 <label for="">Planning Coordination</label>
                                 <input type="hidden" class="Coordination-rating-rating" value="0" name="planning_coordination">
@@ -128,7 +133,7 @@
 </div>
 </div>
 
-
+@push('extended-js')
 <script>
 	var planning_star;
 	var quality_star;
@@ -198,8 +203,65 @@
 
 	};
 
-   
-
-
-
+    $("body").on("change", "#employee_id", function () {
+        $("[name=emp_added]").remove();
+        $("[name=last_evaluation]").remove();
+        $.ajax({
+        // url: "/dashboard/employee-company/"+$(this).val(),
+        url: "/dashboard/employee/last-evaluation/"+$(this).val(),
+        type: "get",
+        success: function(response) {
+            console.log("success", response.employee);
+            $("#evaluationDate").removeAttr('disabled');
+            var input = $('<input type="hidden" name="emp_added" value="' +response.employee.created_at + '">');
+            var last_evaluation = $('<input type="hidden" name="last_evaluation" value="' +response.evaluation + '">');
+            $("#addEvaluation").append(input);
+            $("#addEvaluation").append(last_evaluation);
+            $("#evaluationDate").val('');
+        },
+      });
+    });
+        
+        $("body").on("change", "#evaluationDate", function () {
+            var GivenDate = $("[name=emp_added").val().slice(0, 10);
+            var CurrentDate = new Date($(this).val());
+            var last_evalution = $("[name=last_evaluation").val();
+            GivenDate = new Date(GivenDate);
+           
+            if(GivenDate > CurrentDate){
+              makeToastr(
+              "error",
+              'Date should be Greater than '+$("[name=emp_added").val().slice(0, 10),
+               "Exception occured 😢"
+               );
+              $(this).val('');
+           }else {
+            if( $(".modal-header > h5").text() == 'Create Evaluation'){
+                if(last_evalution !== 'null'){
+                //   alert(addMonths(new Date(last_evalution), 3))
+                if(CurrentDate >= new Date(last_evalution) && CurrentDate <= addMonths(new Date(last_evalution),3)
+                ){
+                    var date = addMonths(new Date(last_evalution),3).toString();
+                    makeToastr(
+                    "error",
+                    'Aready Exist Next quarter Should be add after'+' '+date[0]+date[1]+date[2]+' '+date[4]+date[5]+date[6]+ ' ' +date[8]+date[9]+' '+date[11]+date[12]+date[13]+date[14] ,
+                    "Exception occured 😢"
+            );
+                $(this).val('');
+                }
+                }
+            }
+           }
+           
+        }); 
+        
+        function addMonths(date, months) {
+              var d = date.getDate();
+              date.setMonth(date.getMonth() + +months);
+              if (date.getDate() != d) {
+                 date.setDate(0);
+                }
+            return date;
+        }
 </script>
+@endpush

@@ -20,7 +20,7 @@ class LateMinutesController extends Controller
             $data = LateMinutes::with(['owner', 'employee'])->get();
             return DataTables::of($data)->make(true);
         }
-        return view('pages.late-minutes.index');
+        return view('pages.late-minutes.index');     
     }
 
     /**

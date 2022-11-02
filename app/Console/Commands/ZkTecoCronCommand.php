@@ -9,7 +9,7 @@ class ZkTecoCronCommand extends Command
 {
     use ZktecoFetchTrait;
 
-    /**
+    /**  
      * The name and signature of the console command.
      *
      * @var string
@@ -43,6 +43,6 @@ class ZkTecoCronCommand extends Command
         $this->info("Started fetching");
         $this->fetchAttendance();
         $this->info("Ended fetching");
-        return Command::SUCCESS;
+        return Command::SUCCESS;   
     }
 }

@@ -16,12 +16,22 @@
                     <div class="em-errors-print mb-2"></div>
                     <input type="hidden" name="assigned_by" id="" value="{{$user_id}}">
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="">Name</label>
+                              <input type="text" name="name" id="" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="form-group">
                               <label for="">Select Date</label>
                               <input type="date" name="date" id="" class="form-control" required>
                             </div>
+                        </div>
+                        <div class="col-md-6">
+                                <label for="">Active <input type="radio" name="status" value="1" checked id="active"></label>
+                                <label for="" class="m-4">In Active <input type="radio" name="status" value="0" id="inactive"></label>
                         </div>
                     </div>
                     <div class="submit-section">

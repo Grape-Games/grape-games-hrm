@@ -21,7 +21,7 @@ class CreateLoanInstallmentsTable extends Migration
             $table->foreign('loan_id')->references('id')->on('loans')->onDelete('cascade');
             $table->double('amount');
             $table->string('date');
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->nullable(); 
             $table->timestamps();
         });
     }

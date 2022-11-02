@@ -23,6 +23,6 @@ class EventModalsComponent extends Component
      */
     public function render()
     {
-        return view('components.event-modals-component');
+        return view('components.event-modals-component');  
     }
 }

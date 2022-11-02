@@ -37,6 +37,8 @@ function emCallback(response, errorClassName, table) {
 
 $("body").on("click", ".update2", function () {
     $("#" + $(this).data("modal")).modal("toggle");
+    $(".modal-header > h5").html('Edit Evaluation')  
+    $("#evaluationDate").removeAttr('disabled');
     dynamicAjax(
         window.location.pathname + "/" + $(this).data("id") + "/edit",
         "GET",
@@ -52,12 +54,14 @@ function updateEvaluation(response, errorClassName, table) {
     );
     var input2 = $(
         '<input type="hidden" name="created_at" value="' +
-            response.created_at +
-            '">'
+        response.created_at +
+        '">'
     );
     $("#addEvaluation").append(input, input2);
     $("[name=employee_id]").val(response.employee_id);
     $("[name=month]").val(response.month);
+    $("[name=from_date]").val(response.from_date);
+    $("[name=to_date]").val(response.to_date);
     $("[name=planning_coordination]").val(response.planning_coordination);
     $("[name=quality_work]").val(response.quality_work);
     $("[name=communication_skill]").val(response.communication_skill);
@@ -95,12 +99,14 @@ function updateEvaluation(response, errorClassName, table) {
 
 $("#add_evaluation").on("hidden.bs.modal", function () {
     // do something…
+    $(".modal-header > h5").html('Create Evaluation')
     $("[name=evaluation_id]").remove();
     $("[name=created_at]").remove();
     $(this).find("form").trigger("reset");
     $(this).find("select").trigger("change");
     var text = $("span").text();
     $(".star > span").html("☆");
+    
 });
 
 function ShowUpdateRatingStar(rating, stars) {
@@ -112,4 +118,12 @@ function ShowUpdateRatingStar(rating, stars) {
             stars[i].innerHTML = "☆";
         }
     }
+
+  
+   
 }
+
+
+
+ 
+

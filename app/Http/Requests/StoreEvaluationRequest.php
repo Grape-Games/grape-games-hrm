@@ -14,7 +14,7 @@ class StoreEvaluationRequest extends FormRequest
      */
     public function authorize()
     {
-        if (Gate::allows('is-universal'))
+        if (Gate::allows('is-team-lead'))
             return true;
     }
 
@@ -29,7 +29,9 @@ class StoreEvaluationRequest extends FormRequest
         return [
             'user_id' => '',
             'employee_id' => 'required',
-            'month' => 'required',
+            // 'month' => 'required',
+            'from_date' => 'required',
+            // 'to_date' => 'required',
             'planning_coordination' => '',
             'quality_work' => '',
             'communication_skill' => '', 
@@ -37,7 +39,15 @@ class StoreEvaluationRequest extends FormRequest
             'time_managment' => '',   
             'over_all_performance' => '',   
             'area_of_improvements' => '',   
-            'additional_comments' => '',   
+            'additional_comments' => '',     
         ];
+    }
+
+
+    public function validated()
+    {
+        $validated = parent::validated();
+        $total_rating = $validated['planning_coordination']+$validated['quality_work']+$validated['communication_skill']+$validated['overall_rating']+$validated['time_managment'];
+        return array_merge( $validated, ['total_rating' => $total_rating]);
     }
 }
