@@ -15,7 +15,7 @@ class CreateEvalutationsTable extends Migration
     {
         Schema::create('evalutations', function (Blueprint $table) {
             $table->id();
-             $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignUuid('employee_id')->nullable()->references('id')->on('employees')->onDelete('cascade');
             $table->string('month')->nullable();
             $table->integer('planning_coordination')->nullable();
