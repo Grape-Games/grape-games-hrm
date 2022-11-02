@@ -1,10 +1,10 @@
 <?php
 
 namespace App\View\Components;
-
+use App\Models\Employee;
 use Illuminate\View\Component;
 
-class EventModalsComponent extends Component
+class ModelTeamMembersComponent extends Component
 {
     /**
      * Create a new component instance.
@@ -13,7 +13,7 @@ class EventModalsComponent extends Component
      */
     public function __construct()
     {
-        //
+        //   
     }
 
     /**
@@ -23,6 +23,8 @@ class EventModalsComponent extends Component
      */
     public function render()
     {
-        return view('components.event-modals-component');  
+        return view('components.model-team-members-component',[
+            'employees' => Employee::with('designation')->get(),
+        ]);
     }
 }

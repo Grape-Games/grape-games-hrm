@@ -40,6 +40,6 @@ class StoreEmployeeHrmAccountRequest extends FormRequest
     {
         $validated = parent::validated();
         $validated['password'] = Hash::make($this->password);
-        return array_merge($validated);  
+        return array_merge($validated);    
     }   
 }

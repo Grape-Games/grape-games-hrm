@@ -21,7 +21,11 @@ class EvaluationController extends Controller
     public function index(Request $request)
     {
          if ($request->ajax()) { 
-             $data  = Evalutation::with(['employee','user','approvedby'])->get();  
+            if(Auth::user()->role == 'team_lead'){
+                $data  = Evalutation::with(['employee','user','approvedby'])->where('user_id',Auth::user()->id)->get();       
+            } else{
+                $data  = Evalutation::with(['employee','user','approvedby'])->get();  
+            }             
             return DataTables::of($data)
             ->addColumn('role', function (){
                 return Auth::user()->role;
@@ -54,6 +58,15 @@ class EvaluationController extends Controller
         return JsonResponseService::getJsonSuccess('Evalutation Status was updated successfully.');
     }
 
+
+    
+    public function employeeLastEvaluation($id){
+        $evaluation = Evalutation::where('employee_id',$id)->latest()->first();
+         return[
+              'employee'   => Employee::where('id',$id)->first(),
+              'evaluation' => $evaluation->from_date ?? NULL,
+         ];
+     }
     /**
      * Show the form for creating a new resource.
      *

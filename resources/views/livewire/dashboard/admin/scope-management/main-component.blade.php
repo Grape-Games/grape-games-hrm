@@ -12,4 +12,4 @@
             <livewire:user-companies-table />
         </div>
     </div>
-</div>
+</div>  

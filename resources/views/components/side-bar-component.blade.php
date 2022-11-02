@@ -15,11 +15,6 @@
                             <i class="fa fa-check" aria-hidden="true"></i><span>Evaluations</span>
                             <span class="menu-arrow"></span></a>
                         <ul style="@if (Route::is('dashboard.evaluation-type')) display:block; @endif">
-                            <li @if (Route::is('dashboard.evaluation-type')) class="active" @endif>
-                                <a href="{{ route('dashboard.evaluation-type') }}">
-                                    Add/View Evaluation Type
-                                </a>
-                            </li>
                             <li @if (Route::is('dashboard.evaluation.index')) class="active" @endif>
                                 <a href="{{ route('dashboard.evaluation.index') }}">
                                     Add/View Evaluation 
@@ -153,7 +148,10 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li class="@if (Route::is('dashboard.team-members.index')) active @endif ">
+                        <a href="{{ route('dashboard.team-members.index') }}">
+                        <i class="fa fa-users" aria-hidden="true"></i><span>Manage Team</span></a>
+                    </li>
                     <li class="@if (Route::is('dashboard.employee-salaries-update')) active @endif ">
                         <a href="{{ route('dashboard.employee-salaries-update') }}">
                             <i class="fas fa-plus-square"></i></i><span>Salary Increments</span></a>

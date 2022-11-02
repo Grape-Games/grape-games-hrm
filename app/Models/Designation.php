@@ -14,7 +14,7 @@ class Designation extends Model
         'name',
         'max_salary',
         'min_salary',
-        'parent_designation_id',
+        'parent_designation_id',   
         'status',
         'owner_id'
     ];

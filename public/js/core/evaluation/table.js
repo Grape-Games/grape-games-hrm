@@ -1,8 +1,9 @@
 const dtColumns = [
-    { title: "First Name", data: "employee.first_name" },
-    { title: "Last Name", data: "employee.last_name" },
+    { title: "Full Name",  render: function (data, type, row, meta) {
+        return row.employee.first_name+' '+ row.employee.last_name
+    }},
     { title: "Added_by", data: "user.name" },
-    { title: "Month", data: "month" },
+    { title: " date", data: "from_date" },
     {title:"Approved|Disapproved",data:"approvedby"},
     { title: "Status",
        render: function (data, type, row, meta) {

@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EmployeeEvaluationController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\TeamMemberController;
 use App\Http\Livewire\Dashboard\Employee\AttendanceRequest;
 use App\Http\Livewire\Dashboard\Finance\Accounts\MainComponent;
 use App\Http\Livewire\MaterialRequestTracking;
@@ -61,7 +62,7 @@ Route::group([
         
     })->name('generate.emp-evaluation'); 
 
-
+    Route::get('/employee/last-evaluation/{id}',[EmployeeEvaluationController::class ,'employeeLastEvaluation']);
     Route::get('employee-task',function(){
          return view('pages.employee-task.index');
     })->name('employee.task');
@@ -70,6 +71,8 @@ Route::group([
     Route::get('task-details/{id}',[TaskController::class,'taskDetails'])->name('task.details');
 
     Route::resource('task-comment', TaskCommentController::class);
+    Route::get('employee-company/{id}',[EmployeeAccountCreateController::class,'EmployeeCompany']);
+    Route::get('team-all-members/{id}',[TeamMemberController::class,'TeamMembers']);
 });
 
 

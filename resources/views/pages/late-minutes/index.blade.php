@@ -22,5 +22,5 @@
 @push('extended-js')
     <script src="{{ asset('js/data-table-init.js') }}"></script>
     <script src="{{ asset('js/core/late-minutes/table.js') }}"></script>
-    <script src="{{ asset('js/delete.js') }}"></script>
+    <script src="{{ asset('js/delete.js') }}"></script>   
 @endpush

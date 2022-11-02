@@ -199,7 +199,7 @@
                         <th>Date</th>
                     </tr>
                 </thead>
-                <tbody id="appendHere"></tbody>
+                <tbody id="appendHere"></tbody>  
             </table>
         </div>
     </div>

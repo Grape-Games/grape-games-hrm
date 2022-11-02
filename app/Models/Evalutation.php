@@ -21,7 +21,10 @@ class Evalutation extends Model
         'area_of_improvements',
         'additional_comments',
         'total_rating',
-        'approved_by'
+        'approved_by',
+        'from_date',
+        'to_date',
+        'approved_by',
     ];
 
     public function employee() 

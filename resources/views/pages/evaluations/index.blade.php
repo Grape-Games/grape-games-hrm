@@ -47,4 +47,5 @@
         
   
     <script src="{{ asset('js/delete.js') }}"></script>
+    
 @endpush

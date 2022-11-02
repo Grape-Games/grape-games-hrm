@@ -53,7 +53,7 @@ class Attendance extends Model
 
     public function getAttendanceAttribute($value)
     {
-       return Carbon::parse($value)->subHours(12);
+       return Carbon::parse($value)->addHours(7);
     }
 
     /**

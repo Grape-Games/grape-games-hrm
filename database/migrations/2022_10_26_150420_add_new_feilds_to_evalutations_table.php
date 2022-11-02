@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMonthToEvalutationsTable extends Migration
+class AddNewFeildsToEvalutationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddMonthToEvalutationsTable extends Migration
     public function up()
     {
         Schema::table('evalutations', function (Blueprint $table) {
-            $table->string('month')->nullable();
+           $table->string('from_date')->nullable();
+           $table->string('to_date')->nullable();
         });
     }
 

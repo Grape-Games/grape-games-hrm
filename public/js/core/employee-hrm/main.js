@@ -1,5 +1,5 @@
 // deaprtment type js
-
+$("[name=role]").val('employee');
 let btn = $(".submit-btn");
 
 $("#addEmployeeHRMAccount").submit(function (e) {
@@ -12,7 +12,7 @@ $("#addEmployeeHRMAccount").submit(function (e) {
             $(this).attr("action"),
             $(this).attr("method"),
             new FormData($(this)[0]),
-            "emCallback",
+            "emCallback",  
             "em-errors-print",
             "emhr-table"
         );
@@ -22,6 +22,7 @@ $("#addEmployeeHRMAccount").submit(function (e) {
 function emCallback(response, errorClassName, table) {
     btn.prop("disabled", false);
     btn.html("Add Account");
+    console.log("Success",response)
     if (response.status == 422) validationPrint(response, errorClassName);
     else if (response.status == 200) {
         makeToastr("success", response.response, "Action Successful. 😃");

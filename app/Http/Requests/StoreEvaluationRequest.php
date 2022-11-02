@@ -29,7 +29,9 @@ class StoreEvaluationRequest extends FormRequest
         return [
             'user_id' => '',
             'employee_id' => 'required',
-            'month' => 'required',
+            // 'month' => 'required',
+            'from_date' => 'required',
+            // 'to_date' => 'required',
             'planning_coordination' => '',
             'quality_work' => '',
             'communication_skill' => '', 

@@ -28,4 +28,12 @@ class EmployeeEvaluationController extends Controller
         
         return JsonResponseService::getJsonFailed('Record Not Found.'); 
     }
+
+    public function employeeLastEvaluation($id){
+       $evaluation = Evalutation::where('employee_id',$id)->latest()->first();
+        return[
+             'employee'   => Employee::where('id',$id)->first(),
+             'evaluation' => $evaluation->from_date ?? NULL,
+        ];
+    }
 }

@@ -1,4 +1,5 @@
 <!-- Add Salary Formula Modal -->
+
 <div id="add_employee_hrm_account" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -18,7 +19,7 @@
                             <div class="form-group">
                                 <label>Please select the employee from the list of employees you have added <span
                                         class="text-danger">*</span></label>
-                                <select  class="js-example-basic-single select2 form-control select" id="employee_id"
+                                <select  class="js-example-basic-single select2 form-control select" id="employeeid"
                                     name="employee_id" required>
                                     <option value="">Select employee</option>
                                     @forelse ($employees as $employee)
@@ -68,16 +69,7 @@
                                     data-rule-password="true" data-rule-equalTo="#password">
                             </div>
                         </div>
-                       
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Please Select Type</label>
-                                <select name="role" class="form-control">
-                                    <option value="employee">Employee</option>
-                                    <option value="team_lead">Team Lead</option>
-                                </select>
-                            </div>
-                        </div>
+                         <input type="hidden" name="role">
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Add Employee Account</button>
@@ -89,7 +81,7 @@
 </div>
 @push('extended-js')
 <script>
-    $("body").on("change", "#employee_id", function () {
+    $("body").on("change", "#employeeid", function () {
         $.ajax({
         url: "/dashboard/employee-company/"+$(this).val(),
         type: "get",

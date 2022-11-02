@@ -240,7 +240,7 @@
                                       @else
                                        <span class="badge bg-inverse-danger">Disapproved</span>
                                       @endif
-                                   </td>
+                                   </td>  
                                     <td>
                                         <div class="Progress">
                                             <div class="Bar" data-value="{{$employee->total_rating}}"><div  class="pct"></div>
