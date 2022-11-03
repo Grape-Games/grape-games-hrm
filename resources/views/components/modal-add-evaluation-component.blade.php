@@ -212,7 +212,7 @@
         type: "get",
         success: function(response) {
             console.log("success", response.employee);
-            $("#evaluationDate").removeAttr('disabled');
+            $("#evaluationDate").attr("disabled", false);
             var input = $('<input type="hidden" name="emp_added" value="' +response.employee.created_at + '">');
             var last_evaluation = $('<input type="hidden" name="last_evaluation" value="' +response.evaluation + '">');
             $("#addEvaluation").append(input);

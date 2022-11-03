@@ -10,6 +10,7 @@ use App\Models\EmployeeLeaves;
 use App\Models\EmployeeSalaryStatus;
 use App\Models\Event;
 use App\Models\LeaveType;
+use App\Models\Evalutation;
 use App\Models\NoticeBoard;
 use Carbon\Carbon;
 use Illuminate\View\Component;
@@ -50,6 +51,7 @@ class DashboardEmployeeFirstComponent extends Component
             })
             ->orderByRaw("DATE_FORMAT(dob,'%m%d')")
             ->take(3)->get();
+        $evaluations = Evalutation::where(['employee_id' => $user->id,'status' => 1])->latest()->limit(3)->get();
         return view('components.dashboard-employee-first-component', [
             'events' => $events,
             'birthdays' => $birthdays,
@@ -58,6 +60,7 @@ class DashboardEmployeeFirstComponent extends Component
             'user' => $user,
             'dp' => auth()->user(),
             'notices' => NoticeBoard::latest()->take(3)->get(),
+            'evaluations' => $evaluations,  
         ]);
     }
 }

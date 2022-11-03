@@ -1,4 +1,24 @@
 @if (!isset($user->additional) || !isset($user->bank) || !isset($user->emergency))
+<style>
+    .Progress {
+  width: 100%;
+  background-color: #ddd;
+  height:20px;
+  margin-bottom:10px;
+}
+
+.Bar {
+  width: 45%;
+  height: 20px;
+  background-color: #4CAF50;
+  padding-left:6px;
+  padding-right:0px;
+  line-height: 20px;
+  color: white;
+  display:block;
+}
+.pct{font-size:12px}
+</style>
     <div class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -271,4 +291,71 @@
             </div>
         </div>
     </div>
+
+    {{-- evaluation table --}}
+    <div class="col-md-12 d-flex">
+        <div class="card card-table flex-fill">
+            <div class="card-header">
+                <h3 class="card-title mb-0">Recently Evaluations
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-nowrap custom-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Date</th> 
+                                <th>Planning Coordination</th>
+                                <th>Quality of Work</th>
+                                <th>Communication Skill</th>
+                                <th>Time Managment</th>
+                                <th>Overall Rating</th>
+                                <th>Total Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($evaluations as $employee)
+                                <tr>
+                                    <td>
+                                        {{ $loop->iteration }}
+                                    </td>
+                                    <td>
+                                      {{$employee->from_date}}
+                                    </td>  
+                                    <td style="font-size:20px">
+                                        {{ SetRatingStars($employee->planning_coordination)}}
+                                    </td>
+                                    <td style="font-size:20px">
+                                        {{ SetRatingStars($employee->quality_work)}}
+                                    </td>
+                                    <td style="font-size:20px">
+                                        {{ SetRatingStars($employee->communication_skill)}}
+                                    </td>
+                                    <td style="font-size:20px">
+                                        {{ SetRatingStars($employee->time_managment)}}
+                                    </td>
+                                    <td style="font-size:20px">
+                                        {{ SetRatingStars($employee->overall_rating)}}
+                                    </td>
+                                    <td>
+                                        <div class="Progress">
+                                            <div class="Bar" data-value="{{$employee->total_rating}}"><div  class="pct"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <td colspan=3 class="text-center">No records available of  this Month.</td>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{{ route('dashboard.employee-evaluation.index') }}">View all</a>
+            </div>
+        </div>
+    </div>
+    {{--end evaluation table --}}  
 </div>

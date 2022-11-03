@@ -245,7 +245,7 @@
                                         <div class="Progress">
                                             <div class="Bar" data-value="{{$employee->total_rating}}"><div  class="pct"></div>
                                             </div>
-                                        </div>
+                                        </div>  
                                     </td>
                                 </tr>
                             @empty
