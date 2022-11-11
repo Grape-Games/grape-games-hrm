@@ -42,7 +42,7 @@ class ShowResult extends Component
         
         return view('components.dashboard.late-minutes.show-result', [
             'data2' => $data,
-            'dates' => $dates,
+            'dates' => $dates,  
         ]);
     }
 }

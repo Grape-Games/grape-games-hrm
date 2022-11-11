@@ -8,28 +8,25 @@ $("[name=employee_id]").change(function (e) {
         data: { id: $(this).find(":selected").val() },
         dataType: "json",
         success: function (response) {
-            console.log(response.salry);
-            if (response.last_increment) {
+            console.log(response);
+            if (response.status == 200) {
                 $("#last_increment").val(response.last_increment.amount);
                 $("#last_increment_Month").val(response.last_increment.month);
-            } else {
+                $("#basic_salry").val(response.salry.basic_salary);
+                let percentage = parseInt($("input[name='percentage']").val());
+                let salry = parseInt(response.salry.basic_salary);
+                $("input[name='amount']").val((percentage * salry) / 100);
+            } else if(response.status == 400) {
                 $("#last_increment").val("");
                 $("#last_increment_Month").val("");
+                $("#basic_salry").val(response.salry.basic_salary);
+                let percentage = parseInt($("input[name='percentage']").val());
+                let salry = parseInt(response.salry.basic_salary);
+                $("input[name='amount']").val((percentage * salry) / 100);
+                makeToastr("error", response.message, "Not found 😒");
+            }else{
+                makeToastr("error", response.message, "Not found 😒");
             }
-            $("#basic_salry").val(response.salry.basic_salary);
-            let percentage = parseInt($("input[name='percentage']").val());
-            let salry = parseInt(response.salry.basic_salary);
-            $("input[name='amount']").val((percentage * salry) / 100);
-        },
-        error: function (error) {
-            console.log(error);
-            makeToastr("error", error.responseJSON.message, "Not found 😒");
-            $("#last_increment").val("0.00");
-            $("#basic_salry").val("");
-            $("input[name='percentage']").val("");
-            $("input[name='amount']").val("");
-            $("input[name='date']").val("");
-            $("#purpose").val("");
         },
     });
 });

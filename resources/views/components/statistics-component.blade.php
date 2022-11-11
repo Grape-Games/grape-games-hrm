@@ -65,15 +65,15 @@
                     </div>
                 </div>
                 <div class="progress mb-4">
-                    <div class="progress-bar bg-purple" role="progressbar" style="width: 30%" aria-valuenow="30"
+                    <div class="progress-bar bg-purple" role="progressbar" style="width: 100%" aria-valuenow="30"
                         aria-valuemin="0" aria-valuemax="100">30%</div>
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 22%" aria-valuenow="18"
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="18"
                         aria-valuemin="0" aria-valuemax="100">22%</div>
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 24%" aria-valuenow="12"
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="12"
                         aria-valuemin="0" aria-valuemax="100">24%</div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 26%" aria-valuenow="14"
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="14"
                         aria-valuemin="0" aria-valuemax="100">21%</div>
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="14"
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="14"
                         aria-valuemin="0" aria-valuemax="100">10%</div>
                 </div>
                 <div>

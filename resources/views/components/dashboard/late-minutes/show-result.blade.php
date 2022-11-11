@@ -16,7 +16,7 @@
                                 <th>{{ date('D', strtotime($date)) }}</th>
                             @endforeach
                         </tr>
-                        <tr>
+                        <tr>  
                             <th>Sr.No</th>
                             <th>Employee Name</th>
                             <th>Designation</th>
@@ -61,11 +61,12 @@
                                                 echo 'Clock In : ' . $da[0]->attendance->format('g:i a') . '<br>' . ' Clock Out : ' . $da[count($da) - 1]->attendance->format('g:i a');
                                                 $pt = $da[0]->attendance->diff($da[count($da) - 1]->attendance);
                                                 echo '<br> Production Time :  ' . $pt->h . ':' . $pt->i . ' Hrs<br>';
-                                                if ($pt->h < 5) {
+                                                if ($pt->h < 6) {
                                                     echo '<span class="badge bg-warning text-white">Half Day</span>';
                                                 } else {
                                                     echo '<span class="badge bg-success text-white">Full Day</span>';
                                                 }
+                                               
                                             @endphp
                                         @else
                                             <span class="badge bg-danger text-white">Absent</span>

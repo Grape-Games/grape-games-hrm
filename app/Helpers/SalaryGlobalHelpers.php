@@ -54,7 +54,7 @@ function getEmployeeLateMinutesByAttendances($employee, $attendances, $salary)
                 // matleb wo subha late aya hai
                 $mins = $dummyAttendanceTimeIn->diffInMinutes($dummyCompanyTimeIn);
 
-                if ($mins > 240) { {
+                if ($mins > 180) { {
                         array_push($halfDaysArr, $perDayPunches);
                         $halfDays++;
                     }

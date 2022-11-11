@@ -127,7 +127,7 @@ class GlobalDataProvider extends Controller
 
               if ($dummyAttendanceTimeIn->gt($dummyCompanyTimeIn)) {
                 $mins = $dummyAttendanceTimeIn->diffInMinutes($dummyCompanyTimeIn);
-                if ($mins > 240) { {
+                if ($mins > 180) { {
                         array_push($halfDaysArr, $perDayPunches);
                         
                     }

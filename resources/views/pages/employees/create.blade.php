@@ -2,7 +2,7 @@
 
 @push('extended-css')
 
-    @include('vendors.data-tables')
+    @include('vendors.data-tables')  
     @include('vendors.toastr')
     @include('vendors.stepper')
     @include('vendors.select2')
