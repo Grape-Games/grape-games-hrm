@@ -21,6 +21,7 @@ function emCallback(response, errorClassName, table) {
     btn.html("Add Evaluation");
     if (response.status == 422) validationPrint(response, errorClassName);
     else if (response.status == 200) {
+        $("#add_evaluation").modal('hide');
         makeToastr("success", response.response, "Action Successful. 😃");
         successFlow(errorClassName, response.response, "bg-success");
         $(".evaluation-table").DataTable().ajax.reload();
@@ -106,6 +107,7 @@ $("#add_evaluation").on("hidden.bs.modal", function () {
     $(this).find("select").trigger("change");
     var text = $("span").text();
     $(".star > span").html("☆");
+    $("#evaluationDate").attr("disabled", true);
     
 });
 

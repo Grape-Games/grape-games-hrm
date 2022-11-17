@@ -36,9 +36,9 @@ class TablesComponent extends Component
 
         $salaries = SalaryFormula::orderBy('basic_salary', 'desc')->limit(5)->get();
         
-        $evalution = Evalutation::where('month',date('Y-m'))->with('employee')
-        ->orderBy('total_rating', 'DESC')->limit(5)->get();
-        return view('components.admin.dashboard.tables-component', [ 
+        $evalution = Evalutation::whereMonth('from_date',date('m'))->with('employee')
+        ->latest()->limit(10)->get();
+        return view('components.admin.dashboard.tables-component', [   
             'employees' => $employees,
             'employeeLeaves' => $employeeLeaves,
             'salaries' => $salaries,

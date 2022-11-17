@@ -56,13 +56,37 @@ class IncrementController extends Controller
 
 
     public function employeeLastIncrement($employee_id){
-        $data = Increment::select('amount','month')->where('employee_id',$employee_id)->get()->last();
-        $salry = SalaryFormula::where('employee_id',$employee_id)->first();
-        if($salry){
-            return response()->json(['last_increment'=>$data,'salry'=>$salry]);
+        $Check = SalaryFormula::where('employee_id',$employee_id)->first();
+        if($Check){
+            $data = Increment::select('amount','month')->where('employee_id',$employee_id)->get()->last();
+            if($data){
+                return response()->json([
+                    'status' => 200,
+                    'last_increment'=>$data,
+                    'salry'=>$Check,
+                ]);
+            }else{
+                // return JsonResponseService::getJsonSuccess("last increment Not avliable.");
+                return response()->json([
+                  'status'=>400,
+                  'message'=>  "last increment Not avliable.",
+                  'salry'=>$Check,
+                ]);
+            }
         }else{
-            return JsonResponseService::getJsonException("last increment Not avliable.");
+           return response()->json([
+            'status' => 401,
+             'message' => 'Yet Not Set Salary',
+           ]);
+            // return response("Yet Not Salary.");
         }
+        
+        // $salry = SalaryFormula::where('employee_id',$employee_id)->first();
+        // if($salry){
+        //    
+        // }else{
+        //     return JsonResponseService::getJsonException("last increment Not avliable.");
+        // }
     }
     /**
      * Show the form for creating a new resource.

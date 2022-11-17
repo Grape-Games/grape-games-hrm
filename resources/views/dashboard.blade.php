@@ -33,7 +33,7 @@
 
         @endpush
 
-        <x-dashboard-employee-first-component />
+        <x-dashboard-employee-first-component />  
 
     @endcan
 

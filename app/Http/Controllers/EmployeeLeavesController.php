@@ -31,7 +31,7 @@ class EmployeeLeavesController extends Controller
                 : $data = EmployeeLeaves::where('owner_id', auth()->id())->with(['owner', 'approvedBy', 'type'])->get();
             return DataTables::of($data)->make(true);
         }
-        return view('pages.employee-leaves.index');
+        return view('pages.employee-leaves.index');  
     }
 
     /**

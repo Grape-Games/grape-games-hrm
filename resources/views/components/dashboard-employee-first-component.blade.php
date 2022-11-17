@@ -1,4 +1,26 @@
 @if (!isset($user->additional) || !isset($user->bank) || !isset($user->emergency))
+@push('extended-css')
+<style>
+   .evaluation-tb .Progress {
+  width: 100%;
+  background-color: #ddd;
+  height:20px;
+  margin-bottom:10px;
+}
+
+.evaluation-tb .Bar {
+  width: 45%;
+  height: 20px;
+  background-color: #4CAF50;
+  padding-left:6px;
+  padding-right:0px;
+  line-height: 20px;
+  color: white;
+  display:block;
+}
+.evaluation-tb .pct{font-size:12px}
+</style>
+@endpush
     <div class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -195,6 +217,55 @@
                 </div>
             </section>
             <x-employee-bar-chart-component />
+             {{-- Hoildys --}}
+            <div class="card card-table flex-fill">
+                <div class="card-header">
+                    <h3 class="card-title mb-0"> Recently Holidays
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-nowrap custom-table mb-0 evaluation-tb">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No</th>
+                                    <th>Detail</th> 
+                                    <th>Date</th>
+                                    <th>Sand Wich</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($Holidays as $data)
+                                    <tr>
+                                        <td>
+                                            {{ $loop->iteration }}
+                                        </td>
+                                        <td>
+                                          {{$data->details}}
+                                        </td>  
+                                        <td>
+                                            {{$data->date->format('d/m/Y')}}
+                                        </td>
+                                        <td>
+                                            @if($data->sandwich_id )
+                                             <span class="badge bg-inverse-danger">
+                                              {{$data->sandwich->date }} 
+                                             </span>
+                                            @else
+                                             <span class="badge bg-inverse-success">Not Applay</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <td colspan=3 class="text-center">No records available of  this Month.</td>
+                                @endforelse
+                            </tbody>
+                           
+                        </table>
+                    </div>
+                </div>
+            </div>
+             {{--end Hoildys --}}
         </div>
 
         <div class="col-lg-4 col-md-4">
@@ -268,6 +339,50 @@
                     @endforelse
 
                 </section>
+          {{-- evaluation table --}}
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Recently Evaluations
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0 evaluation-tb">
+                                <thead>
+                                    <tr>
+                                        <th>Sr. No</th>
+                                        <th>Date</th> 
+                                        <th>Total Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($evaluations as $employee)
+                                        <tr>
+                                            <td>
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td>
+                                              {{$employee->from_date}}
+                                            </td>  
+                                            <td>
+                                                <div class="Progress">
+                                                    <div class="Bar" data-value="{{$employee->total_rating}}"><div  class="pct"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <td colspan=3 class="text-center">No records available of  this Month.</td>
+                                    @endforelse
+                                </tbody> 
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('dashboard.employee-evaluation.index') }}">View all</a>
+                    </div>
+                </div>
+                 {{--end evaluation table --}} 
             </div>
         </div>
     </div>

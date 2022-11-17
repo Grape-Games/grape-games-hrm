@@ -29,7 +29,7 @@ Route::group([
     'prefix' => 'dashboard/'
 ], function () {
     Route::resource('events', EventController::class);
-    Route::resource('leaves', EmployeeLeavesController::class);
+    Route::resource('leaves', EmployeeLeavesController::class); 
     Route::resource('profile', ProfileController::class);
     Route::get('activites', ActivitiesInvokeController::class)->name('activites'); 
     Route::post('events/delete/custom', [EventController::class, 'delete2'])->name('events.delete2');
@@ -42,7 +42,6 @@ Route::group([
     Route::get('salary-report', [EmployeeSalaryDetailsController::class, 'reportIndex'])->name('employee.salary.report');
     Route::get('salary-slip', [EmployeeSalaryDetailsController::class, 'index'])->name('employee.salary.index');
     Route::post('print-salary-slip', [EmployeeSalaryDetailsController::class, 'printSalarySlip'])->name('employee.salary.print');
-    Route::post('employee-evaluation-report', [EmployeeEvaluationController::class, 'employeeEvaluationReport'])->name('employee.evaluation.report');
     
     Route::get('employee-evaluation',[EmployeeEvaluationController::class,'index'])->name('employee-evaluation.index');
     // to generate a salary slip
@@ -54,13 +53,13 @@ Route::group([
             ]);
         abort(404);
     })->name('print-slip');
-    Route::get('/generate-evaluation/{id}', function ($id) {
-            $result = Evalutation::where('id',$id)->with('user')->first();
-            return view('pages.employee-evaluation.generate.index',[
-                'result' => $result
-            ]);   
+    // Route::get('/generate-evaluation/{id}', function ($id) {
+    //         $result = Evalutation::where('id',$id)->with('user')->first();
+    //         return view('pages.employee-evaluation.generate.index',[
+    //             'result' => $result
+    //         ]);   
         
-    })->name('generate.emp-evaluation'); 
+    // })->name('generate.emp-evaluation'); 
 
     Route::get('/employee/last-evaluation/{id}',[EmployeeEvaluationController::class ,'employeeLastEvaluation']);
     Route::get('employee-task',function(){

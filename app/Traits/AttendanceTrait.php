@@ -27,7 +27,12 @@ trait AttendanceTrait
                     if (count($value2) == 1)
                         $hd++;
                         else if(count($value2) > 1) {
-                            $lateMinutes += $this->getLateMinutesPerDay($value2);
+                            if($this->getLateMinutesPerDay($value2) > 180){
+                                $hd++; 
+                            }else{
+                                $lateMinutes += $this->getLateMinutesPerDay($value2);
+                            }
+                            // $lateMinutes += $this->getLateMinutesPerDay($value2);
                         }
                 }
                 $data->hd = $hd;
@@ -50,7 +55,13 @@ trait AttendanceTrait
                 if (count($value2) == 1)
                     $hd++;
                 else if(count($value2) > 1){
-                    $lateMinutes += $this->getLateMinutesPerDay($value2);
+                    if($this->getLateMinutesPerDay($value2) > 180){
+                        $hd++; 
+                    }else{
+                        $lateMinutes += $this->getLateMinutesPerDay($value2);
+                    }
+                    // $lateMinutes += $this->getLateMinutesPerDay($value2);
+                    
                 }
             }
             $data->hd = $hd;
