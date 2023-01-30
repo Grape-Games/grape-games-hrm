@@ -64,6 +64,12 @@ class CreateUserAccount extends Component
         $this->update_id = $model->id;
     }
 
+    public function deleteAdminAccount(User $user)
+    {
+        $user->delete();
+        $this->getSuccess("Admin account was delete successfully. 😉");
+    }
+
     public function render()
     {
         return view('livewire.dashboard.admin.scope-management.modals.create-user-account');

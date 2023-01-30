@@ -230,7 +230,7 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        {{ $employee->employee->first_name . ' ' . $employee->employee->last_name }}
+                                        {{ $employee->employee?->first_name . ' ' . $employee->employee?->last_name }}
                                     </td>
                                    <td>
                                       @if($employee->status == 0)

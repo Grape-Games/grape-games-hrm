@@ -3,11 +3,7 @@
 use App\Http\Controllers\SalaryCronTestController;
 use App\Http\Controllers\SalarySlipController;
 use App\Models\Attendance;
-use App\Models\Employee;
-use App\Models\SalaryFormula;
-use App\Models\SalarySlip;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Artisan call for instant attendnace refresh
+Route::get('/refresh-data', function() {
+    Artisan::call('zkteco:fetch');
+    return 'Attendances have been updated!';
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';

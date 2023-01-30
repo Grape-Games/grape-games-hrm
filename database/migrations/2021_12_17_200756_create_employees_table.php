@@ -21,11 +21,11 @@ class CreateEmployeesTable extends Migration
             $table->string('father_name');
             $table->string('primary_contact');
             $table->string('secondary_contact')->nullable();
-            $table->string('email_address')->unique();
+            $table->string('email_address');
             $table->string('city');
-            $table->string('cnic')->unique();
+            $table->string('cnic');
             $table->string('enrollment_no');
-            $table->string('registration_no')->unique();
+            $table->string('registration_no');
             $table->foreignUuid('company_id')->constrained()->onDelete('cascade');;
             $table->foreignId('designation_id')->constrained()->onDelete('cascade');;
             $table->foreignUuid('owner_id')->references('id')->on('users')->onDelete('cascade');

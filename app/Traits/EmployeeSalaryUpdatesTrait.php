@@ -56,7 +56,7 @@ trait EmployeeSalaryUpdatesTrait
                         'employee_id' => $increment->employee_id,
                         'user_id' => User::where('role', 'admin')->first()->id
                     ]);
-                    MailService::sendIncrementEmail($increment->employee->user_id ?? NULL, $increment->time_period, $increment->increment_amount, $increment->employee->salaryFormula->basic_salary ?? '0');
+                    // MailService::sendIncrementEmail($increment->employee->user_id ?? NULL, $increment->time_period, $increment->increment_amount, $increment->employee->salaryFormula->basic_salary ?? '0');
                 }
             }
         }
