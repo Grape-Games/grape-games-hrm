@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use App\Models\Attendance;
@@ -13,14 +14,15 @@ use Rats\Zkteco\Lib\ZKTeco;
 
 trait ZktecoFetchTrait
 {
-    public function fetchAttendance(){
+    public function fetchAttendance()
+    {
         try {
-            if (DeviceLogs::all()->count() > 10000) 
-            DeviceLogs::truncate();
+            if (DeviceLogs::all()->count() > 10000)
+                DeviceLogs::truncate();
             $devices = BiometricDevice::all();
             foreach ($devices as $device) {
                 $zk = new ZKTeco($device->ip_address);
-                $ret = $zk->connect();  
+                $ret = $zk->connect();
 
                 if ($ret) {
                     $zk->disableDevice();
@@ -42,7 +44,9 @@ trait ZktecoFetchTrait
                         ]);
                     }
                     foreach ($attendances as $key => $value) {
-                        $employee = Employee::where('enrollment_no', $value['id'])->first();
+                        $employee = Employee::where('enrollment_no', $value['id'])
+                            ->where('biometric_device_id', $device->id)
+                            ->first();
                         if (!is_null($employee)) {
                             $value['timestamp'] = Carbon::parse($value['timestamp']); // adding  hours to equal Pak time
                             Attendance::firstOrCreate([
