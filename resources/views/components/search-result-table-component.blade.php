@@ -49,7 +49,7 @@
                                     </td>
                                     <td>
                                         <span
-                                            class="badge badge-danger">{{ isset($salArr[$employee->id])? $salArr[$employee->id]->absent_days -$salArr[$employee->id]->saturdays_included -$salArr[$employee->id]->sundays_included: 'NOT SET' }}
+                                        class="badge badge-danger">{{ isset($salArr[$employee->id]) ? $salArr[$employee->id]->absent_days - $salArr[$employee->id]->saturdays_included - $salArr[$employee->id]->sundays_included - $salArr[$employee->id]->holidays : 'NOT SET' }}
                                         </span>
                                     </td>
                                     <td>

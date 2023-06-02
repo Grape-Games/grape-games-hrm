@@ -30,7 +30,19 @@ trait SalaryGeneratorTrait
 
     public function getMonthHolidays($month)
     {
-        return Holiday::whereMonth('date', $month)->get();
+        $holidays = Holiday::whereMonth('date', $month)->get();
+        $count = 0;
+
+        foreach ($holidays as $holiday) {
+            $date = Carbon::parse($holiday->date);
+            $dayOfWeek = $date->dayOfWeek;
+
+            if ($dayOfWeek !== Carbon::SUNDAY && $dayOfWeek !== Carbon::SATURDAY) {
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     public function countSatSunInAMonthExcludingHolidays($month)
@@ -55,7 +67,7 @@ trait SalaryGeneratorTrait
     {
         $satSuns = $this->countSatSunInAMonthExcludingHolidays(Carbon::now());
         $employees = $this->getAllEmployees();
-        $thisMonthHolidays = count($this->getMonthHolidays(Carbon::now()->month));
+        $thisMonthHolidays = $this->getMonthHolidays(Carbon::now()->month);
 
         foreach ($employees as $key => $employee) {
             $attendance = Attendance::where('employee_id', $employee->id)
@@ -65,7 +77,7 @@ trait SalaryGeneratorTrait
                 ->groupBy(function ($date) {
                     return $date->attendance->format('Y-m-d');
                 });
-                
+
             foreach ($attendance as $key => $day) {
                 if (Holiday::where('date', $key)->exists()) {
                     $thisMonthHolidays--;
@@ -141,7 +153,7 @@ trait SalaryGeneratorTrait
                     'present_days' => count($attendance),
                     'absent_days' => count($monthDays) - count($attendance) + $thisMonthHolidays,
                     'holidays' => $thisMonthHolidays,
-                    'salary_days' => count($attendance) + $thisMonthHolidays + $satSuns['saturdays'] + $satSuns['sundays'],
+                    'salary_days' => $totalDaysSalary,
                     'calculated_salary' => $calculatedSalary,
                     'calculated_salary_without_deduction' => $calculatedSalaryWithOutDeduction,
                     'saturdays_included' => $satSuns['saturdays'],
