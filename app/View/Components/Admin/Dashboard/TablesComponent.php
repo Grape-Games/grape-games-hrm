@@ -34,11 +34,12 @@ class TablesComponent extends Component
 
         $employeeLeaves = EmployeeLeaves::latest()->limit(5)->with(['owner','approvedBy'])->get();
 
-        $salaries = SalaryFormula::orderBy('basic_salary', 'desc')->limit(5)->get();
-        
+        $salaries = SalaryFormula::with('employee')->orderBy('basic_salary', 'desc')->limit(5)->get();
+
         $evalution = Evalutation::whereMonth('from_date',date('m'))->with('employee')
         ->latest()->limit(10)->get();
-        return view('components.admin.dashboard.tables-component', [   
+
+        return view('components.admin.dashboard.tables-component', [
             'employees' => $employees,
             'employeeLeaves' => $employeeLeaves,
             'salaries' => $salaries,
