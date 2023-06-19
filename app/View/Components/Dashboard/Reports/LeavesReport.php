@@ -44,7 +44,11 @@ class LeavesReport extends Component
 
         if ($this->employeeId == "all") {
 
-            $employees = Employee::companies($this->companyId)->with(['bank', 'salaryFormula', 'company', 'designation'])->get();
+            $employees = Employee::active()
+                ->companies($this->companyId)
+                ->with(['bank', 'salaryFormula', 'company', 'designation'])
+                ->get();
+
             $data = [];
             foreach ($employees as $key => $employee) {
                 // dd($data['leaves_approved'] = EmployeeLeaves::leavesMonthly($employee->user_id, $this->date, 'approved'));
@@ -60,7 +64,7 @@ class LeavesReport extends Component
         } else {
 
             $employee = Employee::whereId($this->employeeId)->with(['bank', 'salaryFormula'])->first();
-            
+
             $data['employee'] = $employee;
             $data['leaves_allowed'] = LeaveType::sum('allowed');
             $data['leaves_left'] = $data['leaves_allowed'] - EmployeeLeaves::leavesYearly($employee->user_id, $this->date, 'approved')->sum('number_of_leaves');

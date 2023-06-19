@@ -13,8 +13,8 @@ trait AttendanceTrait
     {
         if ($employeeId == "all") {
             $resultArr = [];
-            
-            $employees = Employee::companies($companyId)->pluck('id');
+
+            $employees = Employee::active()->companies($companyId)->pluck('id');
             foreach ($employees as $key => $value) {
                 $hd = 0;
                 $lateMinutes =0;
@@ -28,7 +28,7 @@ trait AttendanceTrait
                         $hd++;
                         else if(count($value2) > 1) {
                             if($this->getLateMinutesPerDay($value2) > 180){
-                                $hd++; 
+                                $hd++;
                             }else{
                                 $lateMinutes += $this->getLateMinutesPerDay($value2);
                             }
@@ -56,12 +56,12 @@ trait AttendanceTrait
                     $hd++;
                 else if(count($value2) > 1){
                     if($this->getLateMinutesPerDay($value2) > 180){
-                        $hd++; 
+                        $hd++;
                     }else{
                         $lateMinutes += $this->getLateMinutesPerDay($value2);
                     }
                     // $lateMinutes += $this->getLateMinutesPerDay($value2);
-                    
+
                 }
             }
             $data->hd = $hd;

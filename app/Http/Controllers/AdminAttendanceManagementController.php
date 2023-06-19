@@ -47,7 +47,7 @@ class AdminAttendanceManagementController extends Controller
             $workingDays = floor($this->getWorkingDays(Carbon::now()->startOfMonth(), Carbon::now(), []));
             $satSuns = $this->getSatSuns(Carbon::now()->startOfMonth(), Carbon::now());
 
-            $result = Employee::with(['company', 'attendances' => function ($q) {
+            $result = Employee::active()->with(['company', 'attendances' => function ($q) {
                 $q->select('*', DB::table('attendances')->raw('DATE(attendance) as date'))
                     ->whereMonth('attendance', Carbon::now()->month)
                     ->groupBy('date', 'employee_id');

@@ -2,16 +2,13 @@
 
 namespace App\View\Components\Dashboard\LateMinutes;
 
-use App\Models\Attendance;
-use App\Models\LateMinutes;
 use App\Traits\AttendanceTrait;
 use App\Traits\DateTrait;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
 class ShowResult extends Component
-{   
+{
     use DateTrait, AttendanceTrait;
     public $employeeId, $companyId, $date, $hd;
     /**
@@ -39,10 +36,10 @@ class ShowResult extends Component
             Carbon::parse($this->date)->endOfMonth()
         );
         $data = $this->getEmployeeAttedanceByMonth($this->employeeId, $parsed->month, $this->companyId);
-        
+
         return view('components.dashboard.late-minutes.show-result', [
             'data2' => $data,
-            'dates' => $dates,  
+            'dates' => $dates,
         ]);
     }
 }

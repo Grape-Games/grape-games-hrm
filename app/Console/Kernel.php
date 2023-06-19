@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\DatabaseBackUp;
 use App\Console\Commands\SalarySlipGenerator;
 use App\Console\Commands\ZkTecoCronCommand;
+use App\Models\Employee;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -35,6 +36,9 @@ class Kernel extends ConsoleKernel
 
         // command to generate/update the salary slip of employee on daily basis
         $schedule->command('generate:slip')->dailyAt('23:00');
+
+        // sets Employees to Inactive
+        $schedule->command('prune:employees')->weekly();
     }
 
     /**

@@ -16,7 +16,7 @@ trait AttendanceTraitSalary
     {
         if ($employeeId == "all") {
             $resultArr = [];
-            $employees = Employee::companies($companyId)->get();
+            $employees = Employee::active()->companies($companyId)->get();
 
             foreach ($employees as $key => $value) {
 

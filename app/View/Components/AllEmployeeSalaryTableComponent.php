@@ -27,7 +27,8 @@ class AllEmployeeSalaryTableComponent extends Component
     public function render()
     {
         $salArr = [];
-        $employees = Employee::all();
+        $employees = Employee::active()
+            ->all();
 
         $slips = SalarySlip::where('month_year', Carbon::now()->format('Y-M'))->get();
         foreach ($slips as $slip) {

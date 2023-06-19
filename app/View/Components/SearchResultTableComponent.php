@@ -33,7 +33,10 @@ class SearchResultTableComponent extends Component
     public function render()
     {
         $salArr = [];
-        $employees = Employee::where('company_id', $this->company)->with(['salaryFormula'])->get();
+        $employees = Employee::active()
+            ->where('company_id', $this->company)
+            ->with(['salaryFormula'])
+            ->get();
 
         $slips = SalarySlip::where('month_year', Carbon::parse($this->month)->format('Y-M'))->get();
         foreach ($slips as $slip) {

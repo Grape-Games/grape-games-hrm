@@ -38,11 +38,10 @@ class ChartsComponent extends Component
             // $query = "SELECT *, substr(CAST(attendance AS CHAR) , 1, 10) AS date FROM `attendances` where attendance LIKE '%" . $value . "%' GROUP BY `employee_id`";
 
             $data = Attendance::whereDate('attendance', $value)->get()->groupBy('employee_id');
-            // $data =  DB::select($query);
-            
+
             $obj = [];
             $obj['y'] = $value;
-            $obj['a'] = Employee::where('created_at', '<=', $value)->count();
+            $obj['a'] = Employee::active()->where('created_at', '<=', $value)->count();
             $obj['b'] = count($data);
 
             array_push($lineData, $obj);
@@ -60,6 +59,7 @@ class ChartsComponent extends Component
         {
             $days[] = now()->subDays($i);
         }
+
         return view('components.admin.dashboard.charts-component', [
             'barData' => $barData,
             'lineData' => $lineData,

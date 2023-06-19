@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EmployeeStatusEnum;
 use App\Scopes\GlobalRestrictionsWhereScope;
 use App\Traits\RestrictTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Exception;
 use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Str;
-
+use Spatie\ModelStatus\HasStatuses;
 
 class Employee extends Model implements HasMedia
 {
@@ -23,7 +24,7 @@ class Employee extends Model implements HasMedia
         SoftDeletes,
         InteractsWithMedia,
         RestrictTrait,
-        Cachable;
+        HasStatuses;
 
     public $incrementing = false;
 
@@ -76,6 +77,16 @@ class Employee extends Model implements HasMedia
         return $query->whereHas('additional', function ($q) {
             $q->whereNull('resignation_date');
         });
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->otherCurrentStatus(EmployeeStatusEnum::INACTIVE);
+    }
+
+    public function scopeinActive($query)
+    {
+        return $query->currentStatus(EmployeeStatusEnum::INACTIVE);
     }
 
     /**

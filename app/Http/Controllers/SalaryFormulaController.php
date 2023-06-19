@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Notifications\EmployeeIncrementNotification;
 
-class SalaryFormulaController extends Controller 
+class SalaryFormulaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class SalaryFormulaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Employee::with(['owner', 'company', 'salaryFormula'])->get();
+            $data = Employee::active()->with(['owner', 'company', 'salaryFormula'])->get();
             return DataTables::of($data)->make(true);
         }
         return view('pages.salary-formulas.index');
@@ -73,18 +73,18 @@ class SalaryFormulaController extends Controller
             )) {
                 DB::commit();
                 // return JSONResponseService::getJsonSuccess(route('print-slip', ['id' => $salaryFormula->id]));
-                  
+
                  $admins = User::where('role','manager')->get();
                  $employee = Employee::where('id',$data['employee_id'])->first();
                  $db['heading'] = 'Set Employee Increment.';
                  $db['avatar'] =  '/assets/img/new-user.png';
                  $db['redirect'] = route('dashboard.increment.index');
                  $db['details'] = $employee->first_name." ".$employee->last_name." Increment time has been completed .";
-               
-                
+
+
                  $delay = now()->addMinutes($total_minutes);
                 foreach($admins as $admin){
-                    $admin->notify((new EmployeeIncrementNotification($db))->delay($delay)); 
+                    $admin->notify((new EmployeeIncrementNotification($db))->delay($delay));
                 }
                 return JsonResponseService::getJsonSuccess('Employee Salary information is successfully updated/created.');
             }

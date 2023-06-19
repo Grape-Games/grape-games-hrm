@@ -12,7 +12,7 @@ class MainComponent extends Component
 
     public function __construct()
     {
-        $this->employees = Employee::all();
+        $this->employees = Employee::active()->get();
         $this->companies = Company::all();
     }
 
