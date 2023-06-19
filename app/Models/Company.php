@@ -12,11 +12,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Exception;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Str;
 
 class Company extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, RestrictTrait;
+    use HasFactory,
+        SoftDeletes,
+        InteractsWithMedia,
+        RestrictTrait,
+        Cachable;
 
     public $incrementing = false;
     protected $keyType = 'uuid';
@@ -42,7 +47,7 @@ class Company extends Model implements HasMedia
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereScope);
-        
+
         static::creating(function ($model) {
             try {
                 $model->id = (string) Str::uuid(); // generate uuid

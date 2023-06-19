@@ -10,16 +10,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Gate;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Exception;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Str;
 
 
 class Employee extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia, RestrictTrait;
+    use HasFactory,
+        SoftDeletes,
+        InteractsWithMedia,
+        RestrictTrait,
+        Cachable;
 
     public $incrementing = false;
 
@@ -38,9 +42,9 @@ class Employee extends Model implements HasMedia
         'enrollment_no',
         'city',
         'gender',
-        'company_id', 
+        'company_id',
         'designation_id',
-        'biometric_device_id',   
+        'biometric_device_id',
         'owner_id',
         'user_id'
     ];

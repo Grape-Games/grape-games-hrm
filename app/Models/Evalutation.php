@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Evalutation extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        Cachable;
     protected $fillable = [
         'user_id',
         'employee_id',
@@ -27,15 +29,17 @@ class Evalutation extends Model
         'approved_by',
     ];
 
-    public function employee() 
+    public function employee()
     {
         return $this->hasOne(Employee::class, 'id', 'employee_id');
     }
 
-    public function user(){
-        return $this->hasOne (User::class, 'id', 'user_id');
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
-    public function approvedby(){
-        return $this->hasOne (User::class, 'id', 'approved_by');
+    public function approvedby()
+    {
+        return $this->hasOne(User::class, 'id', 'approved_by');
     }
 }

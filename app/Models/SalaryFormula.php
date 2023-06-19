@@ -11,11 +11,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Gate;
 use Exception;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Str;
 
 class SalaryFormula extends Model
 {
-    use HasFactory, SoftDeletes, RestrictTrait;
+    use HasFactory,
+        SoftDeletes,
+        RestrictTrait,
+        Cachable;
+
     protected $fillable = [
         'per_day',
         'per_hour',
@@ -34,7 +39,7 @@ class SalaryFormula extends Model
         // 'dated',
         'employee_id',
         'increment_due',
-       
+
     ];
 
     protected $dates = ['dated'];
@@ -48,7 +53,7 @@ class SalaryFormula extends Model
         parent::boot();
 
         static::addGlobalScope(new GlobalRestrictionsWhereHasScope('employee'));
-        
+
         static::creating(function ($model) {
             try {
                 $model->id = (string) Str::uuid(); // generate uuid

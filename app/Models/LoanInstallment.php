@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class LoanInstallment extends Model
 {
-    use HasFactory;
+    use HasFactory,
+        Cachable;
+
     protected $fillable = [
         'loan_id',
         'amount',
@@ -15,7 +18,8 @@ class LoanInstallment extends Model
         'status',
         'created_at'
     ];
-    public function loan(){
-         return $this->belongTo (Loan::class);
+    public function loan()
+    {
+        return $this->belongTo(Loan::class);
     }
 }

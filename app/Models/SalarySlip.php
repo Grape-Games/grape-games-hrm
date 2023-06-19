@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\UUID;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SalarySlip extends Model
 {
-    use HasFactory, SoftDeletes, UUID;
+    use HasFactory,
+        SoftDeletes,
+        UUID,
+        Cachable;
+
     protected $fillable = [
         'per_day',
         'per_hour',

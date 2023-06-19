@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\GlobalRestrictionsWhereHasScope;
 use App\Traits\RestrictTrait;
 use Carbon\Carbon;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,10 @@ use Illuminate\Support\Facades\Gate;
 
 class EmployeeLeaves extends Model
 {
-    use HasFactory, SoftDeletes, RestrictTrait;
+    use HasFactory,
+        SoftDeletes,
+        RestrictTrait,
+        Cachable;
 
     protected $appends = [
         'to_date_custom',
