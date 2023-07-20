@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Exception;
-use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Support\Str;
 use Spatie\ModelStatus\HasStatuses;
 

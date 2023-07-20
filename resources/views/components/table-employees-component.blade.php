@@ -16,11 +16,10 @@
                         </a>
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-stripped mb-0 employees-table"></table>
+                    <livewire:employee-table />
                 </div>
             </div>
         </div>
