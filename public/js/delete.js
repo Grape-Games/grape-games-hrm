@@ -14,6 +14,7 @@ $("body").on("click", ".delete", function () {
         buttonsStyling: false,
     }).then(function (result) {
         if (result.value) {
+            console.log(window.location.href);
             // ajax
             $.ajax({
                 type: "DELETE",
@@ -80,6 +81,28 @@ $("body").on("click", ".delete2", function () {
                     );
                 },
             });
+        }
+    });
+});
+
+$("body").on("click", ".delete-lv", function () {
+    var id = $(this).data("id");
+    var method = $(this).data("method");
+
+    Swal.fire({
+        title: "Are you sure to delete ?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: "btn btn-outline-danger ms-1",
+        },
+        buttonsStyling: false,
+    }).then(function (result) {
+        if (result.value) {
+            Livewire.emit(method, id);
         }
     });
 });
